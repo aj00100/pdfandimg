@@ -45,30 +45,63 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     </div>
 
     <!-- Cropper Container -->
-    <div class="panel p-5 md:p-8" style="max-width: 860px; margin: 0 auto; width: 100%;">
+    <div class="panel p-6 md:p-8" style="max-width: 860px; margin: 0 auto; width: 100%;">
        <div id="crop-interface" style="min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; width: 100%;">
           <!-- Upload Stage -->
-          <div id="upload-stage" style="text-align: center; width: 100%;">
-             <div style="width: 64px; height: 64px; background: var(--color-surface-3); border: 1px solid var(--color-border); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <div id="upload-stage" style="width: 100%;">
+             <div 
+               style="
+                 width: 100%; 
+                 border: 2px dashed var(--color-border-mid); 
+                 border-radius: 16px; 
+                 padding: 48px 24px; 
+                 text-align: center;
+                 background: rgba(200,241,53,0.02);
+                 cursor: pointer;
+                 transition: all 0.2s ease;
+               "
+               onclick="document.getElementById('crop-input').click()"
+               onmouseover="this.style.borderColor='var(--color-lime)'; this.style.background='rgba(200,241,53,0.04)';"
+               onmouseout="this.style.borderColor='var(--color-border-mid)'; this.style.background='rgba(200,241,53,0.02)';"
+             >
+                <div style="width: 64px; height: 64px; background: var(--color-surface-3); border: 1px solid var(--color-border); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 8px;">Select image to crop</p>
+                <p style="font-size: 0.875rem; color: var(--color-ink-3); margin: 0 0 20px;">JPEG · PNG · WEBP</p>
+                <button class="btn-ghost" style="font-size: 0.75rem;">Browse files</button>
+                <input type="file" id="crop-input" style="display:none" accept="image/*" />
              </div>
-             <button onclick="document.getElementById('crop-input').click()" class="btn-primary">Select Image to Crop</button>
-             <input type="file" id="crop-input" style="display:none" accept="image/*" />
           </div>
 
           <!-- Cropping Area -->
           <div id="cropping-stage" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-             <div style="width: 100%; max-height: 500px; overflow: hidden; border-radius: 12px; border: 1px solid var(--color-border); background: var(--color-surface-2);">
-                <img id="crop-target" style="max-width: 100%; display: block;" />
+             <div style="width: 100%; display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <span id="crop-top" style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: var(--color-lime); background: var(--color-surface-3); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--color-border);">Top: 0%</span>
+                <span id="crop-bottom" style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: var(--color-lime); background: var(--color-surface-3); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--color-border);">Bottom: 100%</span>
+                <span id="crop-left" style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: var(--color-lime); background: var(--color-surface-3); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--color-border);">Left: 0%</span>
+                <span id="crop-right" style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: var(--color-lime); background: var(--color-surface-3); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--color-border);">Right: 100%</span>
              </div>
-             <div class="crop-controls">
-                <div class="preset-group">
-                  <button class="btn-ghost preset-btn" data-ratio="1">UPSC / 1:1</button>
-                  <button class="btn-ghost preset-btn" data-ratio="0.778">Passport</button>
-                  <button class="btn-ghost preset-btn" data-ratio="2.33">SSC Signature</button>
-                  <button class="btn-ghost preset-btn" data-ratio="NaN">Free Form</button>
+             <div class="checkerboard-bg" style="width: 100%; height: 55vh; min-height: 300px; max-height: 500px; overflow: hidden; border-radius: 12px; border: 1px solid var(--color-border); display: block;">
+                <img id="crop-target" style="display: block; max-width: 100%; max-height: 100%; margin: 0 auto;" />
+             </div>
+             <div class="crop-controls" style="padding: 16px 0; width: 100%;">
+                <div class="preset-group" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%;">
+                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="1">UPSC / 1:1</button>
+                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="0.778">Passport</button>
+                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="2.33">SSC Signature</button>
+                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="NaN">Free Form</button>
                 </div>
-                <button id="apply-crop" class="btn-primary save-btn">Save & Download</button>
+                <div style="position: relative; width: 100%; margin-top: 16px;">
+                  <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px;">Rename File (Optional)</label>
+                  <input 
+                    type="text" 
+                    id="rename-input" 
+                    placeholder="Enter custom name..." 
+                    style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-ink); outline: none;"
+                  />
+                </div>
+                <button id="apply-crop" class="btn-primary save-btn" style="width: 100%; margin-top: 12px;">Save & Download</button>
              </div>
           </div>
        </div>
@@ -124,6 +157,60 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     width: 100%;
   }
 
+  .checkerboard-bg {
+    background-color: #f0f0f0 !important;
+    background-image: 
+      linear-gradient(45deg, #ffffff 25%, transparent 25%),
+      linear-gradient(-45deg, #ffffff 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ffffff 75%),
+      linear-gradient(-45deg, transparent 75%, #ffffff 75%) !important;
+    background-size: 20px 20px !important;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px !important;
+  }
+
+  /* Specific overrides for Cropper.js internal components */
+  :global(.cropper-bg) {
+    background-image: none !important;
+    background-color: transparent !important;
+  }
+
+  :global(.cropper-modal) {
+    background-color: #fff !important;
+    opacity: 0.15 !important;
+  }
+
+  :global(.cropper-view-box) {
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3) !important;
+  }
+
+  :global(.cropper-view-box::after) {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    background-size: 400% 400%;
+    animation: rainbowBorder 3s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  @keyframes rainbowBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  :global(.cropper-point) {
+    background-color: var(--color-lime) !important;
+    width: 8px !important;
+    height: 8px !important;
+  }
+
   @media (min-width: 768px) {
     .save-btn {
       width: auto;
@@ -137,6 +224,7 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
 
 <script is:inline>
   let cropper = null;
+  let originalFilename = 'cropped_image';
   const input = document.getElementById('crop-input');
   const target = document.getElementById('crop-target');
   const uploadStage = document.getElementById('upload-stage');
@@ -146,6 +234,9 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
   input.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    originalFilename = file.name.split('.')[0];
+    document.getElementById('rename-input').value = originalFilename + '_cropped';
 
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -157,7 +248,32 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
       cropper = new Cropper(target, {
         viewMode: 1,
         dragMode: 'move',
-        autoCropArea: 1,
+        autoCropArea: 0.8,
+        background: false,
+        modal: true,
+        guides: true,
+        highlight: true,
+        responsive: true,
+        restore: true,
+        minCropBoxWidth: 50,
+        minCropBoxHeight: 50,
+        crop(event) {
+          try {
+            const imageData = cropper.getImageData();
+            if (!imageData || !imageData.naturalWidth) return;
+            const w = imageData.naturalWidth;
+            const h = imageData.naturalHeight;
+            const leftPct = Math.max(0, Math.min(100, Math.round(100 - (event.detail.x / w) * 100)));
+            const rightPct = Math.max(0, Math.min(100, Math.round(((event.detail.x + event.detail.width) / w) * 100)));
+            const topPct = Math.max(0, Math.min(100, Math.round(100 - (event.detail.y / h) * 100)));
+            const bottomPct = Math.max(0, Math.min(100, Math.round(((event.detail.y + event.detail.height) / h) * 100)));
+            
+            document.getElementById('crop-top').textContent = 'Top: ' + topPct + '%';
+            document.getElementById('crop-bottom').textContent = 'Bottom: ' + bottomPct + '%';
+            document.getElementById('crop-left').textContent = 'Left: ' + leftPct + '%';
+            document.getElementById('crop-right').textContent = 'Right: ' + rightPct + '%';
+          } catch (err) {}
+        }
       });
     };
     reader.readAsDataURL(file);
@@ -174,9 +290,10 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     const canvas = cropper.getCroppedCanvas({ maxWidth: 2000, maxHeight: 2000 });
     canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
+      const customName = document.getElementById('rename-input').value.trim() || 'cropped_image';
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'cropped_image.jpg';
+      a.download = `${customName}.jpg`;
       a.click();
       window.location.reload(); // Reset after download
     }, 'image/jpeg', 0.95);

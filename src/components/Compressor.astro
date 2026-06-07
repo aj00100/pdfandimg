@@ -126,7 +126,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       <div id="upload-loading" class="hidden" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
         <div class="spinner"></div>
         <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.08em;">
-          Securely Uploading...
+          Reading file...
         </p>
       </div>
 
@@ -195,10 +195,9 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
         flex-direction: column;
         gap: 16px;
       "
-      class="md:flex-row md:items-end"
     >
       <!-- Target KB input -->
-      <div style="flex: 1; width: 100%;" class="md:max-w-[180px]">
+      <div style="width: 100%;">
         <label
           for="target-kb"
           style="
@@ -209,6 +208,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
             letter-spacing: 0.1em;
             color: var(--color-ink-3);
             margin-bottom: 8px;
+            text-align: center;
           "
         >Target size</label>
         <div style="position: relative; display: flex; align-items: center;">
@@ -216,10 +216,10 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
             type="number"
             id="target-kb"
             value={defaultKB > 5000 ? (defaultKB / 1024).toFixed(0) : defaultKB}
-            min="1"
+            min="5"
             max="50000"
             class="input-number"
-            style="padding-right: 70px; font-size: 1.25rem; height: 48px; width: 100%;"
+            style="padding-right: 70px; padding-left: 70px; font-size: 1.25rem; height: 56px; width: 100%; text-align: center;"
           />
           <select
             id="target-unit"
@@ -254,7 +254,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
         id="compress-btn"
         class="btn-primary"
         disabled
-        style="flex: 2; height: 48px; font-size: 0.9375rem; width: 100%;"
+        style="width: 100%; height: 56px; font-size: 1rem; margin-top: 8px;"
         type="button"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
@@ -303,115 +303,117 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       <!-- Result view -->
       <div
         id="result-view"
-        class="hidden grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start"
+        class="hidden flex-col gap-8 items-start w-full"
       >
-
-        <!-- Left: preview -->
-        <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-          <div
-            style="
-              aspect-ratio: 4/3;
-              background: var(--color-surface-2);
-              border: 1px solid var(--color-border);
-              border-radius: 12px;
-              overflow: hidden;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding: 16px;
-              width: 100%;
-            "
-          >
-            <img
-              id="preview-img"
-              src=""
-              alt="Compressed result"
-              style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px;"
-            />
+        <!-- Top Half: Grid for Image & Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start w-full">
+          <!-- Left: preview -->
+          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+            <div
+              style="
+                aspect-ratio: 4/3;
+                background: var(--color-surface-2);
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 16px;
+                width: 100%;
+              "
+            >
+              <img
+                id="preview-img"
+                src=""
+                alt="Compressed result"
+                style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px;"
+              />
+            </div>
+            <div class="badge-success" style="align-self: flex-start;">
+              SUCCESS
+            </div>
           </div>
-          <div class="badge-success" style="align-self: flex-start;">
-            SUCCESS
+
+          <!-- Right: stats -->
+          <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+            <div>
+              <h2
+                style="
+                  font-size: 1.5rem;
+                  font-weight: 800;
+                  letter-spacing: -0.04em;
+                  margin: 0 0 8px;
+                "
+              >Ready for download</h2>
+              <p
+                id="algo-log"
+                style="
+                  font-family: var(--font-mono);
+                  font-size: 0.75rem;
+                  color: var(--color-ink-2);
+                  margin: 0;
+                  line-height: 1.6;
+                "
+              >Mathematical optimum identified.</p>
+            </div>
+
+            <!-- Metrics grid -->
+            <div class="grid grid-cols-2 gap-2">
+              <div class="metric-card" style="padding: 12px;">
+                <span class="metric-label" style="font-size: 0.625rem;">Final Size</span>
+                <span class="metric-value" style="font-size: 1.25rem;" id="result-size">—</span>
+              </div>
+              <div class="metric-card accent" style="padding: 12px;">
+                <span class="metric-label" style="font-size: 0.625rem;">Savings</span>
+                <span class="metric-value" style="font-size: 1.25rem;" id="savings-percent">—</span>
+              </div>
+              <div class="metric-card" style="padding: 12px;">
+                <span class="metric-label" style="font-size: 0.625rem;">Quality</span>
+                <span class="metric-value" style="font-size: 1.25rem;" id="quality-tag">—</span>
+              </div>
+              <div class="metric-card" style="padding: 12px;">
+                <span class="metric-label" style="font-size: 0.625rem;">Time</span>
+                <span class="metric-value" style="font-size: 1.25rem;" id="processing-time">—</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Right: stats + download -->
-        <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
-          <div>
-            <h2
-              style="
-                font-size: 1.5rem;
-                font-weight: 800;
-                letter-spacing: -0.04em;
-                margin: 0 0 8px;
-              "
-            >Ready for download</h2>
-            <p
-              id="algo-log"
-              style="
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                color: var(--color-ink-2);
-                margin: 0;
-                line-height: 1.6;
-              "
-            >Mathematical optimum identified.</p>
+        <!-- Full Width Buttons -->
+        <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+          <div style="position: relative;">
+            <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px; text-align: center;">Rename File (Optional)</label>
+            <input 
+              type="text" 
+              id="rename-input" 
+              placeholder="Enter custom name..." 
+              class="input-number"
+              style="width: 100%; height: 56px; font-size: 1rem; padding: 0 12px; text-align: center;"
+            />
           </div>
 
-          <!-- Metrics grid -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="metric-card" style="padding: 12px;">
-              <span class="metric-label" style="font-size: 0.625rem;">Final Size</span>
-              <span class="metric-value" style="font-size: 1.25rem;" id="result-size">—</span>
-            </div>
-            <div class="metric-card accent" style="padding: 12px;">
-              <span class="metric-label" style="font-size: 0.625rem;">Savings</span>
-              <span class="metric-value" style="font-size: 1.25rem;" id="savings-percent">—</span>
-            </div>
-            <div class="metric-card" style="padding: 12px;">
-              <span class="metric-label" style="font-size: 0.625rem;">Quality</span>
-              <span class="metric-value" style="font-size: 1.25rem;" id="quality-tag">—</span>
-            </div>
-            <div class="metric-card" style="padding: 12px;">
-              <span class="metric-label" style="font-size: 0.625rem;">Steps</span>
-              <span class="metric-value" style="font-size: 1.25rem;" id="iterations-count">—</span>
-            </div>
-          </div>
-
-          <!-- Rename & Download -->
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <div style="position: relative;">
-              <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px;">Rename File (Optional)</label>
-              <input 
-                type="text" 
-                id="rename-input" 
-                placeholder="Enter custom name..." 
-                class="input-number"
-                style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px;"
-              />
-            </div>
-
-            <a
-              id="download-link"
-              href="#"
-              download="compressed.jpg"
-              class="btn-download"
-              style="width: 100%; height: 52px;"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17 8 12 3 7 8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-              </svg>
-              Download JPEG
-            </a>
-          </div>
+          <a
+            id="download-link"
+            href="#"
+            download="compressed.jpg"
+            class="btn-download"
+            style="width: 100%; height: 56px; font-size: 1rem;"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Download JPEG
+          </a>
 
           <!-- Compress again -->
           <button
             id="reset-btn"
             class="btn-ghost"
             type="button"
-            style="align-self: center; font-size: 0.75rem;"
+            style="align-self: center; font-size: 0.75rem; margin-top: 12px;"
           >
             ← Optimize another
           </button>
@@ -526,6 +528,11 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
     // Convert to KB for the engine
     const targetKB = unit === 'mb' ? targetValue * 1024 : targetValue;
 
+    if (targetKB < 5) {
+      alert('Minimum target is 5KB. Most images cannot be compressed below this.');
+      return;
+    }
+
     statusPanel.classList.remove('hidden');
     processing.classList.remove('hidden');
     processing.style.display = 'flex';
@@ -535,7 +542,10 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
     statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     try {
+      const startTime = performance.now();
       const result = await compressToTarget(selectedFile, targetKB);
+      const endTime = performance.now();
+      const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
       const url    = URL.createObjectURL(result.blob);
 
       // Terminal animation — ~1 second, runs AFTER real compression is done
@@ -548,7 +558,9 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       progressBar.style.width = '0%';
 
       const finalKB  = (result.blob.size / 1024).toFixed(1);
-      const savedPct = Math.round((1 - result.blob.size / selectedFile!.size) * 100);
+      const isEnhanceMode = result.blob.size > selectedFile!.size;
+      const savedPct = Math.abs(Math.round((1 - result.blob.size / selectedFile!.size) * 100));
+      const savedLabel = isEnhanceMode ? `grew ${savedPct}%` : `saved ${savedPct}%`;
       const inputKB  = (selectedFile!.size / 1024).toFixed(1);
       const fmt      = selectedFile!.type.split('/')[1].toUpperCase();
 
@@ -557,7 +569,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
         { text: `  reading input   ·  ${inputKB}kb  ·  ${fmt}`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
         { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
         { text: `  quality lock    ·  q=${Math.round((result.quality ?? 0.72) * 100)}  ·  chroma 4:2:0`, color: 'rgba(255,255,255,0.38)', delay: 510 },
-        { text: `  output          ·  ${finalKB}kb  ·  saved ${savedPct}%`, color: 'rgba(255,255,255,0.38)', delay: 680 },
+        { text: `  output          ·  ${finalKB}kb  ·  ${savedLabel}`, color: 'rgba(255,255,255,0.38)', delay: 680 },
         { text: `✓ done`,                                                  color: '#c8f135',              delay: 860 },
       ];
 
@@ -579,7 +591,8 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       previewImg.src      = url;
       downloadLink.href   = url;
       
-      const defaultName = `imgshrink_${targetKB}kb_${selectedFile.name.split('.')[0]}`;
+      const cleanOriginalName = selectedFile.name.split('.')[0].replace(/\s+/g, '_');
+      const defaultName = `imgshrink_${targetKB}kb_${cleanOriginalName}`;
       renameInput.value = defaultName;
       downloadLink.download = `${defaultName}.jpg`;
 
@@ -609,23 +622,24 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       }
 
       document.getElementById('quality-tag')!.textContent     = Math.round(result.quality * 100) + '%';
-      document.getElementById('iterations-count')!.textContent = String(result.iterations);
+      document.getElementById('processing-time')!.textContent = timeInSeconds;
       
       document.getElementById('algo-log')!.textContent        = isUpsized
-        ? `Enhancement mode: Scaled to ${result.scale?.toFixed(2)}x and injected padding to hit target.`
+        ? `Enhancement mode: Upscaled to ${result.scale?.toFixed(2)}x for target size.`
         : `Smart Scaling: Adjusted to ${Math.round(result.scale * 100)}% dimensions at ${Math.round(result.quality * 100)}% quality.`;
 
       processing.classList.add('hidden');
       resultView.classList.remove('hidden');
-      resultView.style.display = 'grid';
+      resultView.style.display = 'flex';
 
       // Add glow and focus
       downloadLink.classList.add('btn-glow');
       downloadLink.focus();
 
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Compression failed. Please try a different image.');
+      processing.classList.add('hidden');
+      alert(err?.message || 'Compression failed. Please try a different image.');
     } finally {
       compressBtn.disabled = false;
     }
