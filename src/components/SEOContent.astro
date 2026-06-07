@@ -1,0 +1,441 @@
+---
+interface Props {
+  targetKB: string | number;
+  type?: 'compress' | 'enhance' | 'crop';
+  customTitle?: string;
+  uniqueContent?: string;
+}
+
+const { targetKB, type = 'compress', customTitle, uniqueContent } = Astro.props;
+
+const isEnhance = type === 'enhance';
+const isCrop = type === 'crop';
+const kbText = targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
+
+// FAQ Data for JSON-LD
+const faqData = [
+  {
+    q: `Will I lose quality when I ${isCrop ? 'crop' : isEnhance ? 'enhance' : 'compress'} an image?`,
+    a: `ImgShrink uses "Smart Scaling" and Target-Lock algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
+  },
+  {
+    q: `Is it safe to upload my private photos to the ${kbText} optimizer?`,
+    a: "Absolutely. All processing happens locally in your browser using the Canvas API. Your photos are never sent to a server, making it 100% private and secure for sensitive government documents and IDs."
+  },
+  {
+    q: `Does this ${kbText} tool work for SSC, UPSC, and Bank portals?`,
+    a: `Yes. Our tools are specifically calibrated for Indian government portals like SSC, UPSC, and IBPS. If a portal requires exactly ${kbText}, our engine ensures you hit that target with mathematical precision.`
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": `ImgShrink ${kbText} Optimizer`,
+  "url": Astro.url.href,
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+// Internal Linking Data (Topic Cluster)
+const relatedTools = [
+  { name: '10KB', href: '/compress-image-to-10kb' },
+  { name: '20KB', href: '/compress-image-to-20kb' },
+  { name: '50KB', href: '/compress-image-to-50kb' },
+  { name: '100KB', href: '/compress-image-to-100kb' },
+  { name: 'Custom Reducer', href: '/reduce-image-size-in-kb' },
+  { name: 'Precision Crop', href: '/crop-image' },
+].filter(tool => !tool.href.includes(targetKB.toString().toLowerCase()));
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+<section class="seo-section">
+  
+  <!-- Divider -->
+  <div class="seo-divider"></div>
+
+  <div class="seo-grid">
+    
+    <!-- Main Content Area -->
+    <div class="seo-main">
+      
+      <!-- Dynamic Heading -->
+      <div class="seo-intro">
+        <h2 class="seo-h2">
+          {customTitle || `Comprehensive Guide: How to ${isEnhance ? 'Increase' : isCrop ? 'Crop' : 'Compress'} Image to ${kbText}`}
+        </h2>
+        
+        {uniqueContent ? (
+          <div class="seo-unique-content" set:html={uniqueContent} />
+        ) : (
+          <p class="seo-p">
+            Optimizing images for specific file sizes is a critical step for modern web applications and official document portals. 
+            Whether you are applying for a government job, updating your professional profile, or managing a high-performance website, 
+            having your images at the exact KB size ensures a smooth, rejection-free experience.
+          </p>
+        )}
+      </div>
+
+      <!-- How it works -->
+      <div class="seo-steps">
+        <h3 class="seo-h3">Technical Workflow: How Target-Lock Operates</h3>
+        <ol class="seo-list">
+          <li>
+            <div class="seo-step-num">01</div>
+            <div>
+              <h4 class="seo-step-title">Source Ingestion</h4>
+              <p class="seo-p-small">
+                Upload your JPEG, PNG, or WEBP file. Our system immediately analyzes the binary structure and original metadata without uploading it to any server.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">02</div>
+            <div>
+              <h4 class="seo-step-title">Parameter Calibration</h4>
+              <p class="seo-p-small">
+                Our engine identifies the target threshold ({kbText}). It sets up a binary search environment to find the perfect quality-to-size ratio.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">03</div>
+            <div>
+              <h4 class="seo-step-title">Recursive Optimization</h4>
+              <p class="seo-p-small">
+                The Target-Lock algorithm runs multiple compression passes in milliseconds, adjusting the chroma subsampling and DCT coefficients to hit your exact size.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">04</div>
+            <div>
+              <h4 class="seo-step-title">Final Payload Generation</h4>
+              <p class="seo-p-small">
+                Once the mathematical optimum is reached, the optimized file is generated and made available for instant local download.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Detailed Use Cases -->
+      <div class="seo-details">
+        <h3 class="seo-h3">Why Precision {kbText} Compression Matters in 2026</h3>
+        <p class="seo-p">
+          In 2026, automated upload systems for banks, universities, and government portals have become significantly more sophisticated. 
+          Standard image optimization often fails because generic tools prioritize simple file size reduction without considering 
+          the strict "Target Thresholds" of modern systems. A file that is even 0.5KB over the limit 
+          will result in an immediate "Upload Failed" error, which can be critical during high-stakes application deadlines.
+        </p>
+        <p class="seo-p">
+          ImgShrink solves this by providing a "Surgical Buffer" optimization. Our engine doesn't just aim for "small"; 
+          it aims for <em>exactly right</em>. By keeping you just under the limit while maximizing the visual clarity 
+          of your signature, facial features, or document text, we ensure that your submission passes both 
+          automated AI verification and manual human review.
+        </p>
+        <p class="seo-p">
+          For professionals and students alike, this means no more "trial and error" with generic image editors 
+          or sketchy online tools that compromise your privacy. Our tool provides a repeatable, 
+          predictable result every time. This reliability is why ImgShrink has become the preferred 
+          utility for users submitting documents to portals like SSC, UPSC, IBPS, and international visa systems.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="seo-faq">
+        <h3 class="seo-h3">Frequently Asked Questions</h3>
+        <div class="faq-stack">
+          {faqData.map(item => (
+            <div class="faq-item">
+              <h4 class="faq-q">{item.q}</h4>
+              <p class="faq-a">{item.a}</p>
+            </div>
+          ))}
+          <div class="faq-item">
+            <h4 class="faq-q">Does this tool store my personal documents?</h4>
+            <p class="faq-a">
+              No. Privacy is the core pillar of ImgShrink. We utilize a "Serverless Pipeline" approach where all 
+              binary processing is performed within your browser's local sandbox. Since no data is ever transmitted 
+              to an external server, your sensitive identity documents, signatures, and photos remain 
+              completely under your control at all times.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">Can I convert PNG or WEBP to {kbText} JPEG?</h4>
+            <p class="faq-a">
+              Yes. Our engine handles multiple input formats. Whether you start with a high-res PNG from a 
+              professional camera or a modern WEBP screenshot, the Target-Lock engine will automatically 
+              convert and optimize the payload to a compliant JPEG format, ensuring 100% compatibility 
+              with all major upload portals.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar / Context -->
+    <div class="seo-sidebar">
+      <div class="sidebar-box">
+        <h3 class="sidebar-title">Optimized Use Cases</h3>
+        <ul class="sidebar-list">
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Official Exam Portals</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Passport/Visa Requests</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Digital ID Card Creation</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Bank KYC Documenting</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-stats">
+        <h3 class="stats-title">Technical Support</h3>
+        <p class="stats-text"><strong>Formats:</strong> JPG, PNG, WEBP</p>
+        <p class="stats-text"><strong>Privacy:</strong> No-Upload · Local Only</p>
+      </div>
+
+      <!-- Related Tools Cluster -->
+      <div class="sidebar-box" style="margin-top: 40px; border-color: var(--color-lime);">
+        <h3 class="sidebar-title" style="color: var(--color-ink);">Related Optimizers</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+          {relatedTools.map(tool => (
+            <a href={tool.href} class="related-tag">{tool.name}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .seo-section {
+    max-width: 1000px;
+    margin: 80px auto 0;
+    padding: 0 24px;
+    text-align: left;
+  }
+
+  .seo-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    margin-bottom: 80px;
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  @media (min-width: 900px) {
+    .seo-grid {
+      grid-template-columns: 1.8fr 1fr;
+    }
+  }
+
+  .seo-main {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .seo-h2 {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    color: var(--color-ink);
+    line-height: 1.1;
+  }
+
+  .seo-h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--color-ink);
+  }
+
+  .seo-p {
+    font-size: 1rem;
+    color: var(--color-ink-2);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .seo-p-small {
+    font-size: 0.9375rem;
+    color: var(--color-ink-2);
+    line-height: 1.6;
+  }
+
+  .seo-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .seo-list li {
+    display: flex;
+    gap: 20px;
+  }
+
+  .seo-step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border-mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-lime);
+    font-weight: 700;
+  }
+
+  .seo-step-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    margin-bottom: 8px;
+  }
+
+  .faq-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .faq-q {
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+  }
+
+  .faq-a {
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .sidebar-box {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-lime);
+    margin-bottom: 24px;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.875rem;
+    color: var(--color-ink-2);
+  }
+
+  .check-icon {
+    color: var(--color-lime);
+    margin-top: 2px;
+  }
+
+  .sidebar-stats {
+    padding: 0 32px;
+  }
+
+  .stats-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-ink-3);
+    margin-bottom: 16px;
+  }
+
+  .stats-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-ink-3);
+    margin-bottom: 8px;
+  }
+
+  .related-tag {
+    display: block;
+    padding: 8px;
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: var(--color-ink-2);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .related-tag:hover {
+    border-color: var(--color-lime);
+    color: var(--color-lime);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    .seo-h2 { font-size: 1.75rem; }
+    .seo-grid { gap: 48px; }
+    .seo-main { gap: 48px; }
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const SEO_TITLE = "Privacy Protocol — ImgShrink Service";
+---
+
+<Layout title={SEO_TITLE}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Protocol Header centered -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Privacy Protocol</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin: 0 0 24px; letter-spacing: -0.04em;">
+        Your Data is <br/>
+        <span style="color: var(--color-cyan);">Encrypted locally.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Security isn't a feature, it's our core architecture. We've built ImgShrink to ensure zero data leakage.
+      </p>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+      
+      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
+        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
+          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">1. Zero-Knowledge Processing</h3>
+            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
+              ImgShrink is a "Client-Side" application. All image processing, compression, and optimization happens directly in your browser's RAM. Your images are <strong>never</strong> uploaded to any server. They never leave your device.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
+        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
+          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">2. Anonymous Analytics</h3>
+            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
+              We use lightweight, privacy-focused tracking to understand total visit counts. This data is fully anonymized and does not include any personal identifiers or the content of the files you process.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
+        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
+          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">3. Third-Party Links</h3>
+            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
+              Our protocol may include links to external resources or government portals. We are not responsible for the privacy architecture of these external sites.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--color-border); text-align: center;">
+      <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3);">PROTOCOL LAST UPDATED: JUNE 2026</p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 100KB — Image Compressor to 100KB Online";
+const SEO_DESC = "Reduce image size to 100KB without losing quality. Our 100KB image compressor is fast, secure, and precise for all your web needs.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Precision: 100KB</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Image Compressor to <br/>
+        <span style="color: var(--color-cyan);">100KB Target.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Resize any photo to 100KB. Perfect for professional profiles and web applications that require optimized assets with high detail.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={100} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="100" 
+      uniqueContent={`
+        <p class="seo-p">
+          The <strong>100KB image compressor</strong> is the "Sweet Spot" for professional web use and corporate documentation. 
+          While 20KB or 50KB are common for specific ID requirements, 100KB provides the fidelity needed for 
+          resume profile photos, LinkedIn banners, and academic project submissions where visual quality 
+          cannot be compromised.
+        </p>
+        <p class="seo-p">
+          Our 100KB engine utilizes a <strong>High-Fidelity Retention</strong> algorithm. Most online compressors 
+          apply a heavy-handed blur to keep file sizes low, but ImgShrink focuses on maintaining the 
+          micro-details—the texture of clothing, the clarity of eyes, and the sharpness of text. This makes 
+          it the preferred tool for photographers who need to share proofs quickly without losing the 
+          essence of their work.
+        </p>
+        <p class="seo-p">
+          For educational portals and online admission systems (like those for NITs and IITs), the 100KB 
+          limit often applies to scanned marksheet copies and certificates. Our tool ensures that every 
+          digit and signature on your scanned document is perfectly readable, preventing rejection 
+          during the document verification phase.
+        </p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Web Industry Standard
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 100KB threshold is ideal for web performance. Our algorithm preserves color depth and text clarity while ensuring the file size stays exactly within the 100KB limit.
+       </p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 500KB — Best 500KB Image Compressor Online";
+const SEO_DESC = "Reduce image size to 500KB online while keeping high resolution. Use our 500KB image compressor for high-quality documents and photos.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Precision: 500KB</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Image to <br/>
+        <span style="color: var(--color-cyan);">Exactly 500KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Our smart engine resizes and optimizes your photo to stay perfectly under the 500KB threshold with maximum possible clarity.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={500} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="500" 
+      uniqueContent={`
+        <p class="seo-p">Our <strong>500KB image compressor</strong> is designed for photographers and professionals. It provides a significant size reduction from original RAW or high-res files while maintaining "Retina-ready" quality.</p>
+        <p class="seo-p">This is the best choice for portfolio items, high-res web backgrounds, and detailed archival document storage.</p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Optimal 500KB Compression
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 500KB target is preferred for high-fidelity document transmission. ImgShrink prioritizes structural detail, ensuring that text, fine print, and facial features are perfectly preserved.
+       </p>
+    </div>
+  </section>
+</Layout>

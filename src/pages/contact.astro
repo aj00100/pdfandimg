@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const SEO_TITLE = "Contact ImgShrink — Precision Support & Feedback";
+const SEO_DESC = "Get in touch with the ImgShrink team for technical support, feature requests, or business inquiries regarding our image optimization engine.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Support Protocol: 001</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.04em;">
+        Get in <span style="color: var(--color-lime);">Touch.</span>
+      </h1>
+      <p style="font-size: 1.25rem; color: var(--color-ink-2); line-height: 1.6; max-width: 600px; margin: 0 auto;">
+        Have a question about the Target-Lock engine? We're here to help calibrate your experience.
+      </p>
+    </div>
+
+    <!-- Contact Panel -->
+    <div class="panel" style="max-width: 600px; margin: 0 auto; padding: 48px;">
+       <div style="display: flex; flex-direction: column; gap: 40px;">
+          
+          <div>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px;">Support Email</h3>
+            <p style="color: var(--color-ink-2); font-size: 1rem; line-height: 1.6;">
+              For technical issues or portal compliance questions: <br/>
+              <a href="mailto:support@imgshrink.com" style="color: var(--color-lime); text-decoration: none;">support@imgshrink.com</a>
+            </p>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px;">Feature Requests</h3>
+            <p style="color: var(--color-ink-2); font-size: 1rem; line-height: 1.6;">
+              Is your specific KB target missing? Let us know and we will add a dedicated optimizer for it.
+            </p>
+          </div>
+
+          <div style="padding-top: 40px; border-top: 1px solid var(--color-border);">
+            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3);">
+              Response time: Within 24-48 business hours.
+            </p>
+          </div>
+
+       </div>
+    </div>
+
+    <!-- Back link -->
+    <div style="text-align: center; margin-top: 64px;">
+      <a href="/" class="nav-link">← Return to Interface</a>
+    </div>
+    </section>
+    </Layout>

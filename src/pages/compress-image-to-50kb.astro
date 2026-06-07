@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 50KB — Image Compressor to 50KB Online";
+const SEO_DESC = "Reduce image size to 50KB online for free. Our 50KB image compressor is the best way to resize photos for any web portal or application.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Precision: 50KB</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Image to <br/>
+        <span style="color: var(--color-lime);">Exactly 50KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Our smart engine resizes and optimizes your photo to stay perfectly under the 50KB threshold with maximum possible clarity.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={50} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="50" 
+      uniqueContent={`
+        <p class="seo-p">
+          Compressing an <strong>image to 50KB</strong> is the industry standard for passport-sized photographs in digital application forms. 
+          Whether you are applying for a new passport, a driving license, or a national ID, the 50KB threshold is the most 
+          common balance between file portability and facial recognition clarity.
+        </p>
+        <p class="seo-p">
+          At ImgShrink, we understand that "50KB" doesn't just mean small; it means <em>compliant</em>. Our engine uses 
+          advanced chroma-subsampling techniques to ensure that skin tones and facial features remain natural and 
+          identifiable, even after significant size reduction. This is crucial because many automated AI-based 
+          verification systems on government portals will reject a photo if it is too blurry or pixelated.
+        </p>
+        <p class="seo-p">
+          Our 50KB tool is optimized for <strong>Passport Size (3.5cm x 4.5cm)</strong> dimensions. We recommend 
+          using our <a href="/crop-image" style="color: var(--color-lime);">Precision Crop</a> tool first to set the correct 
+          aspect ratio, then using this optimizer to lock in the exact 50KB file size.
+        </p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Optimal 50KB Compression
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 50KB limit is one of the most common requirements for image uploads. ImgShrink uses a Target-Lock algorithm to find the highest quality that fits into 50KB, ensuring your file is ready for any application.
+       </p>
+    </div>
+  </section>
+</Layout>

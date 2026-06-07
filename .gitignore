@@ -1,0 +1,35 @@
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+# custom ignores
+apps/
+blog.txt
+research.txt
+tutorial.txt
+youtube_transcript_*.md
+MEMORY.md
+RESEARCH.md
+NEW_PROJECT_PLAN.md
+src/utils/imageCompressor.ts
+
+# Allow honeypot

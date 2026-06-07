@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 10KB — Best 10KB Image Compressor for Signatures";
+const SEO_DESC = "Compress image to 10KB online for free. Our 10KB image compressor is specifically designed for government form signatures and small thumbnails.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Precision: 10KB Signature Lock</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Image to <br/>
+        <span style="color: var(--color-lime);">Exactly 10KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Surgically optimized for signatures. Our engine resizes and optimizes your photo to stay perfectly under the 10KB threshold.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={10} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="10" 
+      uniqueContent={`
+        <p class="seo-p">Compressing an <strong>image to 10KB</strong> is an extreme optimization task, typically required for tiny digital signature uploads or small profile avatars on legacy government portals. At this size, every byte counts.</p>
+        <p class="seo-p">ImgShrink's 10KB engine uses specialized "Macro-Block" reduction to ensure that even at 10KB, the essential shapes of a signature or face remain distinct and recognizable for official verification.</p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Signature Compliance
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 10KB limit is the standard for signature uploads in most competitive exam portals. ImgShrink ensures your signature is clear and legible even at this extremely low file size.
+       </p>
+    </div>
+  </section>
+</Layout>

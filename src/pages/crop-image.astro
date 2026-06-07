@@ -1,0 +1,184 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Online Image Cropper — Crop Photos for Government Forms";
+const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect for Passport size, SSC, and UPSC requirements. Free, private, and secure.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Precision Tool: Smart Crop</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Crop <span style="color: var(--color-lime);">Any Image.</span> <br/>
+        Meet the Spec.
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Perfectly frame your signatures and passport photos before optimization. 100% browser-side processing.
+      </p>
+    </div>
+
+    <!-- Cropper Container -->
+    <div class="panel p-5 md:p-8" style="max-width: 860px; margin: 0 auto; width: 100%;">
+       <div id="crop-interface" style="min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; width: 100%;">
+          <!-- Upload Stage -->
+          <div id="upload-stage" style="text-align: center; width: 100%;">
+             <div style="width: 64px; height: 64px; background: var(--color-surface-3); border: 1px solid var(--color-border); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+             </div>
+             <button onclick="document.getElementById('crop-input').click()" class="btn-primary">Select Image to Crop</button>
+             <input type="file" id="crop-input" style="display:none" accept="image/*" />
+          </div>
+
+          <!-- Cropping Area -->
+          <div id="cropping-stage" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+             <div style="width: 100%; max-height: 500px; overflow: hidden; border-radius: 12px; border: 1px solid var(--color-border); background: var(--color-surface-2);">
+                <img id="crop-target" style="max-width: 100%; display: block;" />
+             </div>
+             <div class="crop-controls">
+                <div class="preset-group">
+                  <button class="btn-ghost preset-btn" data-ratio="1">UPSC / 1:1</button>
+                  <button class="btn-ghost preset-btn" data-ratio="0.778">Passport</button>
+                  <button class="btn-ghost preset-btn" data-ratio="2.33">SSC Signature</button>
+                  <button class="btn-ghost preset-btn" data-ratio="NaN">Free Form</button>
+                </div>
+                <button id="apply-crop" class="btn-primary save-btn">Save & Download</button>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <SEOContent 
+      targetKB="Custom" 
+      type="crop"
+      customTitle="Precision Image Cropper: Frame for 100% Portal Acceptance"
+      uniqueContent={`
+        <p class="seo-p">
+          Cropping is the <strong>foundation of image optimization</strong>. Before you can compress an image to a specific KB size, 
+          you must ensure it has the correct aspect ratio and focal point. Our <strong>Precision Cropper</strong> is 
+          designed specifically for formal requirements like Passport Photos, Digital Signatures, and ID Cards.
+        </p>
+        <p class="seo-p">
+          Unlike generic mobile editors, ImgShrink provides <strong>Surgical Presets</strong> for major platforms. 
+          Whether it is the SSC (140x60px), UPSC (350x350px), or standard Passport specs (3.5cm x 4.5cm), our tool 
+          helps you frame the subject perfectly. This ensures that when you later use our <a href="/reduce-image-size-in-kb" style="color: var(--color-lime);">KB Reducer</a>, 
+          the engine has the best possible pixels to work with, resulting in a cleaner, more professional file.
+        </p>
+        <p class="seo-p">
+          Our cropper runs entirely in your browser using the <strong>GPU-accelerated Canvas API</strong>. 
+          This means your high-resolution originals are never uploaded—they are processed locally, 
+          keeping your sensitive identity documents 100% private and secure from the moment you select the file.
+        </p>
+      `}
+    />
+  </section>
+</Layout>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+<style>
+  .crop-controls {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .preset-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .save-btn {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .save-btn {
+      width: auto;
+      margin-left: auto;
+    }
+    .crop-controls {
+      justify-content: flex-start;
+    }
+  }
+</style>
+
+<script is:inline>
+  let cropper = null;
+  const input = document.getElementById('crop-input');
+  const target = document.getElementById('crop-target');
+  const uploadStage = document.getElementById('upload-stage');
+  const croppingStage = document.getElementById('cropping-stage');
+  const applyBtn = document.getElementById('apply-crop');
+
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      target.src = event.target.result;
+      uploadStage.classList.add('hidden');
+      croppingStage.classList.remove('hidden');
+      
+      if (cropper) cropper.destroy();
+      cropper = new Cropper(target, {
+        viewMode: 1,
+        dragMode: 'move',
+        autoCropArea: 1,
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ratio = parseFloat(btn.dataset.ratio);
+      cropper.setAspectRatio(isNaN(ratio) ? NaN : ratio);
+    });
+  });
+
+  applyBtn.addEventListener('click', () => {
+    const canvas = cropper.getCroppedCanvas({ maxWidth: 2000, maxHeight: 2000 });
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cropped_image.jpg';
+      a.click();
+      window.location.reload(); // Reset after download
+    }, 'image/jpeg', 0.95);
+  });
+</script>

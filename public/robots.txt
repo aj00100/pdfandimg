@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /.env.production.bak
+Sitemap: https://imgshrink.com/sitemap-index.xml

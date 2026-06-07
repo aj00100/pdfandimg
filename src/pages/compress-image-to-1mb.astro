@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 1MB — Best 1MB Image Compressor Online";
+const SEO_DESC = "Compress image to 1MB online while maintaining high resolution. Use our free 1MB image compressor for detailed documents and high-res photos.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Precision: 1MB Document Lock</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Image to <br/>
+        <span style="color: var(--color-cyan);">Exactly 1MB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Designed for high-resolution document uploads. Maintain professional clarity on certificates and photos with 1MB precision.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={1024} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="1MB" 
+      uniqueContent={`
+        <p class="seo-p">A <strong>1MB image limit</strong> is common for high-quality professional photography platforms and legal document submissions. Our engine optimizes the internal Huffman tables to provide the cleanest possible 1MB result.</p>
+        <p class="seo-p">Preserve the colors, dynamic range, and sharpness of your high-end photos while staying under the 1MB threshold for instant sharing.</p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Archive Integrity
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 1MB target is preferred for detailed scans, resumes, and high-quality photography. ImgShrink prioritizes structural detail, ensuring that stamps, fine print, and facial features are perfectly preserved.
+       </p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Reduce Image Size in KB — Best Image Compressor in KB Online";
+const SEO_DESC = "Looking to reduce image size in KB? Our free online tool helps you compress image size in KB with 100% precision and maximum quality.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >General Tool: KB Reducer</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Reduce Image <br/>
+        <span style="color: var(--color-lime);">Size in KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        The most precise way to reduce image size in KB. Whether you need 20KB, 50KB, or 1MB, our Target-Lock engine delivers perfect results every time.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={50} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="Custom" 
+      uniqueContent={`
+        <p class="seo-p">The <strong>General KB Reducer</strong> is our most flexible tool. It allows you to set any custom KB target for any type of image, from tiny 5KB icons to large 5MB professional scans.</p>
+        <p class="seo-p">Powered by the Target-Lock V3 Engine, this tool is the ultimate "solve-all" for any file size requirement you encounter in 2026.</p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Universal Precision
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         ImgShrink is engineered to handle any specific file size target. Our binary search algorithm finds the mathematical optimum for your image, ensuring the smallest possible file size with the highest possible clarity.
+       </p>
+    </div>
+  </section>
+</Layout>

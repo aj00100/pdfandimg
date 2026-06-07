@@ -1,0 +1,661 @@
+---
+interface Props {
+  defaultKB?: number;
+  hideHeader?: boolean;
+}
+
+const { defaultKB = 20, hideHeader = false } = Astro.props;
+---
+
+<div
+  id="compressor-root"
+  style="max-width: 860px; margin: 0 auto; padding: 0 24px;"
+>
+
+  { !hideHeader && (
+    <!-- Page header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h1
+        style="
+          font-size: clamp(2rem, 5vw, 3.25rem);
+          line-height: 1.05;
+          margin: 0 0 16px;
+        "
+      >
+        Compress to<br/>
+        <span
+          style="
+            color: var(--color-lime);
+            display: inline-block;
+          "
+        >Exact Size</span>
+      </h1>
+      <p
+        style="
+          font-size: 1.0625rem;
+          color: var(--color-ink-2);
+          max-width: 440px;
+          margin: 0 auto;
+          line-height: 1.65;
+        "
+      >
+        Upload your image, set a KB target.
+      </p>
+    </div>
+  )}
+
+  <!-- Main panel -->
+  <div class="panel p-5 md:p-8">
+
+    <!-- Drop Zone -->
+    <div
+      id="drop-zone"
+      class="drop-zone"
+      style="
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 24px;
+        position: relative;
+        border-radius: 16px;
+      "
+    >
+      <input
+        type="file"
+        id="file-input"
+        style="display: none;"
+        accept="image/jpeg,image/png,image/webp"
+      />
+
+      <!-- Upload placeholder -->
+      <div id="upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div
+          style="
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--color-surface-3);
+            border: 1px solid var(--color-border-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div>
+          <p
+            style="
+              font-family: var(--font-display);
+              font-size: 1.125rem;
+              font-weight: 700;
+              letter-spacing: -0.03em;
+              color: var(--color-ink);
+              margin: 0 0 4px;
+            "
+          >Drop image here</p>
+          <p
+            style="
+              font-family: var(--font-mono);
+              font-size: 0.6875rem;
+              color: var(--color-ink-3);
+              margin: 0;
+              text-transform: uppercase;
+              letter-spacing: 0.08em;
+            "
+          >JPEG · PNG · WEBP</p>
+        </div>
+        <button
+          onclick="document.getElementById('file-input').click()"
+          class="btn-ghost"
+          type="button"
+          style="font-size: 0.75rem;"
+        >
+          Browse files
+        </button>
+      </div>
+
+      <!-- Uploading state -->
+      <div id="upload-loading" class="hidden" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div class="spinner"></div>
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.08em;">
+          Securely Uploading...
+        </p>
+      </div>
+
+      <!-- Preview state -->
+      <div
+        id="image-preview-container"
+        class="hidden"
+        style="
+          position: absolute;
+          inset: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 12px;
+          background: var(--color-surface-2);
+          border-radius: 14px;
+        "
+      >
+        <img
+          id="upload-preview"
+          src=""
+          alt="Preview"
+          style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+          "
+        />
+        <button
+          id="change-image-btn"
+          class="btn-ghost"
+          type="button"
+          style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem;"
+        >
+          Change
+        </button>
+      </div>
+    </div>
+
+    <!-- File info pills -->
+    <div
+      id="file-info-bar"
+      class="hidden"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+      "
+    >
+      <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
+        <span class="label">Original</span>
+        <span class="value" id="preview-size-tag">—</span>
+      </span>
+      <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
+        <span class="label">Format</span>
+        <span class="value" id="preview-type-tag">—</span>
+      </span>
+    </div>
+
+    <!-- Controls row -->
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      "
+      class="md:flex-row md:items-end"
+    >
+      <!-- Target KB input -->
+      <div style="flex: 1; width: 100%;" class="md:max-w-[180px]">
+        <label
+          for="target-kb"
+          style="
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-ink-3);
+            margin-bottom: 8px;
+          "
+        >Target size</label>
+        <div style="position: relative; display: flex; align-items: center;">
+          <input
+            type="number"
+            id="target-kb"
+            value={defaultKB > 5000 ? (defaultKB / 1024).toFixed(0) : defaultKB}
+            min="1"
+            max="50000"
+            class="input-number"
+            style="padding-right: 70px; font-size: 1.25rem; height: 48px; width: 100%;"
+          />
+          <select
+            id="target-unit"
+            style="
+              position: absolute;
+              right: 8px;
+              top: 50%;
+              transform: translateY(-50%);
+              background: var(--color-surface-3) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2362666D%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E') no-repeat right 10px center;
+              border: 1px solid var(--color-border);
+              border-radius: 6px;
+              color: var(--color-ink-3);
+              font-family: var(--font-mono);
+              font-size: 0.6875rem;
+              font-weight: 700;
+              padding: 4px 24px 4px 8px;
+              cursor: pointer;
+              outline: none;
+              appearance: none;
+              text-align: left;
+              min-width: 58px;
+            "
+          >
+            <option value="kb" selected={defaultKB <= 5000}>KB</option>
+            <option value="mb" selected={defaultKB > 5000}>MB</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Compress button -->
+      <button
+        id="compress-btn"
+        class="btn-primary"
+        disabled
+        style="flex: 2; height: 48px; font-size: 0.9375rem; width: 100%;"
+        type="button"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v14M5 10l7 7 7-7"/>
+          <path d="M5 21h14"/>
+        </svg>
+        Optimize Image
+      </button>
+    </div>
+  </div>
+
+  <!-- Result / Status Panel -->
+  <div id="status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px md:padding: 32px;">
+
+      <!-- Processing state (Terminal Style) -->
+      <div id="processing" class="hidden" style="flex-direction: column; width: 100%; gap: 24px; padding: 24px 0;">
+        <!-- Terminal Window -->
+        <div style="background: #0a0a0b; border: 1px solid var(--color-border-mid); border-radius: 12px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4);">
+          <!-- Title Bar -->
+          <div style="background: var(--color-surface-3); padding: 8px 16px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; gap: 6px;">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56;"></div>
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e;"></div>
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f;"></div>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin-left: 8px;">Target-Lock Console v3.0</span>
+          </div>
+          <!-- Lines -->
+          <div style="padding: 20px; text-align: left; font-family: var(--font-mono); min-height: 160px; display: flex; flex-direction: column; justify-content: flex-start;">
+            <div id="terminal-lines"></div>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span id="terminal-cursor" class="terminal-cursor">_</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 100%; max-width: 500px; margin: 0 auto;">
+          <div style="width: 100%; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden; margin-bottom: 8px;">
+            <div id="progress-bar" style="width: 0%; height: 100%; background: var(--color-lime); transition: width 0.3s ease;"></div>
+          </div>
+          <p style="font-family: var(--font-mono); font-size: 0.625rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">System processing payload...</p>
+        </div>
+      </div>
+
+      <!-- Result view -->
+      <div
+        id="result-view"
+        class="hidden grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start"
+      >
+
+        <!-- Left: preview -->
+        <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+          <div
+            style="
+              aspect-ratio: 4/3;
+              background: var(--color-surface-2);
+              border: 1px solid var(--color-border);
+              border-radius: 12px;
+              overflow: hidden;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 16px;
+              width: 100%;
+            "
+          >
+            <img
+              id="preview-img"
+              src=""
+              alt="Compressed result"
+              style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px;"
+            />
+          </div>
+          <div class="badge-success" style="align-self: flex-start;">
+            SUCCESS
+          </div>
+        </div>
+
+        <!-- Right: stats + download -->
+        <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+          <div>
+            <h2
+              style="
+                font-size: 1.5rem;
+                font-weight: 800;
+                letter-spacing: -0.04em;
+                margin: 0 0 8px;
+              "
+            >Ready for download</h2>
+            <p
+              id="algo-log"
+              style="
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--color-ink-2);
+                margin: 0;
+                line-height: 1.6;
+              "
+            >Mathematical optimum identified.</p>
+          </div>
+
+          <!-- Metrics grid -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="metric-card" style="padding: 12px;">
+              <span class="metric-label" style="font-size: 0.625rem;">Final Size</span>
+              <span class="metric-value" style="font-size: 1.25rem;" id="result-size">—</span>
+            </div>
+            <div class="metric-card accent" style="padding: 12px;">
+              <span class="metric-label" style="font-size: 0.625rem;">Savings</span>
+              <span class="metric-value" style="font-size: 1.25rem;" id="savings-percent">—</span>
+            </div>
+            <div class="metric-card" style="padding: 12px;">
+              <span class="metric-label" style="font-size: 0.625rem;">Quality</span>
+              <span class="metric-value" style="font-size: 1.25rem;" id="quality-tag">—</span>
+            </div>
+            <div class="metric-card" style="padding: 12px;">
+              <span class="metric-label" style="font-size: 0.625rem;">Steps</span>
+              <span class="metric-value" style="font-size: 1.25rem;" id="iterations-count">—</span>
+            </div>
+          </div>
+
+          <!-- Rename & Download -->
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="position: relative;">
+              <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px;">Rename File (Optional)</label>
+              <input 
+                type="text" 
+                id="rename-input" 
+                placeholder="Enter custom name..." 
+                class="input-number"
+                style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px;"
+              />
+            </div>
+
+            <a
+              id="download-link"
+              href="#"
+              download="compressed.jpg"
+              class="btn-download"
+              style="width: 100%; height: 52px;"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Download JPEG
+            </a>
+          </div>
+
+          <!-- Compress again -->
+          <button
+            id="reset-btn"
+            class="btn-ghost"
+            type="button"
+            style="align-self: center; font-size: 0.75rem;"
+          >
+            ← Optimize another
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  import { compressToTarget } from '../utils/imageCompressor';
+
+  /* ── Elements ── */
+  const dropZone     = document.getElementById('drop-zone') as HTMLDivElement;
+  const fileInput    = document.getElementById('file-input') as HTMLInputElement;
+  const targetInput  = document.getElementById('target-kb') as HTMLInputElement;
+  const unitSelect   = document.getElementById('target-unit') as HTMLSelectElement;
+  const compressBtn  = document.getElementById('compress-btn') as HTMLButtonElement;
+  const statusPanel  = document.getElementById('status-panel') as HTMLDivElement;
+  const processing   = document.getElementById('processing') as HTMLDivElement;
+  const resultView   = document.getElementById('result-view') as HTMLDivElement;
+  const previewImg   = document.getElementById('preview-img') as HTMLImageElement;
+  const downloadLink = document.getElementById('download-link') as HTMLAnchorElement;
+  const renameInput  = document.getElementById('rename-input') as HTMLInputElement;
+
+  const uploadPlaceholder  = document.getElementById('upload-placeholder') as HTMLDivElement;
+  const uploadLoading      = document.getElementById('upload-loading') as HTMLDivElement;
+  const previewContainer   = document.getElementById('image-preview-container') as HTMLDivElement;
+  const uploadPreview      = document.getElementById('upload-preview') as HTMLImageElement;
+  const fileInfoBar        = document.getElementById('file-info-bar') as HTMLDivElement;
+  const changeImageBtn     = document.getElementById('change-image-btn') as HTMLButtonElement;
+  const resetBtn           = document.getElementById('reset-btn') as HTMLButtonElement;
+
+  let selectedFile: File | null = null;
+
+  /* ── Drop zone interactions ── */
+  dropZone.addEventListener('click', (e) => {
+    if (e.target === changeImageBtn || e.target === uploadLoading) return;
+    fileInput.click();
+  });
+
+  changeImageBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', (e: any) => {
+    const file = e.target.files[0];
+    if (file) handleFile(file);
+  });
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('active');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('active');
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('active');
+    const file = e.dataTransfer?.files[0];
+    if (file) handleFile(file);
+  });
+
+  /* ── Handle file ── */
+  async function handleFile(file: File) {
+    selectedFile = file;
+    compressBtn.disabled = true;
+
+    // Show upload state
+    uploadPlaceholder.classList.add('hidden');
+    previewContainer.classList.add('hidden');
+    uploadLoading.classList.remove('hidden');
+    uploadLoading.style.display = 'flex';
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadPreview.src = e.target?.result as string;
+      uploadLoading.classList.add('hidden');
+      uploadLoading.style.display = 'none';
+      previewContainer.classList.remove('hidden');
+      previewContainer.style.display = 'flex';
+      compressBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+
+    const sizeTag    = document.getElementById('preview-size-tag')!;
+    const typeTag    = document.getElementById('preview-type-tag')!;
+    sizeTag.textContent = (file.size / 1024).toFixed(1) + ' KB';
+    typeTag.textContent = file.type.split('/')[1].toUpperCase();
+    fileInfoBar.classList.remove('hidden');
+    fileInfoBar.style.display = 'flex';
+
+    // hide previous results
+    statusPanel.classList.add('hidden');
+  }
+
+  /* ── Compress ── */
+  compressBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    
+    let targetValue = parseFloat(targetInput.value);
+    const unit = unitSelect.value;
+    
+    if (isNaN(targetValue) || targetValue <= 0) return;
+
+    // Convert to KB for the engine
+    const targetKB = unit === 'mb' ? targetValue * 1024 : targetValue;
+
+    statusPanel.classList.remove('hidden');
+    processing.classList.remove('hidden');
+    processing.style.display = 'flex';
+    resultView.classList.add('hidden');
+    compressBtn.disabled = true;
+
+    statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    try {
+      const result = await compressToTarget(selectedFile, targetKB);
+      const url    = URL.createObjectURL(result.blob);
+
+      // Terminal animation — ~1 second, runs AFTER real compression is done
+      const progressBar  = document.getElementById('progress-bar') as HTMLDivElement;
+      const termLines    = document.getElementById('terminal-lines') as HTMLDivElement;
+      const termCursor   = document.getElementById('terminal-cursor') as HTMLSpanElement;
+
+      termLines.innerHTML = '';
+      termCursor.style.display = 'inline';
+      progressBar.style.width = '0%';
+
+      const finalKB  = (result.blob.size / 1024).toFixed(1);
+      const savedPct = Math.round((1 - result.blob.size / selectedFile!.size) * 100);
+      const inputKB  = (selectedFile!.size / 1024).toFixed(1);
+      const fmt      = selectedFile!.type.split('/')[1].toUpperCase();
+
+      const lines = [
+        { text: `$ imgshrink --target ${targetKB}kb --mode target-lock`, color: '#c8f135',              delay: 0   },
+        { text: `  reading input   ·  ${inputKB}kb  ·  ${fmt}`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
+        { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
+        { text: `  quality lock    ·  q=${Math.round((result.quality ?? 0.72) * 100)}  ·  chroma 4:2:0`, color: 'rgba(255,255,255,0.38)', delay: 510 },
+        { text: `  output          ·  ${finalKB}kb  ·  saved ${savedPct}%`, color: 'rgba(255,255,255,0.38)', delay: 680 },
+        { text: `✓ done`,                                                  color: '#c8f135',              delay: 860 },
+      ];
+
+      for (let i = 0; i < lines.length; i++) {
+        const prev = i > 0 ? lines[i - 1].delay : 0;
+        await new Promise(r => setTimeout(r, i === 0 ? 0 : lines[i].delay - prev));
+        const el = document.createElement('div');
+        el.style.cssText = `font-size:0.75rem;color:${lines[i].color};letter-spacing:0.02em;opacity:0;transition:opacity 0.15s ease;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+        el.textContent = lines[i].text;
+        termLines.appendChild(el);
+        requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = '1'; }));
+        progressBar.style.width = `${Math.round((i + 1) / lines.length * 100)}%`;
+      }
+
+      await new Promise(r => setTimeout(r, 180));
+      termCursor.style.display = 'none';
+      progressBar.style.width = '100%';
+
+      previewImg.src      = url;
+      downloadLink.href   = url;
+      
+      const defaultName = `imgshrink_${targetKB}kb_${selectedFile.name.split('.')[0]}`;
+      renameInput.value = defaultName;
+      downloadLink.download = `${defaultName}.jpg`;
+
+      // Update download name in real-time as user types
+      renameInput.oninput = () => {
+        const customName = renameInput.value.trim() || defaultName;
+        downloadLink.download = `${customName}.jpg`;
+      };
+
+      const resKB    = result.size / 1024;
+      const origKB   = selectedFile.size / 1024;
+      const isUpsized = result.size > selectedFile.size;
+
+      document.getElementById('result-size')!.textContent     = resKB.toFixed(1) + ' KB';
+      
+      const savingsEl = document.getElementById('savings-percent')!;
+      const savingsLabel = savingsEl.previousElementSibling as HTMLElement;
+      
+      if (isUpsized) {
+        const growth = ((resKB / origKB - 1) * 100).toFixed(0);
+        savingsEl.textContent = `+${growth}%`;
+        savingsLabel.textContent = 'Growth';
+      } else {
+        const savings  = ((origKB - resKB) / origKB * 100).toFixed(0);
+        savingsEl.textContent = savings + '%';
+        savingsLabel.textContent = 'Savings';
+      }
+
+      document.getElementById('quality-tag')!.textContent     = Math.round(result.quality * 100) + '%';
+      document.getElementById('iterations-count')!.textContent = String(result.iterations);
+      
+      document.getElementById('algo-log')!.textContent        = isUpsized
+        ? `Enhancement mode: Scaled to ${result.scale?.toFixed(2)}x and injected padding to hit target.`
+        : `Smart Scaling: Adjusted to ${Math.round(result.scale * 100)}% dimensions at ${Math.round(result.quality * 100)}% quality.`;
+
+      processing.classList.add('hidden');
+      resultView.classList.remove('hidden');
+      resultView.style.display = 'grid';
+
+      // Add glow and focus
+      downloadLink.classList.add('btn-glow');
+      downloadLink.focus();
+
+    } catch (err) {
+      console.error(err);
+      alert('Compression failed. Please try a different image.');
+    } finally {
+      compressBtn.disabled = false;
+    }
+  });
+
+  /* ── Reset ── */
+  resetBtn.addEventListener('click', () => {
+    selectedFile = null;
+    compressBtn.disabled = true;
+    uploadPreview.src = '';
+    uploadPlaceholder.classList.remove('hidden');
+    previewContainer.classList.add('hidden');
+    previewContainer.style.display = 'none';
+    fileInfoBar.classList.add('hidden');
+    fileInfoBar.style.display = 'none';
+    statusPanel.classList.add('hidden');
+    fileInput.value = '';
+    
+    // Remove glow
+    downloadLink.classList.remove('btn-glow');
+  });
+</script>
+
+<style>
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .terminal-cursor {
+    color: var(--color-lime);
+    animation: blink 1s step-end infinite;
+  }
+</style>

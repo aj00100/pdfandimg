@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image to 200KB — Best 200KB Image Compressor Online";
+const SEO_DESC = "Compress image to 200KB while maintaining high resolution. Use our free 200KB image compressor for detailed documents and photos.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255,107,53,0.08);
+          border: 1px solid rgba(255,107,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-orange);
+          "
+        >Precision: 200KB</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Image to <br/>
+        <span style="color: var(--color-orange);">200KB Size.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Designed for high-resolution document transmission. Preserve text legibility on certificates and detail in photos with 200KB precision.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={200} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="200" 
+      uniqueContent={`
+        <p class="seo-p"><strong>Compressing to 200KB</strong> is ideal for high-resolution document scans, academic certificates, and professional portrait sharing where high fidelity is a requirement.</p>
+        <p class="seo-p">ImgShrink's 200KB mode prioritizes text legibility, ensuring that fine print on certificates remains perfectly readable even after optimization.</p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+         Document Integrity
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         The 200KB target is preferred for detailed scans and photographs. ImgShrink prioritizes structural detail, ensuring that stamps, fine print, and facial features are perfectly preserved.
+       </p>
+    </div>
+  </section>
+</Layout>
