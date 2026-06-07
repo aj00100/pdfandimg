@@ -15,6 +15,29 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
   { !hideHeader && (
     <!-- Page header -->
     <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Precision Tool: Image Compression</span>
+      </div>
       <h1
         style="
           font-size: clamp(2.5rem, 6vw, 4.25rem);
