@@ -1,0 +1,407 @@
+---
+interface Props {
+  fromFormat: string;
+  toFormat: string;
+}
+
+const { fromFormat, toFormat } = Astro.props;
+
+const isToJpg = toFormat.toUpperCase() === 'JPG' || toFormat.toUpperCase() === 'JPEG';
+
+// FAQ Data for JSON-LD
+const faqData = [
+  {
+    q: `Is it safe to convert my private ${fromFormat.toUpperCase()} files online?`,
+    a: `Absolutely. Unlike older converter websites, ImgShrink processes your ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} conversions entirely within your browser using HTML5 Canvas. Your images are never uploaded to our servers, ensuring 100% data privacy for sensitive documents.`
+  },
+  {
+    q: `Will converting ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} reduce the file size?`,
+    a: isToJpg 
+      ? `Yes. Because JPEG is a lossy compression format, converting a lossless PNG to a JPG will significantly reduce its file size, making it much faster to upload to websites and government portals.`
+      : `Converting to PNG generally increases file size because PNG is a lossless format. However, it is necessary if you need to preserve high-quality text, sharp lines, or add transparency to your image.`
+  },
+  {
+    q: `Can I convert multiple images at once?`,
+    a: `Yes, our tool supports bulk processing. You can select up to 50 images at a time, and our browser-based engine will convert them instantly and package them into a single ZIP file for easy downloading.`
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": `ImgShrink ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} Converter`,
+  "url": Astro.url.href,
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+// Internal Linking Data (Topic Cluster)
+const relatedTools = [
+  { name: 'Resize Image Pixels', href: '/resize-image-pixel' },
+  { name: 'Crop Image', href: '/crop-image' },
+  { name: 'Compress to 20KB', href: '/compress-image-to-20kb' },
+  { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
+];
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+<section class="seo-section">
+  
+  <!-- Divider -->
+  <div class="seo-divider"></div>
+
+  <div class="seo-grid">
+    
+    <!-- Main Content Area -->
+    <div class="seo-main">
+      
+      <!-- Dynamic Heading -->
+      <div class="seo-intro">
+        <h2 class="seo-h2">
+          Comprehensive Guide: Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()}
+        </h2>
+        
+        <p class="seo-p">
+          In the digital age, understanding image formats is crucial for web performance, storage optimization, and professional digital submissions. The choice between formats like PNG and JPEG goes far beyond just file extensions—it dictates how data is compressed, whether transparency is supported, and how quickly a webpage loads on mobile devices. Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()} is one of the most common requirements for digital workflows, from applying for international visas to optimizing eCommerce storefronts.
+        </p>
+        <p class="seo-p">
+          Historically, format conversion required downloading bulky software or relying on cloud-based websites that force you to upload your private files to a remote server. At ImgShrink, we’ve re-engineered this process. Our converter utilizes advanced HTML5 Canvas APIs to handle the entire format translation securely within your own browser. This means zero upload times, no server bottlenecks, and complete cryptographic privacy for your personal photographs and official documents.
+        </p>
+      </div>
+
+      <!-- How it works -->
+      <div class="seo-steps">
+        <h3 class="seo-h3">Technical Workflow: How the Converter Works</h3>
+        <ol class="seo-list">
+          <li>
+            <div class="seo-step-num">01</div>
+            <div>
+              <h4 class="seo-step-title">Local File Ingestion</h4>
+              <p class="seo-p-small">
+                When you drag and drop your files, our system reads the binary data locally. Your image never leaves your device's RAM, ensuring maximum privacy.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">02</div>
+            <div>
+              <h4 class="seo-step-title">Canvas Rendering</h4>
+              <p class="seo-p-small">
+                The image is drawn onto an invisible HTML5 Canvas element. This step decodes the original pixel data, separating it from the constraints of its original format.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">03</div>
+            <div>
+              <h4 class="seo-step-title">Format Re-Encoding</h4>
+              <p class="seo-p-small">
+                We then extract the raw pixel data and re-encode it using your target format's specific compression algorithms (such as the Discrete Cosine Transform for JPEGs).
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">04</div>
+            <div>
+              <h4 class="seo-step-title">Instant Bulk ZIP</h4>
+              <p class="seo-p-small">
+                If you uploaded multiple files, the newly encoded images are instantly bundled into a ZIP archive using a local JavaScript compiler, ready for an instant, zero-latency download.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Detailed Use Cases -->
+      <div class="seo-details">
+        <h3 class="seo-h3">Why Format Conversion Matters</h3>
+        <p class="seo-p">
+          Different image formats were engineered for different specific purposes. PNG (Portable Network Graphics) is a lossless format, meaning it preserves every single pixel exactly as it was created. It is the gold standard for graphics that contain text, sharp lines, or require a transparent background. However, this perfection comes at a cost: file sizes can be massive, which leads to slow website loading times and frequent rejections from strict government portals.
+        </p>
+        <p class="seo-p">
+          Conversely, JPEG (Joint Photographic Experts Group) utilizes lossy compression. It analyzes an image and discards visual data that the human eye cannot easily detect. This makes it incredibly efficient for complex photographs, reducing file sizes by up to 90% without a noticeable drop in perceived quality. This is why nearly every university application portal, visa submission system, and professional platform demands images in the JPEG/JPG format.
+        </p>
+        <p class="seo-p">
+          By utilizing ImgShrink's specialized converter, you bridge the gap between these two technologies. Whether you need to shrink a massive PNG screenshot into a lightweight JPG for an email attachment, or you need to convert a JPG into a PNG to prepare it for graphic design work, our browser-based engine ensures the highest fidelity transfer possible without compromising your personal data.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="seo-faq">
+        <h3 class="seo-h3">Frequently Asked Questions</h3>
+        <div class="faq-stack">
+          {faqData.map(item => (
+            <div class="faq-item">
+              <h4 class="faq-q">{item.q}</h4>
+              <p class="faq-a">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar / Context -->
+    <div class="seo-sidebar">
+      <div class="sidebar-box">
+        <h3 class="sidebar-title">Optimized Use Cases</h3>
+        <ul class="sidebar-list">
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Government Applications</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Website Optimization</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Email Attachments</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Graphic Design Prep</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-stats">
+        <h3 class="stats-title">Technical Specifications</h3>
+        <p class="stats-text"><strong>Speed:</strong> Instant (Local)</p>
+        <p class="stats-text"><strong>Privacy:</strong> No Server Upload</p>
+      </div>
+
+      <!-- Related Tools Cluster -->
+      <div class="sidebar-box" style="margin-top: 40px; border-color: var(--color-lime);">
+        <h3 class="sidebar-title" style="color: var(--color-ink);">Related Tools</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+          {relatedTools.map(tool => (
+            <a href={tool.href} class="related-tag">{tool.name}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .seo-section {
+    max-width: 1000px;
+    margin: 80px auto 0;
+    padding: 0 24px;
+    text-align: left;
+  }
+
+  .seo-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    margin-bottom: 80px;
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  @media (min-width: 900px) {
+    .seo-grid {
+      grid-template-columns: 1.8fr 1fr;
+    }
+  }
+
+  .seo-main {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .seo-h2 {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    color: var(--color-ink);
+    line-height: 1.1;
+  }
+
+  .seo-h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--color-ink);
+  }
+
+  .seo-p {
+    font-size: 1rem;
+    color: var(--color-ink-2);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .seo-p-small {
+    font-size: 0.9375rem;
+    color: var(--color-ink-2);
+    line-height: 1.6;
+  }
+
+  .seo-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .seo-list li {
+    display: flex;
+    gap: 20px;
+  }
+
+  .seo-step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border-mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-lime);
+    font-weight: 700;
+  }
+
+  .seo-step-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    margin-bottom: 8px;
+  }
+
+  .faq-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .faq-q {
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+  }
+
+  .faq-a {
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .sidebar-box {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-lime);
+    margin-bottom: 24px;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.875rem;
+    color: var(--color-ink-2);
+  }
+
+  .check-icon {
+    color: var(--color-lime);
+    margin-top: 2px;
+  }
+
+  .sidebar-stats {
+    padding: 0 32px;
+  }
+
+  .stats-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-ink-3);
+    margin-bottom: 16px;
+  }
+
+  .stats-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-ink-3);
+    margin-bottom: 8px;
+  }
+
+  .related-tag {
+    display: block;
+    padding: 8px;
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: var(--color-ink-2);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .related-tag:hover {
+    border-color: var(--color-lime);
+    color: var(--color-lime);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    .seo-h2 { font-size: 1.75rem; }
+    .seo-grid { gap: 48px; }
+    .seo-main { gap: 48px; }
+  }
+</style>

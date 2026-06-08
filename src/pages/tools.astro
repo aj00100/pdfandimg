@@ -4,10 +4,20 @@ import Layout from '../layouts/Layout.astro';
 const SEO_TITLE = "All Image Compression Tools — Precision KB Optimizers";
 const SEO_DESC = "Access our complete suite of precision image compression tools. From 10KB to 1MB, our Target-Lock engine ensures perfect compliance and clarity.";
 
-const tools = [
+const featuredTools = [
   { name: 'Crop Image Online', short: 'Crop Image', href: '/crop-image', desc: 'Crop photos and signatures to exact dimensions and ratios.', accent: 'var(--color-lime)' },
   { name: 'Reduce Image Size in KB', short: 'Reduce KB', href: '/reduce-image-size-in-kb', desc: 'General purpose KB reducer for any specific target.', accent: 'var(--color-lime)' },
   { name: 'Increase Image Size in KB', short: 'Increase KB', href: '/enhance-image-size', desc: 'Upscale images to meet minimum KB requirements.', accent: 'var(--color-lime)' },
+  { name: 'Convert PNG to JPG', short: 'PNG to JPG', href: '/png-to-jpg', desc: 'Instantly convert PNG images to JPEG format with zero privacy risk.', accent: '#0088ff' },
+  { name: 'Convert JPEG to PNG', short: 'JPEG to PNG', href: '/jpeg-to-png', desc: 'Convert JPG files to PNG locally without server uploads.', accent: '#0088ff' },
+  { name: 'Convert JPG to PDF', short: 'JPG to PDF', href: '/jpg-to-pdf', desc: 'Convert your JPG images to PDF documents instantly.', accent: '#0088ff' },
+  { name: 'Convert PNG to PDF', short: 'PNG to PDF', href: '/png-to-pdf', desc: 'Convert your PNG images to PDF documents instantly.', accent: '#0088ff' },
+  { name: 'Convert WEBP to PDF', short: 'WEBP to PDF', href: '/webp-to-pdf', desc: 'Convert your WEBP images to PDF documents instantly.', accent: '#0088ff' },
+  { name: 'Resize Image Pixels', short: 'Pixel Resizer', href: '/resize-image-pixel', desc: 'Change image dimensions (width & height) to exact pixels.', accent: '#a32cf5' },
+  { name: 'Passport Size Photo', short: 'Passport Maker', href: '/passport-size-photo', desc: 'Instantly crop and resize photos for official document requirements.', accent: '#ff7e33' },
+];
+
+const compressionTools = [
   { name: 'Compress to 10KB', short: '10 KB', href: '/compress-image-to-10kb', desc: 'Optimized for tiny government portal signatures.', accent: 'var(--color-ink)' },
   { name: 'Compress to 15KB', short: '15 KB', href: '/compress-image-to-15kb', desc: 'Precise lock for ultra-small avatar requirements.', accent: 'var(--color-ink)' },
   { name: 'Compress to 20KB', short: '20 KB', href: '/compress-image-to-20kb', desc: 'The standard for signature and thumbnail compliance.', accent: 'var(--color-lime)' },
@@ -58,24 +68,50 @@ const tools = [
       </p>
     </div>
 
-    <!-- Tools Grid -->
-    <div class="tools-grid">
-      {tools.map(tool => (
-        <a 
-          href={tool.href}
-          class="panel tool-card"
-          style={`--tool-accent: ${tool.accent};`}
-        >
-          <div class="tool-card-header">
-             <h3 class="tool-card-title">
-               <span class="hide-mobile">{tool.name}</span>
-               <span class="show-mobile-only">{tool.short}</span>
-             </h3>
-             <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-          <p class="tool-card-desc">{tool.desc}</p>
-        </a>
-      ))}
+    <!-- Featured Tools Grid -->
+    <div style="max-width: 1000px; margin: 0 auto 64px;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Featured Tools</h2>
+      <div class="tools-grid" style="margin: 0;">
+        {featuredTools.map(tool => (
+          <a 
+            href={tool.href}
+            class="panel tool-card"
+            style={`--tool-accent: ${tool.accent};`}
+          >
+            <div class="tool-card-header">
+               <h3 class="tool-card-title">
+                 <span class="hide-mobile">{tool.name}</span>
+                 <span class="show-mobile-only">{tool.short}</span>
+               </h3>
+               <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <p class="tool-card-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Compression Grid -->
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Target-Lock Compressors</h2>
+      <div class="tools-grid" style="margin: 0;">
+        {compressionTools.map(tool => (
+          <a 
+            href={tool.href}
+            class="panel tool-card"
+            style={`--tool-accent: ${tool.accent};`}
+          >
+            <div class="tool-card-header">
+               <h3 class="tool-card-title">
+                 <span class="hide-mobile">{tool.name}</span>
+                 <span class="show-mobile-only">{tool.short}</span>
+               </h3>
+               <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <p class="tool-card-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
     </div>
 
     <!-- Footer Note -->

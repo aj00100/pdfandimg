@@ -1,0 +1,239 @@
+---
+interface Props {
+  allowMultiple?: boolean;
+  defaultWidth?: number;
+  defaultHeight?: number;
+}
+
+const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astro.props;
+---
+
+<div id="resizer-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="rs-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="rs-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple={allowMultiple} />
+      
+      <div id="rs-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">{allowMultiple ? 'Drop images here' : 'Drop image here'}</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to resize</p>
+        </div>
+        <button onclick="document.getElementById('rs-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="rs-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <img id="rs-upload-preview" src="" alt="Preview" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;" />
+        <div id="rs-bulk-text" style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%;"></div>
+        <button id="rs-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 120px;">
+        <label for="rs-width" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Width (px)</label>
+        <input type="number" id="rs-width" value={defaultWidth} class="input-number" style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;" />
+      </div>
+      <div style="flex: 1; min-width: 120px;">
+        <label for="rs-height" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Height (px)</label>
+        <input type="number" id="rs-height" value={defaultHeight} class="input-number" style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;" />
+      </div>
+      <div style="flex: 1; min-width: 120px;">
+        <label for="rs-format" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Format</label>
+        <select id="rs-format" class="input-number" style="width: 100%; height: 56px; font-size: 1.125rem; text-align: center; background: var(--color-surface-1) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2362666D%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E') no-repeat right 16px center; appearance: none; cursor: pointer; border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+          <option value="auto" selected>Keep Original</option>
+          <option value="image/jpeg">JPG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp">WEBP</option>
+          <option value="application/pdf">PDF</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="rs-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Resize Images
+    </button>
+  </div>
+
+  <div id="rs-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="rs-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="rs-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="rs-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="rs-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Resize Complete!</h2>
+        <a id="rs-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download Resized
+        </a>
+        <button id="rs-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Resize another
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { resizeImageExact } from '../utils/imageCompressor';
+  import JSZip from 'jszip';
+
+  const root = document.getElementById('resizer-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('rs-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('rs-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('rs-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('rs-preview-container') as HTMLDivElement;
+    const uploadPreview = document.getElementById('rs-upload-preview') as HTMLImageElement;
+    const bulkText = document.getElementById('rs-bulk-text') as HTMLDivElement;
+    const changeBtn = document.getElementById('rs-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('rs-convert-btn') as HTMLButtonElement;
+    const widthInput = document.getElementById('rs-width') as HTMLInputElement;
+    const heightInput = document.getElementById('rs-height') as HTMLInputElement;
+    const statusPanel = document.getElementById('rs-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('rs-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('rs-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('rs-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('rs-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('rs-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('rs-reset-btn') as HTMLButtonElement;
+    const formatSelect = document.getElementById('rs-format') as HTMLSelectElement;
+
+    let selectedFiles: File[] = [];
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#rs-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    function handleFiles(filesList: FileList | File[]) {
+      const arr = Array.from(filesList);
+      selectedFiles = arr.filter(f => f.type.startsWith('image/')).slice(0, 50);
+      if (selectedFiles.length === 0) return;
+
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      convertBtn.disabled = false;
+
+      if (selectedFiles.length === 1) {
+        uploadPreview.style.display = 'block';
+        bulkText.style.display = 'none';
+        const reader = new FileReader();
+        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.readAsDataURL(selectedFiles[0]);
+      } else {
+        uploadPreview.style.display = 'none';
+        bulkText.style.display = 'block';
+        bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+      }
+      statusPanel.classList.add('hidden');
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0) return;
+      
+      const width = parseInt(widthInput.value);
+      const height = parseInt(heightInput.value);
+      const targetFormat = formatSelect.value as 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto';
+
+      if (isNaN(width) || isNaN(height) || width <= 0 || height <= 0) {
+        alert("Please enter valid width and height in pixels.");
+        return;
+      }
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        if (selectedFiles.length === 1) {
+          const actualFormat = targetFormat === 'auto' ? selectedFiles[0].type : targetFormat;
+          const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
+          statusText.textContent = 'Resizing image...';
+          progressBar.style.width = '50%';
+          const result = await resizeImageExact(selectedFiles[0], width, height, targetFormat, 0.92);
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(result.blob);
+          downloadLink.href = url;
+          const cleanName = selectedFiles[0].name.split('.')[0].replace(/\s+/g, '_');
+          downloadLink.download = `${cleanName}_${width}x${height}.${ext}`;
+          downloadLink.textContent = `Download ${ext.toUpperCase()}`;
+        } else {
+          const zip = new JSZip();
+          for (let i = 0; i < selectedFiles.length; i++) {
+            const actualFormat = targetFormat === 'auto' ? selectedFiles[i].type : targetFormat;
+            const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
+            statusText.textContent = `Resizing ${i+1} of ${selectedFiles.length}...`;
+            const result = await resizeImageExact(selectedFiles[i], width, height, targetFormat, 0.92);
+            const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+            zip.file(`${cleanName}_${width}x${height}.${ext}`, result.blob);
+            progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
+          }
+          statusText.textContent = 'Zipping files...';
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(zipBlob);
+          downloadLink.href = url;
+          downloadLink.download = `resized_images_${width}x${height}.zip`;
+          downloadLink.textContent = `Download ZIP`;
+        }
+
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Resizing failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedFiles = [];
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    });
+  }
+</script>

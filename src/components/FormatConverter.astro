@@ -1,0 +1,205 @@
+---
+interface Props {
+  toFormat: 'jpeg' | 'png' | 'pdf';
+  allowMultiple?: boolean;
+}
+
+const { toFormat, allowMultiple = true } = Astro.props;
+const targetMime = toFormat === 'jpeg' ? 'image/jpeg' : toFormat === 'png' ? 'image/png' : 'application/pdf';
+const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' : 'PDF';
+---
+
+<div id="format-converter-root" data-target-format={targetMime} data-display-format={displayFormat} style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="fc-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="fc-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple={allowMultiple} />
+      
+      <div id="fc-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">{allowMultiple ? 'Drop images here' : 'Drop image here'}</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to convert to {displayFormat}</p>
+        </div>
+        <button onclick="document.getElementById('fc-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="fc-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <img id="fc-upload-preview" src="" alt="Preview" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;" />
+        <div id="fc-bulk-text" style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%;"></div>
+        <button id="fc-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <button id="fc-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Convert to {displayFormat}
+    </button>
+  </div>
+
+  <div id="fc-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="fc-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="fc-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="fc-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="fc-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Conversion Complete!</h2>
+        <a id="fc-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download {displayFormat}
+        </a>
+        <button id="fc-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Convert another
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertFormat } from '../utils/imageCompressor';
+  import JSZip from 'jszip';
+
+  const root = document.getElementById('format-converter-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('fc-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('fc-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('fc-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('fc-preview-container') as HTMLDivElement;
+    const uploadPreview = document.getElementById('fc-upload-preview') as HTMLImageElement;
+    const bulkText = document.getElementById('fc-bulk-text') as HTMLDivElement;
+    const changeBtn = document.getElementById('fc-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('fc-convert-btn') as HTMLButtonElement;
+    const statusPanel = document.getElementById('fc-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('fc-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('fc-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('fc-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('fc-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('fc-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('fc-reset-btn') as HTMLButtonElement;
+
+    let selectedFiles: File[] = [];
+    const targetMime = root.dataset.targetFormat as 'image/jpeg' | 'image/png' | 'application/pdf';
+    const ext = targetMime === 'image/jpeg' ? 'jpg' : targetMime === 'image/png' ? 'png' : 'pdf';
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#fc-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    function handleFiles(filesList: FileList | File[]) {
+      const arr = Array.from(filesList);
+      selectedFiles = arr.filter(f => f.type.startsWith('image/')).slice(0, 50);
+      if (selectedFiles.length === 0) return;
+
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      convertBtn.disabled = false;
+
+      if (selectedFiles.length === 1) {
+        uploadPreview.style.display = 'block';
+        bulkText.style.display = 'none';
+        const reader = new FileReader();
+        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.readAsDataURL(selectedFiles[0]);
+      } else {
+        uploadPreview.style.display = 'none';
+        bulkText.style.display = 'block';
+        bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+      }
+      statusPanel.classList.add('hidden');
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0) return;
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        if (selectedFiles.length === 1) {
+          statusText.textContent = 'Converting format...';
+          progressBar.style.width = '50%';
+          const result = await convertFormat(selectedFiles[0], targetMime, 1.0);
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(result.blob);
+          downloadLink.href = url;
+          const cleanName = selectedFiles[0].name.split('.')[0].replace(/\s+/g, '_');
+          downloadLink.download = `${cleanName}_converted.${ext}`;
+          downloadLink.innerHTML = `Download ${ext.toUpperCase()}`;
+        } else {
+          const zip = new JSZip();
+          for (let i = 0; i < selectedFiles.length; i++) {
+            statusText.textContent = `Converting ${i+1} of ${selectedFiles.length}...`;
+            const result = await convertFormat(selectedFiles[i], targetMime, 1.0);
+            const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+            zip.file(`${cleanName}_converted.${ext}`, result.blob);
+            progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
+          }
+          statusText.textContent = 'Zipping files...';
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(zipBlob);
+          downloadLink.href = url;
+          downloadLink.download = `converted_images.zip`;
+          downloadLink.innerHTML = `Download ZIP`;
+        }
+
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Conversion failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedFiles = [];
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    });
+  }
+</script>

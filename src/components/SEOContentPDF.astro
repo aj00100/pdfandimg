@@ -1,0 +1,83 @@
+---
+// src/components/SEOContentPDF.astro
+interface Props {
+  sourceFormat: 'JPG' | 'PNG' | 'WEBP' | 'Image';
+}
+const { sourceFormat } = Astro.props;
+---
+
+<section class="max-w-4xl mx-auto mt-16 px-4 md:px-8 prose prose-invert">
+  <h2>Convert {sourceFormat} to PDF Instantly and Securely</h2>
+  <p>
+    Converting a <strong>{sourceFormat} to PDF</strong> shouldn't require uploading your sensitive or personal images to a remote server. Our next-generation client-side tool allows you to convert {sourceFormat} files into high-quality PDF documents entirely within your own browser. This means your files never leave your device, guaranteeing 100% privacy and security while delivering lightning-fast results.
+  </p>
+
+  <h3>Why Convert {sourceFormat} to PDF?</h3>
+  <p>
+    The PDF (Portable Document Format) is the universal standard for sharing and archiving documents. While {sourceFormat} images are great for web viewing or photography, converting a <strong>{sourceFormat} to PDF</strong> offers several distinct advantages:
+  </p>
+  <ul>
+    <li><strong>Universal Compatibility:</strong> PDFs look exactly the same on any device, operating system, or printer, ensuring your visual content is displayed exactly as intended.</li>
+    <li><strong>Document Packaging:</strong> Unlike standalone image files, PDFs are meant for documentation. If you need to submit a photo of an ID, a scanned receipt, or a signed document, a PDF is the universally accepted format by businesses and government portals.</li>
+    <li><strong>Prevent Unwanted Edits:</strong> A PDF is harder to casually edit than a raw image file, providing a layer of permanence to your digital documents.</li>
+    <li><strong>Streamlined Printing:</strong> Printers are natively optimized for PDF files. Converting your {sourceFormat} to PDF ensures margins, scaling, and color profiles are handled properly by professional and home printers alike.</li>
+  </ul>
+
+  <h3>100% Local, Zero-Server Processing</h3>
+  <p>
+    Unlike traditional online converters that force you to upload your files to a cloud server, wait in a queue, and then download the result, our tool uses advanced HTML5 and WebAssembly APIs to process your images locally. 
+  </p>
+  <p>
+    When you select a {sourceFormat} file to convert, the entire conversion process happens using your device's own processing power. This revolutionary approach has three major benefits:
+  </p>
+  <ol>
+    <li><strong>Absolute Privacy:</strong> Since no data is transmitted over the internet, your private photos, legal documents, and personal scans remain completely confidential. No one else can ever see them.</li>
+    <li><strong>Blazing Speed:</strong> You don't have to wait for upload or download times. The conversion happens instantly, limited only by your own device's speed.</li>
+    <li><strong>No File Size Limits:</strong> Because we don't have to pay for server storage or bandwidth, we don't restrict how large your files can be. Convert massive, high-resolution {sourceFormat} files without hitting artificial paywalls or data caps.</li>
+  </ol>
+
+  <h3>How to Convert {sourceFormat} to PDF</h3>
+  <p>
+    Using our tool is incredibly simple and requires no technical expertise:
+  </p>
+  <ul>
+    <li><strong>Step 1: Upload Your File:</strong> Drag and drop your {sourceFormat} image into the upload zone above, or click to browse your device's file system.</li>
+    <li><strong>Step 2: Adjust Settings (Optional):</strong> If you want to compress the file size before converting it to a PDF, enter a target size in KB or MB. You can also crop or resize the dimensions.</li>
+    <li><strong>Step 3: Select PDF Output:</strong> Ensure the "Output Format" dropdown is set to <strong>PDF</strong>.</li>
+    <li><strong>Step 4: Download:</strong> Click the "Optimize" or "Convert" button. Within milliseconds, your new PDF document will be ready to download and save.</li>
+  </ul>
+
+  <h3>Frequently Asked Questions</h3>
+  <div class="faq-container">
+    <h4>Does this tool reduce the quality of my {sourceFormat}?</h4>
+    <p>By default, we preserve the highest possible quality of your original image when embedding it into the PDF. If you choose to set a specific target KB size, the image will be intelligently compressed before being placed into the PDF document.</p>
+
+    <h4>Can I convert multiple {sourceFormat} files at once?</h4>
+    <p>Yes! Our bulk processing feature allows you to select up to 50 {sourceFormat} files at a time. Each file will be converted into its own individual PDF document, and they will be conveniently packaged into a single ZIP file for you to download all at once.</p>
+
+    <h4>Is it really free and private?</h4>
+    <p>Absolutely. Because we utilize your browser to do the heavy lifting, we don't have expensive server bills to pay. This allows us to provide a premium, lightning-fast {sourceFormat} to PDF conversion tool completely free of charge, with a 100% guarantee that your files are never uploaded to the internet.</p>
+  </div>
+</section>
+
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": `Free ${sourceFormat} to PDF Converter`,
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": `Convert ${sourceFormat} images to PDF documents instantly and securely in your browser. No uploads, 100% private, and completely free.`,
+  "featureList": [
+    `${sourceFormat} to PDF conversion`,
+    "Client-side processing",
+    "Zero data uploads",
+    "Bulk PDF conversion",
+    "Target size compression"
+  ]
+})} />
