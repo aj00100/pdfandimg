@@ -573,12 +573,12 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
       if (!bulkText) {
         bulkText = document.createElement('div');
         bulkText.id = 'bulk-preview-text';
-        bulkText.style.cssText = 'font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); text-align: center; padding: 16px; word-break: break-word; overflow-y: auto; max-height: 200px; line-height: 1.6;';
+        bulkText.style.cssText = 'font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); text-align: left; padding: 16px 24px; word-break: break-word; overflow-y: auto; max-height: 200px; line-height: 1.6; width: 100%;';
         previewContainer.insertBefore(bulkText, uploadPreview);
       }
       bulkText.style.display = 'block';
       
-      bulkText.textContent = selectedFiles.map(f => f.name).join(', ');
+      bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
 
       uploadLoading.classList.add('hidden');
       uploadLoading.style.display = 'none';
