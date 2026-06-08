@@ -2,9 +2,10 @@
 interface Props {
   defaultKB?: number;
   hideHeader?: boolean;
+  allowMultiple?: boolean;
 }
 
-const { defaultKB = 20, hideHeader = false } = Astro.props;
+const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.props;
 ---
 
 <div
@@ -87,12 +88,22 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
         border-radius: 16px;
       "
     >
-      <input
-        type="file"
-        id="file-input"
-        style="display: none;"
-        accept="image/jpeg,image/png,image/webp"
-      />
+      {allowMultiple ? (
+        <input
+          type="file"
+          id="file-input"
+          style="display: none;"
+          accept="image/jpeg,image/png,image/webp"
+          multiple="multiple"
+        />
+      ) : (
+        <input
+          type="file"
+          id="file-input"
+          style="display: none;"
+          accept="image/jpeg,image/png,image/webp"
+        />
+      )}
 
       <!-- Upload placeholder -->
       <div id="upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
@@ -124,7 +135,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
               color: var(--color-ink);
               margin: 0 0 4px;
             "
-          >Drop image here</p>
+          >{allowMultiple ? 'Drop image(s) here' : 'Drop image here'}</p>
           <p
             style="
               font-family: var(--font-mono);
@@ -451,6 +462,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
 
 <script>
   import { compressToTarget } from '../utils/imageCompressor';
+  import JSZip from 'jszip';
 
   /* ── Elements ── */
   const dropZone     = document.getElementById('drop-zone') as HTMLDivElement;
@@ -473,7 +485,7 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
   const changeImageBtn     = document.getElementById('change-image-btn') as HTMLButtonElement;
   const resetBtn           = document.getElementById('reset-btn') as HTMLButtonElement;
 
-  let selectedFile: File | null = null;
+  let selectedFiles: File[] = [];
 
   /* ── Drop zone interactions ── */
   dropZone.addEventListener('click', (e) => {
@@ -487,8 +499,8 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
   });
 
   fileInput.addEventListener('change', (e: any) => {
-    const file = e.target.files[0];
-    if (file) handleFile(file);
+    const files = e.target.files;
+    if (files && files.length > 0) handleFiles(files);
   });
 
   dropZone.addEventListener('dragover', (e) => {
@@ -503,13 +515,27 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
   dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('active');
-    const file = e.dataTransfer?.files[0];
-    if (file) handleFile(file);
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) handleFiles(files);
   });
 
-  /* ── Handle file ── */
-  async function handleFile(file: File) {
-    selectedFile = file;
+  /* ── Handle file(s) ── */
+  async function handleFiles(filesList: FileList | File[]) {
+    const arr = Array.from(filesList);
+    const validFiles = arr.filter(f => f.type.startsWith('image/'));
+    if (validFiles.length === 0) return;
+
+    const isMultipleAllowed = fileInput.multiple || fileInput.hasAttribute('multiple');
+    let filesToProcess = isMultipleAllowed ? validFiles.slice(0, 50) : [validFiles[0]];
+    
+    if (isMultipleAllowed) {
+      const currentNames = new Set(selectedFiles.map(f => f.name));
+      const newFiles = filesToProcess.filter(f => !currentNames.has(f.name));
+      selectedFiles = [...selectedFiles, ...newFiles].slice(0, 50);
+      changeImageBtn.textContent = 'Add more';
+    } else {
+      selectedFiles = filesToProcess;
+    }
     compressBtn.disabled = true;
 
     // Show upload state
@@ -518,38 +544,68 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
     uploadLoading.classList.remove('hidden');
     uploadLoading.style.display = 'flex';
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      uploadPreview.src = e.target?.result as string;
+    if (selectedFiles.length === 1) {
+      const file = selectedFiles[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        uploadPreview.style.display = 'block';
+        uploadPreview.src = e.target?.result as string;
+        
+        let bulkText = document.getElementById('bulk-preview-text');
+        if(bulkText) bulkText.style.display = 'none';
+
+        uploadLoading.classList.add('hidden');
+        uploadLoading.style.display = 'none';
+        previewContainer.classList.remove('hidden');
+        previewContainer.style.display = 'flex';
+        compressBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+
+      const sizeTag    = document.getElementById('preview-size-tag')!;
+      const typeTag    = document.getElementById('preview-type-tag')!;
+      sizeTag.textContent = (file.size / 1024).toFixed(1) + ' KB';
+      typeTag.textContent = file.type.split('/')[1].toUpperCase();
+    } else {
+      // Multiple files preview
+      uploadPreview.style.display = 'none';
+      let bulkText = document.getElementById('bulk-preview-text');
+      if (!bulkText) {
+        bulkText = document.createElement('div');
+        bulkText.id = 'bulk-preview-text';
+        bulkText.style.cssText = 'font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); text-align: center; padding: 16px; word-break: break-word; overflow-y: auto; max-height: 200px; line-height: 1.6;';
+        previewContainer.insertBefore(bulkText, uploadPreview);
+      }
+      bulkText.style.display = 'block';
+      
+      bulkText.textContent = selectedFiles.map(f => f.name).join(', ');
+
       uploadLoading.classList.add('hidden');
       uploadLoading.style.display = 'none';
       previewContainer.classList.remove('hidden');
       previewContainer.style.display = 'flex';
       compressBtn.disabled = false;
-    };
-    reader.readAsDataURL(file);
 
-    const sizeTag    = document.getElementById('preview-size-tag')!;
-    const typeTag    = document.getElementById('preview-type-tag')!;
-    sizeTag.textContent = (file.size / 1024).toFixed(1) + ' KB';
-    typeTag.textContent = file.type.split('/')[1].toUpperCase();
+      const sizeTag    = document.getElementById('preview-size-tag')!;
+      const typeTag    = document.getElementById('preview-type-tag')!;
+      const totalSize = selectedFiles.reduce((acc, f) => acc + f.size, 0);
+      sizeTag.textContent = (totalSize / 1024 / 1024).toFixed(2) + ' MB total';
+      typeTag.textContent = 'MIXED';
+    }
+
     fileInfoBar.classList.remove('hidden');
     fileInfoBar.style.display = 'flex';
-
-    // hide previous results
     statusPanel.classList.add('hidden');
   }
 
   /* ── Compress ── */
   compressBtn.addEventListener('click', async () => {
-    if (!selectedFile) return;
+    if (selectedFiles.length === 0) return;
     
     let targetValue = parseFloat(targetInput.value);
     const unit = unitSelect.value;
     
     if (isNaN(targetValue) || targetValue <= 0) return;
-
-    // Convert to KB for the engine
     const targetKB = unit === 'mb' ? targetValue * 1024 : targetValue;
 
     if (targetKB < 5) {
@@ -567,12 +623,6 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
 
     try {
       const startTime = performance.now();
-      const result = await compressToTarget(selectedFile, targetKB);
-      const endTime = performance.now();
-      const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
-      const url    = URL.createObjectURL(result.blob);
-
-      // Terminal animation — ~1 second, runs AFTER real compression is done
       const progressBar  = document.getElementById('progress-bar') as HTMLDivElement;
       const termLines    = document.getElementById('terminal-lines') as HTMLDivElement;
       const termCursor   = document.getElementById('terminal-cursor') as HTMLSpanElement;
@@ -581,82 +631,208 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
       termCursor.style.display = 'inline';
       progressBar.style.width = '0%';
 
-      const finalKB  = (result.blob.size / 1024).toFixed(1);
-      const isEnhanceMode = result.blob.size > selectedFile!.size;
-      const savedPct = Math.abs(Math.round((1 - result.blob.size / selectedFile!.size) * 100));
-      const savedLabel = isEnhanceMode ? `grew ${savedPct}%` : `saved ${savedPct}%`;
-      const inputKB  = (selectedFile!.size / 1024).toFixed(1);
-      const fmt      = selectedFile!.type.split('/')[1].toUpperCase();
+      if (selectedFiles.length === 1) {
+        // --- SINGLE FILE LOGIC ---
+        const selectedFile = selectedFiles[0];
+        const result = await compressToTarget(selectedFile, targetKB);
+        const endTime = performance.now();
+        const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
+        const url    = URL.createObjectURL(result.blob);
 
-      const lines = [
-        { text: `$ imgshrink --target ${targetKB}kb --mode target-lock`, color: '#c8f135',              delay: 0   },
-        { text: `  reading input   ·  ${inputKB}kb  ·  ${fmt}`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
-        { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
-        { text: `  quality lock    ·  q=${Math.round((result.quality ?? 0.72) * 100)}  ·  chroma 4:2:0`, color: 'rgba(255,255,255,0.38)', delay: 510 },
-        { text: `  output          ·  ${finalKB}kb  ·  ${savedLabel}`, color: 'rgba(255,255,255,0.38)', delay: 680 },
-        { text: `✓ done`,                                                  color: '#c8f135',              delay: 860 },
-      ];
+        const finalKB  = (result.blob.size / 1024).toFixed(1);
+        const isEnhanceMode = result.blob.size > selectedFile.size;
+        const savedPct = Math.abs(Math.round((1 - result.blob.size / selectedFile.size) * 100));
+        const savedLabel = isEnhanceMode ? `grew ${savedPct}%` : `saved ${savedPct}%`;
+        const inputKB  = (selectedFile.size / 1024).toFixed(1);
+        const fmt      = selectedFile.type.split('/')[1].toUpperCase();
 
-      for (let i = 0; i < lines.length; i++) {
-        const prev = i > 0 ? lines[i - 1].delay : 0;
-        await new Promise(r => setTimeout(r, i === 0 ? 0 : lines[i].delay - prev));
-        const el = document.createElement('div');
-        el.style.cssText = `font-size:0.75rem;color:${lines[i].color};letter-spacing:0.02em;opacity:0;transition:opacity 0.15s ease;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        el.textContent = lines[i].text;
-        termLines.appendChild(el);
-        requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = '1'; }));
-        progressBar.style.width = `${Math.round((i + 1) / lines.length * 100)}%`;
-      }
+        const lines = [
+          { text: `$ imgshrink --target ${targetKB}kb --mode target-lock`, color: '#c8f135',              delay: 0   },
+          { text: `  reading input   ·  ${inputKB}kb  ·  ${fmt}`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
+          { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
+          { text: `  quality lock    ·  q=${Math.round((result.quality ?? 0.72) * 100)}  ·  chroma 4:2:0`, color: 'rgba(255,255,255,0.38)', delay: 510 },
+          { text: `  output          ·  ${finalKB}kb  ·  ${savedLabel}`, color: 'rgba(255,255,255,0.38)', delay: 680 },
+          { text: `✓ done`,                                                  color: '#c8f135',              delay: 860 },
+        ];
 
-      await new Promise(r => setTimeout(r, 180));
-      termCursor.style.display = 'none';
-      progressBar.style.width = '100%';
+        for (let i = 0; i < lines.length; i++) {
+          const prev = i > 0 ? lines[i - 1].delay : 0;
+          await new Promise(r => setTimeout(r, i === 0 ? 0 : lines[i].delay - prev));
+          const el = document.createElement('div');
+          el.style.cssText = `font-size:0.75rem;color:${lines[i].color};letter-spacing:0.02em;opacity:0;transition:opacity 0.15s ease;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+          el.textContent = lines[i].text;
+          termLines.appendChild(el);
+          requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = '1'; }));
+          progressBar.style.width = `${Math.round((i + 1) / lines.length * 100)}%`;
+        }
 
-      previewImg.src      = url;
-      downloadLink.href   = url;
-      
-      const cleanOriginalName = selectedFile.name.split('.')[0].replace(/\s+/g, '_');
-      const defaultName = `imgshrink_${targetKB}kb_${cleanOriginalName}`;
-      renameInput.value = defaultName;
-      downloadLink.download = `${defaultName}.jpg`;
+        await new Promise(r => setTimeout(r, 180));
+        termCursor.style.display = 'none';
+        progressBar.style.width = '100%';
 
-      // Update download name in real-time as user types
-      renameInput.oninput = () => {
-        const customName = renameInput.value.trim() || defaultName;
-        downloadLink.download = `${customName}.jpg`;
-      };
+        previewImg.style.display = 'block';
+        previewImg.src      = url;
+        
+        let bulkResultText = document.getElementById('bulk-result-text');
+        if (bulkResultText) bulkResultText.style.display = 'none';
 
-      const resKB    = result.size / 1024;
-      const origKB   = selectedFile.size / 1024;
-      const isUpsized = result.size > selectedFile.size;
+        downloadLink.href   = url;
+        
+        const cleanOriginalName = selectedFile.name.split('.')[0].replace(/\s+/g, '_');
+        const defaultName = `imgshrink_${targetKB}kb_${cleanOriginalName}`;
+        renameInput.value = defaultName;
+        downloadLink.download = `${defaultName}.jpg`;
 
-      document.getElementById('result-size')!.textContent     = resKB.toFixed(1) + ' KB';
-      
-      const savingsEl = document.getElementById('savings-percent')!;
-      const savingsLabel = savingsEl.previousElementSibling as HTMLElement;
-      
-      if (isUpsized) {
-        const growth = ((resKB / origKB - 1) * 100).toFixed(0);
-        savingsEl.textContent = `+${growth}%`;
-        savingsLabel.textContent = 'Growth';
+        renameInput.oninput = () => {
+          const customName = renameInput.value.trim() || defaultName;
+          downloadLink.download = `${customName}.jpg`;
+        };
+
+        const resKB    = result.size / 1024;
+        const origKB   = selectedFile.size / 1024;
+        const isUpsized = result.size > selectedFile.size;
+
+        document.getElementById('result-size')!.textContent     = resKB.toFixed(1) + ' KB';
+        
+        const savingsEl = document.getElementById('savings-percent')!;
+        const savingsLabel = savingsEl.previousElementSibling as HTMLElement;
+        
+        if (isUpsized) {
+          const growth = ((resKB / origKB - 1) * 100).toFixed(0);
+          savingsEl.textContent = `+${growth}%`;
+          savingsLabel.textContent = 'Growth';
+        } else {
+          const savings  = ((origKB - resKB) / origKB * 100).toFixed(0);
+          savingsEl.textContent = savings + '%';
+          savingsLabel.textContent = 'Savings';
+        }
+
+        document.getElementById('quality-tag')!.textContent     = Math.round(result.quality * 100) + '%';
+        document.getElementById('processing-time')!.textContent = timeInSeconds;
+        
+        document.getElementById('algo-log')!.textContent        = isUpsized
+          ? `Enhancement mode: Upscaled to ${result.scale?.toFixed(2)}x for target size.`
+          : `Smart Scaling: Adjusted to ${Math.round(result.scale * 100)}% dimensions at ${Math.round(result.quality * 100)}% quality.`;
+
+        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Download JPEG`;
+        downloadLink.classList.remove('animate-jump');
       } else {
-        const savings  = ((origKB - resKB) / origKB * 100).toFixed(0);
-        savingsEl.textContent = savings + '%';
-        savingsLabel.textContent = 'Savings';
-      }
+        // --- BULK FILE LOGIC ---
+        const el = document.createElement('div');
+        el.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+        el.textContent = `$ imgshrink --batch ${selectedFiles.length} --target ${targetKB}kb`;
+        termLines.appendChild(el);
 
-      document.getElementById('quality-tag')!.textContent     = Math.round(result.quality * 100) + '%';
-      document.getElementById('processing-time')!.textContent = timeInSeconds;
-      
-      document.getElementById('algo-log')!.textContent        = isUpsized
-        ? `Enhancement mode: Upscaled to ${result.scale?.toFixed(2)}x for target size.`
-        : `Smart Scaling: Adjusted to ${Math.round(result.scale * 100)}% dimensions at ${Math.round(result.quality * 100)}% quality.`;
+        const zip = new JSZip();
+        let totalProcessed = 0;
+        let totalOrigSize = 0;
+        let totalResSize = 0;
+        
+        for (let i = 0; i < selectedFiles.length; i += 4) {
+          const batch = selectedFiles.slice(i, i + 4);
+          const batchPromises = batch.map(async (file) => {
+             const result = await compressToTarget(file, targetKB);
+             const cleanOriginalName = file.name.split('.')[0].replace(/\s+/g, '_');
+             const filename = `imgshrink_${targetKB}kb_${cleanOriginalName}.jpg`;
+             zip.file(filename, result.blob);
+             totalOrigSize += file.size;
+             totalResSize += result.size;
+             return result;
+          });
+          
+          await Promise.all(batchPromises);
+          
+          totalProcessed += batch.length;
+          progressBar.style.width = `${Math.round((totalProcessed / selectedFiles.length) * 80)}%`;
+          
+          const msgEl = document.createElement('div');
+          msgEl.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+          msgEl.textContent = `  processed ${totalProcessed}/${selectedFiles.length} images...`;
+          termLines.appendChild(msgEl);
+          termLines.scrollTop = termLines.scrollHeight;
+        }
+        
+        const msgElZipping = document.createElement('div');
+        msgElZipping.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+        msgElZipping.textContent = `  compressing into zip archive...`;
+        termLines.appendChild(msgElZipping);
+        termLines.scrollTop = termLines.scrollHeight;
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        progressBar.style.width = '100%';
+        
+        const doneEl = document.createElement('div');
+        doneEl.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
+        doneEl.textContent = `✓ done`;
+        termLines.appendChild(doneEl);
+        
+        await new Promise(r => setTimeout(r, 180));
+        termCursor.style.display = 'none';
+
+        const url = URL.createObjectURL(zipBlob);
+        
+        previewImg.style.display = 'none';
+        let bulkResultText = document.getElementById('bulk-result-text');
+        if (!bulkResultText) {
+          bulkResultText = document.createElement('div');
+          bulkResultText.id = 'bulk-result-text';
+          bulkResultText.style.cssText = 'font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); text-align: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;';
+          previewImg.parentElement!.appendChild(bulkResultText);
+        }
+        bulkResultText.style.display = 'flex';
+        bulkResultText.textContent = `${selectedFiles.length} files zipped`;
+
+        downloadLink.href = url;
+        
+        const defaultZipName = `imgshrink_batch_${targetKB}kb`;
+        renameInput.value = defaultZipName;
+        downloadLink.download = `${defaultZipName}.zip`;
+
+        renameInput.oninput = () => {
+          const customName = renameInput.value.trim() || defaultZipName;
+          downloadLink.download = `${customName}.zip`;
+        };
+        
+        const endTime = performance.now();
+        const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
+        
+        const resMB    = totalResSize / 1024 / 1024;
+        const origKB   = totalOrigSize / 1024;
+        const resKB    = totalResSize / 1024;
+        const isUpsized = totalResSize > totalOrigSize;
+
+        document.getElementById('result-size')!.textContent     = resMB.toFixed(2) + ' MB';
+        
+        const savingsEl = document.getElementById('savings-percent')!;
+        const savingsLabel = savingsEl.previousElementSibling as HTMLElement;
+        
+        if (isUpsized) {
+          const growth = ((resKB / origKB - 1) * 100).toFixed(0);
+          savingsEl.textContent = `+${growth}%`;
+          savingsLabel.textContent = 'Growth';
+        } else {
+          const savings  = ((origKB - resKB) / origKB * 100).toFixed(0);
+          savingsEl.textContent = savings + '%';
+          savingsLabel.textContent = 'Savings';
+        }
+
+        document.getElementById('quality-tag')!.textContent     = 'MIXED';
+        document.getElementById('processing-time')!.textContent = timeInSeconds;
+        
+        document.getElementById('algo-log')!.textContent        = `Batch processing completed for ${selectedFiles.length} files.`;
+
+        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Download ZIP`;
+        
+        // Add jump animation
+        downloadLink.classList.remove('animate-jump');
+        void downloadLink.offsetWidth;
+        downloadLink.classList.add('animate-jump');
+      }
 
       processing.classList.add('hidden');
       resultView.classList.remove('hidden');
       resultView.style.display = 'flex';
 
-      // Add glow and focus
       downloadLink.classList.add('btn-glow');
       downloadLink.focus();
 
@@ -671,9 +847,14 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
 
   /* ── Reset ── */
   resetBtn.addEventListener('click', () => {
-    selectedFile = null;
+    selectedFiles = [];
     compressBtn.disabled = true;
     uploadPreview.src = '';
+    
+    let bulkText = document.getElementById('bulk-preview-text');
+    if(bulkText) bulkText.style.display = 'none';
+    uploadPreview.style.display = 'block';
+
     uploadPlaceholder.classList.remove('hidden');
     previewContainer.classList.add('hidden');
     previewContainer.style.display = 'none';
@@ -682,8 +863,8 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
     statusPanel.classList.add('hidden');
     fileInput.value = '';
     
-    // Remove glow
     downloadLink.classList.remove('btn-glow');
+    downloadLink.classList.remove('animate-jump');
   });
 </script>
 
@@ -695,5 +876,12 @@ const { defaultKB = 20, hideHeader = false } = Astro.props;
   .terminal-cursor {
     color: var(--color-lime);
     animation: blink 1s step-end infinite;
+  }
+  @keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-jump {
+    animation: jump 0.4s ease-out 2;
   }
 </style>
