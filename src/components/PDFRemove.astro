@@ -1,0 +1,247 @@
+---
+---
+
+<div id="pdf-rem-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="pdf-rem-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="pdf-rem-file-input" style="display: none;" accept="application/pdf" />
+      
+      <div id="pdf-rem-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Select PDF File</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to remove pages</p>
+        </div>
+        <button onclick="document.getElementById('pdf-rem-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="pdf-rem-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: center; padding: 16px;">
+          <strong id="pdf-rem-filename" style="display: block; margin-bottom: 8px;"></strong>
+          <span id="pdf-rem-pagecount" style="color: var(--color-ink-2);"></span>
+        </div>
+        <button id="pdf-rem-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <label for="pdf-rem-ranges" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: left;">Pages to Remove (e.g. 1-3, 5, 8-10)</label>
+      <input type="text" id="pdf-rem-ranges" placeholder="e.g. 12, 14-16" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: left; padding-left: 16px;" disabled />
+    </div>
+
+    <button id="pdf-rem-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Remove PDF Pages
+    </button>
+  </div>
+
+  <div id="pdf-rem-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="pdf-rem-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="pdf-rem-status-text">Processing...</div>
+      </div>
+
+      <div id="pdf-rem-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Removal Complete!</h2>
+        <a id="pdf-rem-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download PDF
+        </a>
+        <button id="pdf-rem-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Remove pages from another PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { PDFDocument } from 'pdf-lib';
+
+  const root = document.getElementById('pdf-rem-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('pdf-rem-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('pdf-rem-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('pdf-rem-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('pdf-rem-preview-container') as HTMLDivElement;
+    const fileNameText = document.getElementById('pdf-rem-filename') as HTMLSpanElement;
+    const pageCountText = document.getElementById('pdf-rem-pagecount') as HTMLSpanElement;
+    const changeBtn = document.getElementById('pdf-rem-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('pdf-rem-convert-btn') as HTMLButtonElement;
+    const rangesInput = document.getElementById('pdf-rem-ranges') as HTMLInputElement;
+    
+    const statusPanel = document.getElementById('pdf-rem-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('pdf-rem-processing') as HTMLDivElement;
+    const statusText = document.getElementById('pdf-rem-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('pdf-rem-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('pdf-rem-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('pdf-rem-reset-btn') as HTMLButtonElement;
+
+    let selectedFile: File | null = null;
+    let sourcePdfDoc: PDFDocument | null = null;
+    let totalPages = 0;
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-rem-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    async function handleFile(file: File) {
+      if (file.type !== 'application/pdf') {
+        alert("Please select a valid PDF file.");
+        return;
+      }
+      
+      selectedFile = file;
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      fileNameText.textContent = file.name;
+      pageCountText.textContent = "Loading pages...";
+      rangesInput.disabled = true;
+      convertBtn.disabled = true;
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        sourcePdfDoc = await PDFDocument.load(arrayBuffer);
+        totalPages = sourcePdfDoc.getPageCount();
+        pageCountText.textContent = `${totalPages} pages total`;
+        rangesInput.disabled = false;
+        convertBtn.disabled = false;
+        
+        // Let the user type the pages. Don't prefill.
+        rangesInput.value = "";
+      } catch (err) {
+        console.error(err);
+        alert("Failed to read PDF. It might be corrupted or encrypted.");
+        resetUI();
+      }
+      
+      statusPanel.classList.add('hidden');
+    }
+
+    function parseRanges(rangeStr: string, maxPages: number): number[] {
+      const pages = new Set<number>();
+      const parts = rangeStr.split(',');
+      for (let part of parts) {
+        part = part.trim();
+        if (!part) continue;
+        if (part.includes('-')) {
+          const [startStr, endStr] = part.split('-');
+          const start = parseInt(startStr);
+          const end = parseInt(endStr);
+          if (!isNaN(start) && !isNaN(end) && start > 0 && end >= start) {
+            for (let i = start; i <= end; i++) {
+              if (i <= maxPages) pages.add(i - 1); // 0-indexed for pdf-lib
+            }
+          }
+        } else {
+          const page = parseInt(part);
+          if (!isNaN(page) && page > 0 && page <= maxPages) {
+            pages.add(page - 1);
+          }
+        }
+      }
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (!selectedFile || !sourcePdfDoc) return;
+      
+      const indicesToRemove = parseRanges(rangesInput.value, totalPages);
+      if (indicesToRemove.length === 0) {
+        alert("Please enter a valid page range (e.g. 1-3, 5).");
+        return;
+      }
+      
+      const indicesToKeep = [];
+      for (let i = 0; i < totalPages; i++) {
+        if (!indicesToRemove.includes(i)) {
+          indicesToKeep.push(i);
+        }
+      }
+      
+      if (indicesToKeep.length === 0) {
+        alert("You cannot remove all pages from the PDF.");
+        return;
+      }
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      rangesInput.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        statusText.textContent = `Removing ${indicesToRemove.length} pages...`;
+        
+        const newPdf = await PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(sourcePdfDoc, indicesToKeep);
+        for (const page of copiedPages) {
+          newPdf.addPage(page);
+        }
+
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        
+        downloadLink.href = url;
+        const cleanName = selectedFile.name.split('.')[0];
+        downloadLink.download = `${cleanName}_removed.pdf`;
+        
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Extraction failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+        rangesInput.disabled = false;
+      }
+    });
+
+    function resetUI() {
+      selectedFile = null;
+      sourcePdfDoc = null;
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      rangesInput.disabled = true;
+      rangesInput.value = '';
+      fileInput.value = '';
+    }
+
+    resetBtn.addEventListener('click', resetUI);
+  }
+</script>
