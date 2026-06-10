@@ -1,17 +1,31 @@
 ---
 interface Props {
-  toolName: 'convert-heic';
+  toolName: 'convert-heic' | 'convert-heic-to-png' | 'convert-heic-to-pdf';
 }
 
 const { toolName } = Astro.props;
 
+let targetFormat = 'JPG';
+let title = 'Convert HEIC to JPG Online Free';
+let descFormat = 'JPG';
+
+if (toolName === 'convert-heic-to-png') {
+  targetFormat = 'PNG';
+  title = 'Convert HEIC to PNG Online Free';
+  descFormat = 'PNG';
+} else if (toolName === 'convert-heic-to-pdf') {
+  targetFormat = 'PDF';
+  title = 'Convert HEIC to PDF Online Free';
+  descFormat = 'PDF';
+}
+
 const content = {
-  title: 'Convert HEIC to JPG Online Free',
-  desc: 'Change Apple iPhone HEIC/HEIF photos to universally compatible JPG format. 100% free and processed securely on your local device.',
-  h2: 'Convert iPhone HEIC Photos to JPG Securely',
-  p1: 'Apple iPhones save high-quality photos in the HEIC format to save storage space. However, many government portals, job applications, and older software do not accept HEIC files. Our offline converter instantly changes your HEIC photos to standard JPG format without forcing you to upload your personal pictures to a cloud server.',
+  title: title,
+  desc: `Change Apple iPhone HEIC/HEIF photos to universally compatible ${descFormat} format. 100% free and processed securely on your local device.`,
+  h2: `Convert iPhone HEIC Photos to ${targetFormat} Securely`,
+  p1: `Apple iPhones save high-quality photos in the HEIC format to save storage space. However, many government portals, job applications, and older software do not accept HEIC files. Our offline converter instantly changes your HEIC photos to standard ${targetFormat} format without forcing you to upload your personal pictures to a cloud server.`,
   faq1: { q: 'Are my personal photos uploaded anywhere?', a: 'No. Our converter runs completely in your web browser using WebAssembly. Your photos never leave your device.' },
-  faq2: { q: 'Will the conversion lose quality?', a: 'We use high-quality rendering algorithms to ensure the resulting JPG looks exactly like your original HEIC photo.' }
+  faq2: { q: 'Will the conversion lose quality?', a: `We use high-quality rendering algorithms to ensure the resulting ${targetFormat} looks exactly like your original HEIC photo.` }
 };
 
 const jsonLd = {
@@ -76,8 +90,8 @@ const relatedTools = [
           <li>
             <div class="seo-step-num">03</div>
             <div>
-              <h4 class="seo-step-title">Instant JPG Download</h4>
-              <p class="seo-p-small">The pixels are immediately compiled into a fresh JPG and downloaded back to your hard drive.</p>
+              <h4 class="seo-step-title">Instant {targetFormat} Download</h4>
+              <p class="seo-p-small">The pixels are immediately compiled into a fresh {targetFormat} and downloaded back to your hard drive.</p>
             </div>
           </li>
         </ol>
