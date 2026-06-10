@@ -31,6 +31,13 @@ const compressionTools = [
   { name: 'Compress to 500KB', short: '500 KB', href: '/compress-image-to-500kb', desc: 'Preserve extreme detail for archive integrity.', accent: 'var(--color-cyan)' },
   { name: 'Compress to 1MB', short: '1 MB', href: '/compress-image-to-1mb', desc: 'Professional document and photograph optimization.', accent: 'var(--color-cyan)' },
 ];
+
+const pdfTools = [
+  { name: 'Add Images to PDF', short: 'Images to PDF', href: '/add-images-to-pdf', desc: 'Convert and merge JPG/PNG into a single PDF.', accent: '#f43f5e' },
+  { name: 'Separate PDF Pages', short: 'Split PDF', href: '/separate-pdf-pages', desc: 'Extract specific pages from a PDF offline.', accent: '#f43f5e' },
+  { name: 'Merge Multiple PDFs', short: 'Merge PDFs', href: '/merge-multiple-pdf-into-one', desc: 'Combine multiple PDF files into one instantly.', accent: '#f43f5e' },
+  { name: 'Extract PDF Images', short: 'PDF to JPG', href: '/extract-images-from-pdf', desc: 'Convert PDF pages into high-res images.', accent: '#f43f5e' },
+];
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC}>
@@ -98,6 +105,29 @@ const compressionTools = [
       <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Target-Lock Compressors</h2>
       <div class="tools-grid" style="margin: 0;">
         {compressionTools.map(tool => (
+          <a 
+            href={tool.href}
+            class="panel tool-card"
+            style={`--tool-accent: ${tool.accent};`}
+          >
+            <div class="tool-card-header">
+               <h3 class="tool-card-title">
+                 <span class="hide-mobile">{tool.name}</span>
+                 <span class="show-mobile-only">{tool.short}</span>
+               </h3>
+               <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <p class="tool-card-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- PDF Tools Grid -->
+    <div style="max-width: 1000px; margin: 64px auto 0;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Zero-Server PDF Suite</h2>
+      <div class="tools-grid" style="margin: 0;">
+        {pdfTools.map(tool => (
           <a 
             href={tool.href}
             class="panel tool-card"

@@ -15,7 +15,8 @@
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.4",
     "jspdf": "^4.2.1",
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",

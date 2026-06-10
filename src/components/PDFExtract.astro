@@ -1,0 +1,272 @@
+---
+---
+
+<div id="pdf-ext-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="pdf-ext-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="pdf-ext-file-input" style="display: none;" accept="application/pdf" />
+      
+      <div id="pdf-ext-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Select PDF File</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to extract pages as images</p>
+        </div>
+        <button onclick="document.getElementById('pdf-ext-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="pdf-ext-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: center; padding: 16px;">
+          <strong id="pdf-ext-filename" style="display: block; margin-bottom: 8px;"></strong>
+          <span id="pdf-ext-pagecount" style="color: var(--color-ink-2);"></span>
+        </div>
+        <button id="pdf-ext-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 120px;">
+        <label for="pdf-ext-format" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Format</label>
+        <select id="pdf-ext-format" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: center; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+          <option value="image/jpeg" selected>JPG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp">WEBP</option>
+        </select>
+      </div>
+      <div style="flex: 1; min-width: 120px;">
+        <label for="pdf-ext-quality" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Quality</label>
+        <select id="pdf-ext-quality" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: center; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+          <option value="1.5">Standard (1.5x)</option>
+          <option value="2.0" selected>High (2.0x)</option>
+          <option value="3.0">Ultra High (3.0x)</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="pdf-ext-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Extract Images
+    </button>
+  </div>
+
+  <div id="pdf-ext-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="pdf-ext-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="pdf-ext-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="pdf-ext-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="pdf-ext-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Extraction Complete!</h2>
+        <a id="pdf-ext-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download Images (ZIP)
+        </a>
+        <button id="pdf-ext-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Extract from another PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+  import JSZip from 'jszip';
+
+  const root = document.getElementById('pdf-ext-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('pdf-ext-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('pdf-ext-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('pdf-ext-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('pdf-ext-preview-container') as HTMLDivElement;
+    const fileNameText = document.getElementById('pdf-ext-filename') as HTMLSpanElement;
+    const pageCountText = document.getElementById('pdf-ext-pagecount') as HTMLSpanElement;
+    const changeBtn = document.getElementById('pdf-ext-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('pdf-ext-convert-btn') as HTMLButtonElement;
+    const formatInput = document.getElementById('pdf-ext-format') as HTMLSelectElement;
+    const qualityInput = document.getElementById('pdf-ext-quality') as HTMLSelectElement;
+    
+    const statusPanel = document.getElementById('pdf-ext-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('pdf-ext-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('pdf-ext-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('pdf-ext-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('pdf-ext-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('pdf-ext-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('pdf-ext-reset-btn') as HTMLButtonElement;
+
+    let selectedFile: File | null = null;
+    let totalPages = 0;
+
+    // Initialize pdf.js worker
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-ext-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    async function handleFile(file: File) {
+      if (file.type !== 'application/pdf') {
+        alert("Please select a valid PDF file.");
+        return;
+      }
+      
+      if (!window.pdfjsLib) {
+        alert("PDF.js library failed to load. Please check your internet connection.");
+        return;
+      }
+
+      selectedFile = file;
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      fileNameText.textContent = file.name;
+      pageCountText.textContent = "Loading pages...";
+      convertBtn.disabled = true;
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = window.pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        
+        totalPages = pdf.numPages;
+        pageCountText.textContent = `${totalPages} pages total`;
+        convertBtn.disabled = false;
+      } catch (err) {
+        console.error(err);
+        alert("Failed to read PDF. It might be corrupted or encrypted.");
+        resetUI();
+      }
+      
+      statusPanel.classList.add('hidden');
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (!selectedFile || !window.pdfjsLib) return;
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        const format = formatInput.value;
+        const ext = format.split('/')[1] === 'jpeg' ? 'jpg' : format.split('/')[1];
+        const scale = parseFloat(qualityInput.value);
+        
+        const arrayBuffer = await selectedFile.arrayBuffer();
+        const loadingTask = window.pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        
+        const zip = new JSZip();
+        const cleanName = selectedFile.name.split('.')[0];
+        
+        for (let i = 1; i <= totalPages; i++) {
+          statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
+          progressBar.style.width = `${Math.round(((i - 1) / totalPages) * 100)}%`;
+          
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale });
+          
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          
+          if (!context) throw new Error("Could not create canvas context");
+          
+          const renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          
+          await page.render(renderContext).promise;
+          
+          const blob = await new Promise<Blob>((resolve, reject) => {
+            canvas.toBlob((b) => {
+              if (b) resolve(b);
+              else reject(new Error("Canvas toBlob failed"));
+            }, format, 0.92);
+          });
+          
+          const pageStr = i.toString().padStart(3, '0');
+          zip.file(`${cleanName}_page_${pageStr}.${ext}`, blob);
+        }
+
+        statusText.textContent = 'Creating ZIP file...';
+        progressBar.style.width = '100%';
+        
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(zipBlob);
+        
+        downloadLink.href = url;
+        downloadLink.download = `${cleanName}_images.zip`;
+        
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Extraction failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    function resetUI() {
+      selectedFile = null;
+      totalPages = 0;
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    }
+
+    resetBtn.addEventListener('click', resetUI);
+  }
+</script>
+
+<script>
+  // Add typescript declarations for pdfjsLib in window to avoid TS errors
+  declare global {
+    interface Window {
+      pdfjsLib: any;
+    }
+  }
+</script>

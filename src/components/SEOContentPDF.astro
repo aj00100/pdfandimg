@@ -1,83 +1,189 @@
 ---
-// src/components/SEOContentPDF.astro
 interface Props {
-  sourceFormat: 'JPG' | 'PNG' | 'WEBP' | 'Image';
+  toolName: 'add-images' | 'separate' | 'merge' | 'extract';
 }
-const { sourceFormat } = Astro.props;
+
+const { toolName } = Astro.props;
+
+// Tool specific content map
+const contentMap = {
+  'add-images': {
+    title: 'Add Images to PDF Online Free',
+    desc: 'Insert multiple JPG, PNG, or WEBP images into a single PDF document. Secure, offline processing in your browser.',
+    h2: 'Add Images to PDF - Fast & Securely',
+    p1: 'Merging images into a PDF doesn\'t require uploading your photos to a sketchy online server. Our client-side application securely processes your images and builds a perfect PDF document directly in your browser.',
+    faq1: { q: 'Do you upload my images?', a: 'No. All processing happens locally on your device.' },
+    faq2: { q: 'Can I add multiple images at once?', a: 'Yes, you can select up to 50 images and they will be compiled into a multi-page PDF document.' }
+  },
+  'separate': {
+    title: 'Separate PDF Pages - Split PDF Documents Locally',
+    desc: 'Extract specific pages or separate a large PDF into individual documents without uploading files to the cloud.',
+    h2: 'How to Separate PDF Pages Securely',
+    p1: 'When dealing with sensitive contracts or private records, you shouldn\'t have to upload your files to the internet just to extract a single page. Our tool utilizes advanced WebAssembly to separate PDF pages completely offline inside your browser.',
+    faq1: { q: 'Is my PDF uploaded anywhere?', a: 'Never. The file stays on your computer the entire time.' },
+    faq2: { q: 'Can I select exact pages to separate?', a: 'Yes, our visual interface lets you pick exactly which pages you want to keep or discard.' }
+  },
+  'merge': {
+    title: 'Merge Multiple PDF into One - 100% Privacy',
+    desc: 'Combine multiple PDF files into a single document instantly without using a remote server.',
+    h2: 'Merge Multiple PDF Files into One',
+    p1: 'Need to join several PDF documents into a single file? Most online tools force you to upload your data. ImgShrink solves this by leveraging modern browser APIs to securely merge multiple PDFs into one document locally on your device.',
+    faq1: { q: 'How many PDFs can I merge?', a: 'You can merge up to 50 PDF files at once.' },
+    faq2: { q: 'Is this faster than desktop software?', a: 'Because it runs in your browser natively without upload/download delays, it is almost instantaneous.' }
+  },
+  'extract': {
+    title: 'Extract Images from PDF Documents',
+    desc: 'Save PDF pages as high-quality JPG or PNG images instantly. 100% client-side privacy.',
+    h2: 'Extract High-Quality Images from PDF',
+    p1: 'Convert your PDF documents into universally accessible image formats. Our rendering engine processes your PDF pages and outputs crisp, high-resolution images—perfect for sharing on social media or embedding in presentations.',
+    faq1: { q: 'Will the image quality drop?', a: 'We render the PDF at a high scale factor to ensure the resulting images are incredibly sharp and clear.' },
+    faq2: { q: 'Can I extract all pages at once?', a: 'Yes, you can extract every page from the PDF into a convenient ZIP folder.' }
+  }
+};
+
+const content = contentMap[toolName];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": content.faq1.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": content.faq1.a
+      }
+    },
+    {
+      "@type": "Question",
+      "name": content.faq2.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": content.faq2.a
+      }
+    }
+  ]
+};
+
+const relatedTools = [
+  { name: 'Compress Image', href: '/compress-image-to-20kb' },
+  { name: 'Add Images to PDF', href: '/add-images-to-pdf' },
+  { name: 'Separate PDF Pages', href: '/separate-pdf-pages' },
+  { name: 'Merge Multiple PDFs', href: '/merge-multiple-pdf-into-one' },
+  { name: 'Extract PDF Images', href: '/extract-images-from-pdf' }
+].filter(t => !Astro.url.pathname.includes(t.href));
 ---
 
-<section class="max-w-4xl mx-auto mt-16 px-4 md:px-8 prose prose-invert">
-  <h2>Convert {sourceFormat} to PDF Instantly and Securely</h2>
-  <p>
-    Converting a <strong>{sourceFormat} to PDF</strong> shouldn't require uploading your sensitive or personal images to a remote server. Our next-generation client-side tool allows you to convert {sourceFormat} files into high-quality PDF documents entirely within your own browser. This means your files never leave your device, guaranteeing 100% privacy and security while delivering lightning-fast results.
-  </p>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-  <h3>Why Convert {sourceFormat} to PDF?</h3>
-  <p>
-    The PDF (Portable Document Format) is the universal standard for sharing and archiving documents. While {sourceFormat} images are great for web viewing or photography, converting a <strong>{sourceFormat} to PDF</strong> offers several distinct advantages:
-  </p>
-  <ul>
-    <li><strong>Universal Compatibility:</strong> PDFs look exactly the same on any device, operating system, or printer, ensuring your visual content is displayed exactly as intended.</li>
-    <li><strong>Document Packaging:</strong> Unlike standalone image files, PDFs are meant for documentation. If you need to submit a photo of an ID, a scanned receipt, or a signed document, a PDF is the universally accepted format by businesses and government portals.</li>
-    <li><strong>Prevent Unwanted Edits:</strong> A PDF is harder to casually edit than a raw image file, providing a layer of permanence to your digital documents.</li>
-    <li><strong>Streamlined Printing:</strong> Printers are natively optimized for PDF files. Converting your {sourceFormat} to PDF ensures margins, scaling, and color profiles are handled properly by professional and home printers alike.</li>
-  </ul>
+<section class="seo-section">
+  <div class="seo-divider"></div>
+  <div class="seo-grid">
+    <div class="seo-main">
+      <div class="seo-intro">
+        <h2 class="seo-h2">{content.h2}</h2>
+        <p class="seo-p">{content.p1}</p>
+        <p class="seo-p">Traditional online tools require you to wait for long uploads, risking your privacy. Our Zero-Server architecture means you get instant results without ever compromising your data security.</p>
+      </div>
 
-  <h3>100% Local, Zero-Server Processing</h3>
-  <p>
-    Unlike traditional online converters that force you to upload your files to a cloud server, wait in a queue, and then download the result, our tool uses advanced HTML5 and WebAssembly APIs to process your images locally. 
-  </p>
-  <p>
-    When you select a {sourceFormat} file to convert, the entire conversion process happens using your device's own processing power. This revolutionary approach has three major benefits:
-  </p>
-  <ol>
-    <li><strong>Absolute Privacy:</strong> Since no data is transmitted over the internet, your private photos, legal documents, and personal scans remain completely confidential. No one else can ever see them.</li>
-    <li><strong>Blazing Speed:</strong> You don't have to wait for upload or download times. The conversion happens instantly, limited only by your own device's speed.</li>
-    <li><strong>No File Size Limits:</strong> Because we don't have to pay for server storage or bandwidth, we don't restrict how large your files can be. Convert massive, high-resolution {sourceFormat} files without hitting artificial paywalls or data caps.</li>
-  </ol>
+      <div class="seo-steps">
+        <h3 class="seo-h3">Zero-Server Workflow</h3>
+        <ol class="seo-list">
+          <li>
+            <div class="seo-step-num">01</div>
+            <div>
+              <h4 class="seo-step-title">Local Processing</h4>
+              <p class="seo-p-small">Your files are instantly read into your device's memory. No uploads means maximum privacy and unmatched speed.</p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">02</div>
+            <div>
+              <h4 class="seo-step-title">Client-Side Engine</h4>
+              <p class="seo-p-small">Our advanced WebAssembly and Canvas algorithms manipulate the PDF directly within your web browser.</p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">03</div>
+            <div>
+              <h4 class="seo-step-title">Instant Export</h4>
+              <p class="seo-p-small">The finished document is compiled and downloaded immediately. Your files never touch our servers.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
 
-  <h3>How to Convert {sourceFormat} to PDF</h3>
-  <p>
-    Using our tool is incredibly simple and requires no technical expertise:
-  </p>
-  <ul>
-    <li><strong>Step 1: Upload Your File:</strong> Drag and drop your {sourceFormat} image into the upload zone above, or click to browse your device's file system.</li>
-    <li><strong>Step 2: Adjust Settings (Optional):</strong> If you want to compress the file size before converting it to a PDF, enter a target size in KB or MB. You can also crop or resize the dimensions.</li>
-    <li><strong>Step 3: Select PDF Output:</strong> Ensure the "Output Format" dropdown is set to <strong>PDF</strong>.</li>
-    <li><strong>Step 4: Download:</strong> Click the "Optimize" or "Convert" button. Within milliseconds, your new PDF document will be ready to download and save.</li>
-  </ul>
+      <div class="seo-faq">
+        <h3 class="seo-h3">Frequently Asked Questions</h3>
+        <div class="faq-stack">
+          <div class="faq-item">
+            <h4 class="faq-q">{content.faq1.q}</h4>
+            <p class="faq-a">{content.faq1.a}</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">{content.faq2.q}</h4>
+            <p class="faq-a">{content.faq2.a}</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h3>Frequently Asked Questions</h3>
-  <div class="faq-container">
-    <h4>Does this tool reduce the quality of my {sourceFormat}?</h4>
-    <p>By default, we preserve the highest possible quality of your original image when embedding it into the PDF. If you choose to set a specific target KB size, the image will be intelligently compressed before being placed into the PDF document.</p>
+    <div class="seo-sidebar">
+      <div class="sidebar-box">
+        <h3 class="sidebar-title">Privacy Assured</h3>
+        <ul class="sidebar-list">
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>No Cloud Uploads</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Instant Processing</span>
+          </li>
+          <li>
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>No Registration</span>
+          </li>
+        </ul>
+      </div>
 
-    <h4>Can I convert multiple {sourceFormat} files at once?</h4>
-    <p>Yes! Our bulk processing feature allows you to select up to 50 {sourceFormat} files at a time. Each file will be converted into its own individual PDF document, and they will be conveniently packaged into a single ZIP file for you to download all at once.</p>
-
-    <h4>Is it really free and private?</h4>
-    <p>Absolutely. Because we utilize your browser to do the heavy lifting, we don't have expensive server bills to pay. This allows us to provide a premium, lightning-fast {sourceFormat} to PDF conversion tool completely free of charge, with a 100% guarantee that your files are never uploaded to the internet.</p>
+      <div class="sidebar-box" style="margin-top: 40px; border-color: var(--color-lime);">
+        <h3 class="sidebar-title" style="color: var(--color-ink);">PDF Suite Tools</h3>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+          {relatedTools.map(tool => (
+            <a href={tool.href} class="related-tag">{tool.name}</a>
+          ))}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- JSON-LD Structured Data for SEO -->
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": `Free ${sourceFormat} to PDF Converter`,
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "description": `Convert ${sourceFormat} images to PDF documents instantly and securely in your browser. No uploads, 100% private, and completely free.`,
-  "featureList": [
-    `${sourceFormat} to PDF conversion`,
-    "Client-side processing",
-    "Zero data uploads",
-    "Bulk PDF conversion",
-    "Target size compression"
-  ]
-})} />
+<style>
+  /* (Same styles as SEOContentResize.astro, condensed) */
+  .seo-section { max-width: 1000px; margin: 80px auto 0; padding: 0 24px; text-align: left; }
+  .seo-divider { height: 1px; background: linear-gradient(to right, transparent, var(--color-border), transparent); margin-bottom: 80px; }
+  .seo-grid { display: grid; grid-template-columns: 1fr; gap: 80px; }
+  @media (min-width: 900px) { .seo-grid { grid-template-columns: 1.8fr 1fr; } }
+  .seo-main { display: flex; flex-direction: column; gap: 64px; }
+  .seo-h2 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 32px; color: var(--color-ink); line-height: 1.1; }
+  .seo-h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; color: var(--color-ink); }
+  .seo-p { font-size: 1rem; color: var(--color-ink-2); line-height: 1.8; margin-bottom: 20px; }
+  .seo-p-small { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.6; }
+  .seo-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+  .seo-list li { display: flex; gap: 20px; }
+  .seo-step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-lime); font-weight: 700; }
+  .seo-step-title { font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+  .faq-stack { display: flex; flex-direction: column; gap: 40px; }
+  .faq-q { color: var(--color-ink); font-weight: 700; font-size: 1.125rem; margin-bottom: 12px; }
+  .faq-a { color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7; }
+  .sidebar-box { background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+  .sidebar-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-lime); margin-bottom: 24px; }
+  .sidebar-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+  .sidebar-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+  .check-icon { color: var(--color-lime); margin-top: 2px; }
+  .related-tag { display: block; padding: 8px; background: var(--color-surface-3); border: 1px solid var(--color-border); border-radius: 8px; font-size: 0.75rem; color: var(--color-ink-2); text-decoration: none; text-align: center; transition: all 0.2s ease; }
+  .related-tag:hover { border-color: var(--color-lime); color: var(--color-lime); transform: translateY(-2px); }
+  @media (max-width: 640px) { .seo-h2 { font-size: 1.75rem; } .seo-grid { gap: 48px; } .seo-main { gap: 48px; } }
+</style>

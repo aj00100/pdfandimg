@@ -1,0 +1,237 @@
+---
+---
+
+<div id="pdf-sep-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="pdf-sep-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="pdf-sep-file-input" style="display: none;" accept="application/pdf" />
+      
+      <div id="pdf-sep-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Select PDF File</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to separate pages</p>
+        </div>
+        <button onclick="document.getElementById('pdf-sep-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="pdf-sep-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: center; padding: 16px;">
+          <strong id="pdf-sep-filename" style="display: block; margin-bottom: 8px;"></strong>
+          <span id="pdf-sep-pagecount" style="color: var(--color-ink-2);"></span>
+        </div>
+        <button id="pdf-sep-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <label for="pdf-sep-ranges" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: left;">Pages to Extract (e.g. 1-3, 5, 8-10)</label>
+      <input type="text" id="pdf-sep-ranges" placeholder="e.g. 1, 3-5" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: left; padding-left: 16px;" disabled />
+    </div>
+
+    <button id="pdf-sep-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Separate PDF Pages
+    </button>
+  </div>
+
+  <div id="pdf-sep-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="pdf-sep-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="pdf-sep-status-text">Processing...</div>
+      </div>
+
+      <div id="pdf-sep-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Extraction Complete!</h2>
+        <a id="pdf-sep-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download PDF
+        </a>
+        <button id="pdf-sep-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Separate another PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { PDFDocument } from 'pdf-lib';
+
+  const root = document.getElementById('pdf-sep-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('pdf-sep-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('pdf-sep-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('pdf-sep-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('pdf-sep-preview-container') as HTMLDivElement;
+    const fileNameText = document.getElementById('pdf-sep-filename') as HTMLSpanElement;
+    const pageCountText = document.getElementById('pdf-sep-pagecount') as HTMLSpanElement;
+    const changeBtn = document.getElementById('pdf-sep-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('pdf-sep-convert-btn') as HTMLButtonElement;
+    const rangesInput = document.getElementById('pdf-sep-ranges') as HTMLInputElement;
+    
+    const statusPanel = document.getElementById('pdf-sep-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('pdf-sep-processing') as HTMLDivElement;
+    const statusText = document.getElementById('pdf-sep-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('pdf-sep-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('pdf-sep-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('pdf-sep-reset-btn') as HTMLButtonElement;
+
+    let selectedFile: File | null = null;
+    let sourcePdfDoc: PDFDocument | null = null;
+    let totalPages = 0;
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-sep-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    async function handleFile(file: File) {
+      if (file.type !== 'application/pdf') {
+        alert("Please select a valid PDF file.");
+        return;
+      }
+      
+      selectedFile = file;
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      fileNameText.textContent = file.name;
+      pageCountText.textContent = "Loading pages...";
+      rangesInput.disabled = true;
+      convertBtn.disabled = true;
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        sourcePdfDoc = await PDFDocument.load(arrayBuffer);
+        totalPages = sourcePdfDoc.getPageCount();
+        pageCountText.textContent = `${totalPages} pages total`;
+        rangesInput.disabled = false;
+        convertBtn.disabled = false;
+        
+        // Default to first page if not specified
+        if (!rangesInput.value) {
+           rangesInput.value = `1-${Math.min(3, totalPages)}`;
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Failed to read PDF. It might be corrupted or encrypted.");
+        resetUI();
+      }
+      
+      statusPanel.classList.add('hidden');
+    }
+
+    function parseRanges(rangeStr: string, maxPages: number): number[] {
+      const pages = new Set<number>();
+      const parts = rangeStr.split(',');
+      for (let part of parts) {
+        part = part.trim();
+        if (!part) continue;
+        if (part.includes('-')) {
+          const [startStr, endStr] = part.split('-');
+          const start = parseInt(startStr);
+          const end = parseInt(endStr);
+          if (!isNaN(start) && !isNaN(end) && start > 0 && end >= start) {
+            for (let i = start; i <= end; i++) {
+              if (i <= maxPages) pages.add(i - 1); // 0-indexed for pdf-lib
+            }
+          }
+        } else {
+          const page = parseInt(part);
+          if (!isNaN(page) && page > 0 && page <= maxPages) {
+            pages.add(page - 1);
+          }
+        }
+      }
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (!selectedFile || !sourcePdfDoc) return;
+      
+      const indicesToExtract = parseRanges(rangesInput.value, totalPages);
+      if (indicesToExtract.length === 0) {
+        alert("Please enter a valid page range (e.g. 1-3, 5).");
+        return;
+      }
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      rangesInput.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        statusText.textContent = `Extracting ${indicesToExtract.length} pages...`;
+        
+        const newPdf = await PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(sourcePdfDoc, indicesToExtract);
+        for (const page of copiedPages) {
+          newPdf.addPage(page);
+        }
+
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        
+        downloadLink.href = url;
+        const cleanName = selectedFile.name.split('.')[0];
+        downloadLink.download = `${cleanName}_extracted.pdf`;
+        
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Extraction failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+        rangesInput.disabled = false;
+      }
+    });
+
+    function resetUI() {
+      selectedFile = null;
+      sourcePdfDoc = null;
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      rangesInput.disabled = true;
+      rangesInput.value = '';
+      fileInput.value = '';
+    }
+
+    resetBtn.addEventListener('click', resetUI);
+  }
+</script>
