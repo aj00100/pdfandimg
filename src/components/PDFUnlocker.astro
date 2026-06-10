@@ -66,21 +66,67 @@
 </div>
 
 <script>
-  // We use dynamic import so it doesn't block the main page load
-  let qpdfModule: any = null;
+  // We use dynamic script tag because qpdf.js is an Emscripten module, not an ESM.
   let qpdfInstance: any = null;
 
   async function loadQPDF() {
-    if (!qpdfModule) {
-      // Import the ES module from jsDelivr
-      const mod = await import('https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.js');
-      qpdfModule = mod.default || mod;
-    }
-    if (!qpdfInstance) {
-      // The default export is usually a factory function in Emscripten
-      qpdfInstance = await qpdfModule();
-    }
-    return qpdfInstance;
+    if (qpdfInstance) return qpdfInstance;
+
+    return new Promise((resolve, reject) => {
+      if (document.getElementById('qpdf-wasm-script')) {
+        checkAndResolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'qpdf-wasm-script';
+      script.src = 'https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.js';
+      
+      script.onload = () => {
+        checkAndResolve();
+      };
+      
+      script.onerror = () => {
+        reject(new Error("Failed to load QPDF script"));
+      };
+      
+      document.body.appendChild(script);
+
+      function checkAndResolve() {
+        const globalModule = (window as any).Module;
+        if (typeof globalModule === 'function') {
+          globalModule({
+            locateFile: (path: string) => {
+              if (path.endsWith('.wasm')) {
+                return 'https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.wasm';
+              }
+              return path;
+            }
+          }).then((instance: any) => {
+            qpdfInstance = instance;
+            resolve(instance);
+          }).catch(reject);
+        } else {
+          // Sometimes it might take an event loop tick or it might export a different name
+          setTimeout(() => {
+            const retryModule = (window as any).Module;
+            if (typeof retryModule === 'function') {
+              retryModule({
+                locateFile: (path: string) => {
+                  if (path.endsWith('.wasm')) return 'https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.wasm';
+                  return path;
+                }
+              }).then((instance: any) => {
+                qpdfInstance = instance;
+                resolve(instance);
+              }).catch(reject);
+            } else {
+              reject(new Error("QPDF global Module function not found after script load"));
+            }
+          }, 100);
+        }
+      }
+    });
   }
 
   const root = document.getElementById('unlock-root');
