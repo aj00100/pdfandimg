@@ -473,9 +473,14 @@
       updateInputBoxVisibility();
     }
 
-    globalInput.addEventListener('change', () => {
-      const val = parseInt(globalInput.value);
-      moveImageToGrid(val);
+    globalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const val = parseInt(globalInput.value);
+        if (!isNaN(val) && val >= 0) {
+          moveImageToGrid(val);
+        }
+      }
     });
 
     function addCardToDOM(type: 'pdf' | 'image', idOrIndex: any, thumbUrl: string | null, title: string, container: HTMLElement) {

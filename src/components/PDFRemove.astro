@@ -23,7 +23,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
       <div>
         <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0;">Remove PDF Pages</h3>
-        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin: 4px 0 0;">Click the trash icon to delete a page. Drag to reorder if needed.</p>
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin: 4px 0 0;">Click the ✕ icon to remove a page.</p>
       </div>
       <div style="display: flex; gap: 8px;">
         <button id="pdf-rem-undo-btn" class="btn-ghost" type="button" style="font-size: 0.75rem; display: none;">
@@ -84,16 +84,12 @@
     background: var(--color-surface-1);
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    cursor: grab;
     user-select: none;
     transition: all 0.2s ease;
     overflow: hidden;
     padding-bottom: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     min-width: 0;
-  }
-  .sortable-item:active {
-    cursor: grabbing;
   }
   .sortable-item.dragging {
     opacity: 0.5;
@@ -211,36 +207,6 @@
       const files = e.target.files;
       if (files && files.length > 0) handlePdfFile(files[0]);
     });
-
-    async function initSortable() {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) return; // Disable drag and drop on mobile
-      
-      // @ts-ignore
-      if (!window.Sortable) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js';
-          // @ts-ignore
-          script.onload = () => resolve(window.Sortable);
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-      
-      // @ts-ignore
-      const Sortable = window.Sortable;
-      
-      Sortable.create(sortableList, {
-        animation: 150,
-        ghostClass: 'dragging',
-        delay: 50,
-        delayOnTouchOnly: true,
-        touchStartThreshold: 3
-      });
-    }
-
-    initSortable();
 
     async function loadPdfJs() {
       // @ts-ignore
