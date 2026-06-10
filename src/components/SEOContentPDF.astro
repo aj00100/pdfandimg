@@ -1,6 +1,6 @@
 ---
 interface Props {
-  toolName: 'add-images' | 'separate' | 'merge' | 'extract' | 'compress';
+  toolName: 'add-images' | 'separate' | 'merge' | 'extract' | 'compress' | 'remove';
 }
 
 const { toolName } = Astro.props;
@@ -46,6 +46,14 @@ const contentMap = {
     p1: 'Portals often have strict limits like "max 100KB." Our unique PDF compressor uses a target-lock algorithm to automatically adjust quality until your PDF hits the exact size you need, completely offline.',
     faq1: { q: 'Is my PDF uploaded to a server?', a: 'No. All processing happens 100% securely on your local device.' },
     faq2: { q: 'Will the text become an image?', a: 'Yes, to guarantee the exact target size while processing locally, we convert the pages to high-quality images and compress them.' }
+  },
+  'remove': {
+    title: 'Remove PDF Pages - Delete Pages Offline & Securely',
+    desc: 'Delete specific pages from a PDF document securely. 100% client-side privacy, no cloud uploads. Fast, free, and completely offline.',
+    h2: 'How to Remove Pages from a PDF Securely',
+    p1: 'Have a 20-page document but need to remove a blank page or a confidential section? With our tool, you can simply type the page numbers you want to delete and our WebAssembly engine will instantly remove them and regenerate the PDF locally. No servers, no tracking.',
+    faq1: { q: 'Can I remove multiple pages at once?', a: 'Yes. You can enter specific pages (like 4, 7) or ranges (like 12-15) to remove multiple pages in one click.' },
+    faq2: { q: 'Is my document sent to the cloud?', a: 'Never. The entire removal process happens in your browser\'s memory. Your document never leaves your device.' }
   }
 };
 
