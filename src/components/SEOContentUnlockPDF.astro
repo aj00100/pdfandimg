@@ -1,16 +1,26 @@
 ---
 interface Props {
-  toolName: string;
+  toolName: 'remove-password-from-pdf' | 'unlock-pdf';
 }
 
 const { toolName } = Astro.props;
+
+let isUnlock = toolName === 'unlock-pdf';
+
+let title = isUnlock ? 'How to Unlock PDF Files Online' : 'How to Remove Passwords from PDFs Offline';
+let descIntro = isUnlock ? 'Unlocking a PDF document' : 'Removing a password or permission lock from a PDF document';
+let strongText = isUnlock ? 'Unlock PDF' : 'Remove Password from PDF';
+let h3_1 = isUnlock ? 'Instant PDF Unlocking' : 'Automatic Permission Unlocking';
+let faq_q1 = isUnlock ? 'Can I unlock a PDF without the password?' : 'Why do I need to enter a password for some files but not others?';
+let faq_a1 = isUnlock ? 'If the PDF only has an owner password (restricting printing or copying), our tool unlocks it instantly without asking for a password. If it has a user password (restricting opening), you must provide the password to decrypt it.' : 'PDFs have two types of passwords. "User passwords" encrypt the entire document and require the password to even open it. "Owner passwords" only restrict permissions like printing. Our tool can automatically bypass owner restrictions, but requires the password to decrypt user-locked files.';
+
 ---
 
 <section class="seo-content-section container-stripe">
   <div class="seo-content-wrapper">
-    <h2>How to Remove Passwords from PDFs Offline</h2>
+    <h2>{title}</h2>
     <p class="seo-p">
-      Removing a password or permission lock from a PDF document usually means uploading your highly sensitive financial or legal documents to a third-party server. Our <strong>Remove Password from PDF</strong> tool changes the paradigm. By leveraging WebAssembly, we securely unlock and decrypt your PDF documents entirely within your local browser.
+      {descIntro} usually means uploading your highly sensitive financial or legal documents to a third-party server. Our <strong>{strongText}</strong> tool changes the paradigm. By leveraging WebAssembly, we securely unlock and decrypt your PDF documents entirely within your local browser.
     </p>
 
     <div class="seo-grid">
@@ -27,7 +37,7 @@ const { toolName } = Astro.props;
         </p>
       </div>
       <div class="seo-card">
-        <h3>Automatic Permission Unlocking</h3>
+        <h3>{h3_1}</h3>
         <p class="seo-p">
           If your PDF only has an "owner" password (restricting printing or copying), you don't even need to enter a password. Our tool automatically detects and strips these restrictions silently in the background.
         </p>
@@ -43,9 +53,9 @@ const { toolName } = Astro.props;
         </p>
       </div>
       <div class="faq-item">
-        <h4>Why do I need to enter a password for some files but not others?</h4>
+        <h4>{faq_q1}</h4>
         <p class="seo-p">
-          PDFs have two types of passwords. "User passwords" encrypt the entire document and require the password to even open it. "Owner passwords" only restrict permissions like printing. Our tool can automatically bypass owner restrictions, but requires the password to decrypt user-locked files.
+          {faq_a1}
         </p>
       </div>
       <div class="faq-item">
