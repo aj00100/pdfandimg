@@ -1,0 +1,675 @@
+---
+---
+
+<div id="pdf-insert-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8" id="pdf-insert-step1">
+    <div id="pdf-insert-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; border-radius: 16px;">
+      <input type="file" id="pdf-insert-file-input" style="display: none;" accept="application/pdf" />
+      
+      <div id="pdf-insert-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Step 1: Select PDF File</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">Upload the base document</p>
+        </div>
+        <button onclick="document.getElementById('pdf-insert-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden animate-up" id="pdf-insert-step2" style="display: none;">
+    <!-- IMAGE STASH (Sidebar on desktop, Sticky Header on mobile) -->
+    <div class="image-stash-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div>
+          <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0;">Image Stash</h3>
+          <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin: 4px 0 0;">Upload and drag</p>
+        </div>
+        <button onclick="document.getElementById('pdf-insert-image-input').click()" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem; background: var(--color-surface-3); color: var(--color-ink); border-color: var(--color-border-hi);">
+          + Add Images
+        </button>
+        <input type="file" id="pdf-insert-image-input" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple />
+      </div>
+      <div id="pdf-insert-image-stash" class="grid-container" style="min-height: 100px; background: var(--color-surface-2); border: 1px dashed var(--color-border); border-radius: 8px; padding: 12px; max-height: 400px; overflow-y: auto;">
+      </div>
+      
+      <div id="global-page-input-container" style="display: none; margin-top: 16px; padding: 12px; background: var(--color-surface-2); border: 1px solid var(--color-border-mid); border-radius: 8px;">
+        <label for="global-page-input" style="font-size: 0.875rem; font-weight: 600; display: block; margin-bottom: 8px; color: var(--color-ink);">Insert image after page:</label>
+        <input type="number" id="global-page-input" placeholder="Type page #..." min="0" style="width: 100%; padding: 8px; border: 1px solid var(--color-border-hi); border-radius: 6px; font-size: 1rem; box-sizing: border-box;" />
+      </div>
+
+      <button id="pdf-insert-convert-btn" class="btn-primary" style="width: 100%; height: 48px; font-size: 1rem; margin-top: 16px;" type="button">
+        Generate PDF
+      </button>
+    </div>
+
+    <!-- PDF DOCUMENT -->
+    <div class="pdf-doc-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div>
+          <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0;">PDF Document</h3>
+          <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin: 4px 0 0;">Drag and drop to rearrange or insert images.</p>
+        </div>
+      <div style="display: flex; gap: 8px;">
+        <button id="pdf-insert-undo-btn" class="btn-ghost" type="button" style="font-size: 0.75rem; display: none;">
+          Undo Remove
+        </button>
+        <button id="pdf-insert-start-over-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          Start Over
+        </button>
+      </div>
+      </div>
+      <div id="pdf-insert-sortable-list" class="grid-container" style="min-height: 200px; padding: 12px; background: var(--color-surface-2); border: 1px dashed var(--color-border); border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+
+  <div id="pdf-insert-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="pdf-insert-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="pdf-insert-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="pdf-insert-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="pdf-insert-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">PDF Ready!</h2>
+        <a id="pdf-insert-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download PDF
+        </a>
+        <button id="pdf-insert-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Start over
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  #pdf-insert-step2 {
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+  }
+  
+  .image-stash-container {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .pdf-doc-container {
+    flex: 1;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  @media (min-width: 768px) {
+    #pdf-insert-step2 {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .image-stash-container {
+      width: 280px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 88px; /* Nav bar is 64px + 24px padding */
+    }
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+  .grid-container.over {
+    background: var(--color-surface-3) !important;
+  }
+  .sortable-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: grab;
+    user-select: none;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    padding-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    min-width: 0;
+  }
+  .sortable-item:active {
+    cursor: grabbing;
+  }
+  .sortable-item.dragging {
+    opacity: 0.5;
+  }
+  .item-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1.3; /* Rough PDF ratio */
+    object-fit: cover;
+    background: var(--color-surface-3);
+    border-bottom: 1px solid var(--color-border-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .item-thumb[src] {
+    object-fit: contain; /* Ensure full image is visible if it's an image upload */
+    background: white;
+  }
+  .item-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding: 0 8px;
+    box-sizing: border-box;
+    display: block;
+  }
+  .item-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    z-index: 10;
+  }
+  .item-remove:hover {
+    background: #ef4444;
+  }
+</style>
+
+<script>
+  import { PDFDocument } from 'pdf-lib';
+
+  const root = document.getElementById('pdf-insert-root') as HTMLDivElement;
+  if (root) {
+    const step1 = document.getElementById('pdf-insert-step1') as HTMLDivElement;
+    const step2 = document.getElementById('pdf-insert-step2') as HTMLDivElement;
+    
+    const pdfInput = document.getElementById('pdf-insert-file-input') as HTMLInputElement;
+    const imageInput = document.getElementById('pdf-insert-image-input') as HTMLInputElement;
+    const dropZone = document.getElementById('pdf-insert-drop-zone') as HTMLDivElement;
+    
+    const imageStash = document.getElementById('pdf-insert-image-stash') as HTMLDivElement;
+    const globalInputContainer = document.getElementById('global-page-input-container') as HTMLDivElement;
+    const globalInput = document.getElementById('global-page-input') as HTMLInputElement;
+    const sortableList = document.getElementById('pdf-insert-sortable-list') as HTMLDivElement;
+    const convertBtn = document.getElementById('pdf-insert-convert-btn') as HTMLButtonElement;
+    
+    const statusPanel = document.getElementById('pdf-insert-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('pdf-insert-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('pdf-insert-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('pdf-insert-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('pdf-insert-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('pdf-insert-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('pdf-insert-reset-btn') as HTMLButtonElement;
+    const startOverBtn = document.getElementById('pdf-insert-start-over-btn') as HTMLButtonElement;
+    const undoBtn = document.getElementById('pdf-insert-undo-btn') as HTMLButtonElement;
+
+    let sourcePdfDoc: PDFDocument | null = null;
+    let baseFileName = "document";
+    let imageRegistry = new Map<string, ArrayBuffer>(); // uuid -> arraybuffer
+    let imageTypeRegistry = new Map<string, string>(); // uuid -> mime type
+    let undoStack: any[] = [];
+
+    function updateUndoVisibility() {
+      undoBtn.style.display = undoStack.length > 0 ? 'inline-block' : 'none';
+    }
+
+    undoBtn.addEventListener('click', () => {
+      if (undoStack.length === 0) return;
+      const { parent, node, nextSibling } = undoStack.pop();
+      if (nextSibling && nextSibling.parentElement === parent) {
+        parent.insertBefore(node, nextSibling);
+      } else {
+        parent.appendChild(node);
+      }
+      convertBtn.disabled = sortableList.children.length === 0;
+      updateInputBoxVisibility();
+      updateUndoVisibility();
+    });
+
+    // Initial Drag and Drop
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== document.querySelector('#pdf-insert-upload-placeholder button')) {
+        pdfInput.click();
+      }
+    });
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+    dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('active'); });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handlePdfFile(files[0]);
+    });
+    pdfInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handlePdfFile(files[0]);
+    });
+
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      imageInput.removeAttribute('multiple');
+    }
+
+    imageInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        if (isMobile && files.length > 1) {
+          handleImageFiles([files[0]]);
+        } else {
+          handleImageFiles(files);
+        }
+      }
+    });
+
+    async function initSortable() {
+      if (isMobile) return; // Do not initialize Sortable on mobile
+      
+      // @ts-ignore
+      if (!window.Sortable) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js';
+          // @ts-ignore
+          script.onload = () => resolve(window.Sortable);
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+      
+      // @ts-ignore
+      const Sortable = window.Sortable;
+      
+      Sortable.create(sortableList, {
+        group: 'shared',
+        animation: 150,
+        ghostClass: 'dragging'
+      });
+
+      Sortable.create(imageStash, {
+        group: 'shared',
+        animation: 150,
+        ghostClass: 'dragging'
+      });
+    }
+
+    initSortable();
+
+    async function loadPdfJs() {
+      // @ts-ignore
+      if (window.pdfjsLib) return window.pdfjsLib;
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        // @ts-ignore
+        script.onload = () => resolve(window.pdfjsLib);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function handlePdfFile(file: File) {
+      if (file.type !== 'application/pdf') {
+        alert("Please select a valid PDF file.");
+        return;
+      }
+      
+      baseFileName = file.name.split('.')[0];
+      
+      try {
+        step1.classList.add('hidden');
+        statusPanel.classList.remove('hidden');
+        processing.classList.remove('hidden');
+        processing.style.display = 'flex';
+        statusText.textContent = "Loading PDF and rendering thumbnails...";
+        progressBar.style.width = "50%";
+
+        const arrayBuffer = await file.arrayBuffer();
+        
+        const pdfjsLib: any = await loadPdfJs();
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        const pdfJsBuffer = arrayBuffer.slice(0);
+        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfJsBuffer) });
+        const pdfJsDoc = await loadingTask.promise;
+
+        sourcePdfDoc = await PDFDocument.load(arrayBuffer);
+        const totalPages = sourcePdfDoc.getPageCount();
+        
+        sortableList.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
+          progressBar.style.width = `${50 + Math.round((i / totalPages) * 50)}%`;
+          
+          const page = await pdfJsDoc.getPage(i);
+          const viewport = page.getViewport({ scale: 0.5 });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          
+          await page.render({ canvasContext: context, viewport: viewport }).promise;
+          const thumbUrl = canvas.toDataURL('image/jpeg', 0.8);
+          
+          addCardToDOM('pdf', i - 1, thumbUrl, `Page ${i}`, sortableList);
+        }
+        
+        processing.classList.add('hidden');
+        statusPanel.classList.add('hidden');
+        step2.classList.remove('hidden');
+        step2.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert("Failed to read PDF: " + (err.message || err.toString()));
+        processing.classList.add('hidden');
+        statusPanel.classList.add('hidden');
+        step1.classList.remove('hidden');
+      }
+    }
+
+    async function handleImageFiles(filesList: FileList | File[]) {
+      const arr = Array.from(filesList);
+      const images = arr.filter(f => f.type.startsWith('image/'));
+      
+      for (const file of images) {
+        const uuid = Math.random().toString(36).substring(2, 15);
+        const buffer = await file.arrayBuffer();
+        imageRegistry.set(uuid, buffer);
+        imageTypeRegistry.set(uuid, file.type);
+        
+        const blob = new Blob([buffer], { type: file.type });
+        const url = URL.createObjectURL(blob);
+        
+        addCardToDOM('image', uuid, url, file.name, imageStash);
+      }
+      updateInputBoxVisibility();
+    }
+
+    function updateInputBoxVisibility() {
+      const imgInStash = imageStash.querySelectorAll('.sortable-item[data-type="image"]').length;
+      
+      if (imgInStash > 0) {
+        globalInputContainer.style.display = 'block';
+        convertBtn.textContent = 'Add Image';
+      } else {
+        globalInputContainer.style.display = 'none';
+        globalInput.value = '';
+        convertBtn.textContent = 'Generate PDF';
+      }
+    }
+
+    function moveImageToGrid(val: number) {
+      // Always target the first image currently in the stash
+      const imgCard = imageStash.querySelector('.sortable-item[data-type="image"]') as HTMLElement;
+      if (!imgCard) return;
+
+      if (isNaN(val) || val < 0) {
+        imageStash.appendChild(imgCard);
+        updateInputBoxVisibility();
+        return;
+      }
+      
+      if (val === 0) {
+        sortableList.insertBefore(imgCard, sortableList.firstChild);
+        updateInputBoxVisibility();
+        return;
+      }
+
+      let pdfCount = 0;
+      let targetNode = null;
+      const items = Array.from(sortableList.children);
+      
+      for (let i = 0; i < items.length; i++) {
+        if (items[i] === imgCard) continue; 
+        if (items[i].getAttribute('data-type') === 'pdf') {
+          pdfCount++;
+        }
+        if (pdfCount === val) {
+          targetNode = items[i].nextSibling;
+          while (targetNode && (targetNode as HTMLElement).getAttribute('data-type') === 'image' && targetNode !== imgCard) {
+            targetNode = targetNode.nextSibling;
+          }
+          break;
+        }
+      }
+      
+      if (targetNode !== undefined) {
+        sortableList.insertBefore(imgCard, targetNode);
+      } else {
+        sortableList.appendChild(imgCard);
+      }
+      globalInput.value = '';
+      updateInputBoxVisibility();
+    }
+
+    globalInput.addEventListener('change', () => {
+      const val = parseInt(globalInput.value);
+      moveImageToGrid(val);
+    });
+
+    function addCardToDOM(type: 'pdf' | 'image', idOrIndex: any, thumbUrl: string | null, title: string, container: HTMLElement) {
+      const div = document.createElement('div');
+      div.className = 'sortable-item';
+      div.setAttribute('data-type', type);
+      if (type === 'pdf') {
+        div.setAttribute('data-index', idOrIndex.toString());
+      } else {
+        div.setAttribute('data-id', idOrIndex);
+      }
+
+      let thumbHtml = '';
+      if (thumbUrl) {
+        thumbHtml = `<img src="${thumbUrl}" class="item-thumb" />`;
+      } else {
+        thumbHtml = `<div class="item-thumb" style="color: var(--color-ink-3);">📄</div>`;
+      }
+
+      div.innerHTML = `
+        <button class="item-remove" type="button" title="Remove">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        ${thumbHtml}
+        <div class="item-title" title="${title}">${title}</div>
+      `;
+
+      div.querySelector('.item-remove')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (type === 'image' && div.parentElement === sortableList) {
+          imageStash.appendChild(div);
+          updateInputBoxVisibility();
+          return;
+        }
+
+        undoStack.push({ parent: div.parentElement, node: div, nextSibling: div.nextSibling });
+        div.remove();
+        if (sortableList.children.length === 0) {
+          convertBtn.disabled = true;
+        }
+        updateInputBoxVisibility();
+        updateUndoVisibility();
+      });
+
+      container.appendChild(div);
+      convertBtn.disabled = false;
+      updateInputBoxVisibility();
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (convertBtn.textContent === 'Add Image') {
+        const val = parseInt(globalInput.value);
+        if (!isNaN(val) && val >= 0) {
+          moveImageToGrid(val);
+        } else {
+          alert('Please enter a valid page number to add the image after.');
+        }
+        return;
+      }
+
+      if (!sourcePdfDoc) return;
+      if (sortableList.children.length === 0) {
+        alert("There are no pages to generate in the PDF Document area.");
+        return;
+      }
+      
+      step2.classList.add('hidden');
+      step2.style.display = 'none';
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+
+      try {
+        const finalPdf = await PDFDocument.create();
+        const items = Array.from(sortableList.children);
+        
+        for (let i = 0; i < items.length; i++) {
+          statusText.textContent = `Processing page ${i + 1} of ${items.length}...`;
+          progressBar.style.width = `${Math.round(((i) / items.length) * 100)}%`;
+          
+          const el = items[i] as HTMLElement;
+          const type = el.getAttribute('data-type');
+          
+          if (type === 'pdf') {
+            const index = parseInt(el.getAttribute('data-index')!);
+            const [copiedPage] = await finalPdf.copyPages(sourcePdfDoc, [index]);
+            finalPdf.addPage(copiedPage);
+          } else if (type === 'image') {
+            const uuid = el.getAttribute('data-id')!;
+            const buffer = imageRegistry.get(uuid);
+            const mime = imageTypeRegistry.get(uuid);
+            if (buffer) {
+              let pdfImage;
+              if (mime === 'image/jpeg' || mime === 'image/jpg') {
+                pdfImage = await finalPdf.embedJpg(buffer);
+              } else if (mime === 'image/png') {
+                pdfImage = await finalPdf.embedPng(buffer);
+              } else {
+                const imgBlob = new Blob([buffer], { type: mime });
+                const objUrl = URL.createObjectURL(imgBlob);
+                pdfImage = await embedWebpHack(finalPdf, objUrl);
+              }
+              
+              if (pdfImage) {
+                const imgDims = pdfImage.scale(1);
+                const page = finalPdf.addPage([595.28, 841.89]);
+                const pageDims = page.getSize();
+                
+                const margin = 20;
+                const targetW = pageDims.width - (margin * 2);
+                const targetH = pageDims.height - (margin * 2);
+                const imgRatio = imgDims.width / imgDims.height;
+                const pageRatio = targetW / targetH;
+                
+                let renderW = targetW;
+                let renderH = targetH;
+                if (imgRatio > pageRatio) {
+                  renderH = targetW / imgRatio;
+                } else {
+                  renderW = targetH * imgRatio;
+                }
+                
+                page.drawImage(pdfImage, {
+                  x: margin + (targetW - renderW) / 2,
+                  y: margin + (targetH - renderH) / 2,
+                  width: renderW,
+                  height: renderH,
+                });
+              }
+            }
+          }
+        }
+
+        statusText.textContent = 'Saving PDF...';
+        progressBar.style.width = '100%';
+        
+        const pdfBytes = await finalPdf.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        
+        downloadLink.href = url;
+        downloadLink.download = `${baseFileName}_updated.pdf`;
+        
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Generation failed.');
+        processing.classList.add('hidden');
+        step2.classList.remove('hidden');
+      }
+    });
+
+    async function embedWebpHack(pdfDoc: PDFDocument, url: string) {
+      return new Promise<any>((resolve, reject) => {
+        const img = new Image();
+        img.onload = async () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+          const base64 = dataUrl.split(',')[1];
+          const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+          const pdfImg = await pdfDoc.embedJpg(bytes);
+          resolve(pdfImg);
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
+
+    const resetState = () => {
+      sourcePdfDoc = null;
+      sortableList.innerHTML = '';
+      imageStash.innerHTML = '';
+      imageRegistry.clear();
+      imageTypeRegistry.clear();
+      undoStack = [];
+      updateUndoVisibility();
+      resultView.classList.add('hidden');
+      statusPanel.classList.add('hidden');
+      step2.classList.add('hidden');
+      step2.style.display = 'none';
+      step1.classList.remove('hidden');
+      pdfInput.value = '';
+      imageInput.value = '';
+    };
+
+    resetBtn.addEventListener('click', resetState);
+    startOverBtn.addEventListener('click', resetState);
+  }
+</script>

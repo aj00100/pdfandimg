@@ -1,10 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PDFAddImages from '../components/PDFAddImages.astro';
+import PDFInsertImages from '../components/PDFInsertImages.astro';
 import SEOContentPDF from '../components/SEOContentPDF.astro';
 
 const SEO_TITLE = "Add Images to PDF Online Free — Fast & Secure";
-const SEO_DESC = "Insert multiple JPG, PNG, or WEBP images into a single PDF document. Secure, offline processing entirely in your browser with no file uploads.";
+const SEO_DESC = "Insert JPG, PNG, or WEBP images anywhere into a PDF document. Drag and drop to rearrange pages. Secure, offline processing with Bank-Grade Privacy.";
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC}>
@@ -18,19 +18,19 @@ const SEO_DESC = "Insert multiple JPG, PNG, or WEBP images into a single PDF doc
   <section class="relative z-20 pt-20 container-stripe">
     <div style="text-align: center; margin-bottom: 48px;">
       <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
-        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Zero-Server Privacy</span>
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Bank-Grade Security</span>
       </div>
 
       <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Add Images <br/>
-        <span style="color: var(--color-lime);">to PDF.</span>
+        Insert Images <br/>
+        <span style="color: var(--color-lime);">into PDF.</span>
       </h1>
       <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        Convert and merge multiple JPG, PNG, or WEBP images into a single high-quality PDF document securely on your device.
+        Upload a PDF, add your images, and drag-and-drop to insert them anywhere in the document. Processed securely on your device.
       </p>
     </div>
 
-    <PDFAddImages />
+    <PDFInsertImages />
   </section>
 
   <SEOContentPDF toolName="add-images" />
