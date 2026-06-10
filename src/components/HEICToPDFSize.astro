@@ -1,0 +1,278 @@
+---
+---
+
+<div id="heic-pdf-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="heic-pdf-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="heic-pdf-file-input" style="display: none;" accept=".heic,.heif" multiple />
+      
+      <div id="heic-pdf-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Select HEIC Files</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">Upload iPhone photos to convert to PDF</p>
+        </div>
+        <button onclick="document.getElementById('heic-pdf-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="heic-pdf-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <div id="heic-pdf-bulk-text" style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: left; padding: 16px;"></div>
+        <button id="heic-pdf-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 120px;">
+        <label for="heic-pdf-orientation" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Orientation</label>
+        <select id="heic-pdf-orientation" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: center; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+          <option value="portrait" selected>Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+      <div style="flex: 1; min-width: 120px;">
+        <label for="heic-pdf-margin" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Margin</label>
+        <select id="heic-pdf-margin" class="input-number" style="width: 100%; height: 56px; font-size: 1rem; text-align: center; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+          <option value="0" selected>No Margin</option>
+          <option value="10">Small Margin</option>
+          <option value="20">Large Margin</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="heic-pdf-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Create PDF
+    </button>
+  </div>
+
+  <div id="heic-pdf-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="heic-pdf-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="heic-pdf-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="heic-pdf-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="heic-pdf-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">PDF Ready!</h2>
+        <a id="heic-pdf-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download PDF
+        </a>
+        <button id="heic-pdf-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Convert more files
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
+
+<script>
+  import { jsPDF } from 'jspdf';
+
+  declare global {
+    interface Window {
+      heic2any: any;
+    }
+  }
+
+  const root = document.getElementById('heic-pdf-root');
+  if (root) {
+    const dropZone = document.getElementById('heic-pdf-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('heic-pdf-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('heic-pdf-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('heic-pdf-preview-container') as HTMLDivElement;
+    const bulkText = document.getElementById('heic-pdf-bulk-text') as HTMLDivElement;
+    const changeBtn = document.getElementById('heic-pdf-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('heic-pdf-convert-btn') as HTMLButtonElement;
+    const orientationInput = document.getElementById('heic-pdf-orientation') as HTMLSelectElement;
+    const marginInput = document.getElementById('heic-pdf-margin') as HTMLSelectElement;
+    
+    const statusPanel = document.getElementById('heic-pdf-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('heic-pdf-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('heic-pdf-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('heic-pdf-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('heic-pdf-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('heic-pdf-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('heic-pdf-reset-btn') as HTMLButtonElement;
+
+    let selectedFiles: File[] = [];
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#heic-pdf-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFiles(Array.from(files));
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFiles(Array.from(files));
+    });
+
+    function handleFiles(filesList: File[]) {
+      const validFiles = filesList.filter(f => f.name.toLowerCase().endsWith('.heic') || f.name.toLowerCase().endsWith('.heif')).slice(0, 50);
+      if (validFiles.length === 0) {
+        alert("Please select valid HEIC/HEIF image files.");
+        return;
+      }
+
+      selectedFiles = validFiles;
+
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      convertBtn.disabled = false;
+
+      bulkText.innerHTML = `<strong>${selectedFiles.length} image(s) selected:</strong><br/>` + 
+                           selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+      
+      statusPanel.classList.add('hidden');
+    }
+
+    const blobToDataUrl = (blob: Blob): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
+
+    const getImageDimensions = (dataUrl: string): Promise<{w: number, h: number}> => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve({ w: img.width, h: img.height });
+        img.onerror = reject;
+        img.src = dataUrl;
+      });
+    };
+
+    convertBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0) return;
+      if (!window.heic2any) {
+        alert("The converter engine failed to load. Please check your connection or try again.");
+        return;
+      }
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        const orientation = orientationInput.value as 'portrait' | 'landscape';
+        const marginStr = marginInput.value;
+        const marginPx = parseInt(marginStr);
+        
+        const a4Width = orientation === 'portrait' ? 210 : 297;
+        const a4Height = orientation === 'portrait' ? 297 : 210;
+        
+        const doc = new jsPDF({
+          orientation: orientation === 'portrait' ? 'p' : 'l',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        for (let i = 0; i < selectedFiles.length; i++) {
+          const file = selectedFiles[i];
+          statusText.textContent = `Decoding ${file.name} to JPG (${i + 1} of ${selectedFiles.length})...`;
+          progressBar.style.width = `${Math.round(((i) / selectedFiles.length) * 100)}%`;
+          
+          // 1. Convert HEIC to JPEG Blob
+          const conversionResult = await window.heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.9
+          });
+          
+          let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
+          const jpegBlob = blobArray[0] as Blob;
+
+          // 2. Add to PDF
+          const dataUrl = await blobToDataUrl(jpegBlob);
+          const dims = await getImageDimensions(dataUrl);
+          
+          if (i > 0) {
+            doc.addPage();
+          }
+
+          const targetWidth = a4Width - (marginPx * 2);
+          const targetHeight = a4Height - (marginPx * 2);
+          
+          const imgRatio = dims.w / dims.h;
+          const pageRatio = targetWidth / targetHeight;
+          
+          let renderW = targetWidth;
+          let renderH = targetHeight;
+          
+          if (imgRatio > pageRatio) {
+            renderH = targetWidth / imgRatio;
+          } else {
+            renderW = targetHeight * imgRatio;
+          }
+          
+          const x = marginPx + (targetWidth - renderW) / 2;
+          const y = marginPx + (targetHeight - renderH) / 2;
+          
+          doc.addImage(dataUrl, 'JPEG', x, y, renderW, renderH);
+        }
+
+        statusText.textContent = 'Generating PDF...';
+        progressBar.style.width = '100%';
+        
+        const pdfBlob = doc.output('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        
+        const baseName = selectedFiles.length === 1 ? selectedFiles[0].name.replace(/\.heic$/i, '').replace(/\.heif$/i, '') : 'images';
+        
+        downloadLink.href = url;
+        downloadLink.download = `${baseName}.pdf`;
+        
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Conversion failed. The file may be corrupted.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedFiles = [];
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    });
+  }
+</script>

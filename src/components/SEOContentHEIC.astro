@@ -1,55 +1,18 @@
 ---
 interface Props {
-  toolName: 'add-images' | 'separate' | 'merge' | 'extract' | 'compress';
+  toolName: 'convert-heic';
 }
 
 const { toolName } = Astro.props;
 
-// Tool specific content map
-const contentMap = {
-  'add-images': {
-    title: 'Add Images to PDF Online Free',
-    desc: 'Insert multiple JPG, PNG, or WEBP images into a single PDF document. Secure, offline processing in your browser.',
-    h2: 'Add Images to PDF - Fast & Securely',
-    p1: 'Merging images into a PDF doesn\'t require uploading your photos to a sketchy online server. Our client-side application securely processes your images and builds a perfect PDF document directly in your browser.',
-    faq1: { q: 'Do you upload my images?', a: 'No. All processing happens locally on your device.' },
-    faq2: { q: 'Can I add multiple images at once?', a: 'Yes, you can select up to 50 images and they will be compiled into a multi-page PDF document.' }
-  },
-  'separate': {
-    title: 'Separate PDF Pages - Split PDF Documents Locally',
-    desc: 'Extract specific pages or separate a large PDF into individual documents without uploading files to the cloud.',
-    h2: 'How to Separate PDF Pages Securely',
-    p1: 'When dealing with sensitive contracts or private records, you shouldn\'t have to upload your files to the internet just to extract a single page. Our tool utilizes advanced WebAssembly to separate PDF pages completely offline inside your browser.',
-    faq1: { q: 'Is my PDF uploaded anywhere?', a: 'Never. The file stays on your computer the entire time.' },
-    faq2: { q: 'Can I select exact pages to separate?', a: 'Yes, our visual interface lets you pick exactly which pages you want to keep or discard.' }
-  },
-  'merge': {
-    title: 'Merge Multiple PDF into One - 100% Privacy',
-    desc: 'Combine multiple PDF files into a single document instantly without using a remote server.',
-    h2: 'Merge Multiple PDF Files into One',
-    p1: 'Need to join several PDF documents into a single file? Most online tools force you to upload your data. ImgShrink solves this by leveraging modern browser APIs to securely merge multiple PDFs into one document locally on your device.',
-    faq1: { q: 'How many PDFs can I merge?', a: 'You can merge up to 50 PDF files at once.' },
-    faq2: { q: 'Is this faster than desktop software?', a: 'Because it runs in your browser natively without upload/download delays, it is almost instantaneous.' }
-  },
-  'extract': {
-    title: 'Extract Images from PDF Documents',
-    desc: 'Save PDF pages as high-quality JPG or PNG images instantly. 100% client-side privacy.',
-    h2: 'Extract High-Quality Images from PDF',
-    p1: 'Convert your PDF documents into universally accessible image formats. Our rendering engine processes your PDF pages and outputs crisp, high-resolution images—perfect for sharing on social media or embedding in presentations.',
-    faq1: { q: 'Will the image quality drop?', a: 'We render the PDF at a high scale factor to ensure the resulting images are incredibly sharp and clear.' },
-    faq2: { q: 'Can I extract all pages at once?', a: 'Yes, you can extract every page from the PDF into a convenient ZIP folder.' }
-  },
-  'compress': {
-    title: 'Compress PDF to Exact Target Size',
-    desc: 'Compress your PDF to an exact KB size online. 100% free and processes directly in your browser without uploading to any server.',
-    h2: 'Target-Lock PDF Compression',
-    p1: 'Portals often have strict limits like "max 100KB." Our unique PDF compressor uses a target-lock algorithm to automatically adjust quality until your PDF hits the exact size you need, completely offline.',
-    faq1: { q: 'Is my PDF uploaded to a server?', a: 'No. All processing happens 100% securely on your local device.' },
-    faq2: { q: 'Will the text become an image?', a: 'Yes, to guarantee the exact target size while processing locally, we convert the pages to high-quality images and compress them.' }
-  }
+const content = {
+  title: 'Convert HEIC to JPG Online Free',
+  desc: 'Change Apple iPhone HEIC/HEIF photos to universally compatible JPG format. 100% free and processed securely on your local device.',
+  h2: 'Convert iPhone HEIC Photos to JPG Securely',
+  p1: 'Apple iPhones save high-quality photos in the HEIC format to save storage space. However, many government portals, job applications, and older software do not accept HEIC files. Our offline converter instantly changes your HEIC photos to standard JPG format without forcing you to upload your personal pictures to a cloud server.',
+  faq1: { q: 'Are my personal photos uploaded anywhere?', a: 'No. Our converter runs completely in your web browser using WebAssembly. Your photos never leave your device.' },
+  faq2: { q: 'Will the conversion lose quality?', a: 'We use high-quality rendering algorithms to ensure the resulting JPG looks exactly like your original HEIC photo.' }
 };
-
-const content = contentMap[toolName];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -76,11 +39,9 @@ const jsonLd = {
 
 const relatedTools = [
   { name: 'Compress Image', href: '/compress-image-to-20kb' },
-  { name: 'Add Images to PDF', href: '/add-images-to-pdf' },
-  { name: 'Separate PDF Pages', href: '/separate-pdf-pages' },
-  { name: 'Merge Multiple PDFs', href: '/merge-multiple-pdf-into-one' },
-  { name: 'Extract PDF Images', href: '/extract-images-from-pdf' }
-].filter(t => !Astro.url.pathname.includes(t.href));
+  { name: 'Convert PNG to JPG', href: '/png-to-jpg' },
+  { name: 'Convert JPEG to PNG', href: '/jpeg-to-png' }
+];
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -92,31 +53,31 @@ const relatedTools = [
       <div class="seo-intro">
         <h2 class="seo-h2">{content.h2}</h2>
         <p class="seo-p">{content.p1}</p>
-        <p class="seo-p">Traditional online tools require you to wait for long uploads, risking your privacy. Our Zero-Server architecture means you get instant results without ever compromising your data security.</p>
+        <p class="seo-p">With ImgShrink's Zero-Server architecture, you can batch convert your files instantly without worrying about privacy leaks or waiting for slow uploads.</p>
       </div>
 
       <div class="seo-steps">
-        <h3 class="seo-h3">Zero-Server Workflow</h3>
+        <h3 class="seo-h3">How Our Zero-Server Converter Works</h3>
         <ol class="seo-list">
           <li>
             <div class="seo-step-num">01</div>
             <div>
-              <h4 class="seo-step-title">Local Processing</h4>
-              <p class="seo-p-small">Your files are instantly read into your device's memory. No uploads means maximum privacy and unmatched speed.</p>
+              <h4 class="seo-step-title">Local Reading</h4>
+              <p class="seo-p-small">Your HEIC files are read securely into your computer's RAM. We never transmit data to the cloud.</p>
             </div>
           </li>
           <li>
             <div class="seo-step-num">02</div>
             <div>
-              <h4 class="seo-step-title">Client-Side Engine</h4>
-              <p class="seo-p-small">Our advanced WebAssembly and Canvas algorithms manipulate the PDF directly within your web browser.</p>
+              <h4 class="seo-step-title">WebAssembly Decoding</h4>
+              <p class="seo-p-small">Your browser runs an advanced decoding engine locally to translate the HEIC structure into standard pixels.</p>
             </div>
           </li>
           <li>
             <div class="seo-step-num">03</div>
             <div>
-              <h4 class="seo-step-title">Instant Export</h4>
-              <p class="seo-p-small">The finished document is compiled and downloaded immediately. Your files never touch our servers.</p>
+              <h4 class="seo-step-title">Instant JPG Download</h4>
+              <p class="seo-p-small">The pixels are immediately compiled into a fresh JPG and downloaded back to your hard drive.</p>
             </div>
           </li>
         </ol>
@@ -143,11 +104,11 @@ const relatedTools = [
         <ul class="sidebar-list">
           <li>
             <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>No Cloud Uploads</span>
+            <span>100% Offline Processing</span>
           </li>
           <li>
             <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Instant Processing</span>
+            <span>No Cloud Uploads</span>
           </li>
           <li>
             <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -157,7 +118,7 @@ const relatedTools = [
       </div>
 
       <div class="sidebar-box" style="margin-top: 40px; border-color: var(--color-lime);">
-        <h3 class="sidebar-title" style="color: var(--color-ink);">PDF Suite Tools</h3>
+        <h3 class="sidebar-title" style="color: var(--color-ink);">Image Tools</h3>
         <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
           {relatedTools.map(tool => (
             <a href={tool.href} class="related-tag">{tool.name}</a>
@@ -169,7 +130,6 @@ const relatedTools = [
 </section>
 
 <style>
-  /* (Same styles as SEOContentResize.astro, condensed) */
   .seo-section { max-width: 1000px; margin: 80px auto 0; padding: 0 24px; text-align: left; }
   .seo-divider { height: 1px; background: linear-gradient(to right, transparent, var(--color-border), transparent); margin-bottom: 80px; }
   .seo-grid { display: grid; grid-template-columns: 1fr; gap: 80px; }

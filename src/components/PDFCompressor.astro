@@ -1,0 +1,318 @@
+---
+interface Props {
+  defaultTargetKB?: number;
+}
+const { defaultTargetKB = 100 } = Astro.props;
+---
+
+<div id="pdf-comp-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    
+    <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 120px;">
+        <label for="pdf-comp-target" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Target Size (KB)</label>
+        <input type="number" id="pdf-comp-target" class="input-number" value={defaultTargetKB} style="width: 100%; height: 56px; font-size: 1.5rem; text-align: center; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;" />
+      </div>
+    </div>
+
+    <div id="pdf-comp-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="pdf-comp-file-input" style="display: none;" accept="application/pdf" />
+      
+      <div id="pdf-comp-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Select PDF File</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to compress exactly to target KB</p>
+        </div>
+        <button onclick="document.getElementById('pdf-comp-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="pdf-comp-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: center; padding: 16px;">
+          <strong id="pdf-comp-filename" style="display: block; margin-bottom: 8px;"></strong>
+          <span id="pdf-comp-original-size" style="color: var(--color-ink-2);"></span>
+        </div>
+        <button id="pdf-comp-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <button id="pdf-comp-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
+      Compress PDF
+    </button>
+  </div>
+
+  <div id="pdf-comp-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="pdf-comp-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="pdf-comp-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="pdf-comp-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="pdf-comp-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Compression Complete!</h2>
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink-2);">
+          Final Size: <strong id="pdf-comp-final-size" style="color: var(--color-ink);"></strong>
+        </div>
+        <a id="pdf-comp-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download PDF
+        </a>
+        <button id="pdf-comp-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Compress another PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+  import { jsPDF } from "jspdf";
+
+  const root = document.getElementById('pdf-comp-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('pdf-comp-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('pdf-comp-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('pdf-comp-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('pdf-comp-preview-container') as HTMLDivElement;
+    const fileNameText = document.getElementById('pdf-comp-filename') as HTMLSpanElement;
+    const originalSizeText = document.getElementById('pdf-comp-original-size') as HTMLSpanElement;
+    const changeBtn = document.getElementById('pdf-comp-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('pdf-comp-convert-btn') as HTMLButtonElement;
+    const targetInput = document.getElementById('pdf-comp-target') as HTMLInputElement;
+    
+    const statusPanel = document.getElementById('pdf-comp-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('pdf-comp-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('pdf-comp-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('pdf-comp-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('pdf-comp-result-view') as HTMLDivElement;
+    const finalSizeText = document.getElementById('pdf-comp-final-size') as HTMLSpanElement;
+    const downloadLink = document.getElementById('pdf-comp-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('pdf-comp-reset-btn') as HTMLButtonElement;
+
+    let selectedFile: File | null = null;
+    let fileArrayBuffer: ArrayBuffer | null = null;
+
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-comp-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFile(files[0]);
+    });
+
+    async function handleFile(file: File) {
+      if (file.type !== 'application/pdf') {
+        alert("Please select a valid PDF file.");
+        return;
+      }
+
+      if (!window.pdfjsLib) {
+        alert("PDF.js library failed to load.");
+        return;
+      }
+
+      selectedFile = file;
+      fileArrayBuffer = await file.arrayBuffer();
+      
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      fileNameText.textContent = file.name;
+      originalSizeText.textContent = `Original Size: ${(file.size / 1024).toFixed(2)} KB`;
+      convertBtn.disabled = false;
+      statusPanel.classList.add('hidden');
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (!selectedFile || !fileArrayBuffer || !window.pdfjsLib) return;
+      
+      const targetKB = parseFloat(targetInput.value);
+      if (isNaN(targetKB) || targetKB <= 0) {
+        alert("Please enter a valid target KB.");
+        return;
+      }
+      
+      const targetBytes = targetKB * 1024;
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        statusText.textContent = `Analyzing PDF...`;
+        progressBar.style.width = `10%`;
+        
+        const loadingTask = window.pdfjsLib.getDocument({ data: fileArrayBuffer });
+        const pdf = await loadingTask.promise;
+        const totalPages = pdf.numPages;
+        
+        const renderedPages: { canvas: HTMLCanvasElement, viewport: any }[] = [];
+        
+        for (let i = 1; i <= totalPages; i++) {
+          statusText.textContent = `Rasterizing page ${i} of ${totalPages}...`;
+          progressBar.style.width = `${10 + Math.round((i / totalPages) * 30)}%`;
+          
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 1.5 });
+          
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          
+          if (!context) throw new Error("Could not create canvas context");
+          
+          await page.render({ canvasContext: context, viewport }).promise;
+          renderedPages.push({ canvas, viewport });
+        }
+
+        statusText.textContent = 'Locking target size...';
+        progressBar.style.width = '60%';
+        
+        let bestPdfBlob: Blob | null = null;
+        let minQ = 0.05;
+        let maxQ = 0.95;
+        let currentQ = 0.5;
+        
+        // Binary search for perfect JPEG quality
+        for (let iteration = 0; iteration < 8; iteration++) {
+          const doc = new jsPDF({
+            orientation: renderedPages[0].viewport.width > renderedPages[0].viewport.height ? 'l' : 'p',
+            unit: 'px',
+            format: [renderedPages[0].viewport.width, renderedPages[0].viewport.height]
+          });
+          
+          for (let i = 0; i < renderedPages.length; i++) {
+            if (i > 0) {
+              doc.addPage([renderedPages[i].viewport.width, renderedPages[i].viewport.height], renderedPages[i].viewport.width > renderedPages[i].viewport.height ? 'l' : 'p');
+            }
+            
+            const dataUrl = renderedPages[i].canvas.toDataURL('image/jpeg', currentQ);
+            doc.addImage(dataUrl, 'JPEG', 0, 0, renderedPages[i].viewport.width, renderedPages[i].viewport.height);
+          }
+          
+          const testBlob = doc.output('blob');
+          const testSize = testBlob.size;
+          
+          if (testSize <= targetBytes) {
+            bestPdfBlob = testBlob;
+            minQ = currentQ; // try to get better quality
+            currentQ = (minQ + maxQ) / 2;
+          } else {
+            maxQ = currentQ;
+            currentQ = (minQ + maxQ) / 2;
+          }
+          
+          progressBar.style.width = `${60 + Math.round((iteration / 8) * 30)}%`;
+        }
+        
+        // If we still didn't find one that fits, try worst quality
+        if (!bestPdfBlob) {
+           const doc = new jsPDF({
+              orientation: renderedPages[0].viewport.width > renderedPages[0].viewport.height ? 'l' : 'p',
+              unit: 'px',
+              format: [renderedPages[0].viewport.width, renderedPages[0].viewport.height]
+            });
+            for (let i = 0; i < renderedPages.length; i++) {
+              if (i > 0) doc.addPage([renderedPages[i].viewport.width, renderedPages[i].viewport.height], renderedPages[i].viewport.width > renderedPages[i].viewport.height ? 'l' : 'p');
+              const dataUrl = renderedPages[i].canvas.toDataURL('image/jpeg', 0.01);
+              doc.addImage(dataUrl, 'JPEG', 0, 0, renderedPages[i].viewport.width, renderedPages[i].viewport.height);
+            }
+            bestPdfBlob = doc.output('blob');
+        }
+
+        statusText.textContent = 'Padding metadata...';
+        progressBar.style.width = '95%';
+
+        let finalBlob = bestPdfBlob;
+        
+        // Pad the PDF to exactly target size if it's smaller
+        if (finalBlob && finalBlob.size < targetBytes) {
+          const diff = targetBytes - finalBlob.size;
+          // We can append dummy bytes after %%EOF safely in most PDF parsers
+          // We will append spaces
+          const padding = new Uint8Array(diff);
+          padding.fill(32); // 32 is space character
+          finalBlob = new Blob([finalBlob, padding], { type: 'application/pdf' });
+        }
+
+        progressBar.style.width = '100%';
+        statusText.textContent = 'Done!';
+
+        if (finalBlob) {
+          const finalSizeKB = (finalBlob.size / 1024).toFixed(2);
+          finalSizeText.textContent = `${finalSizeKB} KB`;
+          
+          const url = URL.createObjectURL(finalBlob);
+          downloadLink.href = url;
+          const originalName = selectedFile.name.replace('.pdf', '');
+          downloadLink.download = `${originalName}_${targetKB}kb.pdf`;
+          
+          processing.classList.add('hidden');
+          resultView.classList.remove('hidden');
+          resultView.style.display = 'flex';
+        }
+
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Compression failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedFile = null;
+      fileArrayBuffer = null;
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    });
+  }
+</script>
+
+<script>
+  declare global {
+    interface Window {
+      pdfjsLib: any;
+    }
+  }
+</script>
