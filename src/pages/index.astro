@@ -106,6 +106,24 @@ const SEO_DESC = "Compress images to exact KB sizes with 100% accuracy. Private,
       </a>
 
     </div>
+
+    <!-- Popular Sizes Links for SEO -->
+    <div style="text-align: center; margin-top: 80px; margin-bottom: 32px;">
+      <h3 style="font-size: 1.5rem; color: var(--color-ink);">Popular Exact Sizes</h3>
+      <p style="color: var(--color-ink-2); font-size: 0.9375rem; margin-top: 8px;">Quick links for common government exams and portal requirements</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 800px; margin: 0 auto;">
+      <a href="/compress-image-to-10kb" class="size-tag">10KB</a>
+      <a href="/compress-image-to-15kb" class="size-tag">15KB</a>
+      <a href="/compress-image-to-20kb" class="size-tag">20KB</a>
+      <a href="/compress-image-to-30kb" class="size-tag">30KB</a>
+      <a href="/compress-image-to-40kb" class="size-tag">40KB</a>
+      <a href="/compress-image-to-50kb" class="size-tag">50KB</a>
+      <a href="/compress-image-to-100kb" class="size-tag">100KB</a>
+      <a href="/compress-image-to-200kb" class="size-tag">200KB</a>
+      <a href="/compress-image-to-500kb" class="size-tag">500KB</a>
+      <a href="/compress-image-to-1mb" class="size-tag">1MB</a>
+    </div>
   </section>
 
   <SEOContent 
@@ -288,5 +306,25 @@ const SEO_DESC = "Compress images to exact KB sizes with 100% accuracy. Private,
   }
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .size-tag {
+    display: block;
+    padding: 10px 20px;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-ink-2);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .size-tag:hover {
+    border-color: var(--color-lime);
+    color: var(--color-lime);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200, 241, 53, 0.1);
   }
 </style>
