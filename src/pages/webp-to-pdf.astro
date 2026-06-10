@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FormatConverter from '../components/FormatConverter.astro';
-import SEOContentPDF from '../components/SEOContentPDF.astro';
+import SEOContentFormat from '../components/SEOContentFormat.astro';
 
 const SEO_TITLE = "Convert WEBP to PDF — Instant & Private Online Converter";
 const SEO_DESC = "Convert your WEBP images to PDF documents instantly in your browser. Supports bulk conversion, 100% private, no server upload required.";
@@ -33,5 +33,5 @@ const SEO_DESC = "Convert your WEBP images to PDF documents instantly in your br
     <FormatConverter toFormat="pdf" allowMultiple={true} />
   </section>
 
-  <SEOContentPDF sourceFormat="WEBP" />
+  <SEOContentFormat fromFormat="WEBP" toFormat="PDF" />
 </Layout>
