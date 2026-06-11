@@ -68,6 +68,7 @@
 
   const root = document.getElementById('heic-root');
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('heic-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('heic-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('heic-upload-placeholder') as HTMLDivElement;
@@ -88,12 +89,14 @@
     let selectedFiles: File[] = [];
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#heic-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -177,10 +180,12 @@
           
           let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
           
-          // Some HEIC files contain multiple images (bursts/animations), usually we just want the first one
-          results.push({
-            blob: blobArray[0] as Blob,
-            name: file.name.replace(/\.heic$/i, '.jpg').replace(/\.heif$/i, '.jpg')
+          blobArray.forEach((blob, idx) => {
+            let n = file.name.replace(/\.heic$/i, '.jpg').replace(/\.heif$/i, '.jpg');
+            if (blobArray.length > 1) {
+              n = n.replace(/\.jpg$/i, `_${idx + 1}.jpg`);
+            }
+            results.push({ blob: blob as Blob, name: n });
           });
         }
 
@@ -189,7 +194,9 @@
 
         results.forEach(res => {
           const a = document.createElement('a');
-          a.href = URL.createObjectURL(res.blob);
+          const tempUrl = URL.createObjectURL(res.blob);
+          blobUrlsToRevoke.push(tempUrl);
+          a.href = tempUrl;
           a.download = res.name;
           a.className = 'btn-download';
           a.style.width = '100%';
@@ -213,6 +220,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

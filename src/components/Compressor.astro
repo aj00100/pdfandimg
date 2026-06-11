@@ -693,7 +693,8 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         const result = await compressToTarget(selectedFile, targetKB, 12, targetFormat);
         const endTime = performance.now();
         const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
-        const url    = URL.createObjectURL(result.blob);
+        const url = URL.createObjectURL(result.blob);
+          blobUrlsToRevoke.push(url);
 
         const finalKB  = (result.blob.size / 1024).toFixed(1);
         const savedPct = Math.abs(Math.round((1 - result.blob.size / selectedFile.size) * 100));
@@ -734,7 +735,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 
         downloadLink.href   = url;
         
-        const cleanOriginalName = selectedFile.name.split('.')[0].replace(/\s+/g, '_');
+        const cleanOriginalName = (selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || selectedFile.name).replace(/\s+/g, '_');
         const defaultName = `${cleanOriginalName}_${rawValue}${unit}`;
         renameInput.value = defaultName;
         downloadLink.download = `${defaultName}.${ext}`;
@@ -790,7 +791,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
              const actualFormat = targetFormat === 'auto' ? file.type : targetFormat;
              const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
              const result = await compressToTarget(file, targetKB, 12, targetFormat);
-             const cleanOriginalName = file.name.split('.')[0].replace(/\s+/g, '_');
+             const cleanOriginalName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name).replace(/\s+/g, '_');
              const filename = `${cleanOriginalName}_compressed.${ext}`;
              zip.file(filename, result.blob);
              totalOrigSize += file.size;
@@ -828,6 +829,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         termCursor.style.display = 'none';
 
         const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
         
         previewImg.style.display = 'none';
         let bulkResultText = document.getElementById('bulk-result-text');
@@ -905,6 +907,8 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 
   /* ── Reset ── */
   resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
     selectedFiles = [];
     compressBtn.disabled = true;
     uploadPreview.src = '';

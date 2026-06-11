@@ -101,7 +101,8 @@
                 return 'https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.wasm';
               }
               return path;
-            }
+            },
+            noExitRuntime: true
           }).then((instance: any) => {
             qpdfInstance = instance;
             resolve(instance);
@@ -115,7 +116,8 @@
                 locateFile: (path: string) => {
                   if (path.endsWith('.wasm')) return 'https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@0.3.0/dist/qpdf.wasm';
                   return path;
-                }
+                },
+                noExitRuntime: true
               }).then((instance: any) => {
                 qpdfInstance = instance;
                 resolve(instance);
@@ -131,6 +133,7 @@
 
   const root = document.getElementById('unlock-root');
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('unlock-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('unlock-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('unlock-upload-placeholder') as HTMLDivElement;
@@ -156,12 +159,14 @@
     let fileBuffer: Uint8Array | null = null;
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#unlock-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -304,6 +309,7 @@
 
           const blob = new Blob([result.data], { type: 'application/pdf' });
           const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
           
           downloadLink.href = url;
           const cleanName = currentFile.name.replace('.pdf', '') + '_unlocked.pdf';
@@ -350,6 +356,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       currentFile = null;
       fileBuffer = null;
       previewContainer.classList.add('hidden');

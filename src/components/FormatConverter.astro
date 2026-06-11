@@ -65,6 +65,7 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
 
   const root = document.getElementById('format-converter-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('fc-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('fc-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('fc-upload-placeholder') as HTMLDivElement;
@@ -86,12 +87,14 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
     const ext = targetMime === 'image/jpeg' ? 'jpg' : targetMime === 'image/png' ? 'png' : 'pdf';
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#fc-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -158,8 +161,9 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
           progressBar.style.width = '100%';
           
           const url = URL.createObjectURL(result.blob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const cleanName = selectedFiles[0].name.split('.')[0].replace(/\s+/g, '_');
+          const cleanName = (selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name).replace(/\s+/g, '_');
           downloadLink.download = `${cleanName}_converted.${ext}`;
           downloadLink.innerHTML = `Download ${ext.toUpperCase()}`;
         } else {
@@ -167,7 +171,7 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
           for (let i = 0; i < selectedFiles.length; i++) {
             statusText.textContent = `Converting ${i+1} of ${selectedFiles.length}...`;
             const result = await convertFormat(selectedFiles[i], targetMime, 1.0);
-            const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+            const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
             zip.file(`${cleanName}_converted.${ext}`, result.blob);
             progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
           }
@@ -176,6 +180,7 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
           progressBar.style.width = '100%';
           
           const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
           downloadLink.download = `converted_images.zip`;
           downloadLink.innerHTML = `Download ZIP`;
@@ -194,6 +199,8 @@ const displayFormat = toFormat === 'jpeg' ? 'JPEG' : toFormat === 'png' ? 'PNG' 
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

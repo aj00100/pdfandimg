@@ -77,6 +77,7 @@ const { defaultTargetKB = 100 } = Astro.props;
 
   const root = document.getElementById('jpg-pdf-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('jpg-pdf-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('jpg-pdf-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('jpg-pdf-upload-placeholder') as HTMLDivElement;
@@ -101,12 +102,14 @@ const { defaultTargetKB = 100 } = Astro.props;
     let canvas: HTMLCanvasElement | null = null;
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#jpg-pdf-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -239,6 +242,10 @@ const { defaultTargetKB = 100 } = Astro.props;
           const diff = targetBytes - finalBlob.size;
           const padding = new Uint8Array(diff);
           padding.fill(32); // 32 is space character
+          if (diff >= 2) {
+            padding[0] = 10; // \n
+            padding[1] = 37; // %
+          }
           finalBlob = new Blob([finalBlob, padding], { type: 'application/pdf' });
         }
 
@@ -250,8 +257,9 @@ const { defaultTargetKB = 100 } = Astro.props;
           finalSizeText.textContent = `${finalSizeKB} KB`;
           
           const url = URL.createObjectURL(finalBlob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const originalName = selectedFile.name.split('.')[0];
+          const originalName = (selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || selectedFile.name);
           downloadLink.download = `${originalName}_${targetKB}kb.pdf`;
           
           processing.classList.add('hidden');
@@ -269,6 +277,8 @@ const { defaultTargetKB = 100 } = Astro.props;
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFile = null;
       canvas = null;
       previewContainer.classList.add('hidden');

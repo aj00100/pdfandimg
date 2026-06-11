@@ -228,7 +228,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
     const file = e.target.files[0];
     if (!file) return;
 
-    originalFilename = file.name.split('.')[0];
+    originalFilename = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
     document.getElementById('rename-input').value = originalFilename + '_passport';
 
     const reader = new FileReader();
@@ -292,6 +292,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
     const canvas = cropper.getCroppedCanvas({ maxWidth: 2000, maxHeight: 2000 });
     canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
       const customName = document.getElementById('rename-input').value.trim() || 'passport_photo';
       const a = document.createElement('a');
       a.href = url;

@@ -82,6 +82,7 @@
 
   const root = document.getElementById('pdf-ext-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('pdf-ext-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('pdf-ext-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('pdf-ext-upload-placeholder') as HTMLDivElement;
@@ -110,12 +111,14 @@
     }
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-ext-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -196,7 +199,7 @@
         const pdf = await loadingTask.promise;
         
         const zip = new JSZip();
-        const cleanName = selectedFile.name.split('.')[0];
+        const cleanName = (selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || selectedFile.name);
         
         for (let i = 1; i <= totalPages; i++) {
           statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
@@ -235,6 +238,7 @@
         
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
         downloadLink.download = `${cleanName}_images.zip`;

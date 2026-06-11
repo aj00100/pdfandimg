@@ -60,6 +60,7 @@
 
   const root = document.getElementById('pdf-sep-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('pdf-sep-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('pdf-sep-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('pdf-sep-upload-placeholder') as HTMLDivElement;
@@ -82,12 +83,14 @@
     let totalPages = 0;
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-sep-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -202,9 +205,10 @@
         const pdfBytes = await newPdf.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
-        const cleanName = selectedFile.name.split('.')[0];
+        const cleanName = (selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || selectedFile.name);
         downloadLink.download = `${cleanName}_extracted.pdf`;
         
         processing.classList.add('hidden');
