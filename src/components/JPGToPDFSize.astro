@@ -39,8 +39,11 @@ const { defaultTargetKB = 100 } = Astro.props;
       </div>
     </div>
 
-    <button id="jpg-pdf-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem;" type="button">
-      Convert to PDF
+    <button id="jpg-pdf-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      Instant PDF
     </button>
   </div>
 
@@ -211,7 +214,7 @@ const { defaultTargetKB = 100 } = Astro.props;
           }
           
           progressBar.style.width = `${20 + Math.round((iteration / 8) * 70)}%`;
-          await new Promise(r => setTimeout(r, 50)); // let UI update
+          await new Promise(r => setTimeout(r, 0)); // let UI update instantly
         }
         
         // If we still didn't find one that fits, try worst quality

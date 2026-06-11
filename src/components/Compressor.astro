@@ -335,10 +335,9 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         type="button"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3v14M5 10l7 7 7-7"/>
-          <path d="M5 21h14"/>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
-        Optimize Image
+        Instant Optimize
       </button>
     </div>
   </div>
@@ -709,8 +708,6 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         ];
 
         for (let i = 0; i < lines.length; i++) {
-          const prev = i > 0 ? lines[i - 1].delay : 0;
-          await new Promise(r => setTimeout(r, i === 0 ? 0 : lines[i].delay - prev));
           const el = document.createElement('div');
           el.style.cssText = `font-size:0.75rem;color:${lines[i].color};letter-spacing:0.02em;opacity:0;transition:opacity 0.15s ease;white-space:pre;margin-bottom:5px;line-height:1.5;`;
           el.textContent = lines[i].text;
@@ -719,7 +716,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           progressBar.style.width = `${Math.round((i + 1) / lines.length * 100)}%`;
         }
 
-        await new Promise(r => setTimeout(r, 180));
+        termCursor.style.display = 'none';
         termCursor.style.display = 'none';
         progressBar.style.width = '100%';
 
@@ -827,7 +824,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         doneEl.textContent = `✓ done`;
         termLines.appendChild(doneEl);
         
-        await new Promise(r => setTimeout(r, 180));
+        termCursor.style.display = 'none';
         termCursor.style.display = 'none';
 
         const url = URL.createObjectURL(zipBlob);
