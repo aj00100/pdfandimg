@@ -1,8 +1,8 @@
-# pdfANDimg: The Ultimate Multi-Tool Utility Suite
+# PdfAndImg: The Ultimate Multi-Tool Utility Suite
 
-pdfANDimg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **44 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing. 
+PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **44 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing. 
 
-Designed for maximum SEO, instant load speeds, and zero-server privacy, pdfANDimg processes everything directly in the user's browser.
+Designed for maximum SEO, instant load speeds, and zero-server privacy, PdfAndImg processes everything directly in the user's browser.
 
 ## 🚀 Key Features & Tool Suites
 
@@ -12,7 +12,7 @@ Designed for maximum SEO, instant load speeds, and zero-server privacy, pdfANDim
 - **Add Images to PDF:** Convert arrays of images directly into well-formatted PDF files entirely client-side.
 
 ### 2. Target-Lock Image Compression
-- Instead of arbitrary "quality" sliders, pdfANDimg lets users define an exact file size limit (e.g., 20KB, 50KB). 
+- Instead of arbitrary "quality" sliders, PdfAndImg lets users define an exact file size limit (e.g., 20KB, 50KB). 
 - The core engine (`src/utils/imageCompressor.ts`) performs a multi-iteration binary search entirely in local memory to find the mathematically highest quality image that fits precisely under the requested byte limit.
 
 ### 3. Smart Scaling & Format Conversions
@@ -60,7 +60,7 @@ Built strategically as a Multi-Page Application using Astro. Each of the 44 micr
 
 ## 🏃‍♂️ Running Locally
 
-To work on pdfANDimg locally, run the following commands in your terminal:
+To work on PdfAndImg locally, run the following commands in your terminal:
 
 ```sh
 # 1. Install dependencies
@@ -86,4 +86,4 @@ npm run preview
 
 ## 🛡️ License & Privacy
 
-Because pdfANDimg is a 100% client-side application, it strictly adheres to maximum privacy standards out of the box. No backend servers, databases, or cloud storage environments are used for file processing.
+Because PdfAndImg is a 100% client-side application, it strictly adheres to maximum privacy standards out of the box. No backend servers, databases, or cloud storage environments are used for file processing.

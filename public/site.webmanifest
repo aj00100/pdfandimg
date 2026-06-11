@@ -1,6 +1,6 @@
 {
-    "name": "pdfANDimg",
-    "short_name": "pdfANDimg",
+    "name": "PdfAndImg",
+    "short_name": "PdfAndImg",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
