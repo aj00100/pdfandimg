@@ -542,12 +542,12 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
   /* ── Drop zone interactions ── */
   dropZone.addEventListener('click', (e) => {
     if (e.target === changeImageBtn || e.target === uploadLoading) return;
-    fileInput.click();
+    fileInput.value = ''; fileInput.click();
   });
 
   changeImageBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    fileInput.click();
+    fileInput.value = ''; fileInput.click();
   });
 
   fileInput.addEventListener('change', (e: any) => {
