@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="500 - Internal Server Error">
+  <main class="container-stripe" style="min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+    <h1 style="font-size: 6rem; color: var(--color-lime); margin-bottom: 1rem; font-family: var(--font-mono);">500</h1>
+    <h2 style="font-size: 2rem; color: var(--color-ink-1); margin-bottom: 1rem;">Internal Server Error</h2>
+    <p style="color: var(--color-ink-2); max-width: 500px; margin-bottom: 2rem;">
+      Oops! Something went wrong on our end. Please try again later.
+    </p>
+    <a href="/" style="background: var(--color-lime); color: var(--color-surface-1); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+      Return to Home
+    </a>
+  </main>
+</Layout>
