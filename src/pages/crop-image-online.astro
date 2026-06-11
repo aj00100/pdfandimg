@@ -319,7 +319,6 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     const canvas = cropper.getCroppedCanvas({ maxWidth: 2000, maxHeight: 2000 });
     canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
-          blobUrlsToRevoke.push(url);
       const customName = document.getElementById('rename-input').value.trim() || 'cropped_image';
       const a = document.createElement('a');
       a.href = url;

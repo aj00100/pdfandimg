@@ -292,7 +292,6 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
     const canvas = cropper.getCroppedCanvas({ maxWidth: 2000, maxHeight: 2000 });
     canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
-          blobUrlsToRevoke.push(url);
       const customName = document.getElementById('rename-input').value.trim() || 'passport_photo';
       const a = document.createElement('a');
       a.href = url;

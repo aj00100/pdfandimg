@@ -1,0 +1,7 @@
+/* Sticky Tools Panel */
+@media (min-width: 769px) {
+  .sticky-tools {
+    position: sticky;
+    top: 88px;
+  }
+}

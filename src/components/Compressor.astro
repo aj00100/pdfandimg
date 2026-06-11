@@ -511,6 +511,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 </div>
 
 <script>
+  const blobUrlsToRevoke = [];
   import { compressToTarget } from '../utils/imageCompressor';
   import JSZip from 'jszip';
 

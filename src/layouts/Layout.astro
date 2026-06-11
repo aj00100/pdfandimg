@@ -278,5 +278,16 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
         </div>
       </div>
     </footer>
+    <script>
+      // Close mobile dropdown when tapping outside
+      document.addEventListener('click', (e) => {
+        const details = document.querySelector('.mobile-menu');
+        if (details && details.hasAttribute('open')) {
+          if (!details.contains(e.target as Node)) {
+            details.removeAttribute('open');
+          }
+        }
+      });
+    </script>
   </body>
 </html>
