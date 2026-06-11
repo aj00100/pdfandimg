@@ -1,0 +1,413 @@
+---
+---
+<div id="master-converter-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    <div id="mc-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="mc-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp,.heic,.heif" multiple />
+      
+      <div id="mc-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">Drop images here</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">Supports JPG, PNG, WEBP, and HEIC</p>
+        </div>
+        <button onclick="document.getElementById('mc-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="mc-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <img id="mc-upload-preview" src="" alt="Preview" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;" />
+        <div id="mc-bulk-text" style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%; text-align: center;"></div>
+        <button id="mc-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <div id="mc-format-selection" class="hidden flex-col gap-4" style="margin-top: 16px;">
+      <p style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink-2); margin: 0; text-align: center;">Select target format:</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <button class="mc-target-btn btn-ghost" data-target="image/jpeg" style="height: 48px; border-color: var(--color-border-hi);">JPG</button>
+        <button class="mc-target-btn btn-ghost" data-target="image/png" style="height: 48px; border-color: var(--color-border-hi);">PNG</button>
+        <button class="mc-target-btn btn-ghost" data-target="application/pdf" style="height: 48px; border-color: var(--color-border-hi);">PDF</button>
+      </div>
+    </div>
+
+    <button id="mc-convert-btn" class="btn-primary hidden" disabled style="width: 100%; height: 56px; font-size: 1rem; margin-top: 24px;" type="button">
+      Convert Files
+    </button>
+  </div>
+
+  <div id="mc-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="mc-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="mc-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="mc-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="mc-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Conversion Complete!</h2>
+        <a id="mc-download-link" href="#" class="btn-download hidden" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download File
+        </a>
+        <div id="mc-download-links-multi" style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px;" class="hidden">
+          <!-- Download buttons injected here -->
+        </div>
+        <button id="mc-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Convert more files
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  import { convertFormat } from '../utils/imageCompressor';
+  import JSZip from 'jszip';
+
+  declare global {
+    interface Window {
+      heic2any: any;
+      jspdf: any;
+    }
+  }
+
+  const root = document.getElementById('master-converter-root') as HTMLDivElement;
+  if (root) {
+    const dropZone = document.getElementById('mc-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('mc-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('mc-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('mc-preview-container') as HTMLDivElement;
+    const uploadPreview = document.getElementById('mc-upload-preview') as HTMLImageElement;
+    const bulkText = document.getElementById('mc-bulk-text') as HTMLDivElement;
+    const changeBtn = document.getElementById('mc-change-btn') as HTMLButtonElement;
+    
+    const formatSelection = document.getElementById('mc-format-selection') as HTMLDivElement;
+    const targetBtns = document.querySelectorAll('.mc-target-btn');
+    const convertBtn = document.getElementById('mc-convert-btn') as HTMLButtonElement;
+    
+    const statusPanel = document.getElementById('mc-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('mc-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('mc-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('mc-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('mc-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('mc-download-link') as HTMLAnchorElement;
+    const downloadLinksMulti = document.getElementById('mc-download-links-multi') as HTMLDivElement;
+    const resetBtn = document.getElementById('mc-reset-btn') as HTMLButtonElement;
+
+    let selectedFiles: File[] = [];
+    let selectedTargetMime: string | null = null;
+    let containsHeic = false;
+
+    dropZone.addEventListener('click', (e) => {
+      if (e.target !== changeBtn && e.target !== document.querySelector('#mc-upload-placeholder button')) {
+        fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) handleFiles(files);
+    });
+
+    function handleFiles(filesList: FileList | File[]) {
+      const arr = Array.from(filesList);
+      selectedFiles = arr.filter(f => f.type.startsWith('image/') || f.name.toLowerCase().endsWith('.heic') || f.name.toLowerCase().endsWith('.heif')).slice(0, 50);
+      if (selectedFiles.length === 0) return;
+
+      containsHeic = selectedFiles.some(f => f.name.toLowerCase().endsWith('.heic') || f.name.toLowerCase().endsWith('.heif'));
+
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      formatSelection.classList.remove('hidden');
+      formatSelection.style.display = 'flex';
+      
+      convertBtn.classList.remove('hidden');
+      convertBtn.disabled = true; // Wait for target selection
+
+      if (selectedFiles.length === 1 && !containsHeic) {
+        uploadPreview.style.display = 'block';
+        bulkText.style.display = 'none';
+        const reader = new FileReader();
+        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.readAsDataURL(selectedFiles[0]);
+      } else {
+        uploadPreview.style.display = 'none';
+        bulkText.style.display = 'block';
+        if (selectedFiles.length === 1) {
+            bulkText.innerHTML = `<strong>${selectedFiles[0].name}</strong><br/><span style="color:var(--color-ink-2)">HEIC Document</span>`;
+        } else {
+            bulkText.innerHTML = `<strong>${selectedFiles.length} files selected</strong><br/><span style="color:var(--color-ink-2)">Ready for conversion</span>`;
+        }
+      }
+      statusPanel.classList.add('hidden');
+      
+      // Auto-select a different format than the input if possible
+      resetTargetSelection();
+    }
+    
+    function resetTargetSelection() {
+        targetBtns.forEach(b => {
+            (b as HTMLElement).style.background = 'transparent';
+            (b as HTMLElement).style.color = 'var(--color-ink)';
+            (b as HTMLElement).style.borderColor = 'var(--color-border-hi)';
+        });
+        selectedTargetMime = null;
+        convertBtn.disabled = true;
+        convertBtn.textContent = 'Select Target Format';
+    }
+
+    targetBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            targetBtns.forEach(b => {
+                (b as HTMLElement).style.background = 'transparent';
+                (b as HTMLElement).style.color = 'var(--color-ink)';
+                (b as HTMLElement).style.borderColor = 'var(--color-border-hi)';
+            });
+            const target = e.target as HTMLElement;
+            target.style.background = 'var(--color-surface-3)';
+            target.style.color = 'var(--color-lime)';
+            target.style.borderColor = 'var(--color-lime)';
+            
+            selectedTargetMime = target.dataset.target as string;
+            
+            const displayFormat = selectedTargetMime === 'image/jpeg' ? 'JPG' : selectedTargetMime === 'image/png' ? 'PNG' : 'PDF';
+            convertBtn.textContent = `Convert to ${displayFormat}`;
+            convertBtn.disabled = false;
+        });
+    });
+
+    convertBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0 || !selectedTargetMime) return;
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      downloadLink.classList.add('hidden');
+      downloadLinksMulti.classList.add('hidden');
+      downloadLinksMulti.innerHTML = '';
+
+      const ext = selectedTargetMime === 'image/jpeg' ? 'jpg' : selectedTargetMime === 'image/png' ? 'png' : 'pdf';
+      const displayFormat = selectedTargetMime === 'image/jpeg' ? 'JPG' : selectedTargetMime === 'image/png' ? 'PNG' : 'PDF';
+
+      try {
+        if (selectedFiles.length === 1) {
+          const file = selectedFiles[0];
+          statusText.textContent = `Converting ${file.name} to ${displayFormat}...`;
+          progressBar.style.width = '50%';
+          
+          let resultBlob: Blob;
+          
+          if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+              // HEIC Conversion Flow
+              if (!window.heic2any) throw new Error("HEIC engine failed to load.");
+              
+              const heicToMime = selectedTargetMime === 'application/pdf' ? 'image/jpeg' : selectedTargetMime;
+              
+              const conversionResult = await window.heic2any({
+                blob: file,
+                toType: heicToMime,
+                quality: 0.92
+              });
+              
+              let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
+              let baseBlob = blobArray[0] as Blob;
+              
+              if (selectedTargetMime === 'application/pdf') {
+                  // Need to wrap the converted JPEG in a PDF
+                  statusText.textContent = 'Generating PDF...';
+                  const dataUrl = await new Promise<string>((res) => {
+                      const reader = new FileReader();
+                      reader.onload = () => res(reader.result as string);
+                      reader.readAsDataURL(baseBlob);
+                  });
+                  
+                  const img = new Image();
+                  await new Promise((res) => {
+                      img.onload = res;
+                      img.src = dataUrl;
+                  });
+                  
+                  const jsPDF = window.jspdf.jsPDF;
+                  const pdf = new jsPDF({
+                    orientation: img.width > img.height ? 'l' : 'p',
+                    unit: 'px',
+                    format: [img.width, img.height]
+                  });
+                  
+                  pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
+                  resultBlob = pdf.output('blob');
+              } else {
+                  resultBlob = baseBlob;
+              }
+          } else {
+              // Standard Conversion Flow
+              const result = await convertFormat(file, selectedTargetMime as any, 0.92);
+              resultBlob = result.blob;
+          }
+          
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(resultBlob);
+          downloadLink.href = url;
+          const cleanName = file.name.split('.')[0].replace(/\s+/g, '_');
+          downloadLink.download = `${cleanName}_converted.${ext}`;
+          downloadLink.innerHTML = `Download ${displayFormat}`;
+          downloadLink.classList.remove('hidden');
+          downloadLink.style.display = 'inline-flex';
+          
+        } else {
+          // Multi-file ZIP download for standard formats or direct links for HEIC (since zip can be heavy)
+          // To keep it clean, we'll ZIP them if > 3 files, otherwise show multiple buttons
+          
+          if (selectedFiles.length <= 3) {
+              for (let i = 0; i < selectedFiles.length; i++) {
+                  const file = selectedFiles[i];
+                  statusText.textContent = `Converting ${i+1} of ${selectedFiles.length}...`;
+                  
+                  let resultBlob: Blob;
+                  if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+                      const heicToMime = selectedTargetMime === 'application/pdf' ? 'image/jpeg' : selectedTargetMime;
+                      const conversionResult = await window.heic2any({ blob: file, toType: heicToMime, quality: 0.92 });
+                      let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
+                      let baseBlob = blobArray[0] as Blob;
+                      
+                      if (selectedTargetMime === 'application/pdf') {
+                          const dataUrl = await new Promise<string>((res) => {
+                              const reader = new FileReader();
+                              reader.onload = () => res(reader.result as string);
+                              reader.readAsDataURL(baseBlob);
+                          });
+                          const img = new Image();
+                          await new Promise((res) => { img.onload = res; img.src = dataUrl; });
+                          const jsPDF = window.jspdf.jsPDF;
+                          const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
+                          pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
+                          resultBlob = pdf.output('blob');
+                      } else {
+                          resultBlob = baseBlob;
+                      }
+                  } else {
+                      const result = await convertFormat(file, selectedTargetMime as any, 0.92);
+                      resultBlob = result.blob;
+                  }
+                  
+                  const a = document.createElement('a');
+                  a.href = URL.createObjectURL(resultBlob);
+                  const cleanName = file.name.split('.')[0].replace(/\s+/g, '_');
+                  a.download = `${cleanName}_converted.${ext}`;
+                  a.className = 'btn-download';
+                  a.style.width = '100%';
+                  a.style.height = '48px';
+                  a.style.fontSize = '0.9rem';
+                  a.textContent = `Download ${cleanName}.${ext}`;
+                  downloadLinksMulti.appendChild(a);
+                  
+                  progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 100)}%`;
+              }
+              downloadLinksMulti.classList.remove('hidden');
+              downloadLinksMulti.style.display = 'flex';
+              
+          } else {
+              const zip = new JSZip();
+              for (let i = 0; i < selectedFiles.length; i++) {
+                statusText.textContent = `Converting ${i+1} of ${selectedFiles.length}...`;
+                
+                let resultBlob: Blob;
+                if (selectedFiles[i].name.toLowerCase().endsWith('.heic') || selectedFiles[i].name.toLowerCase().endsWith('.heif')) {
+                    const heicToMime = selectedTargetMime === 'application/pdf' ? 'image/jpeg' : selectedTargetMime;
+                    const conversionResult = await window.heic2any({ blob: selectedFiles[i], toType: heicToMime, quality: 0.92 });
+                    let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
+                    let baseBlob = blobArray[0] as Blob;
+                    
+                    if (selectedTargetMime === 'application/pdf') {
+                        const dataUrl = await new Promise<string>((res) => {
+                            const reader = new FileReader();
+                            reader.onload = () => res(reader.result as string);
+                            reader.readAsDataURL(baseBlob);
+                        });
+                        const img = new Image();
+                        await new Promise((res) => { img.onload = res; img.src = dataUrl; });
+                        const jsPDF = window.jspdf.jsPDF;
+                        const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
+                        pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
+                        resultBlob = pdf.output('blob');
+                    } else {
+                        resultBlob = baseBlob;
+                    }
+                } else {
+                    const result = await convertFormat(selectedFiles[i], selectedTargetMime as any, 1.0);
+                    resultBlob = result.blob;
+                }
+                
+                const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+                zip.file(`${cleanName}_converted.${ext}`, resultBlob);
+                progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
+              }
+              statusText.textContent = 'Zipping files...';
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              progressBar.style.width = '100%';
+              
+              const url = URL.createObjectURL(zipBlob);
+              downloadLink.href = url;
+              downloadLink.download = `converted_files.zip`;
+              downloadLink.innerHTML = `Download ZIP`;
+              downloadLink.classList.remove('hidden');
+              downloadLink.style.display = 'inline-flex';
+          }
+        }
+
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Conversion failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      selectedFiles = [];
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      formatSelection.classList.add('hidden');
+      convertBtn.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+      resetTargetSelection();
+    });
+  }
+</script>

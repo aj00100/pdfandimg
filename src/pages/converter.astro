@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MasterConverter from '../components/MasterConverter.astro';
+
+const SEO_TITLE = "Universal Image & HEIC Converter — Target-Lock";
+const SEO_DESC = "Instantly convert any image—JPG, PNG, WEBP, and HEIC—into your desired format. Auto-detects iPhone photos and converts to PDF, PNG, or JPG flawlessly.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 pb-32 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Universal Format Engine</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.04em;">
+        The Master <span style="color: var(--color-lime);">Converter.</span>
+      </h1>
+      <p style="font-size: 1.25rem; color: var(--color-ink-2); line-height: 1.6; max-width: 600px; margin: 0 auto;">
+        Drop any image file—including iPhone HEIC photos. Select your target format. We handle the rest, entirely in your browser.
+      </p>
+    </div>
+
+    <!-- The Master Converter Component -->
+    <MasterConverter />
+
+    <!-- SEO Content Section -->
+    <div style="max-width: 860px; margin: 80px auto 0;">
+      <div class="panel p-8">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; color: var(--color-ink);">One Tool, Endless Possibilities</h2>
+        <p style="color: var(--color-ink-2); line-height: 1.6; margin-bottom: 24px;">
+          Forget hunting for specific conversion tools. The Master Converter automatically detects your file type and adapts to offer exactly what you need. Need to change an iPhone HEIC to a universally supported JPG? Done. Need to bundle PNGs into a PDF? Handled.
+        </p>
+        
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">How it works:</h3>
+        <ol style="color: var(--color-ink-2); line-height: 1.6; margin-bottom: 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px;"><strong>Drop your files:</strong> Upload single or multiple images simultaneously.</li>
+          <li style="margin-bottom: 8px;"><strong>Auto-Detection:</strong> Our engine recognizes JPG, PNG, WEBP, and Apple's HEIC/HEIF formats.</li>
+          <li style="margin-bottom: 8px;"><strong>Select Target:</strong> Choose your desired output format from the dynamically updated list.</li>
+          <li><strong>Instant Conversion:</strong> Files are processed instantly and privately right on your device.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</Layout>
