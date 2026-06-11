@@ -95,13 +95,13 @@
 
     dropZone.addEventListener('click', (e) => {
       if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-ai-upload-placeholder button')) {
-        fileInput.click();
+        fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      fileInput.click();
+      fileInput.value = ''; fileInput.click();
     });
 
     dropZone.addEventListener('dragover', (e) => {
