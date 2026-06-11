@@ -122,7 +122,18 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
 
         <!-- Nav links -->
         <nav style="display: flex; align-items: center; gap: 6px;">
-          <a href="/tools" class="nav-link show-mobile-only" style="color: var(--color-lime);">Tools</a>
+          <!-- Mobile Tools Dropdown -->
+          <details class="show-mobile-only mobile-menu" style="position: relative;">
+            <summary class="nav-link" style="color: var(--color-lime); cursor: pointer; list-style: none;">Tools ▾</summary>
+            <div style="position: absolute; top: 100%; right: 0; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 150px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 200; margin-top: 12px;">
+              <a href="/converter" class="nav-link nav-highlight-lime" style="text-align: left;">Converters</a>
+              <a href="/tools#pdf-tools" class="nav-link nav-highlight-lime" style="text-align: left;">PDF Tools</a>
+              <a href="/crop-image-online" class="nav-link nav-highlight-lime" style="text-align: left;">Crop</a>
+              <a href="/" class="nav-link nav-highlight-lime" style="text-align: left;">Compress</a>
+              <a href="/increase-image-size-in-kb" class="nav-link nav-highlight-lime" style="text-align: left;">Enhance</a>
+            </div>
+          </details>
+          <a href="/converter" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Converters</a>
           <a href="/tools#pdf-tools" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">PDF Tools</a>
           <a href="/crop-image-online" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Crop</a>
           <a href="/" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Compress</a>
