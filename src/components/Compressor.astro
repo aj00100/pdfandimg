@@ -702,7 +702,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         const inputKB  = (selectedFile.size / 1024).toFixed(1);
 
         const lines = [
-          { text: `$ imgshrink --target ${targetKB}kb --format ${ext}`, color: '#c8f135',              delay: 0   },
+          { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135',              delay: 0   },
           { text: `  reading input   ·  ${inputKB}kb`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
           { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
           { text: `  output          ·  ${finalKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 680 },
@@ -778,7 +778,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         // --- BULK FILE LOGIC ---
         const el = document.createElement('div');
         el.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        el.textContent = `$ imgshrink --batch ${selectedFiles.length} --target ${targetKB}kb`;
+        el.textContent = `$ pdfandimg --batch ${selectedFiles.length} --target ${targetKB}kb`;
         termLines.appendChild(el);
 
         const zip = new JSZip();
@@ -845,7 +845,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 
         downloadLink.href = url;
         
-        const defaultZipName = `imgshrink_batch_${targetKB}kb`;
+        const defaultZipName = `pdfandimg_batch_${targetKB}kb`;
         renameInput.value = defaultZipName;
         downloadLink.download = `${defaultZipName}.zip`;
 

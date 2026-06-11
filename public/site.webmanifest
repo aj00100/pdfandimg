@@ -1,6 +1,6 @@
 {
-    "name": "ImgShrink",
-    "short_name": "ImgShrink",
+    "name": "PDFandIMG",
+    "short_name": "PDFandIMG",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
