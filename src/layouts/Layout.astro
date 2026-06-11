@@ -95,8 +95,7 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
         "
       >
         <!-- Logo -->
-        <a
-          href="/"
+        <div
           style="display: flex; align-items: center; gap: 10px; text-decoration: none;"
         >
           <div class="logo-mark">
@@ -119,22 +118,15 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
               color: var(--color-ink);
             "
           >ImgShrink</span>
-        </a>
+        </div>
 
         <!-- Nav links -->
         <nav style="display: flex; align-items: center; gap: 6px;">
           <a href="/tools" class="nav-link show-mobile-only" style="color: var(--color-lime);">Tools</a>
-          <a href="/enhance-image-size" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">
-            Enhance KB
-            <span class="new-tag">NEW</span>
-          </a>
-          <a href="/crop-image" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">
-            Crop Image
-            <span class="new-tag">NEW</span>
-          </a>
-          <a href="/compress-image-to-20kb" class="nav-link hide-mobile">20 KB</a>
-          <a href="/compress-image-to-50kb" class="nav-link hide-mobile">50 KB</a>
-          <a href="/compress-image-to-100kb" class="nav-link hide-mobile">100 KB</a>
+          <a href="/tools#pdf-tools" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">PDF Tools</a>
+          <a href="/crop-image-online" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Crop</a>
+          <a href="/" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Compress</a>
+          <a href="/increase-image-size-in-kb" class="nav-link hide-mobile nav-highlight-lime" style="position: relative;">Enhance</a>
           <a
             href="/"
             class="btn-primary"
