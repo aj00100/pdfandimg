@@ -83,6 +83,7 @@
 
   const root = document.getElementById('master-converter-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('mc-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('mc-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('mc-upload-placeholder') as HTMLDivElement;
@@ -109,13 +110,15 @@
     let containsHeic = false;
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#mc-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = '';
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = '';
       fileInput.value = ''; fileInput.click();
@@ -289,7 +292,7 @@
               const totalPages = pdfDoc.numPages;
               
               const zip = new JSZip();
-              const cleanName = file.name.split('.')[0];
+              const cleanName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
               
               for (let i = 1; i <= totalPages; i++) {
                   statusText.textContent = `Extracting page ${i} of ${totalPages}...`;
@@ -316,6 +319,7 @@
               const zipBlob = await zip.generateAsync({ type: 'blob' });
               
               const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
               downloadLink.href = url;
               downloadLink.download = `${cleanName}_extracted_${displayFormat}.zip`;
               downloadLink.innerHTML = `Download ZIP`;
@@ -336,8 +340,9 @@
           progressBar.style.width = '100%';
           
           const url = URL.createObjectURL(resultBlob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const cleanName = file.name.split('.')[0].replace(/\s+/g, '_');
+          const cleanName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name).replace(/\s+/g, '_');
           downloadLink.download = `${cleanName}_converted.${ext}`;
           downloadLink.innerHTML = `Download ${displayFormat}`;
           downloadLink.classList.remove('hidden');
@@ -382,7 +387,7 @@
                       const pdfDoc = await loadingTask.promise;
                       const totalPages = pdfDoc.numPages;
                       const pageZip = new JSZip();
-                      const cleanName = file.name.split('.')[0];
+                      const cleanName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
                       for (let p = 1; p <= totalPages; p++) {
                           const page = await pdfDoc.getPage(p);
                           const viewport = page.getViewport({ scale: 2.0 });
@@ -396,7 +401,9 @@
                       }
                       resultBlob = await pageZip.generateAsync({ type: 'blob' });
                       const a = document.createElement('a');
-                      a.href = URL.createObjectURL(resultBlob);
+                      const tempUrl = URL.createObjectURL(resultBlob);
+          blobUrlsToRevoke.push(tempUrl);
+          a.href = tempUrl;
                       a.download = `${cleanName}_extracted_${displayFormat}.zip`;
                       a.className = 'btn-download';
                       a.style.width = '100%';
@@ -412,8 +419,10 @@
                   }
                   
                   const a = document.createElement('a');
-                  a.href = URL.createObjectURL(resultBlob);
-                  const cleanName = file.name.split('.')[0].replace(/\s+/g, '_');
+                  const tempUrl = URL.createObjectURL(resultBlob);
+          blobUrlsToRevoke.push(tempUrl);
+          a.href = tempUrl;
+                  const cleanName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name).replace(/\s+/g, '_');
                   a.download = `${cleanName}_converted.${ext}`;
                   a.className = 'btn-download';
                   a.style.width = '100%';
@@ -461,7 +470,7 @@
                     const loadingTask = window.pdfjsLib.getDocument({ data: arrayBuffer });
                     const pdfDoc = await loadingTask.promise;
                     const totalPages = pdfDoc.numPages;
-                    const cleanName = selectedFiles[i].name.split('.')[0];
+                    const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name);
                     for (let p = 1; p <= totalPages; p++) {
                         const page = await pdfDoc.getPage(p);
                         const viewport = page.getViewport({ scale: 2.0 });
@@ -480,7 +489,7 @@
                     resultBlob = result.blob;
                 }
                 
-                const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+                const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
                 zip.file(`${cleanName}_converted.${ext}`, resultBlob);
                 progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
               }
@@ -489,6 +498,7 @@
               progressBar.style.width = '100%';
               
               const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
               downloadLink.href = url;
               downloadLink.download = `converted_files.zip`;
               downloadLink.innerHTML = `Download ZIP`;
@@ -510,6 +520,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

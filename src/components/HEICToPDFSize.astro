@@ -81,6 +81,7 @@
 
   const root = document.getElementById('heic-pdf-root');
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('heic-pdf-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('heic-pdf-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('heic-pdf-upload-placeholder') as HTMLDivElement;
@@ -102,12 +103,14 @@
     let selectedFiles: File[] = [];
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#heic-pdf-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -247,6 +250,7 @@
         
         const pdfBlob = doc.output('blob');
         const url = URL.createObjectURL(pdfBlob);
+          blobUrlsToRevoke.push(url);
         
         const baseName = selectedFiles.length === 1 ? selectedFiles[0].name.replace(/\.heic$/i, '').replace(/\.heif$/i, '') : 'images';
         
@@ -267,6 +271,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

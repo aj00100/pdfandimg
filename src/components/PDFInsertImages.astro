@@ -212,6 +212,7 @@
 
   const root = document.getElementById('pdf-insert-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const step1 = document.getElementById('pdf-insert-step1') as HTMLDivElement;
     const step2 = document.getElementById('pdf-insert-step2') as HTMLDivElement;
     
@@ -345,7 +346,7 @@
         return;
       }
       
-      baseFileName = file.name.split('.')[0];
+      baseFileName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
       
       try {
         step1.classList.add('hidden');
@@ -410,6 +411,7 @@
         
         const blob = new Blob([buffer], { type: file.type });
         const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
         
         addCardToDOM('image', uuid, url, file.name, imageStash);
       }
@@ -583,6 +585,7 @@
               } else {
                 const imgBlob = new Blob([buffer], { type: mime });
                 const objUrl = URL.createObjectURL(imgBlob);
+          blobUrlsToRevoke.push(objUrl);
                 pdfImage = await embedWebpHack(finalPdf, objUrl);
               }
               
@@ -622,6 +625,7 @@
         const pdfBytes = await finalPdf.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
         downloadLink.download = `${baseFileName}_updated.pdf`;

@@ -88,6 +88,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
 
   const root = document.getElementById('resizer-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('rs-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('rs-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('rs-upload-placeholder') as HTMLDivElement;
@@ -110,12 +111,14 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
     let selectedFiles: File[] = [];
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#rs-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -193,8 +196,9 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
           progressBar.style.width = '100%';
           
           const url = URL.createObjectURL(result.blob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const cleanName = selectedFiles[0].name.split('.')[0].replace(/\s+/g, '_');
+          const cleanName = (selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name).replace(/\s+/g, '_');
           downloadLink.download = `${cleanName}_${width}x${height}.${ext}`;
           downloadLink.textContent = `Download ${ext.toUpperCase()}`;
         } else {
@@ -204,7 +208,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
             const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
             statusText.textContent = `Resizing ${i+1} of ${selectedFiles.length}...`;
             const result = await resizeImageExact(selectedFiles[i], width, height, targetFormat, 0.92);
-            const cleanName = selectedFiles[i].name.split('.')[0].replace(/\s+/g, '_');
+            const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
             zip.file(`${cleanName}_${width}x${height}.${ext}`, result.blob);
             progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
           }
@@ -213,6 +217,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
           progressBar.style.width = '100%';
           
           const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
           downloadLink.href = url;
           downloadLink.download = `resized_images_${width}x${height}.zip`;
           downloadLink.textContent = `Download ZIP`;
@@ -231,6 +236,8 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

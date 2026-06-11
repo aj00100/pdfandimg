@@ -55,6 +55,7 @@
 
   const root = document.getElementById('pdf-merge-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('pdf-merge-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('pdf-merge-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('pdf-merge-upload-placeholder') as HTMLDivElement;
@@ -74,12 +75,14 @@
     let selectedFiles: File[] = [];
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-merge-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -156,6 +159,7 @@
         const pdfBytes = await mergedPdf.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
         downloadLink.download = `merged_document.pdf`;
@@ -173,6 +177,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');

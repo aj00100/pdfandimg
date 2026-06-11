@@ -151,6 +151,7 @@
 
   const root = document.getElementById('pdf-rem-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const step1 = document.getElementById('pdf-rem-step1') as HTMLDivElement;
     const step2 = document.getElementById('pdf-rem-step2') as HTMLDivElement;
     
@@ -227,7 +228,7 @@
         return;
       }
       
-      baseFileName = file.name.split('.')[0];
+      baseFileName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
       
       try {
         step1.classList.add('hidden');
@@ -346,6 +347,7 @@
         const pdfBytes = await finalPdf.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
         downloadLink.download = `${baseFileName}_removed.pdf`;

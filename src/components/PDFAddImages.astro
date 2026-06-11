@@ -73,6 +73,7 @@
 
   const root = document.getElementById('pdf-add-images-root') as HTMLDivElement;
   if (root) {
+    const blobUrlsToRevoke: string[] = [];
     const dropZone = document.getElementById('pdf-ai-drop-zone') as HTMLDivElement;
     const fileInput = document.getElementById('pdf-ai-file-input') as HTMLInputElement;
     const placeholder = document.getElementById('pdf-ai-upload-placeholder') as HTMLDivElement;
@@ -94,12 +95,14 @@
     let selectedFiles: File[] = [];
 
     dropZone.addEventListener('click', (e) => {
-      if (e.target !== changeBtn && e.target !== document.querySelector('#pdf-ai-upload-placeholder button')) {
+      if (!(e.target as Element).closest('button')) {
         fileInput.value = ''; fileInput.click();
       }
     });
     
     changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       e.stopPropagation();
       fileInput.value = ''; fileInput.click();
     });
@@ -224,6 +227,7 @@
         
         const pdfBlob = doc.output('blob');
         const url = URL.createObjectURL(pdfBlob);
+          blobUrlsToRevoke.push(url);
         
         downloadLink.href = url;
         downloadLink.download = `merged_images.pdf`;
@@ -241,6 +245,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFiles = [];
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');
