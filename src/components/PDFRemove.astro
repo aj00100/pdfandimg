@@ -35,8 +35,23 @@
       </div>
     </div>
 
-    <!-- The grid container -->
-    <div id="pdf-rem-sortable-list" class="grid-container" style="min-height: 200px; padding: 12px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 12px; margin-bottom: 24px;">
+    <div class="organizer-layout" style="margin-bottom: 24px;">
+      <!-- The main grid container -->
+      <div style="flex: 1; min-width: 0; max-height: 75vh; overflow-y: auto; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1); padding: 12px;" class="custom-scrollbar">
+        <div id="pdf-rem-sortable-list" class="grid-container" style="min-height: 400px;">
+        </div>
+      </div>
+
+      <!-- Vertical Sticky Stash -->
+      <div style="position: sticky; top: 24px; z-index: 50; background: var(--color-surface-1); padding: 12px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--color-lime); max-height: 75vh; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; text-align: center; flex-shrink: 0;">
+          <h4 style="font-size: 0.875rem; font-weight: 700; margin: 0; color: var(--color-lime);">Stash</h4>
+          <span style="font-size: 0.65rem; color: var(--color-ink-2); line-height: 1.2; margin-top: 4px;">Drag pages here<br/>& scroll</span>
+        </div>
+        <!-- We use flex-direction: column for vertical stacking in the stash -->
+        <div id="pdf-rem-stash-list" class="custom-scrollbar" style="display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; background: var(--color-surface-2); border: 1px dashed var(--color-border); border-radius: 8px; padding: 8px; min-height: 120px;">
+        </div>
+      </div>
     </div>
 
     <button id="pdf-rem-convert-btn" class="btn-primary" style="width: 100%; height: 56px; font-size: 1rem;" type="button">
@@ -67,6 +82,31 @@
 </div>
 
 <style is:global>
+  .organizer-layout {
+    display: grid;
+    grid-template-columns: 1fr 140px;
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 600px) {
+    .organizer-layout {
+      grid-template-columns: 1fr 100px;
+      gap: 12px;
+    }
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-border-mid);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-3);
+  }
   .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -159,6 +199,7 @@
     const dropZone = document.getElementById('pdf-rem-drop-zone') as HTMLDivElement;
     
     const sortableList = document.getElementById('pdf-rem-sortable-list') as HTMLDivElement;
+    const stashList = document.getElementById('pdf-rem-stash-list') as HTMLDivElement;
     const convertBtn = document.getElementById('pdf-rem-convert-btn') as HTMLButtonElement;
     
     const statusPanel = document.getElementById('pdf-rem-status-panel') as HTMLDivElement;
@@ -208,6 +249,41 @@
       const files = e.target.files;
       if (files && files.length > 0) handlePdfFile(files[0]);
     });
+
+    async function initSortable() {
+      // @ts-ignore
+      if (!window.Sortable) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js';
+          // @ts-ignore
+          script.onload = () => resolve(window.Sortable);
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+      
+      // @ts-ignore
+      const Sortable = window.Sortable;
+      
+      Sortable.create(sortableList, {
+        group: 'pdf-organizer',
+        animation: 150,
+        ghostClass: 'dragging',
+        delay: 150, // Delay for mobile so they can still scroll without accidentally dragging
+        delayOnTouchOnly: true
+      });
+
+      Sortable.create(stashList, {
+        group: 'pdf-organizer',
+        animation: 150,
+        ghostClass: 'dragging',
+        delay: 150,
+        delayOnTouchOnly: true
+      });
+    }
+
+    initSortable();
 
     async function loadPdfJs() {
       // @ts-ignore
@@ -366,6 +442,7 @@
     const resetState = () => {
       sourcePdfDoc = null;
       sortableList.innerHTML = '';
+      stashList.innerHTML = '';
       undoStack = [];
       updateUndoVisibility();
       resultView.classList.add('hidden');

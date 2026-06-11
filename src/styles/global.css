@@ -4,9 +4,9 @@
 @theme {
   /* Dark Industrial Palette */
   --color-canvas:       #0a0a0b;
-  --color-surface-1:    #111113;
-  --color-surface-2:    #1a1a1e;
-  --color-surface-3:    #222228;
+  --color-surface-1:    #12110f;
+  --color-surface-2:    #1c1a17;
+  --color-surface-3:    #252320;
   --color-border:       rgba(255,255,255,0.08);
   --color-border-mid:   rgba(255,255,255,0.14);
   --color-border-hi:    rgba(255,255,255,0.22);
@@ -71,7 +71,8 @@ h1, h2, h3 {
 /* Panel / Card */
 .panel {
   background: var(--color-surface-1);
-  border: none;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03) inset;
   border-radius: 24px;
   position: relative;
   overflow: hidden;
@@ -92,6 +93,7 @@ h1, h2, h3 {
 .drop-zone:hover,
 .drop-zone.active {
   background: var(--color-surface-3);
+  border: 1px dashed rgba(200, 241, 53, 0.5);
   box-shadow: 0 0 35px 2px rgba(200, 241, 53, 0.25);
   transform: translateY(-2px);
 }
@@ -117,7 +119,8 @@ h1, h2, h3 {
 .input-number::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 .input-number:focus {
-  outline: none;
+  outline: 2px solid rgba(200, 241, 53, 0.5);
+  outline-offset: 2px;
   border-color: var(--color-lime);
   background: rgba(200,241,53,0.04);
 }
@@ -175,7 +178,7 @@ h1, h2, h3 {
   font-size: 0.8125rem;
   border: 1px solid var(--color-border-mid);
   border-radius: 8px;
-  padding: 7px 14px;
+  padding: 10px 16px;
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
@@ -273,8 +276,8 @@ h1, h2, h3 {
 }
 
 .btn-download:hover {
-  background: var(--color-lime);
-  border-color: var(--color-lime);
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
   color: #0a0a0b;
 }
 
@@ -353,6 +356,11 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.logo-mark:hover {
+  animation: pulse-dot 2s infinite;
 }
 
 /* Footer divider */
@@ -391,6 +399,12 @@ h1, h2, h3 {
   gap: 48px;
   padding-top: 48px;
   margin-bottom: 48px;
+}
+
+.footer-grid ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .nav-highlight-lime {
@@ -460,4 +474,18 @@ h1, h2, h3 {
   to {
     background-position: 200% center;
   }
+}
+
+/* Sticky Tools Panel */
+@media (min-width: 769px) {
+  .sticky-tools {
+    position: sticky;
+    top: 88px;
+    z-index: 10;
+  }
+}
+
+/* Explicit Lime Progress Bar */
+[id$="-progress-bar"] {
+  background: var(--color-lime) !important;
 }

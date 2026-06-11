@@ -295,7 +295,6 @@
     });
 
     async function initSortable() {
-      if (isMobile) return; // Do not initialize Sortable on mobile
       
       // @ts-ignore
       if (!window.Sortable) {
@@ -315,13 +314,17 @@
       Sortable.create(sortableList, {
         group: 'shared',
         animation: 150,
-        ghostClass: 'dragging'
+        ghostClass: 'dragging',
+        delay: 150,
+        delayOnTouchOnly: true
       });
 
       Sortable.create(imageStash, {
         group: 'shared',
         animation: 150,
-        ghostClass: 'dragging'
+        ghostClass: 'dragging',
+        delay: 150,
+        delayOnTouchOnly: true
       });
     }
 
