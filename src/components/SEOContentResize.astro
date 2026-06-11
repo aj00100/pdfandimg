@@ -9,7 +9,7 @@ const { isPassport = false } = Astro.props;
 const faqData = [
   {
     q: `Is it safe to upload my personal photo for ${isPassport ? 'passport resizing' : 'pixel resizing'}?`,
-    a: `Yes, it is 100% safe. PDFandIMG processes your images locally in your web browser. Your sensitive identity photographs are never uploaded to a remote server, ensuring total privacy and preventing identity theft.`
+    a: `Yes, it is 100% safe. pdfANDimg processes your images locally in your web browser. Your sensitive identity photographs are never uploaded to a remote server, ensuring total privacy and preventing identity theft.`
   },
   {
     q: `Will changing the pixel dimensions reduce the file size?`,
@@ -39,7 +39,7 @@ const jsonLd = {
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": isPassport ? `PDFandIMG Passport Photo Maker` : `PDFandIMG Exact Pixel Resizer`,
+  "name": isPassport ? `pdfANDimg Passport Photo Maker` : `pdfANDimg Exact Pixel Resizer`,
   "url": Astro.url.href,
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
@@ -145,7 +145,7 @@ const relatedTools = [
           }
         </p>
         <p class="seo-p">
-          Avoid the security risks of uploading your face and identity to sketchy free-tier websites. With PDFandIMG's client-side processing architecture, you achieve professional-grade results instantly, with the absolute certainty that your data never left your computer.
+          Avoid the security risks of uploading your face and identity to sketchy free-tier websites. With pdfANDimg's client-side processing architecture, you achieve professional-grade results instantly, with the absolute certainty that your data never left your computer.
         </p>
       </div>
 

@@ -16,7 +16,7 @@ const kbText = targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
 const faqData = [
   {
     q: `Will I lose quality when I ${isCrop ? 'crop' : isEnhance ? 'enhance' : 'compress'} an image?`,
-    a: `PDFandIMG uses "Smart Scaling" and Target-Lock algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
+    a: `pdfANDimg uses "Smart Scaling" and Target-Lock algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
   },
   {
     q: `Is it safe to upload my private photos to the ${kbText} optimizer?`,
@@ -44,7 +44,7 @@ const jsonLd = {
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": `PDFandIMG ${kbText} Optimizer`,
+  "name": `pdfANDimg ${kbText} Optimizer`,
   "url": Astro.url.href,
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
@@ -149,7 +149,7 @@ const relatedTools = [
           will result in an immediate "Upload Failed" error, which can be critical during high-stakes application deadlines.
         </p>
         <p class="seo-p">
-          PDFandIMG solves this by providing a "Surgical Buffer" optimization. Our engine doesn't just aim for "small"; 
+          pdfANDimg solves this by providing a "Surgical Buffer" optimization. Our engine doesn't just aim for "small"; 
           it aims for <em>exactly right</em>. By keeping you just under the limit while maximizing the visual clarity 
           of your signature, facial features, or document text, we ensure that your submission passes both 
           automated AI verification and manual human review.
@@ -157,7 +157,7 @@ const relatedTools = [
         <p class="seo-p">
           For professionals and students alike, this means no more "trial and error" with generic image editors 
           or sketchy online tools that compromise your privacy. Our tool provides a repeatable, 
-          predictable result every time. This reliability is why PDFandIMG has become the preferred 
+          predictable result every time. This reliability is why pdfANDimg has become the preferred 
           utility for users submitting documents to portals like SSC, UPSC, IBPS, and international visa systems.
         </p>
       </div>
@@ -175,7 +175,7 @@ const relatedTools = [
           <div class="faq-item">
             <h4 class="faq-q">Does this tool store my personal documents?</h4>
             <p class="faq-a">
-              No. Privacy is the core pillar of PDFandIMG. We utilize a "Serverless Pipeline" approach where all 
+              No. Privacy is the core pillar of pdfANDimg. We utilize a "Serverless Pipeline" approach where all 
               binary processing is performed within your browser's local sandbox. Since no data is ever transmitted 
               to an external server, your sensitive identity documents, signatures, and photos remain 
               completely under your control at all times.
