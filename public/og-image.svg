@@ -51,7 +51,7 @@
 
   <!-- Brand name -->
   <text x="160" y="268" font-family="'Space Grotesk', system-ui, sans-serif" font-size="52" font-weight="800"
-        fill="#f0f0f2" letter-spacing="-2.5">ImgShrink</text>
+        fill="#f0f0f2" letter-spacing="-2.5">PDFandIMG</text>
 
   <!-- Tagline -->
   <text x="80" y="320" font-family="'Outfit', system-ui, sans-serif" font-size="22" font-weight="400"
@@ -97,7 +97,7 @@
   <line x1="660" y1="198" x2="1136" y2="198" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
 
   <!-- Terminal lines -->
-  <text x="684" y="226" font-family="'IBM Plex Mono', monospace" font-size="12.5" fill="#c8f135">$ imgshrink --target 20kb --mode target-lock</text>
+  <text x="684" y="226" font-family="'IBM Plex Mono', monospace" font-size="12.5" fill="#c8f135">$ pdfandimg --target 20kb --mode target-lock</text>
   <text x="684" y="252" font-family="'IBM Plex Mono', monospace" font-size="12.5" fill="rgba(255,255,255,0.38)">  reading input   ·  187.4kb  ·  JPEG</text>
   <text x="684" y="278" font-family="'IBM Plex Mono', monospace" font-size="12.5" fill="rgba(255,255,255,0.38)">  binary search   ·  8 iterations  ·  converged</text>
   <text x="684" y="304" font-family="'IBM Plex Mono', monospace" font-size="12.5" fill="rgba(255,255,255,0.38)">  quality lock    ·  q=71  ·  chroma 4:2:0</text>
@@ -116,7 +116,7 @@
 
   <!-- Bottom left: URL -->
   <text x="80" y="596" font-family="'IBM Plex Mono', monospace" font-size="13"
-        fill="#5a5a6a" letter-spacing="0.02em">imgshrink.com</text>
+        fill="#5a5a6a" letter-spacing="0.02em">pdfandimg.com</text>
 
   <!-- Bottom right: Target sizes list -->
   <text x="1120" y="596" font-family="'IBM Plex Mono', monospace" font-size="12"
