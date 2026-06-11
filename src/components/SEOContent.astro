@@ -16,7 +16,7 @@ const kbText = targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
 const faqData = [
   {
     q: `Will I lose quality when I ${isCrop ? 'crop' : isEnhance ? 'enhance' : 'compress'} an image?`,
-    a: `PdfAndImg uses "Smart Scaling" and Target-Lock algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
+    a: `PdfAndImg uses "Smart Scaling" and Smart Compression Algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
   },
   {
     q: `Is it safe to upload my private photos to the ${kbText} optimizer?`,
@@ -62,7 +62,7 @@ const relatedTools = [
   { name: '50KB', href: '/compress-image-to-50kb' },
   { name: '100KB', href: '/compress-image-to-100kb' },
   { name: 'Custom Reducer', href: '/reduce-image-size-in-kb' },
-  { name: 'Precision Crop', href: '/crop-image' },
+  { name: 'Crop Image Online', href: '/crop-image' },
 ].filter(tool => !tool.href.includes(targetKB.toString().toLowerCase()));
 ---
 
@@ -98,7 +98,7 @@ const relatedTools = [
 
       <!-- How it works -->
       <div class="seo-steps">
-        <h3 class="seo-h3">Technical Workflow: How Target-Lock Operates</h3>
+        <h3 class="seo-h3">Technical Workflow: How High Quality Operates</h3>
         <ol class="seo-list">
           <li>
             <div class="seo-step-num">01</div>
@@ -123,7 +123,7 @@ const relatedTools = [
             <div>
               <h4 class="seo-step-title">Recursive Optimization</h4>
               <p class="seo-p-small">
-                The Target-Lock algorithm runs multiple compression passes in milliseconds, adjusting the chroma subsampling and DCT coefficients to hit your exact size.
+                The Smart Compression Algorithm runs multiple compression passes in milliseconds, adjusting the chroma subsampling and DCT coefficients to hit your exact size.
               </p>
             </div>
           </li>
@@ -185,7 +185,7 @@ const relatedTools = [
             <h4 class="faq-q">Can I convert PNG or WEBP to {kbText} JPEG?</h4>
             <p class="faq-a">
               Yes. Our engine handles multiple input formats. Whether you start with a high-res PNG from a 
-              professional camera or a modern WEBP screenshot, the Target-Lock engine will automatically 
+              professional camera or a modern WEBP screenshot, the Smart Image Compressor algorithm will automatically 
               convert and optimize the payload to a compliant JPEG format, ensuring 100% compatibility 
               with all major upload portals.
             </p>
