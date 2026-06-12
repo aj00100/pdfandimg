@@ -143,6 +143,9 @@
     border-radius: 8px;
     cursor: grab;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
     transition: all 0.2s ease;
     overflow: hidden;
     padding-bottom: 8px;
@@ -167,6 +170,8 @@
     font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 8px;
+    pointer-events: none;
+    -webkit-touch-callout: none;
   }
   .item-thumb[src] {
     object-fit: contain; /* Ensure full image is visible if it's an image upload */
@@ -562,6 +567,7 @@
       processing.classList.remove('hidden');
       processing.style.display = 'flex';
       resultView.classList.add('hidden');
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       try {
         const finalPdf = await PDFDocument.create();
