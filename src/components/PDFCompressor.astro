@@ -217,7 +217,7 @@ const { defaultTargetKB = 100 } = Astro.props;
         const scaleFactor = isMobile ? 1.0 : 1.5;
 
         for (let i = 1; i <= totalPages; i++) {
-          statusText.textContent = `Rasterizing page ${i} of ${totalPages}...`;
+          statusText.textContent = `Enhancing page ${i} of ${totalPages}...`;
           progressBar.style.width = `${10 + Math.round((i / totalPages) * 30)}%`;
           
           await new Promise(r => setTimeout(r, 0)); // Yield to main thread

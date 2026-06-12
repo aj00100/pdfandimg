@@ -205,7 +205,7 @@
         const cleanName = (selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || selectedFile.name);
         
         for (let i = 1; i <= totalPages; i++) {
-          statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
+          statusText.textContent = `Enhancing page ${i} of ${totalPages}...`;
           progressBar.style.width = `${Math.round(((i - 1) / totalPages) * 100)}%`;
           
           await new Promise(r => setTimeout(r, 0)); // Yield to main thread
