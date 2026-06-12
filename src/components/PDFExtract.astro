@@ -192,7 +192,10 @@
       try {
         const format = formatInput.value;
         const ext = format.split('/')[1] === 'jpeg' ? 'jpg' : format.split('/')[1];
-        const scale = parseFloat(qualityInput.value);
+        
+        const isMobile = window.innerWidth < 768;
+        let scale = parseFloat(qualityInput.value);
+        if (isMobile && scale > 1.5) scale = 1.5; // Cap on mobile to prevent crashes
         
         const arrayBuffer = await selectedFile.arrayBuffer();
         const loadingTask = window.pdfjsLib.getDocument({ data: arrayBuffer });
@@ -204,6 +207,8 @@
         for (let i = 1; i <= totalPages; i++) {
           statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
           progressBar.style.width = `${Math.round(((i - 1) / totalPages) * 100)}%`;
+          
+          await new Promise(r => setTimeout(r, 0)); // Yield to main thread
           
           const page = await pdf.getPage(i);
           const viewport = page.getViewport({ scale });

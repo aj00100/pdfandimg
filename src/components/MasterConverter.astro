@@ -228,6 +228,9 @@
     convertBtn.addEventListener('click', async () => {
       if (selectedFiles.length === 0 || !selectedTargetMime) return;
       
+      const isMobile = window.innerWidth < 768;
+      const scaleFactor = isMobile ? 1.0 : 2.0;
+
       statusPanel.classList.remove('hidden');
       processing.classList.remove('hidden');
       processing.style.display = 'flex';
@@ -297,8 +300,11 @@
               for (let i = 1; i <= totalPages; i++) {
                   statusText.textContent = `Extracting page ${i} of ${totalPages}...`;
                   progressBar.style.width = `${Math.round(((i - 1) / totalPages) * 100)}%`;
+                  
+                  await new Promise(r => setTimeout(r, 0)); // Yield to main thread
+                  
                   const page = await pdfDoc.getPage(i);
-                  const viewport = page.getViewport({ scale: 2.0 });
+                  const viewport = page.getViewport({ scale: scaleFactor });
                   const canvas = document.createElement('canvas');
                   const context = canvas.getContext('2d');
                   canvas.height = viewport.height;
@@ -472,8 +478,10 @@
                     const totalPages = pdfDoc.numPages;
                     const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name);
                     for (let p = 1; p <= totalPages; p++) {
+                        await new Promise(r => setTimeout(r, 0)); // Yield to main thread
+                        
                         const page = await pdfDoc.getPage(p);
-                        const viewport = page.getViewport({ scale: 2.0 });
+                        const viewport = page.getViewport({ scale: scaleFactor });
                         const canvas = document.createElement('canvas');
                         const context = canvas.getContext('2d');
                         canvas.height = viewport.height;

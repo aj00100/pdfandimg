@@ -213,12 +213,17 @@ const { defaultTargetKB = 100 } = Astro.props;
         
         const renderedPages: { canvas: HTMLCanvasElement, viewport: any }[] = [];
         
+        const isMobile = window.innerWidth < 768;
+        const scaleFactor = isMobile ? 1.0 : 1.5;
+
         for (let i = 1; i <= totalPages; i++) {
           statusText.textContent = `Rasterizing page ${i} of ${totalPages}...`;
           progressBar.style.width = `${10 + Math.round((i / totalPages) * 30)}%`;
           
+          await new Promise(r => setTimeout(r, 0)); // Yield to main thread
+          
           const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: 1.5 });
+          const viewport = page.getViewport({ scale: scaleFactor });
           
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d');
@@ -241,6 +246,8 @@ const { defaultTargetKB = 100 } = Astro.props;
         
         // Binary search for perfect JPEG quality
         for (let iteration = 0; iteration < 8; iteration++) {
+          await new Promise(r => setTimeout(r, 0)); // Yield to main thread
+
           const doc = new jsPDF({
             orientation: renderedPages[0].viewport.width > renderedPages[0].viewport.height ? 'l' : 'p',
             unit: 'px',
