@@ -8,8 +8,19 @@ const SEO_DESC = "Compress images to exact KB sizes with 100% accuracy. Private,
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC} showMesh={true}>
-  <!-- Tool -->
-  <section class="relative z-20 pt-20 container-stripe">
+  <section class="relative z-20 pt-10 container-stripe">
+    <!-- The Bridge Banner -->
+    <div style="text-align: center; margin-bottom: 40px;">
+      <a href="/exam-photo-resizer" style="display: inline-block; padding: 16px 32px; background: rgba(200, 241, 53, 0.1); border: 2px solid var(--color-lime); border-radius: 12px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease;" class="hover:-translate-y-1 hover:shadow-lg">
+        <span style="display: block; font-family: var(--font-head); font-weight: 700; color: var(--color-ink); font-size: 1.2rem; margin-bottom: 4px;">
+          📝 Applying for a Govt Job or Exam?
+        </span>
+        <span style="color: var(--color-ink-2); font-size: 1rem;">
+          Click here for our Auto-Resizer for UPSC, SSC, NEET & more &rarr;
+        </span>
+      </a>
+    </div>
+
     <Compressor defaultKB={50} allowMultiple={true} />
   </section>
 
@@ -20,6 +31,18 @@ const SEO_DESC = "Compress images to exact KB sizes with 100% accuracy. Private,
     </div>
 
     <div class="features-grid">
+      
+      <!-- Exam Resizer Card -->
+      <a href="/exam-photo-resizer" class="feature-card group" style="--card-accent: var(--color-lime)">
+        <div class="feature-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"></path></svg>
+        </div>
+        <div class="feature-content">
+          <h3>Exam Photo Resizer</h3>
+          <p>Dedicated tool to automatically resize and compress photos for UPSC, SSC, and NEET.</p>
+        </div>
+        <div class="feature-arrow">→</div>
+      </a>
       
       <!-- Enhance Card -->
       <a href="/increase-image-size-in-kb" class="feature-card group" style="--card-accent: var(--color-lime)">
@@ -125,22 +148,22 @@ const SEO_DESC = "Compress images to exact KB sizes with 100% accuracy. Private,
 
   <SEOContent 
     targetKB="Any" 
-    customTitle="PdfAndImg: The Ultimate Free Image Compressor and PDF Tool Suite"
+    customTitle="PdfAndImg: The Ultimate Free Image Compressor, Exam Resizer, and PDF Tool Suite"
     uniqueContent={`
       <p class="seo-p">
         Welcome to <strong>PdfAndImg</strong>, your comprehensive free online platform for managing digital documents and photos. 
         Whether you need to <strong>compress PDF to 100KB</strong> for a government portal, <strong>crop image online</strong> for a passport application, 
-        or simply <strong>reduce image size in KB</strong>, our complete suite of tools delivers instant, reliable results directly in your browser.
+        or prep your <strong>NEET UG photo upload</strong>, our complete suite of tools delivers instant, reliable results directly in your browser.
       </p>
       <p class="seo-p">
-        Beyond simple image compression, we offer a massive suite of PDF utilities and image manipulators. Need to increase file size? Use our <strong>KB Enhancer</strong> tool to securely <strong>increase image size in KB</strong> without losing quality. Looking to change dimensions? You can easily <strong>resize image in pixels</strong> or <strong>resize image dimensions</strong> perfectly for social media and official applications.
+        <strong>Government Exam Photo Resizer:</strong> We understand the frustration of getting your application rejected due to incorrect file sizes. Our specialized <a href="/exam-photo-resizer" style="color: var(--color-lime); text-decoration: underline;">Exam Photo Resizer</a> comes pre-loaded with the exact dimensions and KB limits for major Indian government exams like <strong>UPSC, SSC CGL, IBPS, SBI, RRB NTPC</strong>, and State PSCs. Just select your exam, and we'll automatically adjust pixels and compress the file size simultaneously.
       </p>
       <p class="seo-p">
-        For documents, our platform serves as a complete PDF workstation. You can seamlessly <strong>merge multiple PDF into one</strong>, <strong>separate PDF pages</strong>, <strong>extract images from PDF</strong>, or use our secure tool to <strong>remove PDF pages</strong>. If your PDFs are restricted, you can instantly <strong>unlock PDF</strong> files offline. We also provide format converters, allowing you to quickly <strong>convert HEIC to JPG</strong>, <strong>convert HEIC to PDF</strong>, and transform standard formats with our <strong>JPG to PDF</strong> and <strong>PNG to PDF</strong> tools.
+        Beyond exam photo compression, we offer a massive suite of PDF utilities and image manipulators. Need to increase file size? Use our <strong>KB Enhancer</strong> tool to securely <strong>increase image size in KB</strong> without losing quality. Looking to change dimensions? You can easily <strong>resize image in pixels</strong> perfectly for social media and official applications. For documents, you can seamlessly <strong>merge multiple PDF into one</strong>, <strong>separate PDF pages</strong>, or use our secure tool to <strong>remove PDF pages</strong>. 
       </p>
       <p class="seo-p">
         Privacy is our top priority. By leveraging <strong>Client-Side Processing</strong>, PdfAndImg ensures that your sensitive 
-        IDs, signatures, and documents are processed entirely on your device. Your data is never uploaded to external servers, 
+        IDs, signatures, and personal photos are processed entirely on your device. Your data is never uploaded to external servers, 
         making our platform the most secure, fast, and private choice for all your PDF and image manipulation needs in 2026.
       </p>
     `}
