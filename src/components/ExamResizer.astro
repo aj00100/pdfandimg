@@ -1,0 +1,353 @@
+---
+// ExamResizer.astro
+interface Props {
+  allowMultiple?: boolean;
+}
+
+const { allowMultiple = true } = Astro.props;
+---
+
+<div id="exam-resizer-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+  <div class="panel p-5 md:p-8">
+    
+    <!-- Presets Section -->
+    <div style="margin-bottom: 24px;">
+      <h3 style="font-family: var(--font-head); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 12px;">1. Select Exam Preset</h3>
+      
+      <div style="margin-bottom: 16px;">
+        <label for="er-exam-select" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin-bottom: 8px;">Select Exam</label>
+        <select id="er-exam-select" class="input-select" style="width: 100%; height: 48px; font-size: 1rem; padding: 0 16px; border-radius: 8px; border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-ink); cursor: pointer;">
+          <optgroup label="Central Exams">
+            <option value="upsc">UPSC (IAS/IPS/CDS/NDA)</option>
+            <option value="ssc">SSC (CGL/CHSL/MTS/GD)</option>
+            <option value="rrb">RRB NTPC / Group D / ALP</option>
+          </optgroup>
+          <optgroup label="Banking Exams">
+            <option value="ibps">IBPS (PO/Clerk/RRB)</option>
+            <option value="sbi">SBI (PO/Clerk)</option>
+            <option value="rbi">RBI / LIC Exams</option>
+          </optgroup>
+          <optgroup label="Entrance Exams">
+            <option value="neet">NEET UG</option>
+            <option value="jee">JEE Main / Advanced</option>
+            <option value="gate">GATE 2026</option>
+          </optgroup>
+          <optgroup label="State PSC & Police">
+            <option value="bpsc">BPSC (Bihar)</option>
+            <option value="uppsc">UPPSC (UP)</option>
+            <option value="mppsc">MPPSC (MP)</option>
+            <option value="police">All State Police Exams</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="radio" name="er-type" value="photo" checked />
+          <span style="font-weight: 600; font-size: 0.95rem;">Photograph</span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="radio" name="er-type" value="signature" />
+          <span style="font-weight: 600; font-size: 0.95rem;">Signature</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Configuration Section (Auto-filled by presets) -->
+    <div style="background: var(--color-surface-2); padding: 16px; border-radius: 12px; margin-bottom: 24px;">
+      <h3 style="font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--color-ink-2); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Current Settings</h3>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 100px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Width (px)</label>
+          <input type="number" id="er-width" class="input-number" style="width: 100%; height: 44px; font-size: 1rem; text-align: center;" />
+        </div>
+        <div style="flex: 1; min-width: 100px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Height (px)</label>
+          <input type="number" id="er-height" class="input-number" style="width: 100%; height: 44px; font-size: 1rem; text-align: center;" />
+        </div>
+        <div style="flex: 1; min-width: 100px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Target (KB)</label>
+          <input type="number" id="er-kb" class="input-number" style="width: 100%; height: 44px; font-size: 1rem; text-align: center;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Drop Zone -->
+    <h3 style="font-family: var(--font-head); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 12px;">2. Upload & Process</h3>
+    <div id="er-drop-zone" class="drop-zone" style="min-height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
+      <input type="file" id="er-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple={allowMultiple} />
+      
+      <div id="er-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">{allowMultiple ? 'Drop images here' : 'Drop image here'}</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">JPG, PNG, WEBP</p>
+        </div>
+        <button onclick="document.getElementById('er-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+      </div>
+
+      <div id="er-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
+        <img id="er-upload-preview" src="" alt="Preview" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;" />
+        <div id="er-bulk-text" style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 180px; overflow-y: auto; width: 100%;"></div>
+        <button id="er-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      </div>
+    </div>
+
+    <button id="er-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      Generate Exam Photo
+    </button>
+  </div>
+
+  <div id="er-status-panel" class="hidden animate-up" style="margin-top: 24px;">
+    <div class="panel" style="padding: 24px;">
+      <div id="er-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="er-status-text">Processing...</div>
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
+          <div id="er-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="er-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Ready for Upload!</h2>
+        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink-2);">
+          Final Size: <strong id="er-final-kb" style="color: var(--color-ink);">--</strong>
+        </div>
+        <a id="er-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+          Download Photo
+        </a>
+        <button id="er-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
+          ← Optimize another
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .preset-btn {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink-2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .preset-btn:hover {
+    background: var(--color-surface-3);
+  }
+  .preset-btn.active {
+    background: var(--color-lime);
+    color: #000;
+    border-color: var(--color-lime);
+  }
+</style>
+
+<script>
+  import { resizeAndCompressExact } from '../utils/imageCompressor';
+  import JSZip from 'jszip';
+
+  const presets = {
+    upsc: { photo: { w: 200, h: 230, kb: 250 }, signature: { w: 140, h: 60, kb: 250 } },
+    ssc: { photo: { w: 100, h: 120, kb: 11 }, signature: { w: 140, h: 60, kb: 11 } },
+    rrb: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 35 } },
+    ibps: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 18 } },
+    sbi: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 18 } },
+    rbi: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 18 } },
+    neet: { photo: { w: 200, h: 230, kb: 180 }, signature: { w: 140, h: 60, kb: 25 } },
+    jee: { photo: { w: 200, h: 230, kb: 180 }, signature: { w: 140, h: 60, kb: 25 } },
+    gate: { photo: { w: 200, h: 230, kb: 180 }, signature: { w: 140, h: 60, kb: 25 } },
+    bpsc: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 25 } },
+    uppsc: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 25 } },
+    mppsc: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 25 } },
+    police: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 25 } },
+  };
+
+  const root = document.getElementById('exam-resizer-root') as HTMLDivElement;
+  if (root) {
+    const blobUrlsToRevoke: string[] = [];
+    const dropZone = document.getElementById('er-drop-zone') as HTMLDivElement;
+    const fileInput = document.getElementById('er-file-input') as HTMLInputElement;
+    const placeholder = document.getElementById('er-upload-placeholder') as HTMLDivElement;
+    const previewContainer = document.getElementById('er-preview-container') as HTMLDivElement;
+    const uploadPreview = document.getElementById('er-upload-preview') as HTMLImageElement;
+    const bulkText = document.getElementById('er-bulk-text') as HTMLDivElement;
+    const changeBtn = document.getElementById('er-change-btn') as HTMLButtonElement;
+    const convertBtn = document.getElementById('er-convert-btn') as HTMLButtonElement;
+    
+    const widthInput = document.getElementById('er-width') as HTMLInputElement;
+    const heightInput = document.getElementById('er-height') as HTMLInputElement;
+    const kbInput = document.getElementById('er-kb') as HTMLInputElement;
+    
+    const statusPanel = document.getElementById('er-status-panel') as HTMLDivElement;
+    const processing = document.getElementById('er-processing') as HTMLDivElement;
+    const progressBar = document.getElementById('er-progress-bar') as HTMLDivElement;
+    const statusText = document.getElementById('er-status-text') as HTMLDivElement;
+    const resultView = document.getElementById('er-result-view') as HTMLDivElement;
+    const downloadLink = document.getElementById('er-download-link') as HTMLAnchorElement;
+    const resetBtn = document.getElementById('er-reset-btn') as HTMLButtonElement;
+    const finalKbText = document.getElementById('er-final-kb') as HTMLElement;
+
+    let selectedFiles: File[] = [];
+    let currentExam = 'upsc';
+
+    // Handle Presets
+    const examSelect = document.getElementById('er-exam-select') as HTMLSelectElement;
+    const typeRadios = document.querySelectorAll('input[name="er-type"]');
+
+    function applyPreset() {
+      const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
+      const data = presets[currentExam as keyof typeof presets][type as 'photo' | 'signature'];
+      widthInput.value = data.w.toString();
+      heightInput.value = data.h.toString();
+      kbInput.value = data.kb.toString();
+    }
+
+    examSelect.addEventListener('change', (e) => {
+      currentExam = (e.target as HTMLSelectElement).value;
+      applyPreset();
+    });
+
+    typeRadios.forEach(radio => {
+      radio.addEventListener('change', applyPreset);
+    });
+
+    // Initialize default preset
+    applyPreset();
+
+    // File Handling
+    dropZone.addEventListener('click', (e) => {
+      if (!(e.target as Element).closest('button')) {
+        fileInput.value = ''; fileInput.click();
+      }
+    });
+    
+    changeBtn.addEventListener('click', (e) => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
+      e.stopPropagation();
+      fileInput.value = ''; fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault(); dropZone.classList.remove('active');
+      if (e.dataTransfer?.files) handleFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', (e: any) => {
+      if (e.target.files) handleFiles(e.target.files);
+    });
+
+    function handleFiles(filesList: FileList | File[]) {
+      const arr = Array.from(filesList);
+      selectedFiles = arr.filter(f => f.type.startsWith('image/')).slice(0, 50);
+      if (selectedFiles.length === 0) return;
+
+      placeholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      convertBtn.disabled = false;
+
+      if (selectedFiles.length === 1) {
+        uploadPreview.style.display = 'block';
+        bulkText.style.display = 'none';
+        const reader = new FileReader();
+        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.readAsDataURL(selectedFiles[0]);
+      } else {
+        uploadPreview.style.display = 'none';
+        bulkText.style.display = 'block';
+        bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+      }
+      statusPanel.classList.add('hidden');
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0) return;
+      
+      const width = parseInt(widthInput.value);
+      const height = parseInt(heightInput.value);
+      const targetKB = parseInt(kbInput.value);
+
+      if (isNaN(width) || isNaN(height) || isNaN(targetKB) || width <= 0 || height <= 0 || targetKB <= 0) {
+        alert("Please ensure width, height, and KB are valid positive numbers.");
+        return;
+      }
+      
+      statusPanel.classList.remove('hidden');
+      processing.classList.remove('hidden');
+      processing.style.display = 'flex';
+      resultView.classList.add('hidden');
+      convertBtn.disabled = true;
+      statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        if (selectedFiles.length === 1) {
+          statusText.textContent = 'Optimizing for Exam...';
+          progressBar.style.width = '50%';
+          // Output is forced to JPEG for exams
+          const result = await resizeAndCompressExact(selectedFiles[0], width, height, targetKB, 'image/jpeg');
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(result.blob);
+          blobUrlsToRevoke.push(url);
+          downloadLink.href = url;
+          const cleanName = (selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name).replace(/\s+/g, '_');
+          const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
+          downloadLink.download = `${currentExam}_${type}_${cleanName}.jpg`;
+          
+          finalKbText.textContent = (result.blob.size / 1024).toFixed(1) + ' KB';
+        } else {
+          const zip = new JSZip();
+          let totalBytes = 0;
+          for (let i = 0; i < selectedFiles.length; i++) {
+            statusText.textContent = `Processing ${i+1} of ${selectedFiles.length}...`;
+            const result = await resizeAndCompressExact(selectedFiles[i], width, height, targetKB, 'image/jpeg');
+            const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
+            const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
+            zip.file(`${currentExam}_${type}_${cleanName}.jpg`, result.blob);
+            totalBytes += result.blob.size;
+            progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
+          }
+          statusText.textContent = 'Zipping files...';
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+          progressBar.style.width = '100%';
+          
+          const url = URL.createObjectURL(zipBlob);
+          blobUrlsToRevoke.push(url);
+          downloadLink.href = url;
+          downloadLink.download = `${currentExam}_exam_photos.zip`;
+          finalKbText.textContent = (totalBytes / 1024).toFixed(1) + ' KB total';
+        }
+
+        processing.classList.add('hidden');
+        resultView.classList.remove('hidden');
+        resultView.style.display = 'flex';
+      } catch (err: any) {
+        console.error(err);
+        alert(err?.message || 'Processing failed.');
+        processing.classList.add('hidden');
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
+      selectedFiles = [];
+      previewContainer.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      statusPanel.classList.add('hidden');
+      convertBtn.disabled = true;
+      fileInput.value = '';
+    });
+  }
+</script>

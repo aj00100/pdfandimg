@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Exam Photo & Signature Resizer Online - Free UPSC/SSC/NEET Tool";
+const SEO_DESC = "Automatically resize and compress your photo and signature to the exact pixels and KB required for UPSC, SSC, IBPS, NEET, and State PSC exams.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} showMesh={true}>
+  <!-- Tool Section -->
+  <section class="relative z-20 pt-16 container-stripe">
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div style="display: inline-block; padding: 6px 16px; background: rgba(200, 241, 53, 0.1); border: 1px solid rgba(200, 241, 53, 0.3); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); margin-bottom: 16px;">
+        100% SECURE & CLIENT-SIDE
+      </div>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em;">
+        Government Exam <br/><span style="color: var(--color-lime);">Photo Resizer</span>
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.65;">
+        Select your exam below. We automatically set the strict pixel dimensions and exact KB file size required for UPSC, SSC, IBPS, NEET, and more.
+      </p>
+    </div>
+    
+    <ExamResizer allowMultiple={true} />
+  </section>
+
+  <!-- SEO Content Section -->
+  <SEOContent 
+    targetKB="Exam specific sizes (10KB, 20KB, 50KB, 250KB)" 
+    customTitle="The Ultimate Exam Photo Resizer Guide"
+    uniqueContent={`
+      <p class="seo-p">
+        Applying for government jobs and competitive exams in India often comes with a frustrating roadblock: uploading the perfect photograph and signature. Portals for <strong>UPSC, SSC, IBPS, and NEET</strong> have incredibly strict requirements for both pixel dimensions and file size (KB limits).
+      </p>
+      <p class="seo-p">
+        If you've ever received the error <em>"File size is too large"</em> or <em>"Invalid image dimensions"</em>, our <strong>Exam Photo Resizer</strong> is the exact tool you need. We have pre-programmed the exact specifications from official notifications into a single click.
+      </p>
+      <ul class="seo-p" style="list-style-type: disc; margin-left: 20px; margin-bottom: 16px;">
+        <li><strong>UPSC (IAS/IPS):</strong> 200x230 pixels, max 300KB</li>
+        <li><strong>SSC (CGL/CHSL/MTS):</strong> 100x120 pixels, strictly between 4KB and 12KB</li>
+        <li><strong>IBPS/SBI Banking:</strong> 200x230 pixels, 20KB - 50KB</li>
+        <li><strong>NEET UG / JEE:</strong> 200x230 pixels, 10KB - 200KB</li>
+      </ul>
+      <p class="seo-p">
+        Our tool uses an advanced browser-based algorithm to resize the physical dimensions (width and height) of your image, and then dynamically compresses the JPEG quality to guarantee your file falls exactly within the required KB range. Best of all, because we use <strong>Client-Side Processing</strong>, your private photos and signatures are never uploaded to any server. They remain 100% secure on your own device.
+      </p>
+    `}
+  />
+</Layout>

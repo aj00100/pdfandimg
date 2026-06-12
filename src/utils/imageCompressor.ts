@@ -305,3 +305,104 @@ export async function resizeImageExact(
     }, actualFormat, quality);
   });
 }
+
+export async function resizeAndCompressExact(
+  f: File,
+  width: number,
+  height: number,
+  t: number,
+  m: number = 12,
+  targetFormat: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto' = 'auto'
+): Promise<CompressionResult> {
+  const isPdf = targetFormat === 'application/pdf';
+  const actualFormat = isPdf ? 'image/jpeg' : (targetFormat === 'auto' ? (f.type === 'image/png' ? 'image/png' : f.type === 'image/webp' ? 'image/webp' : 'image/jpeg') : targetFormat);
+  
+  const _t = t * 1024 * 0.95; // Target in bytes with 5% safety margin
+  
+  const _i = await (async (file: File): Promise<HTMLImageElement> => {
+    return new Promise((r, j) => {
+      const rd = new FileReader();
+      rd.onload = (e) => {
+        const i = new Image();
+        i.onload = () => r(i);
+        i.onerror = j;
+        i.src = e.target?.result as string;
+      };
+      rd.onerror = j;
+      rd.readAsDataURL(file);
+    });
+  })(f);
+  
+  const _g = async (i: HTMLImageElement, q: number): Promise<Blob> => {
+    return new Promise((r, j) => {
+      const c = document.createElement('canvas');
+      c.width = width;
+      c.height = height;
+      const x = c.getContext('2d');
+      if (!x) return j(new Error("Canvas context could not be created."));
+      
+      if (actualFormat === 'image/jpeg') {
+        x.fillStyle = '#FFFFFF';
+        x.fillRect(0, 0, width, height);
+      }
+      
+      x.imageSmoothingEnabled = true;
+      x.imageSmoothingQuality = 'high';
+      x.drawImage(i, 0, 0, width, height);
+      c.toBlob((b) => b ? r(b) : j(), actualFormat, q);
+    });
+  };
+
+  // Check size at 100% quality with exact dimensions
+  const ib = await _g(_i, 1.0);
+  
+  let bestBlob: Blob | null = null;
+  let bestQ = 1.0;
+  let it = 0;
+
+  if (ib.size > _t) {
+    // Binary search for quality
+    let lowQ = 0.05, highQ = 1.0;
+    while (it < m) {
+      it++;
+      const midQ = (lowQ + highQ) / 2;
+      const b = await _g(_i, midQ);
+      if (b.size <= _t) {
+        bestBlob = b; bestQ = midQ; lowQ = midQ;
+      } else {
+        highQ = midQ;
+      }
+    }
+    
+    if (!bestBlob) {
+      // Fallback to lowest quality if target is extremely strict
+      bestBlob = await _g(_i, 0.05);
+      bestQ = 0.05;
+    }
+  } else {
+    // It's already smaller than target, just pad it if needed
+    bestBlob = ib;
+  }
+
+  // Apply padding to guarantee exact target size if needed
+  bestBlob = await addSafePadding(bestBlob, Math.floor(_t));
+
+  if (isPdf) {
+    const dataUrl = await new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(bestBlob as Blob);
+    });
+    
+    const pdf = new jsPDF({
+      orientation: width > height ? 'l' : 'p',
+      unit: 'px',
+      format: [width, height]
+    });
+    
+    pdf.addImage(dataUrl, 'JPEG', 0, 0, width, height);
+    bestBlob = pdf.output('blob');
+  }
+
+  return { blob: bestBlob, quality: bestQ, iterations: it, size: bestBlob.size, scale: 1.0 };
+}
