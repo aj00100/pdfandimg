@@ -10,7 +10,7 @@ const { targetKB, type = 'compress', customTitle, uniqueContent } = Astro.props;
 
 const isEnhance = type === 'enhance';
 const isCrop = type === 'crop';
-const kbText = targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
+const kbText = targetKB.toString().toLowerCase() === 'any' ? 'Any KB' : targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
 
 // FAQ Data for JSON-LD
 const faqData = [
