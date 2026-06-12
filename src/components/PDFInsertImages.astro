@@ -371,15 +371,16 @@
         sourcePdfDoc = await PDFDocument.load(arrayBuffer);
         const totalPages = sourcePdfDoc.getPageCount();
         
+        const thumbScale = window.innerWidth < 768 ? 0.15 : 0.2;
         sortableList.innerHTML = '';
         for (let i = 1; i <= totalPages; i++) {
-          statusText.textContent = `Rendering page ${i} of ${totalPages}...`;
+          statusText.textContent = `Generating preview ${i} of ${totalPages}...`;
           progressBar.style.width = `${50 + Math.round((i / totalPages) * 50)}%`;
           
           await new Promise(r => setTimeout(r, 0)); // Yield to main thread
           
           const page = await pdfJsDoc.getPage(i);
-          const viewport = page.getViewport({ scale: 0.5 });
+          const viewport = page.getViewport({ scale: thumbScale });
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d');
           canvas.height = viewport.height;
@@ -567,7 +568,7 @@
         const items = Array.from(sortableList.children);
         
         for (let i = 0; i < items.length; i++) {
-          statusText.textContent = `Processing page ${i + 1} of ${items.length}...`;
+          statusText.textContent = `Enhancing page ${i + 1} of ${items.length}...`;
           progressBar.style.width = `${Math.round(((i) / items.length) * 100)}%`;
           
           await new Promise(r => setTimeout(r, 0)); // Yield to main thread
