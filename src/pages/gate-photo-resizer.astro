@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+---
+
+<Layout 
+  title="GATE Photo Resizer Online | Free Exam Tool"
+  description="Resize your photograph and signature for the GATE exam online. Instantly compress your photo to under 200KB and ensure correct pixel dimensions."
+>
+  <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
+    
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--color-ink); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.1;">
+        GATE Exam Photo <span style="color: var(--color-lime);">&</span> Signature Resizer
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Prepare your documents for the Graduate Aptitude Test in Engineering. Automatically crop and compress to meet the official GOAPS portal guidelines.
+      </p>
+    </div>
+
+    <!-- The Exam Resizer Component -->
+    <ExamResizer defaultExam="gate" defaultType="photo" />
+
+    <!-- SEO Content Section -->
+    <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
+      <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em;">GATE Application Photo Guidelines</h2>
+      
+      <p style="margin-bottom: 20px;">
+        Uploading a high-quality photograph and signature is mandatory for the GATE online application process. The organizing institute strictly enforces image dimensions and file sizes. If your uploaded images are blurry or incorrectly sized, your GATE admit card may be withheld.
+      </p>
+
+      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Official GOAPS Specifications</h3>
+        
+        <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <div>
+            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Passport Size Photograph</strong>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+              <li style="margin-bottom: 8px;">✓ <strong>Aspect Ratio:</strong> 3.5 cm x 4.5 cm</li>
+              <li style="margin-bottom: 8px;">✓ <strong>Pixel Size:</strong> 480 x 640 pixels (max)</li>
+              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> 20 KB to 200 KB</li>
+              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Signature</strong>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+              <li style="margin-bottom: 8px;">✓ <strong>Aspect Ratio:</strong> 2 cm x 7 cm</li>
+              <li style="margin-bottom: 8px;">✓ <strong>Pixel Size:</strong> 160 x 560 pixels (max)</li>
+              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> 5 KB to 200 KB</li>
+              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Crucial Photograph Instructions for GATE</h3>
+      <ul style="padding-left: 20px; margin-bottom: 32px;">
+        <li style="margin-bottom: 12px;"><strong>Background:</strong> The photograph MUST have a white background. No colored backgrounds are allowed.</li>
+        <li style="margin-bottom: 12px;"><strong>Face Coverage:</strong> The face should occupy 60% to 70% of the image. Both ears must be clearly visible.</li>
+        <li style="margin-bottom: 12px;"><strong>No Accessories:</strong> Caps, hats, and dark glasses are strictly prohibited. Spectacles are allowed only if you wear them regularly, but ensure there is no glare on the lenses.</li>
+        <li style="margin-bottom: 12px;"><strong>Signature Ink:</strong> Draw a rectangular box of size 2 cm × 7 cm on white paper. Sign with black or dark blue ink within this box.</li>
+      </ul>
+
+      <p>
+        Use the free GATE photo resizer tool above to automatically adjust your images to these strict guidelines within seconds.
+      </p>
+    </article>
+
+  </main>
+</Layout>

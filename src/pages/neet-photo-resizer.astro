@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "NEET Photo Resizer - Compress to 10KB-200KB Free";
+const SEO_DESC = "Free NEET photo and signature resizer tool. Compress your passport and postcard size photographs to NTA standards.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} showMesh={true}>
+  <!-- Tool Section -->
+  <section class="relative z-20 pt-16 container-stripe">
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div style="display: inline-block; padding: 6px 16px; background: rgba(200, 241, 53, 0.1); border: 1px solid rgba(200, 241, 53, 0.3); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); margin-bottom: 16px;">
+        NTA EXAM READY
+      </div>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em;">
+        NEET <span style="color: var(--color-lime);">Photo Resizer</span>
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.65;">
+        Format your Passport Photo, Postcard Photo, Signature, and Thumb Impression instantly for the NTA NEET application portal.
+      </p>
+    </div>
+    
+    <ExamResizer defaultExam="neet" defaultType="photo" allowMultiple={true} />
+  </section>
+
+  <!-- SEO Content Section -->
+  <SEOContent 
+    targetKB="180KB" 
+    customTitle="NEET Photo and Signature Guidelines"
+    uniqueContent={`
+      <p class="seo-p">
+        Applying for NEET (National Eligibility cum Entrance Test) requires uploading multiple documents, each with totally different specifications. Our <strong>NEET Photo Resizer</strong> handles all of them securely on your own device.
+      </p>
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 24px; margin-bottom: 12px; color: var(--color-ink);">NTA Required Specifications</h3>
+      <ul class="seo-p" style="list-style-type: disc; margin-left: 20px; margin-bottom: 16px;">
+        <li><strong>Passport Size Photo:</strong> 10 KB to 200 KB (White background, 80% face coverage).</li>
+        <li><strong>Postcard Size Photo:</strong> 4x6 inches, 10 KB to 200 KB.</li>
+        <li><strong>Signature:</strong> 4 KB to 30 KB (Sign on white paper with black ink).</li>
+        <li><strong>Thumb Impression:</strong> Left & Right Hand fingers and thumb impression, 10 KB to 200 KB.</li>
+      </ul>
+      <p class="seo-p">
+        <strong>Important:</strong> The NTA strictly warns against computer-generated or polaroid photographs. Do not wear a mask, cap, or goggles in your photograph. Use our tool to automatically compress the files to the exact KB sizes required without losing the crisp quality needed for biometric verification.
+      </p>
+    `}
+  />
+</Layout>

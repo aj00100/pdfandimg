@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Photo Resizer for SSC CGL Online - Exact Dimensions (100x120px, 20KB)";
+const SEO_DESC = "Automatically resize and compress your photo for SSC CGL to the exact required 100x120 pixels and under 20KB without losing quality.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} showMesh={true}>
+  <!-- Tool Section -->
+  <section class="relative z-20 pt-16 container-stripe">
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div style="display: inline-block; padding: 6px 16px; background: rgba(200, 241, 53, 0.1); border: 1px solid rgba(200, 241, 53, 0.3); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); margin-bottom: 16px;">
+        100% SECURE & CLIENT-SIDE
+      </div>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em;">
+        Photo Resizer for <span style="color: var(--color-lime);">SSC CGL</span>
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.65;">
+        Instantly fix the "invalid image dimensions" error. Automatically compress your SSC CGL photograph to the exact 100x120 pixels and required KB limit.
+      </p>
+    </div>
+    
+    <ExamResizer defaultExam="ssc" defaultType="photo" allowMultiple={true} />
+  </section>
+
+  <!-- SEO Content Section -->
+  <SEOContent 
+    targetKB="20KB" 
+    customTitle="How to Resize Photo for SSC CGL"
+    uniqueContent={`
+      <p class="seo-p">
+        When applying for the SSC CGL (Staff Selection Commission Combined Graduate Level) exam, thousands of candidates get stuck at the photo upload stage with the dreaded <em>"Invalid image dimensions"</em> or <em>"File size is too large"</em> errors. 
+      </p>
+      <p class="seo-p">
+        Our <strong>Photo Resizer for SSC CGL</strong> guarantees your application will not be rejected due to an incorrect photograph. It automatically locks the dimensions to the official requirements and dynamically compresses the file size.
+      </p>
+      <ul class="seo-p" style="list-style-type: disc; margin-left: 20px; margin-bottom: 16px;">
+        <li><strong>Official File Size:</strong> 20 KB to 50 KB.</li>
+        <li><strong>Official Dimensions:</strong> 3.5 cm (width) x 4.5 cm (height) or exactly 100x120 pixels.</li>
+        <li><strong>Format:</strong> JPEG/JPG only.</li>
+      </ul>
+      <p class="seo-p">
+        <strong>Important Guidelines:</strong> Ensure your SSC photo is taken without spectacles, a cap, or dark glasses. Both ears must be clearly visible. By using our tool, your privacy is 100% protected because the processing happens directly in your browser—no files are ever uploaded to a server!
+      </p>
+    `}
+  />
+</Layout>

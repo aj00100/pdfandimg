@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+---
+
+<Layout 
+  title="PAN Card Photo Resizer Online | NSDL 213x213 px"
+  description="Resize your photo and signature exactly for PAN Card applications (NSDL/UTIITL). Automatically crops to 213x213 pixels, 200 DPI, and under 50KB."
+>
+  <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
+    
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--color-ink); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.1;">
+        PAN Card Photo <span style="color: var(--color-lime);">&</span> Signature Resizer
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Instantly format your photo to <strong style="color: var(--color-ink);">213x213 pixels</strong> and your signature to the exact NSDL requirements. Processed 100% locally in your browser for total privacy.
+      </p>
+    </div>
+
+    <!-- The Exam Resizer Component -->
+    <ExamResizer defaultExam="pan" defaultType="photo" />
+
+    <!-- SEO Content Section -->
+    <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
+      <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em;">NSDL & UTIITL PAN Card Image Requirements</h2>
+      
+      <p style="margin-bottom: 20px;">
+        Applying for a new PAN card or updating an existing one online requires uploading scanned images of your photograph and signature. Both the NSDL and UTIITL portals have very strict guidelines. If your images do not meet the exact <strong>213x213 pixel dimensions</strong> or exceed the KB limit, your upload will fail.
+      </p>
+
+      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Official Specifications</h3>
+        
+        <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <div>
+            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Photograph</strong>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+              <li style="margin-bottom: 8px;">✓ <strong>Dimensions:</strong> 213 x 213 pixels</li>
+              <li style="margin-bottom: 8px;">✓ <strong>Resolution:</strong> 200 DPI</li>
+              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> Less than 50 KB</li>
+              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Signature</strong>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+              <li style="margin-bottom: 8px;">✓ <strong>Dimensions:</strong> 400 x 200 pixels (approx)</li>
+              <li style="margin-bottom: 8px;">✓ <strong>Resolution:</strong> 200 DPI</li>
+              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> Less than 50 KB</li>
+              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">How to Resize Photo for PAN Card Online</h3>
+      <ol style="padding-left: 20px; margin-bottom: 32px;">
+        <li style="margin-bottom: 12px;"><strong>Select Preset:</strong> The tool above is pre-configured with the official PAN Card specifications.</li>
+        <li style="margin-bottom: 12px;"><strong>Upload Image:</strong> Select your scanned passport-size photograph or signature image.</li>
+        <li style="margin-bottom: 12px;"><strong>Automatic Processing:</strong> The tool instantly crops the image to exactly 213x213 px and compresses the file size to under 50KB.</li>
+        <li><strong>Download:</strong> Click download and upload the file directly to the NSDL or UTIITL portal.</li>
+      </ol>
+
+      <div style="padding: 16px; background: rgba(163, 230, 53, 0.1); border-left: 4px solid var(--color-lime); border-radius: 4px;">
+        <strong style="color: var(--color-ink);">Privacy Notice:</strong> This PAN card photo resizer operates entirely within your web browser. Your sensitive documents, photographs, and signatures are never uploaded to our servers, ensuring your identity remains 100% secure.
+      </div>
+    </article>
+
+  </main>
+</Layout>

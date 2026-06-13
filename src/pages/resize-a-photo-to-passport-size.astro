@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+---
+
+<Layout 
+  title="Resize a Photo to Passport Size Online | Free Tool"
+  description="Easily resize a photo to passport size online. Perfect for Indian passports, visas, and official documents. Free, fast, and 100% private."
+>
+  <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
+    
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--color-ink); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.1;">
+        Resize a Photo to <span style="color: var(--color-lime);">Passport Size</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Convert any image into an official passport-size photo. Pre-configured for the standard Indian passport dimensions (3.5 cm x 4.5 cm).
+      </p>
+    </div>
+
+    <!-- The Exam Resizer Component -->
+    <ExamResizer defaultExam="passport" defaultType="photo" />
+
+    <!-- SEO Content Section -->
+    <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
+      <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em;">Indian Passport Photo Dimensions</h2>
+      
+      <p style="margin-bottom: 20px;">
+        When applying for or renewing an Indian passport through the Passport Seva Kendra (PSK) online portal, you need a digital copy of your photograph. Getting the dimensions wrong is one of the most common reasons for application delays. 
+      </p>
+
+      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Standard Requirements</h3>
+        
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
+          <li style="margin-bottom: 8px;">✓ <strong>Physical Size:</strong> 3.5 cm width x 4.5 cm height (35mm x 45mm)</li>
+          <li style="margin-bottom: 8px;">✓ <strong>Digital Pixels:</strong> Approximately 350 x 450 pixels</li>
+          <li style="margin-bottom: 8px;">✓ <strong>Background:</strong> Plain white background is mandatory.</li>
+          <li style="margin-bottom: 8px;">✓ <strong>Face Coverage:</strong> Your face should occupy 70-80% of the photograph.</li>
+          <li>✓ <strong>File Format:</strong> JPEG/JPG under 50KB.</li>
+        </ul>
+      </div>
+
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">How to Resize a Photo to Passport Size</h3>
+      <ol style="padding-left: 20px; margin-bottom: 32px;">
+        <li style="margin-bottom: 12px;"><strong>Take a Photo:</strong> Stand against a plain white wall and take a clear, well-lit photo looking directly at the camera.</li>
+        <li style="margin-bottom: 12px;"><strong>Upload:</strong> Drop your image into the tool above. The "Passport" preset is already selected.</li>
+        <li style="margin-bottom: 12px;"><strong>Auto-Resize:</strong> The tool will instantly convert your photo to the standard passport dimensions and compress the file size.</li>
+        <li><strong>Download & Print:</strong> Download the perfectly sized image to upload to the Passport Seva portal or print it on glossy photo paper.</li>
+      </ol>
+
+    </article>
+
+  </main>
+</Layout>
