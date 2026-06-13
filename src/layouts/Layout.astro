@@ -253,7 +253,7 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
                 <span class="hide-mobile">Reduce Image Size in KB</span>
                 <span class="show-mobile-only">Reduce KB Size</span>
               </a></li>
-              <li><a href="/enhance-image-size" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">
+              <li><a href="/increase-image-size-in-kb" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">
                 <span class="hide-mobile">Increase Image Size in KB</span>
                 <span class="show-mobile-only">Increase KB Size</span>
               </a></li>
@@ -315,14 +315,14 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
       </div>
     </footer>
     <script>
-      // Close mobile dropdown when tapping outside
+      // Close any open dropdowns when tapping outside
       document.addEventListener('click', (e) => {
-        const details = document.querySelector('.mobile-menu');
-        if (details && details.hasAttribute('open')) {
-          if (!details.contains(e.target as Node)) {
+        const detailsElements = document.querySelectorAll('.mobile-menu');
+        detailsElements.forEach(details => {
+          if (details.hasAttribute('open') && !details.contains(e.target as Node)) {
             details.removeAttribute('open');
           }
-        }
+        });
       });
     </script>
   </body>

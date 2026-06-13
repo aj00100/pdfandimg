@@ -2,12 +2,14 @@
 // ExamResizer.astro
 interface Props {
   allowMultiple?: boolean;
+  defaultExam?: string;
+  defaultType?: 'photo' | 'signature';
 }
 
-const { allowMultiple = true } = Astro.props;
+const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = Astro.props;
 ---
 
-<div id="exam-resizer-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+<div id="exam-resizer-root" data-default-exam={defaultExam} data-default-type={defaultType} style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
   <div class="panel p-5 md:p-8">
     
     <!-- Presets Section -->
@@ -17,6 +19,10 @@ const { allowMultiple = true } = Astro.props;
       <div style="margin-bottom: 16px;">
         <label for="er-exam-select" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin-bottom: 8px;">Select Exam</label>
         <select id="er-exam-select" class="input-select" style="width: 100%; height: 48px; font-size: 1rem; padding: 0 16px; border-radius: 8px; border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-ink); cursor: pointer;">
+          <optgroup label="Govt & ID Documents">
+            <option value="pan">PAN Card (NSDL/UTIITL)</option>
+            <option value="passport">Indian Passport</option>
+          </optgroup>
           <optgroup label="Central Exams">
             <option value="upsc">UPSC (IAS/IPS/CDS/NDA)</option>
             <option value="ssc">SSC (CGL/CHSL/MTS/GD)</option>
@@ -155,6 +161,8 @@ const { allowMultiple = true } = Astro.props;
   import JSZip from 'jszip';
 
   const presets = {
+    pan: { photo: { w: 213, h: 213, kb: 45 }, signature: { w: 400, h: 200, kb: 45 } },
+    passport: { photo: { w: 350, h: 450, kb: 45 }, signature: { w: 350, h: 150, kb: 45 } },
     upsc: { photo: { w: 200, h: 230, kb: 250 }, signature: { w: 140, h: 60, kb: 250 } },
     ssc: { photo: { w: 100, h: 120, kb: 11 }, signature: { w: 140, h: 60, kb: 11 } },
     rrb: { photo: { w: 200, h: 230, kb: 45 }, signature: { w: 140, h: 60, kb: 35 } },
@@ -196,11 +204,20 @@ const { allowMultiple = true } = Astro.props;
     const finalKbText = document.getElementById('er-final-kb') as HTMLElement;
 
     let selectedFiles: File[] = [];
-    let currentExam = 'upsc';
+    let currentExam = root.dataset.defaultExam || 'upsc';
+    let currentType = root.dataset.defaultType || 'photo';
 
     // Handle Presets
     const examSelect = document.getElementById('er-exam-select') as HTMLSelectElement;
+    examSelect.value = currentExam;
+
     const typeRadios = document.querySelectorAll('input[name="er-type"]');
+    typeRadios.forEach(radio => {
+      const radioInput = radio as HTMLInputElement;
+      if (radioInput.value === currentType) {
+        radioInput.checked = true;
+      }
+    });
 
     function applyPreset() {
       const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;

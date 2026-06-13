@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExamResizer from '../components/ExamResizer.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "UPSC Photo Resizer Online - Free Image Compressor (350x350px)";
+const SEO_DESC = "Official UPSC photo resizer. Automatically compress your image to 350x350 pixels and strictly under 300KB for your UPSC online application.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} showMesh={true}>
+  <!-- Tool Section -->
+  <section class="relative z-20 pt-16 container-stripe">
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div style="display: inline-block; padding: 6px 16px; background: rgba(200, 241, 53, 0.1); border: 1px solid rgba(200, 241, 53, 0.3); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); margin-bottom: 16px;">
+        100% CLIENT-SIDE COMPRESSION
+      </div>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em;">
+        UPSC <span style="color: var(--color-lime);">Photo Resizer</span>
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.65;">
+        Instantly format your photo for the UPSC portal. Automatically crop to the required 350x350 pixels and compress below 300KB.
+      </p>
+    </div>
+    
+    <ExamResizer defaultExam="upsc" defaultType="photo" allowMultiple={true} />
+  </section>
+
+  <!-- SEO Content Section -->
+  <SEOContent 
+    targetKB="250KB" 
+    customTitle="Understanding the UPSC Photo Requirements"
+    uniqueContent={`
+      <p class="seo-p">
+        The Union Public Service Commission (UPSC) has some of the strictest photograph requirements of any examination board in India. Using our <strong>UPSC Photo Resizer</strong> guarantees your image is accepted on the first try.
+      </p>
+      <ul class="seo-p" style="list-style-type: disc; margin-left: 20px; margin-bottom: 16px;">
+        <li><strong>File Size Constraints:</strong> Strictly between 20 KB and 300 KB.</li>
+        <li><strong>Pixel Dimensions:</strong> A minimum of 350 pixels (Width) x 350 pixels (Height), up to a maximum of 1000x1000 pixels.</li>
+        <li><strong>Visual Rules:</strong> Your face must cover 75% of the total space within the photograph.</li>
+      </ul>
+      <p class="seo-p">
+        <strong>Mandatory Rule Update:</strong> As per recent UPSC notifications, your photograph must include your <strong>Name and the Date the photograph was taken</strong> prominently displayed at the bottom of the image. The photo must not be older than 10 days from the start of the online application process. Use our tool above to lock the physical pixel dimensions while preserving top image quality.
+      </p>
+    `}
+  />
+</Layout>
