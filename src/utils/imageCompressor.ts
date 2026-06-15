@@ -21,6 +21,41 @@ async function addSafePadding(blob: Blob, targetBytes: number): Promise<Blob> {
   return new Blob([blob, padding], { type: blob.type });
 }
 
+function drawDownscaled(ctx: CanvasRenderingContext2D, img: HTMLImageElement | HTMLCanvasElement, targetWidth: number, targetHeight: number) {
+  let curWidth = img.width;
+  let curHeight = img.height;
+  
+  // If downscaling by a factor greater than 2, use step-down scaling to prevent aliasing/blur
+  if (curWidth / targetWidth > 2 || curHeight / targetHeight > 2) {
+    let tempCanvas = document.createElement('canvas');
+    let tempCtx = tempCanvas.getContext('2d');
+    if (!tempCtx) {
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+      return;
+    }
+    tempCanvas.width = curWidth;
+    tempCanvas.height = curHeight;
+    tempCtx.drawImage(img, 0, 0, curWidth, curHeight);
+    
+    while (curWidth / targetWidth > 2 || curHeight / targetHeight > 2) {
+      curWidth = Math.max(targetWidth, curWidth / 2);
+      curHeight = Math.max(targetHeight, curHeight / 2);
+      let nextCanvas = document.createElement('canvas');
+      nextCanvas.width = curWidth;
+      nextCanvas.height = curHeight;
+      let nextCtx = nextCanvas.getContext('2d');
+      if (!nextCtx) break;
+      nextCtx.imageSmoothingEnabled = true;
+      nextCtx.imageSmoothingQuality = 'high';
+      nextCtx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, curWidth, curHeight);
+      tempCanvas = nextCanvas;
+    }
+    ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, targetWidth, targetHeight);
+  } else {
+    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+  }
+}
+
 export async function compressToTarget(
   f: File,
   t: number,
@@ -65,7 +100,7 @@ export async function compressToTarget(
       
       x.imageSmoothingEnabled = true;
       x.imageSmoothingQuality = 'high';
-      x.drawImage(i, 0, 0, w, h);
+      drawDownscaled(x, i, w, h);
       c.toBlob((b) => b ? r(b) : j(), actualFormat, q);
     });
   };
@@ -216,7 +251,7 @@ export async function convertFormat(
     
     x.imageSmoothingEnabled = true;
     x.imageSmoothingQuality = 'high';
-    x.drawImage(_i, 0, 0, c.width, c.height);
+    drawDownscaled(x, _i, c.width, c.height);
     c.toBlob(async (b) => {
       if (!b) return j();
       if (isPdf) {
@@ -279,7 +314,7 @@ export async function resizeImageExact(
     
     x.imageSmoothingEnabled = true;
     x.imageSmoothingQuality = 'high';
-    x.drawImage(_i, 0, 0, width, height);
+    drawDownscaled(x, _i, width, height);
     c.toBlob(async (b) => {
       if (!b) return j();
       
@@ -348,7 +383,7 @@ export async function resizeAndCompressExact(
       
       x.imageSmoothingEnabled = true;
       x.imageSmoothingQuality = 'high';
-      x.drawImage(i, 0, 0, width, height);
+      drawDownscaled(x, i, width, height);
       c.toBlob((b) => b ? r(b) : j(), actualFormat, q);
     });
   };
