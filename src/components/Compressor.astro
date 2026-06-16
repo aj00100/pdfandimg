@@ -658,7 +658,10 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
     let rawValue = parseFloat(targetInput.value);
     const unit = unitSelect.value;
     
-    if (isNaN(rawValue) || rawValue <= 0) return;
+    if (isNaN(rawValue) || rawValue <= 0) {
+      alert('Please enter a valid target size (minimum 5KB).');
+      return;
+    }
     const targetKB = unit === 'mb' ? rawValue * 1024 : rawValue;
     const targetFormat = outputFormatSelect.value as 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto';
 
