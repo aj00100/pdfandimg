@@ -288,9 +288,19 @@ const SEO_TITLE = "Our Team — Visionaries";
         opacity: 0.03;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
+      
+      #universe {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        z-index: -3;
+      }
     </style>
   </head>
   <body>
+    <!-- 3D Universe Canvas Background -->
+    <canvas id="universe"></canvas>
+    
     <div class="bg-animation"></div>
     <div class="mesh-grid"></div>
     <div class="noise"></div>
@@ -346,6 +356,72 @@ const SEO_TITLE = "Our Team — Visionaries";
     </main>
 
     <script>
+      // 3D Starfield Universe Animation
+      const canvas = document.getElementById("universe");
+      const ctx = canvas.getContext("2d");
+
+      let w, h;
+      let stars = [];
+      const numStars = 600;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      class Star {
+        constructor() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.z = Math.random() * w;
+          this.size = Math.random() * 1.5 + 0.5;
+        }
+        update() {
+          this.z -= 1.5; // Star speed
+          if (this.z <= 0) {
+            this.z = w;
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+          }
+        }
+        draw() {
+          let x, y, radius;
+          x = (this.x - w / 2) * (w / this.z);
+          x = x + w / 2;
+          y = (this.y - h / 2) * (w / this.z);
+          y = y + h / 2;
+          radius = this.size * (w / this.z);
+
+          if (x >= 0 && x <= w && y >= 0 && y <= h) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${1 - this.z / w})`;
+            ctx.fill();
+          }
+        }
+      }
+
+      for (let i = 0; i < numStars; i++) {
+        stars.push(new Star());
+      }
+
+      function animate() {
+        // Trail effect
+        ctx.fillStyle = "rgba(3, 3, 5, 0.2)";
+        ctx.fillRect(0, 0, w, h);
+        
+        stars.forEach(star => {
+          star.update();
+          star.draw();
+        });
+        
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // UI Animations & 3D Tilt
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll('.card');
         const observer = new IntersectionObserver((entries) => {
