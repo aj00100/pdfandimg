@@ -1,146 +1,384 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-const SEO_TITLE = "Our Team — PdfAndImg";
+const SEO_TITLE = "Our Team — Visionaries";
 ---
 
-<style>
-  .team-section {
-    padding-bottom: 80px;
-    padding-inline: 24px;
-  }
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .team-card {
-    background: var(--color-surface-1);
-    border: 1px solid var(--color-border);
-    border-radius: 24px;
-    padding: 40px 32px;
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  }
-  .team-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 120px;
-    background: linear-gradient(135deg, rgba(200,241,53,0.15), rgba(0,0,0,0));
-    z-index: 0;
-  }
-  .team-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(200,241,53,0.4);
-    box-shadow: 0 20px 40px -10px rgba(200,241,53,0.15);
-  }
-  .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: var(--color-surface-3);
-    border: 2px solid var(--color-lime);
-    margin: 0 auto 24px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-lime);
-    box-shadow: 0 0 20px rgba(200,241,53,0.2);
-  }
-  .member-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-ink-1);
-    margin-bottom: 8px;
-    position: relative;
-    z-index: 1;
-  }
-  .member-role {
-    font-size: 0.9375rem;
-    color: var(--color-ink-3);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-    position: relative;
-    z-index: 1;
-  }
-</style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{SEO_TITLE}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-color: #030305;
+        --card-bg: rgba(255, 255, 255, 0.02);
+        --card-border: rgba(255, 255, 255, 0.06);
+        --text-main: #FFFFFF;
+        --text-muted: #8E929C;
+        --accent-1: #FF2E93;
+        --accent-2: #00E5FF;
+        --accent-3: #8A2BE2;
+        --accent-4: #FFD700;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-<Layout title={SEO_TITLE}>
-  <section class="relative z-20 pt-20 team-section container-stripe">
-    
-    <!-- Hero Header centered -->
-    <div style="text-align: center; margin-bottom: 64px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(200,241,53,0.08);
-          border: 1px solid rgba(200,241,53,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-lime);
-          "
-        >College Minor Project</span>
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: 'Outfit', sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* Animated Ambient Background */
+      .bg-animation {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: -2;
+        background: radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.12), transparent 30%),
+                    radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.12), transparent 30%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 46, 147, 0.08), transparent 30%);
+        filter: blur(80px);
+        animation: ambient-shift 15s ease-in-out infinite alternate;
+      }
+
+      @keyframes ambient-shift {
+        0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+        50% { transform: scale(1.1) translate(2%, 2%); opacity: 1; }
+        100% { transform: scale(1) translate(-2%, -2%); opacity: 0.7; }
+      }
+
+      /* Premium Mesh Grid Overlay */
+      .mesh-grid {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background-image: 
+          linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: -1;
+        mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 120px 24px 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 100px;
+        animation: fadeDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 18px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--card-border);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      }
+
+      .badge::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-2);
+        margin-right: 12px;
+        box-shadow: 0 0 10px var(--accent-2);
+      }
+
+      h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 8vw, 5.5rem);
+        line-height: 1.1;
+        font-weight: 600;
+        margin-bottom: 24px;
+        color: #fff;
+        letter-spacing: -0.02em;
+      }
+
+      h1 i {
+        background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-style: italic;
+        padding-right: 0.1em;
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 32px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 48px 32px;
+        text-align: center;
+        position: relative;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+        opacity: 0;
+        transform: translateY(40px);
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 100%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+        pointer-events: none;
+      }
+      
+      .card-glow {
+        position: absolute;
+        top: 0; left: 50%;
+        width: 150px; height: 150px;
+        border-radius: 50%;
+        filter: blur(80px);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.8s ease;
+        z-index: -1;
+      }
+
+      .card:hover {
+        transform: translateY(-12px) scale(1.02);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.8);
+      }
+      
+      .card:nth-child(1) .card-glow { background: var(--accent-1); }
+      .card:nth-child(2) .card-glow { background: var(--accent-2); }
+      .card:nth-child(3) .card-glow { background: var(--accent-3); }
+      .card:nth-child(4) .card-glow { background: var(--accent-4); }
+      
+      .card:hover .card-glow { opacity: 0.15; }
+
+      .card.visible {
+        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      
+      .card:nth-child(1).visible { animation-delay: 0.1s; }
+      .card:nth-child(2).visible { animation-delay: 0.2s; }
+      .card:nth-child(3).visible { animation-delay: 0.3s; }
+      .card:nth-child(4).visible { animation-delay: 0.4s; }
+
+      .avatar-wrapper {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 32px;
+      }
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #fff;
+        position: relative;
+        z-index: 2;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .avatar-glow {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        filter: blur(12px);
+      }
+
+      .card:nth-child(1) .avatar-glow { background: linear-gradient(135deg, var(--accent-1), #ff9a9e); }
+      .card:nth-child(2) .avatar-glow { background: linear-gradient(135deg, var(--accent-2), #a18cd1); }
+      .card:nth-child(3) .avatar-glow { background: linear-gradient(135deg, var(--accent-3), #fbc2eb); }
+      .card:nth-child(4) .avatar-glow { background: linear-gradient(135deg, var(--accent-4), #f6d365); }
+
+      .card:hover .avatar-glow {
+        opacity: 0.8;
+      }
+      
+      .card:hover .avatar {
+        transform: scale(1.05);
+        border-color: rgba(255,255,255,0.3);
+      }
+
+      .name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+        color: #FFFFFF;
+      }
+
+      .role {
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        opacity: 0.8;
+      }
+      
+      .card:nth-child(1) .role { color: var(--accent-1); }
+      .card:nth-child(2) .role { color: var(--accent-2); }
+      .card:nth-child(3) .role { color: var(--accent-3); }
+      .card:nth-child(4) .role { color: var(--accent-4); }
+
+      @keyframes fadeDown {
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* Subtle noise texture */
+      .noise {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        pointer-events: none;
+        z-index: 999;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-animation"></div>
+    <div class="mesh-grid"></div>
+    <div class="noise"></div>
+
+    <main class="container">
+      <header class="header">
+        <div class="badge">College Minor Project</div>
+        <h1>Meet the <i>Visionaries</i></h1>
+        <p class="subtitle">The creative minds behind the digital suite. Engineering the future, pixel by pixel, with unparalleled precision.</p>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="avatar-wrapper">
+            <div class="avatar-glow"></div>
+            <div class="avatar">AJ</div>
+          </div>
+          <h2 class="name">Ajay Kumar</h2>
+          <p class="role">Engineer</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="avatar-wrapper">
+            <div class="avatar-glow"></div>
+            <div class="avatar">AS</div>
+          </div>
+          <h2 class="name">Aparajita Singh</h2>
+          <p class="role">Engineer</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="avatar-wrapper">
+            <div class="avatar-glow"></div>
+            <div class="avatar">AK</div>
+          </div>
+          <h2 class="name">Abhishek Kumar</h2>
+          <p class="role">Engineer</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="avatar-wrapper">
+            <div class="avatar-glow"></div>
+            <div class="avatar">SA</div>
+          </div>
+          <h2 class="name">Sahil Alam</h2>
+          <p class="role">Engineer</p>
+        </div>
       </div>
+    </main>
 
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.04em;">
-        Meet the <span style="color: var(--color-lime);">Creators.</span>
-      </h1>
-      <p style="font-size: 1.25rem; color: var(--color-ink-2); line-height: 1.6; max-width: 600px; margin: 0 auto;">
-        The passionate minds behind PdfAndImg. This project was developed as our college minor project, combining our skills to build a fast, secure, and privacy-first suite of tools.
-      </p>
-    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.1 });
 
-    <div class="team-grid">
-      <!-- Member 1 -->
-      <div class="team-card">
-        <div class="avatar">AJ</div>
-        <h3 class="member-name">Ajay Kumar</h3>
-        <p class="member-role">Developer</p>
-      </div>
-
-      <!-- Member 2 -->
-      <div class="team-card">
-        <div class="avatar">AS</div>
-        <h3 class="member-name">Aparajita Singh</h3>
-        <p class="member-role">Developer</p>
-      </div>
-
-      <!-- Member 3 -->
-      <div class="team-card">
-        <div class="avatar">AK</div>
-        <h3 class="member-name">Abhishek Kumar</h3>
-        <p class="member-role">Developer</p>
-      </div>
-
-      <!-- Member 4 -->
-      <div class="team-card">
-        <div class="avatar">SA</div>
-        <h3 class="member-name">Sahil Alam</h3>
-        <p class="member-role">Developer</p>
-      </div>
-    </div>
-  </section>
-</Layout>
+        cards.forEach(card => observer.observe(card));
+        
+        // Optional 3D tilt effect for desktop
+        cards.forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            
+            card.style.transform = `translateY(-12px) scale(1.02) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          });
+          
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = ``;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
