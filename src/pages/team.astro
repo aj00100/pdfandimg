@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const SEO_TITLE = "Our Team — PdfAndImg";
+---
+
+<style>
+  .team-section {
+    padding-bottom: 80px;
+    padding-inline: 24px;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .team-card {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .team-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(200,241,53,0.15), rgba(0,0,0,0));
+    z-index: 0;
+  }
+  .team-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(200,241,53,0.4);
+    box-shadow: 0 20px 40px -10px rgba(200,241,53,0.15);
+  }
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--color-surface-3);
+    border: 2px solid var(--color-lime);
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-lime);
+    box-shadow: 0 0 20px rgba(200,241,53,0.2);
+  }
+  .member-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-ink-1);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .member-role {
+    font-size: 0.9375rem;
+    color: var(--color-ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<Layout title={SEO_TITLE}>
+  <section class="relative z-20 pt-20 team-section container-stripe">
+    
+    <!-- Hero Header centered -->
+    <div style="text-align: center; margin-bottom: 64px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >College Minor Project</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.04em;">
+        Meet the <span style="color: var(--color-lime);">Creators.</span>
+      </h1>
+      <p style="font-size: 1.25rem; color: var(--color-ink-2); line-height: 1.6; max-width: 600px; margin: 0 auto;">
+        The passionate minds behind PdfAndImg. This project was developed as our college minor project, combining our skills to build a fast, secure, and privacy-first suite of tools.
+      </p>
+    </div>
+
+    <div class="team-grid">
+      <!-- Member 1 -->
+      <div class="team-card">
+        <div class="avatar">AJ</div>
+        <h3 class="member-name">Ajay Kumar</h3>
+        <p class="member-role">Developer</p>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="team-card">
+        <div class="avatar">AS</div>
+        <h3 class="member-name">Aparajita Singh</h3>
+        <p class="member-role">Developer</p>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="team-card">
+        <div class="avatar">AK</div>
+        <h3 class="member-name">Abhishek Kumar</h3>
+        <p class="member-role">Developer</p>
+      </div>
+    </div>
+  </section>
+</Layout>
