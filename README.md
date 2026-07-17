@@ -1,6 +1,18 @@
-# PdfAndImg: The Ultimate Multi-Tool Utility Suite
+# 📄 PdfAndImg
 
-PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **44 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing. 
+<div align="center">
+  <img src="https://img.shields.io/badge/Astro-0C1120?style=for-the-badge&logo=astro&logoColor=white" alt="Astro" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS" />
+  <img src="https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=for-the-badge" alt="Privacy First" />
+  <img src="https://img.shields.io/badge/License-All_Rights_Reserved-red?style=for-the-badge" alt="License" />
+</div>
+
+<br />
+
+> **The Ultimate Multi-Tool Utility Suite**
+> 
+> *PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **44 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing.*
 
 Designed for maximum SEO, instant load speeds, and zero-server privacy, PdfAndImg processes everything directly in the user's browser.
 
@@ -85,5 +97,7 @@ npm run preview
 ---
 
 ## 🛡️ License & Privacy
+
+**© All Rights Reserved to PdfAndImg.** 
 
 Because PdfAndImg is a 100% client-side application, it strictly adheres to maximum privacy standards out of the box. No backend servers, databases, or cloud storage environments are used for file processing.
