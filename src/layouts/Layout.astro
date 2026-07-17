@@ -63,6 +63,11 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
 
       gtag('config', 'G-S9WR64YT2D');
     </script>
+    <script is:inline>
+      if (window.location.pathname !== '/maintenance' && window.location.pathname !== '/maintenance/') {
+        window.location.replace('/maintenance');
+      }
+    </script>
   </head>
 
   <body>
