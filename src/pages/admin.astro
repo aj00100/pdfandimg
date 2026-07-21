@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Admin Dashboard">
+  <div class="admin-wrapper" style="max-width: 800px; margin: 0 auto; padding: 40px 24px; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
+    
+    <!-- Login Form -->
+    <div id="login-container" class="login-card" style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 48px 32px; max-width: 400px; width: 100%; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <h1 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 24px; text-align: center;">Admin Access</h1>
+      
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label for="username" style="display: block; margin-bottom: 8px; font-size: 0.875rem; color: var(--color-ink-2);">Username</label>
+          <input type="text" id="username" class="input-field" autocomplete="username" style="width: 100%; padding: 12px 16px; border-radius: 12px; background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-ink); outline: none; transition: border-color 0.2s;" />
+        </div>
+        
+        <div>
+          <label for="password" style="display: block; margin-bottom: 8px; font-size: 0.875rem; color: var(--color-ink-2);">Password</label>
+          <input type="password" id="password" class="input-field" autocomplete="current-password" style="width: 100%; padding: 12px 16px; border-radius: 12px; background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-ink); outline: none; transition: border-color 0.2s;" />
+        </div>
+        
+        <p id="error-msg" style="color: #ff4d4d; font-size: 0.875rem; display: none; text-align: center; margin: 0;">Invalid credentials</p>
+        
+        <button id="login-btn" class="btn-primary" style="width: 100%; margin-top: 8px; padding: 14px; font-weight: 700; border: none; cursor: pointer; transition: opacity 0.2s;">
+          Login
+        </button>
+      </div>
+    </div>
+
+    <!-- Secure Content -->
+    <div id="admin-content" style="display: none; width: 100%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+        <h1 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-lime);">Admin Dashboard</h1>
+        <button id="logout-btn" class="btn-secondary" style="padding: 8px 16px; font-size: 0.875rem; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-ink); cursor: pointer; transition: background 0.2s;">Logout</button>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+        <!-- Dashboard Card 1 -->
+        <div style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px;">Overview</h3>
+          <p style="color: var(--color-ink-2); line-height: 1.6;">Welcome to the secure admin area. This dashboard is accessible only with valid credentials.</p>
+        </div>
+        
+        <!-- Dashboard Card 2 -->
+        <div style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px;">Quick Actions</h3>
+          <ul style="color: var(--color-ink-2); list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
+            <li>→ <a href="/" style="color: var(--color-lime); text-decoration: none;">View Live Site</a></li>
+            <li>→ <a href="/tools" style="color: var(--color-lime); text-decoration: none;">Manage Tools</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Expected SHA-256 hashes for credentials (hashed to prevent plain text exposure in static site source)
+  const EXPECTED_USER = 'bf490dd884aed8513b9f830497bfae131e1359867cfd082fdb8d05c180d177d7';
+  const EXPECTED_PASS = '482a9a533f5abf4d877b2f2cf460d50e8c1b1f50a6a7ac21ea2e352c723b6e91';
+
+  async function hashString(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const loginContainer = document.getElementById('login-container');
+  const adminContent = document.getElementById('admin-content');
+  const loginBtn = document.getElementById('login-btn');
+  const logoutBtn = document.getElementById('logout-btn');
+  const errorMsg = document.getElementById('error-msg');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+
+  // Check auth state on load
+  if (sessionStorage.getItem('auth_token') === 'verified') {
+    showAdminContent();
+  }
+
+  loginBtn?.addEventListener('click', async () => {
+    const u = usernameInput?.value;
+    const p = passwordInput?.value;
+    
+    if (!u || !p) {
+      showError('Please enter both username and password.');
+      return;
+    }
+    
+    loginBtn.textContent = 'Verifying...';
+    loginBtn.style.opacity = '0.7';
+
+    try {
+      const uHash = await hashString(u);
+      const pHash = await hashString(p);
+      
+      if (uHash === EXPECTED_USER && pHash === EXPECTED_PASS) {
+        sessionStorage.setItem('auth_token', 'verified');
+        showAdminContent();
+        errorMsg.style.display = 'none';
+        usernameInput.value = '';
+        passwordInput.value = '';
+      } else {
+        showError('Invalid credentials');
+      }
+    } catch (err) {
+      showError('Authentication error');
+    } finally {
+      loginBtn.textContent = 'Login';
+      loginBtn.style.opacity = '1';
+    }
+  });
+
+  // Also trigger login on Enter key
+  passwordInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') loginBtn?.click();
+  });
+  usernameInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') passwordInput?.focus();
+  });
+
+  logoutBtn?.addEventListener('click', () => {
+    sessionStorage.removeItem('auth_token');
+    adminContent.style.display = 'none';
+    loginContainer.style.display = 'block';
+  });
+
+  function showAdminContent() {
+    if (loginContainer) loginContainer.style.display = 'none';
+    if (adminContent) adminContent.style.display = 'block';
+  }
+
+  function showError(msg) {
+    if (errorMsg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+    }
+  }
+  
+  // Style inputs on focus
+  [usernameInput, passwordInput].forEach(input => {
+    if (input) {
+      input.addEventListener('focus', () => {
+        input.style.borderColor = 'var(--color-lime)';
+      });
+      input.addEventListener('blur', () => {
+        input.style.borderColor = 'var(--color-border)';
+      });
+    }
+  });
+</script>
