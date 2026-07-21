@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Admin Dashboard">
+<Layout title="Admin Dashboard" noindex={true}>
   <div class="admin-wrapper" style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
     
     <!-- Login Form -->
@@ -128,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
 
   // --- Auth Logic ---
   const EXPECTED_USER = 'bf490dd884aed8513b9f830497bfae131e1359867cfd082fdb8d05c180d177d7';
-  const EXPECTED_PASS = '482a9a533f5abf4d877b2f2cf460d50e8c1b1f50a6a7ac21ea2e352c723b6e91';
+  const EXPECTED_PASS = '7c7b639af4a2abc9ff43a6aefe31940e7bcad1a4e5d012cc31ebaabc369c786e';
 
   async function hashString(str: string) {
     const encoder = new TextEncoder();

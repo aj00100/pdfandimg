@@ -32,11 +32,14 @@ export default defineConfig({
   
   vite: {
     plugins: [tailwindcss()],
+    cacheDir: './.vite-new',
     server: {
       host: true,
       allowedHosts: true,
     },
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    filter: (page) => !page.includes('/admin')
+  })],
 });
