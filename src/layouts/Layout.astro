@@ -6,9 +6,10 @@ interface Props {
   title: string;
   description?: string;
   showRelatedTools?: boolean;
+  noindex?: boolean;
 }
 
-const { title, description = "Precision image compression. Target any file size.", showRelatedTools = false } = Astro.props;
+const { title, description = "Precision image compression. Target any file size.", showRelatedTools = false, noindex = false } = Astro.props;
 
 // Canonical URL Logic
 const siteUrl = "https://pdfandimg.com";
@@ -27,6 +28,7 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     
     <title>{title} — PdfAndImg</title>
     <meta name="description" content={description} />
