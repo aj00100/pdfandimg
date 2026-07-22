@@ -225,6 +225,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   let currentDeviceId: string | null = null;
+  let currentDeviceToken: string | null = null;
   let listenersAttached = false; // Prevent multiple listeners on re-auth
 
   function initDashboard() {
@@ -246,7 +247,7 @@ import Layout from '../layouts/Layout.astro';
       Object.keys(data).forEach(deviceId => {
         const li = document.createElement('li');
         li.textContent = data[deviceId].name || 'Unknown Device';
-        li.onclick = () => selectDevice(deviceId, data[deviceId].name, li);
+        li.onclick = () => selectDevice(deviceId, data[deviceId].name, data[deviceId].fcm_token, li);
         if (deviceId === currentDeviceId) li.classList.add('active');
         list.appendChild(li);
       });
@@ -267,8 +268,9 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  function selectDevice(id: string, name: string, element: HTMLElement) {
+  function selectDevice(id: string, name: string, token: string, element: HTMLElement) {
     currentDeviceId = id;
+    currentDeviceToken = token;
     const controls = document.getElementById('controls');
     const deviceName = document.getElementById('device-name');
     
@@ -342,20 +344,45 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  window.sendCommand = (action: string, extraData: any = {}) => {
-    if (!currentDeviceId) return;
+  window.sendCommand = async (action: string, extraData: any = {}) => {
+    if (!currentDeviceId || !currentDeviceToken) {
+       alert("No device selected or device missing FCM token");
+       return;
+    }
+    
+    // We still write to RTDB as a fallback/record, but the real wake-up comes from FCM
     const cmdRef = ref(db, `findmyphone/devices/${currentDeviceId}/command`);
     
     const area = document.getElementById('response-area');
     if (area) {
-       area.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="width: 16px; height: 16px; border: 2px solid var(--color-lime); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div><p style="color: var(--color-ink-2); margin: 0;">Sending ${action} command...</p></div>
+       area.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="width: 16px; height: 16px; border: 2px solid var(--color-lime); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div><p style="color: var(--color-ink-2); margin: 0;">Sending ${action} command via secure backend...</p></div>
        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>`;
     }
     
-    set(cmdRef, {
-      action: action,
-      timestamp: Date.now(),
-      ...extraData
-    });
+    // Trigger the backend API to send the FCM Push Notification
+    try {
+      const response = await fetch('/api/send-command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+           action: action,
+           token: currentDeviceToken,
+           extraData: extraData
+        })
+      });
+      
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'API Error');
+      
+      // Also set the command in RTDB so LanServerService handles it once awake
+      set(cmdRef, {
+        action: action,
+        timestamp: Date.now(),
+        ...extraData
+      });
+      
+    } catch (err: any) {
+      if (area) area.innerHTML = `<p style="color: #ff4d4d; font-weight: 500; background: rgba(255, 77, 77, 0.1); padding: 12px; border-radius: 8px;">Failed to send FCM: ${err.message}</p>`;
+    }
   };
 </script>
