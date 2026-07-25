@@ -312,8 +312,8 @@ import Layout from '../layouts/Layout.astro';
   import { ref, onValue, set, update } from 'firebase/database';
 
   // --- Auth Logic ---
-  const EXPECTED_USER = import.meta.env.PUBLIC_ADMIN_USER || 'admin';
-  const EXPECTED_PASS = import.meta.env.PUBLIC_ADMIN_PASS || 'password123';
+  const EXPECTED_USER = import.meta.env.PUBLIC_ADMIN_USER;
+  const EXPECTED_PASS = import.meta.env.PUBLIC_ADMIN_PASS;
 
   const loginContainer = document.getElementById('login-container');
   const adminContent = document.getElementById('admin-content');
@@ -469,7 +469,7 @@ import Layout from '../layouts/Layout.astro';
         } else if (action === 'record') {
           const dur = prompt('Enter duration in seconds (e.g. 10):', '10');
           if (!dur) return;
-          extra = { duration: parseInt(dur) || 10 };
+          extra = { duration: (parseInt(dur) || 10).toString() };
         } else if (action === 'tts') {
           const text = prompt('Enter text to speak on device:');
           if (!text) return;
@@ -500,16 +500,27 @@ import Layout from '../layouts/Layout.astro';
     listenToDevice(id);
   }
 
+  let unsubResp: any = null;
+  let unsubLoc: any = null;
+
   function listenToDevice(deviceId: string) {
     const respRef = ref(db, `findmyphone/devices/${deviceId}/fs_response`);
     const locRef = ref(db, `findmyphone/devices/${deviceId}/location`);
     const area = document.getElementById('response-area');
     if (!area) return;
 
-    onValue(respRef, (snapshot) => {
+    if (unsubResp) unsubResp();
+    if (unsubLoc) unsubLoc();
+
+    unsubResp = onValue(respRef, (snapshot) => {
       const data = snapshot.val();
       if (!data) return;
       if (data._cleared) return; // Prevent UI clear after auto-cleanup
+      
+      // Ignore responses older than 10 minutes to prevent showing stale screenshots on load
+      if (data.timestamp && (Date.now() - data.timestamp > 10 * 60 * 1000)) {
+         return; 
+      }
       
       area.innerHTML = '';
       if (data.screenshot_base64) {
@@ -561,9 +572,29 @@ import Layout from '../layouts/Layout.astro';
       } else if (data.error) {
          const errText = typeof data.error === 'object' ? JSON.stringify(data.error) : data.error;
          area.innerHTML = `<p style="color: #ff4757; padding: 16px; border-left: 4px solid #ff4757; background: rgba(255, 71, 87, 0.1); border-radius: 0 8px 8px 0; font-family: var(--font-mono);">[!] EXCEPTION: ${errText}</p>`;
+      } else if (data.type === 'device_status') {
+         area.innerHTML = `
+           <div style="padding: 16px; background: rgba(0, 240, 255, 0.05); border-left: 4px solid var(--cyber-cyan); border-radius: 0 8px 8px 0; font-family: var(--font-mono);">
+             <h4 style="margin-top: 0; color: var(--cyber-cyan); margin-bottom: 12px; letter-spacing: 0.05em;">SYSTEM DIAGNOSTICS</h4>
+             <table style="width: 100%; text-align: left; border-collapse: collapse; color: var(--cyber-text); font-size: 0.95rem;">
+               <tr><th style="padding: 4px 0; color: var(--cyber-purple); width: 120px;">BATTERY</th><td>${data.battery} <span style="color: ${data.charging ? '#00ff9d' : 'var(--cyber-text-dim)'};">(${data.charging ? 'CHARGING' : 'DISCHARGING'})</span></td></tr>
+               <tr><th style="padding: 4px 0; color: var(--cyber-purple);">STORAGE</th><td>${data.internal_storage}</td></tr>
+               <tr><th style="padding: 4px 0; color: var(--cyber-purple);">NETWORK</th><td>${data.wifi_ssid} <span style="color: var(--cyber-text-dim);">(${data.local_ip})</span></td></tr>
+               <tr><th style="padding: 4px 0; color: var(--cyber-purple);">LAST SYNC</th><td>${data.last_seen}</td></tr>
+             </table>
+           </div>
+         `;
+      } else if (data.status === 'pong') {
+         area.innerHTML = `<p style="color: #00ff9d; font-weight: bold; padding: 16px; border-left: 4px solid #00ff9d; background: rgba(0, 255, 157, 0.1); border-radius: 0 8px 8px 0; font-family: var(--font-mono); margin: 0; letter-spacing: 0.05em;">[ SYSTEM ONLINE ] // CONNECTION VERIFIED</p>`;
       } else if (data.status) {
-         const statText = typeof data.status === 'object' ? JSON.stringify(data.status) : data.status;
-         area.innerHTML = `<p style="color: var(--cyber-text); padding: 16px; border-left: 4px solid var(--cyber-cyan); background: rgba(0, 240, 255, 0.05); border-radius: 0 8px 8px 0; font-family: var(--font-mono);">SYSTEM // ${statText}</p>`;
+         let statText = typeof data.status === 'object' ? JSON.stringify(data.status) : data.status;
+         if (data.message) statText += ` // ${data.message}`;
+         let html = `<p style="color: var(--cyber-text); padding: 16px; border-left: 4px solid var(--cyber-cyan); background: rgba(0, 240, 255, 0.05); border-radius: 0 8px 8px 0; font-family: var(--font-mono); margin: 0;">SYSTEM // ${statText.toUpperCase()}</p>`;
+         if (data.path) {
+             const safePath = data.path.replace(/'/g, "\\'");
+             html += `<div style="margin-top: 12px;"><button onclick="window.sendCommand('download', { path: '${safePath}' })" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: bold; transition: all 0.2s;">[ FETCH GENERATED FILE ]</button></div>`;
+         }
+         area.innerHTML = html;
       }
       
       // Auto-cleanup massive payloads from DB to save bandwidth
@@ -578,9 +609,12 @@ import Layout from '../layouts/Layout.astro';
       }
     });
 
-    onValue(locRef, (snapshot) => {
+    unsubLoc = onValue(locRef, (snapshot) => {
        const data = snapshot.val();
        if (data && data.lat) {
+          // Ignore location fixes older than 30 minutes
+          if (data.timestamp && (Date.now() - data.timestamp > 30 * 60 * 1000)) return;
+
           // Remove old location divs to prevent stacking
           document.querySelectorAll('.location-response').forEach(el => el.remove());
           
