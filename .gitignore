@@ -33,3 +33,6 @@ NEW_PROJECT_PLAN.md
 # Allow honeypot
 
 QA-task.md
+
+.vite-new/
+.wrangler/
