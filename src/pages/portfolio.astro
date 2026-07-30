@@ -1,252 +1,376 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const SEO_TITLE = "Ajay Kumar - Cybersecurity & Web Developer Portfolio";
+const SEO_TITLE = "Ajay Kumar - Cybersecurity Portfolio";
 const SEO_DESC = "Portfolio of Ajay Kumar, a Cybersecurity undergraduate specializing in web security testing, bug bounty, Python automation, and modern web development.";
 ---
 
-<style>
-  @media (max-width: 768px) {
-    .portfolio-grid {
-      grid-template-columns: 1fr !important;
-    }
-    .hero-section {
-      padding: 32px 16px !important;
-    }
-  }
-
-  .glass-card {
-    background: var(--color-surface-1);
-    border: 1px solid var(--color-border);
-    border-radius: 20px;
-    padding: 40px;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .glass-card:hover {
-    border-color: var(--color-border-hi);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-  }
-
-  .link-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    color: var(--color-ink);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .link-btn:hover {
-    background: rgba(200, 241, 53, 0.1);
-    border-color: var(--color-lime);
-    color: var(--color-lime);
-    transform: translateY(-2px);
-  }
-
-  .skill-tag {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--color-surface-3);
-    border: 1px solid var(--color-border-mid);
-    border-radius: 100px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-ink-2);
-  }
-</style>
-
 <Layout title={SEO_TITLE} description={SEO_DESC} noindex={true}>
-  <section class="relative z-20 pt-16 container-stripe">
-    
-    <!-- Hero Section -->
-    <div class="hero-section" style="text-align: center; margin-bottom: 64px; max-width: 800px; margin-left: auto; margin-right: auto; padding: 0 24px;">
-      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
-        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
-          Portfolio
-        </span>
-      </div>
-
-      <h1 style="font-size: clamp(3rem, 8vw, 5rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.04em;">
-        Ajay <span style="color: var(--color-lime);">Kumar</span>
-      </h1>
-      <h2 style="font-size: 1.5rem; color: var(--color-ink-2); margin: 0 0 32px; font-weight: 500;">
-        Cybersecurity & Web Developer
-      </h2>
-
-      <p style="font-size: 1.125rem; color: var(--color-ink-3); line-height: 1.7; margin-bottom: 40px;">
-        Cybersecurity undergraduate with hands-on experience in web security testing, bug bounty methodologies, and Python automation. Looking for an opportunity to apply practical security skills, learn from experienced professionals, and contribute to securing real-world applications.
-      </p>
-
-      <!-- Links -->
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
-        <a href="mailto:ajay2026kr@gmail.com" class="link-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          Email
-        </a>
-        <a href="https://github.com/aj00100" class="link-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-          GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/ajay-kumar-b615ab293/" class="link-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-          LinkedIn
-        </a>
-        <a href="https://tryhackme.com/p/ajay2026kr" class="link-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5.5-3.58 10.74-8 12-4.42-1.26-8-6.5-8-12V6l8-4z"></path></svg>
-          TryHackMe
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Main Content Grid -->
-    <div class="portfolio-grid" style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 24px;">
+  <div class="hacker-wrapper">
+    <div class="terminal-container">
       
-      <!-- Experience & Projects -->
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-        
-        <!-- Projects -->
-        <div class="glass-card">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <div style="width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-            </div>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin: 0;">Projects</h3>
-          </div>
-          
-          <div style="margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-              <h4 style="font-size: 1.25rem; font-weight: 600; color: var(--color-ink); margin: 0;">PdfAndImg</h4>
-              <a href="https://pdfandimg.com" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: none; font-size: 0.875rem; font-weight: 500;">Live Site ↗</a>
-            </div>
-            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); margin-bottom: 12px;">Astro, JavaScript, HTML, CSS</p>
-            <ul style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 8px;">
-              <li>Built and deployed a browser-based PDF and image utility platform (44+ tools).</li>
-              <li>Implemented image compression, PDF editing, HEIC conversion, and image resizing.</li>
-              <li>Designed the application for fast performance, SEO, and privacy by processing files entirely in the browser.</li>
-            </ul>
-          </div>
+      <!-- Terminal Header -->
+      <div class="terminal-header">
+        <div class="mac-btns">
+          <span class="btn close"></span>
+          <span class="btn min"></span>
+          <span class="btn max"></span>
         </div>
-
-        <!-- Education -->
-        <div class="glass-card">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <div style="width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-            </div>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin: 0;">Education</h3>
-          </div>
-
-          <div>
-            <h4 style="font-size: 1.125rem; font-weight: 600; color: var(--color-ink); margin: 0 0 4px 0;">B.Tech in Computer Science & Engineering</h4>
-            <p style="color: var(--color-lime); font-size: 0.875rem; font-weight: 600; margin: 0 0 8px 0;">Cyber Security Specialization (2023 – 2027)</p>
-            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.5; margin: 0 0 4px 0;">IES College of Technology, Bhopal</p>
-            <p style="color: var(--color-ink-3); font-size: 0.875rem; margin: 0 0 8px 0;">Affiliated to Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)</p>
-            <div style="display: inline-block; padding: 4px 12px; background: rgba(200,241,53,0.1); border: 1px solid var(--color-lime); border-radius: 6px; color: var(--color-lime); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;">
-              CGPA: 7.1/10
-            </div>
-          </div>
-        </div>
-
+        <div class="terminal-title">root@ajay-sec-node:~</div>
       </div>
 
-      <!-- Skills & Certificates -->
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-        
-        <!-- Skills -->
-        <div class="glass-card">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <div style="width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"></path><path d="M10 2c1 .5 2 2 2 5"></path></svg>
-            </div>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin: 0;">Skills</h3>
-          </div>
+      <!-- Terminal Body -->
+      <div class="terminal-body">
+        <p class="sys-msg">INITIATING SECURE CONNECTION...</p>
+        <p class="sys-msg">HANDSHAKE SUCCESSFUL.</p>
+        <p class="sys-msg">ACCESS GRANTED: <span class="highlight-green">ROOT PRIVILEGES ACTIVE</span></p>
+        <br/>
 
-          <div style="margin-bottom: 20px;">
-            <h4 style="font-size: 0.9375rem; color: var(--color-ink); margin: 0 0 12px 0;">Programming Languages</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Bash</span>
-              <span class="skill-tag">HTML</span>
-              <span class="skill-tag">CSS</span>
-            </div>
-          </div>
+        <div class="typewriter-section">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="cmd type-1">whoami</span>
+        </div>
+        <div class="output delay-1">
+          <h1 class="glitch-text" data-text="AJAY KUMAR">AJAY KUMAR</h1>
+          <h2 class="sub-role">> CYBERSECURITY & WEB DEVELOPER</h2>
+          <p class="bio">
+            Cybersecurity undergraduate with hands-on experience in web security testing, bug bounty methodologies, and Python automation. Looking for an opportunity to apply practical security skills, learn from experienced professionals, and contribute to securing real-world applications.
+          </p>
+        </div>
+        <br/>
 
-          <div style="margin-bottom: 20px;">
-            <h4 style="font-size: 0.9375rem; color: var(--color-ink); margin: 0 0 12px 0;">Frameworks & Technologies</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span class="skill-tag">Astro</span>
-              <span class="skill-tag">TypeScript</span>
-            </div>
-          </div>
+        <div class="typewriter-section">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="cmd type-2">cat ./links.txt</span>
+        </div>
+        <div class="output delay-2 grid-links">
+          <a href="mailto:ajay2026kr@gmail.com" target="_blank" rel="noopener noreferrer">[ EMAIL ]</a>
+          <a href="https://github.com/aj00100" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a>
+          <a href="https://www.linkedin.com/in/ajay-kumar-b615ab293/" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a>
+          <a href="https://tryhackme.com/p/ajay2026kr" target="_blank" rel="noopener noreferrer">[ TRYHACKME ]</a>
+          <a href="tel:+919153497721">[ +91 9153497721 ]</a>
+        </div>
+        <br/>
 
-          <div style="margin-bottom: 20px;">
-            <h4 style="font-size: 0.9375rem; color: var(--color-ink); margin: 0 0 12px 0;">Security Tools</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span class="skill-tag">Burp Suite</span>
-              <span class="skill-tag">Nmap</span>
-              <span class="skill-tag">Wireshark</span>
-              <span class="skill-tag">SQLMap</span>
-            </div>
+        <div class="typewriter-section">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="cmd type-3">ls -la ./skills/</span>
+        </div>
+        <div class="output delay-3">
+          <div class="skill-group">
+            <span class="skill-label">LANGUAGES_&_SCRIPTING:</span>
+            <span class="skill-value">Python, JavaScript, Bash, HTML, CSS</span>
           </div>
-
-          <div>
-            <h4 style="font-size: 0.9375rem; color: var(--color-ink); margin: 0 0 12px 0;">Operating Systems & Dev Tools</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span class="skill-tag">Kali Linux</span>
-              <span class="skill-tag">Windows</span>
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">VS Code</span>
-              <span class="skill-tag">Docker</span>
-            </div>
+          <div class="skill-group">
+            <span class="skill-label">SECURITY_ARSENAL:</span>
+            <span class="skill-value highlight-cyan">Burp Suite, Nmap, Wireshark, SQLMap</span>
+          </div>
+          <div class="skill-group">
+            <span class="skill-label">DEV_ENVIRONMENT:</span>
+            <span class="skill-value">Kali Linux, Windows, Git, VS Code, Docker</span>
+          </div>
+          <div class="skill-group">
+            <span class="skill-label">FRAMEWORKS:</span>
+            <span class="skill-value">Astro, TypeScript</span>
           </div>
         </div>
+        <br/>
 
-        <!-- Certificates & Languages -->
-        <div class="glass-card">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <div style="width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </div>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin: 0;">Certificates</h3>
+        <div class="typewriter-section">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="cmd type-4">cat ./projects/pdfandimg.sh</span>
+        </div>
+        <div class="output delay-4 project-box">
+          <div class="proj-header">
+            <h3>> PdfAndImg (Live: <a href="https://pdfandimg.com" target="_blank" class="highlight-green">https://pdfandimg.com</a>)</h3>
+            <span class="stack">[ Astro, JS, HTML, CSS ]</span>
           </div>
-
-          <ul style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.6; padding-left: 0; list-style: none; margin: 0 0 32px 0; display: flex; flex-direction: column; gap: 12px;">
-            <li style="position: relative; padding-left: 20px;">
-              <span style="position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--color-lime); border-radius: 50%;"></span>
-              <strong>NPTEL Ethical Hacking (Elite)</strong> – IIT Kharagpur
-              <span style="color: var(--color-ink-3); margin: 0 4px;">|</span>
-              <a href="https://archive.nptel.ac.in/content/noc/NOC24/SEM2/Ecertificates/106/noc24-cs94/Course/NPTEL24CS94S35390030004075414.pdf" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: none; font-size: 0.875rem; font-weight: 500;">Certificate ↗</a>
-            </li>
-            <li style="position: relative; padding-left: 20px;">
-              <span style="position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--color-lime); border-radius: 50%;"></span>
-              <strong>NPTEL Systems and Usable Security (Elite + Silver)</strong> – IIT Indore
-              <span style="color: var(--color-ink-3); margin: 0 4px;">|</span>
-              <a href="https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/106/noc25-cs68/Course/NPTEL25CS68S33880002601295204.pdf" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: none; font-size: 0.875rem; font-weight: 500;">Certificate ↗</a>
-            </li>
+          <ul>
+            <li>Built and deployed a browser-based PDF and image utility platform (44+ tools).</li>
+            <li>Implemented image compression, PDF editing, HEIC conversion, and image resizing.</li>
+            <li>Designed the application for fast performance, SEO, and privacy by processing files entirely in the browser.</li>
           </ul>
+        </div>
+        <br/>
 
-          <div style="border-top: 1px solid var(--color-border); padding-top: 24px;">
-            <h4 style="font-size: 1.125rem; font-weight: 600; color: var(--color-ink); margin: 0 0 12px 0;">Languages</h4>
-            <div style="display: flex; gap: 12px;">
-              <span class="skill-tag">English</span>
-              <span class="skill-tag">Hindi</span>
-            </div>
+        <div class="typewriter-section">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="cmd type-5">./view_credentials.sh</span>
+        </div>
+        <div class="output delay-5">
+          <div class="cert-box">
+            <p><span class="highlight-cyan">[*]</span> <strong>B.Tech Computer Science & Engineering (Cyber Security)</strong></p>
+            <p class="indent">IES College of Technology, Bhopal (2023–2027) | CGPA: 7.1/10</p>
           </div>
+          <div class="cert-box">
+            <p><span class="highlight-green">[+]</span> <strong>NPTEL Ethical Hacking (Elite)</strong> – IIT Kharagpur 
+              <a href="https://archive.nptel.ac.in/content/noc/NOC24/SEM2/Ecertificates/106/noc24-cs94/Course/NPTEL24CS94S35390030004075414.pdf" target="_blank" class="cert-link">[ VIEW CERT ]</a>
+            </p>
+            <p><span class="highlight-green">[+]</span> <strong>NPTEL Systems & Usable Security (Elite+Silver)</strong> – IIT Indore 
+              <a href="https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/106/noc25-cs68/Course/NPTEL25CS68S33880002601295204.pdf" target="_blank" class="cert-link">[ VIEW CERT ]</a>
+            </p>
+          </div>
+        </div>
+        <br/>
+        
+        <div class="typewriter-section delay-6">
+          <span class="prompt">root@ajay-sec-node:~#</span> <span class="blinking-cursor">_</span>
         </div>
 
       </div>
-
     </div>
-  </section>
+  </div>
+
+  <style>
+    /* Scope everything inside .hacker-wrapper to not break global styles */
+    .hacker-wrapper {
+      padding: 40px 20px;
+      min-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace, 'Courier New';
+      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 157, 0.05) 0%, transparent 60%);
+    }
+
+    .terminal-container {
+      width: 100%;
+      max-width: 900px;
+      background: #050a0f;
+      border: 1px solid rgba(0, 255, 157, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0, 255, 157, 0.1), inset 0 0 20px rgba(0,0,0,0.8);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .terminal-container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(0, 255, 157, 0.03) 50%, transparent 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .terminal-header {
+      background: #111827;
+      border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .mac-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mac-btns .btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .btn.close { background: #ff5f56; }
+    .btn.min { background: #ffbd2e; }
+    .btn.max { background: #27c93f; }
+
+    .terminal-title {
+      flex-grow: 1;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .terminal-body {
+      padding: 32px;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+
+    .terminal-body::-webkit-scrollbar { width: 8px; }
+    .terminal-body::-webkit-scrollbar-track { background: #050a0f; border-left: 1px solid rgba(0, 255, 157, 0.1); }
+    .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 255, 157, 0.3); border-radius: 4px; }
+
+    .sys-msg {
+      color: #888;
+      margin: 0 0 4px 0;
+      font-size: 0.85rem;
+    }
+
+    .highlight-green { color: #00ff9d; font-weight: bold; text-shadow: 0 0 8px rgba(0,255,157,0.4); }
+    .highlight-cyan { color: #00f0ff; font-weight: bold; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+
+    .prompt {
+      color: #00ff9d;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .glitch-text {
+      font-size: 2.5rem;
+      color: #fff;
+      margin: 16px 0 8px 0;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      position: relative;
+    }
+    
+    .sub-role {
+      color: #00f0ff;
+      font-size: 1.1rem;
+      margin: 0 0 16px 0;
+      font-weight: 600;
+    }
+
+    .bio {
+      color: #a0aec0;
+      max-width: 700px;
+      margin: 0;
+      border-left: 2px solid rgba(0,255,157,0.3);
+      padding-left: 16px;
+    }
+
+    .grid-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .grid-links a {
+      color: #00ff9d;
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1px solid rgba(0,255,157,0.3);
+      background: rgba(0,255,157,0.05);
+      transition: all 0.2s;
+    }
+
+    .grid-links a:hover {
+      background: rgba(0,255,157,0.2);
+      box-shadow: 0 0 15px rgba(0,255,157,0.4);
+      color: #fff;
+    }
+
+    .skill-group {
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .skill-label {
+      width: 220px;
+      color: #888;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 600px) {
+      .skill-label { width: 100%; margin-bottom: 4px; }
+    }
+
+    .skill-value {
+      color: #e2e8f0;
+    }
+
+    .project-box {
+      border: 1px dashed rgba(0,240,255,0.4);
+      padding: 16px;
+      background: rgba(0,240,255,0.03);
+    }
+    
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .proj-header h3 {
+      margin: 0;
+      color: #00f0ff;
+      font-size: 1.2rem;
+    }
+
+    .proj-header .stack {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .project-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #cbd5e1;
+    }
+    .project-box li { margin-bottom: 6px; }
+
+    .cert-box {
+      margin-bottom: 16px;
+    }
+    .cert-box p { margin: 0 0 6px 0; }
+    .indent { padding-left: 28px; color: #a0aec0; font-size: 0.9rem; }
+    .cert-link {
+      color: #00f0ff;
+      text-decoration: none;
+      margin-left: 8px;
+      font-size: 0.85rem;
+      border-bottom: 1px dotted #00f0ff;
+    }
+    .cert-link:hover {
+      color: #fff;
+      border-bottom-color: #fff;
+      text-shadow: 0 0 8px #00f0ff;
+    }
+
+    /* Animations */
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background-color: #00ff9d;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Reveal animations */
+    .output { opacity: 0; animation: reveal 0.1s forwards; }
+    
+    .delay-1 { animation-delay: 1.5s; }
+    .delay-2 { animation-delay: 3s; }
+    .delay-3 { animation-delay: 4.5s; }
+    .delay-4 { animation-delay: 6s; }
+    .delay-5 { animation-delay: 7.5s; }
+    .delay-6 { opacity: 0; animation: reveal 0.1s forwards 8.5s; }
+
+    @keyframes reveal {
+      to { opacity: 1; }
+    }
+
+    .cmd {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: bottom;
+      border-right: 2px solid transparent;
+    }
+
+    /* Typing effect widths */
+    .type-1 { width: 0; animation: type 1s steps(6, end) 0.5s forwards; }
+    .type-2 { width: 0; animation: type 1s steps(15, end) 2s forwards; }
+    .type-3 { width: 0; animation: type 1s steps(15, end) 3.5s forwards; }
+    .type-4 { width: 0; animation: type 1s steps(25, end) 5s forwards; }
+    .type-5 { width: 0; animation: type 1s steps(22, end) 6.5s forwards; }
+
+    @keyframes type {
+      0% { width: 0; border-right: 2px solid #00ff9d; }
+      99% { border-right: 2px solid #00ff9d; }
+      100% { width: 100%; border-right: 2px solid transparent; }
+    }
+  </style>
 </Layout>
