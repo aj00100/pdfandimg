@@ -40,6 +40,12 @@ export default defineConfig({
   },
 
   integrations: [sitemap({
-    filter: (page) => !page.includes('/me')
+    filter: (page) => 
+      !page.includes('/me') &&
+      !page.includes('/merge-multiple-pdf-into-one') &&
+      !page.includes('/separate-pdf-pages') &&
+      !page.includes('/remove-pdf-pages') &&
+      !page.includes('/extract-images-from-pdf') &&
+      !page.includes('/add-images-to-pdf')
   })],
 });

@@ -1,0 +1,133 @@
+---
+/**
+ * SmartRelatedTools — Dynamic internal linking component.
+ * Automatically selects relevant tools based on the current page's category.
+ * Drop-in replacement for the old hardcoded RelatedTools component.
+ */
+import { getRelatedTools } from '../data/toolsMap';
+
+interface Props {
+  maxTools?: number;
+}
+
+const { maxTools = 6 } = Astro.props;
+const currentPath = new URL(Astro.request.url).pathname.replace(/\/$/, '') || '/';
+const relatedTools = getRelatedTools(currentPath, maxTools);
+---
+
+{relatedTools.length > 0 && (
+  <section class="smart-related" aria-label="Related Tools">
+    <div class="smart-related-inner">
+      <h3 class="smart-related-title">Related Tools You Might Need</h3>
+      <div class="smart-related-grid">
+        {relatedTools.map(tool => (
+          <a href={tool.href} class="smart-related-card">
+            <span class="smart-related-name">{tool.name}</span>
+            <span class="smart-related-desc">{tool.desc}</span>
+            <svg class="smart-related-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .smart-related {
+    margin-top: 64px;
+    padding: 48px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .smart-related-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .smart-related-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .smart-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .smart-related-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .smart-related-card:hover {
+    border-color: var(--color-lime);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .smart-related-name {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+  }
+
+  .smart-related-desc {
+    font-size: 0.8125rem;
+    color: var(--color-ink-3);
+    line-height: 1.5;
+  }
+
+  .smart-related-arrow {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    opacity: 0;
+    color: var(--color-lime);
+    transition: all 0.25s ease;
+    transform: translateX(-4px);
+  }
+
+  .smart-related-card:hover .smart-related-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 640px) {
+    .smart-related-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .smart-related-card {
+      padding: 14px;
+    }
+
+    .smart-related-name {
+      font-size: 0.8125rem;
+    }
+
+    .smart-related-desc {
+      font-size: 0.6875rem;
+    }
+
+    .smart-related-arrow {
+      display: none;
+    }
+  }
+</style>

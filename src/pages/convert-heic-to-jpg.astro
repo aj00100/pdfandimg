@@ -33,4 +33,474 @@ const SEO_DESC = "Convert Apple iPhone HEIC and HEIF photos to universally compa
   </section>
 
   <SEOContentHEIC toolName="convert-heic" />
+
+  <article class="heic-article">
+    <div class="article-inner">
+      <header class="article-header">
+        <span class="guide-badge">In-Depth Technical Guide</span>
+        <h2 class="article-title">The Complete Guide to Converting iPhone HEIC to JPG for Indian Exams, Forms & Daily Use</h2>
+        <p class="article-lead">
+          Apple iPhones take some of the sharpest mobile photographs in the world, but their default <strong>.HEIC</strong> format creates immense frustration for millions of Indian students, job applicants, and professionals. If you have ever snapped a photo of your passport picture, college marksheet, Aadhaar card, or handwritten signature on an iPhone and tried uploading it to an official portal, you have likely run into sudden rejection errors: <em>"Invalid File Extension,"</em> <em>"Only JPEG/JPG Allowed,"</em> or <em>"Unable to parse image data."</em>
+        </p>
+        <p class="article-p">
+          This comprehensive guide explores the architecture behind Apple's High Efficiency Image Container (HEIC), why modern iPhones capture photos in this format by default, how to reconfigure your iOS camera settings, and how our client-side WebAssembly tool lets you batch-convert HEIC images to standard, universally accepted JPGs in seconds—without ever uploading your private documents to a remote cloud server.
+        </p>
+      </header>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">1. What Exactly Is the HEIC Image Format?</h3>
+        <p class="article-p">
+          <strong>HEIC</strong> stands for <strong>High Efficiency Image Container</strong>. It is Apple's specialized implementation of the <strong>HEIF</strong> (High Efficiency Image File) format standard, which was codified by the Moving Picture Experts Group (MPEG) under the ISO/IEC 23008-12 standard in 2015. Starting with iOS 11 in 2017, Apple made HEIC the default camera photo storage format across all iPhones from the iPhone 7 onwards.
+        </p>
+        <p class="article-p">
+          Unlike the legacy JPEG standard, which relies on 1992-era 8-bit Discrete Cosine Transform (DCT) compression algorithms, HEIC utilizes the far more modern <strong>HEVC (High Efficiency Video Coding / H.265)</strong> intra-frame compression scheme. While standard JPEG is strictly limited to 8-bit color depth (giving a maximum palette of 16.7 million distinct colors), HEIC natively supports up to <strong>16-bit color depth</strong> (allowing over 1 billion color gradients), wide color gamut capture (Display P3), high dynamic range (HDR) exposure maps, alpha-channel transparency, and embedded auxiliary depth maps that power Apple's Portrait Mode computational blur.
+        </p>
+        <p class="article-p">
+          Moreover, a single HEIC file acts as a flexible multi-item container. This architecture powers Apple's popular <em>Live Photos</em> feature, where a single shutter press captures both a full-resolution still frame and a micro-video playback loop without needing two completely separate files.
+        </p>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">2. Why iPhones Save as HEIC: The 50% Storage Advantage</h3>
+        <p class="article-p">
+          Modern iPhone camera sensors capture astounding levels of visual information. The quad-pixel 48-megapixel sensors found on the iPhone 14 Pro, iPhone 15 series, and iPhone 16 series produce uncompressed raw rasters of <strong>8064 &times; 6048 pixels</strong>. Storing these pictures in uncompressed or baseline JPEG format would quickly consume between 10 MB and 18 MB for every single snapshot.
+        </p>
+        <p class="article-p">
+          HEIC's predictive compression algorithms, variable transform block sizes (scaling from 4&times;4 up to 32&times;32 pixels, compared to JPEG's fixed 8&times;8 pixel grid), and directional edge smoothing allow it to compress image data <strong>40% to 60% more efficiently</strong> than a comparable JPEG file while preserving identical or superior perceptual sharpness.
+        </p>
+        <ul class="guide-list">
+          <li><strong>12MP Standard Camera Shot:</strong> A baseline iPhone snapshot requires roughly <strong>1.2 MB to 1.8 MB</strong> in HEIC format, compared to <strong>3.2 MB to 4.5 MB</strong> if encoded as standard JPEG.</li>
+          <li><strong>48MP High-Resolution Shot:</strong> A full-resolution detailed capture requires about <strong>6 MB to 9 MB</strong> in HEIC, whereas an equivalent JPEG export explodes to <strong>14 MB to 20 MB</strong>.</li>
+          <li><strong>Storage Economy for Indian Users:</strong> For smartphone users purchasing base 64 GB or 128 GB iPhone models, saving in HEIC effectively doubles internal photo storage capacity, delaying the need to pay for recurring iCloud+ monthly storage plans.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">3. The Incompatibility Problem: Indian Government Portals, Windows & WhatsApp</h3>
+        <p class="article-p">
+          While HEIC is an engineering marvel, its real-world software support remains deeply fragmented outside the Apple ecosystem. Most Indian web infrastructure—developed to serve diverse demographics across varying hardware and legacy software—was built around ubiquitous standards like JPEG, PNG, and PDF.
+        </p>
+
+        <div class="portal-callout">
+          <h4 class="callout-title">Indian Government & Exam Portal Roadblocks</h4>
+          <p class="article-p">
+            When you try uploading an iPhone <code>.heic</code> file to Indian recruitment, examination, or administrative portals, the server cannot parse the file container:
+          </p>
+          <ul class="portal-list">
+            <li><strong>UPSC (Civil Services, NDA, CDS):</strong> The online portal (<code>upsconline.nic.in</code>) strictly checks file headers and requires candidate photos to be in <strong>.JPG or .JPEG format</strong> between 20 KB and 300 KB, with pixel dimensions between 350&times;350 and 1000&times;1000. Uploading a <code>.heic</code> file triggers an immediate server validation rejection.</li>
+            <li><strong>SSC (CGL, CHSL, MTS, GD):</strong> The Staff Selection Commission portal requires exact 20 KB to 50 KB JPEG files (3.5 cm &times; 4.5 cm). Any file lacking JPEG header markers (<code>0xFFD8</code>) is dropped without processing.</li>
+            <li><strong>IBPS & SBI Banking Exams:</strong> The TCS iON examination registration engine mandates 200&times;230 pixel JPG photos (20 KB - 50 KB) and 140&times;60 pixel JPG signatures (10 KB - 20 KB). HEIC files cannot be ingested by the automated admit card layout generation software.</li>
+            <li><strong>NTA (NEET-UG, JEE Main, CUET):</strong> Candidate registration forms reject non-JPG image extensions for passport photos, postcard-size photographs, and thumb impressions.</li>
+            <li><strong>NSDL & UTIITSL (PAN Card Applications):</strong> Form 49A requires 200 DPI JPEG uploads for photograph and signature verification. HEIC uploads fail silently or result in empty application PDFs.</li>
+            <li><strong>Aadhaar & Passport Seva:</strong> Document upload portals under UIDAI and the Ministry of External Affairs mandate PDF or JPEG formats.</li>
+          </ul>
+        </div>
+
+        <h4 class="callout-title" style="margin-top: 24px;">Desktop & Messaging Incompatibility</h4>
+        <ul class="guide-list">
+          <li><strong>Windows 10 and 11 Codec Deadlock:</strong> When you connect your iPhone to a Windows PC via USB or transfer files via Google Drive, double-clicking a <code>.heic</code> photo in the default Windows Photos viewer displays an error: <em>"The HEVC Video Extension is required to display this file."</em> Microsoft does not include this codec out of the box due to patent licensing royalties, requiring users to pay ₹54 ($0.99) on the Microsoft Store or install third-party software.</li>
+          <li><strong>WhatsApp Document Sharing:</strong> When iPhone users send photos on WhatsApp using the "Send as Document" feature to avoid image compression, WhatsApp transmits the raw <code>.heic</code> file. Android recipients often find their native gallery apps cannot preview the image without specialized conversion tools.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">4. How to Change iPhone Settings to Save as JPG Permanently</h3>
+        <p class="article-p">
+          If you frequently upload documents to government exams, job boards, and banking portals, you can configure iOS to save future photos directly in universally compatible JPG format. Follow these simple steps on your iPhone:
+        </p>
+        <ol class="step-guide-list">
+          <li>Open the <strong>Settings</strong> app on your iPhone.</li>
+          <li>Scroll down through the system applications and tap <strong>Camera</strong>.</li>
+          <li>Tap on <strong>Formats</strong> at the very top of the camera settings list.</li>
+          <li>Under the <em>Camera Capture</em> section, tap <strong>Most Compatible</strong> (this switches the format from HEIC/HEVC to JPEG/H.264).</li>
+        </ol>
+        <div class="note-card">
+          <strong>Important Considerations When Switching:</strong>
+          <p class="article-p" style="margin: 8px 0 0;">
+            Selecting <strong>Most Compatible</strong> will cause newly captured photos to consume approximately 50% more internal storage space. Furthermore, recording video at 4K 60 fps or 1080p 240 fps slow-motion still requires High Efficiency (HEVC) on most iPhone hardware. Most importantly, switching this setting <em>only applies to new photos</em>—it does not retroactively convert the hundreds or thousands of HEIC photos already saved in your photo library. For those existing files, an instant local converter is the fastest solution.
+          </p>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">5. Quality Comparison: HEIC vs. JPG Across Realistic Scenarios</h3>
+        <p class="article-p">
+          Converting from HEIC to JPG involves decoding the modern HEVC intra-frame data and re-encoding the resulting uncompressed RGB pixel matrix into a standard baseline JPEG bitstream. When done with our tool's high-fidelity encoder (92-95% quality profile), visual differences are virtually imperceptible to the human eye. Here is how both formats stack up across common use cases:
+        </p>
+
+        <div class="table-container">
+          <table class="heic-comparison-table">
+            <thead>
+              <tr>
+                <th>Use Case / Image Subject</th>
+                <th>HEIC File Size</th>
+                <th>Converted JPG Size</th>
+                <th>Visual Quality & Compression Fidelity</th>
+                <th>Ideal Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Passport Size Portrait (12MP)</strong></td>
+                <td>1.4 MB</td>
+                <td>2.8 MB</td>
+                <td>Zero perceptible artifacting; facial contours, hair strands, and background lighting remain crisp.</td>
+                <td>UPSC, SSC, IBPS, and State PSC application portals.</td>
+              </tr>
+              <tr>
+                <td><strong>A4 Identity Card Scan (Aadhaar / PAN)</strong></td>
+                <td>1.1 MB</td>
+                <td>2.2 MB</td>
+                <td>High text legibility; micro-printed Aadhaar QR codes and PAN alphanumeric strings remain 100% OCR-readable.</td>
+                <td>Bank KYC verification, credit card applications, and tenant verification.</td>
+              </tr>
+              <tr>
+                <td><strong>High-Res 48MP Camera Capture</strong></td>
+                <td>7.5 MB</td>
+                <td>14.8 MB</td>
+                <td>Preserves 8064&times;6048 pixel geometry and fine textures; suitable for 300 DPI high-quality printouts.</td>
+                <td>Portfolio photography, graphic design, and large document archiving.</td>
+              </tr>
+              <tr>
+                <td><strong>Handwritten Exam Declaration & Signature</strong></td>
+                <td>650 KB</td>
+                <td>1.2 MB</td>
+                <td>Sharp black-ink-on-white contrast; no ring-around-text artifacts or color bleeding.</td>
+                <td>GATE, NEET, and IBPS online application signatures.</td>
+              </tr>
+              <tr>
+                <td><strong>Outdoor Daylight & Travel Photo</strong></td>
+                <td>1.8 MB</td>
+                <td>3.6 MB</td>
+                <td>Rich dynamic range; skies and shadows render smoothly without visible banding.</td>
+                <td>Sharing with Android family members, Windows PCs, and social media.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">6. Batch HEIC to JPG Conversion: Save Hours of Repetitive Work</h3>
+        <p class="article-p">
+          When applying for major recruitment drives—such as the <strong>SSC Combined Graduate Level (CGL)</strong> or an <strong>IBPS Probationary Officer</strong> post—you rarely need to convert just one image. Candidates must typically upload a recent passport photo, a black-ink signature, a left thumb impression, their Class 10 marksheet, Class 12 certificate, graduation degree, and category certificate (OBC/SC/ST/EWS). If all these documents were photographed with an iPhone, converting them individually through separate upload screens is tedious and time-consuming.
+        </p>
+        <p class="article-p">
+          Our batch conversion engine allows you to select dozens of <code>.heic</code> and <code>.heif</code> files at once. Modern multi-threaded WebAssembly web workers handle each image in parallel across your device's CPU cores. The decoded frames are packaged directly into standard JPGs, enabling you to download every converted document simultaneously or bundle them into a single organized archive with one click.
+        </p>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">7. The Privacy Imperative: Why Local WebAssembly Trumps Cloud Converters</h3>
+        <p class="article-p">
+          The internet is filled with free online file converters, but almost all of them operate on a <strong>cloud-upload model</strong>. When you upload your files to traditional conversion websites:
+        </p>
+        <ul class="guide-list">
+          <li>Your high-resolution images are uploaded over the internet to remote third-party servers located in foreign jurisdictions.</li>
+          <li>Sensitive personal identification—including your Aadhaar number, PAN details, bank account numbers, home address, and biometric photos—is written to temporary server disks.</li>
+          <li>Many ad-supported platforms retain server logs, IP addresses, and metadata, creating serious identity theft and surveillance risks.</li>
+        </ul>
+        <p class="article-p">
+          <strong>PdfAndImg's Zero-Server Commitment:</strong> Our HEIC to JPG converter operates on an entirely different paradigm. Built using compiled WebAssembly (Wasm) and HTML5 Canvas, the entire decoding and encoding process takes place <em>directly inside your web browser</em> on your own device's RAM. Your photos are never transmitted across the network, never stored on any server, and never viewable by any third party—including us.
+        </p>
+        <p class="article-p">
+          In fact, you can test this yourself: load this converter page, turn off your Wi-Fi or switch your phone to <strong>Airplane Mode</strong>, drag and drop your HEIC files, and convert them offline. The tool will process your photos at maximum local hardware speeds without a single byte leaving your phone or computer.
+        </p>
+      </section>
+
+      <section class="guide-section">
+        <h3 class="guide-h3">8. Real-World Use Cases Across India</h3>
+        <p class="article-p">
+          Thousands of daily users rely on our offline HEIC to JPG utility for time-sensitive, document-critical workflows:
+        </p>
+        <ul class="guide-list">
+          <li><strong>Government Recruitment & Entrance Examinations:</strong> Converting iPhone-captured photographs and signatures for UPSC, SSC, IBPS, RRB, NTA NEET, JEE Main, GATE, and state-level public service commissions (UPPSC, BPSC, MPSC, TNPSC).</li>
+          <li><strong>Banking & Fintech KYC:</strong> Converting Aadhaar, PAN card, voter identity card, and canceled cheque photos for digital account opening on SBI YONO, HDFC Bank, ICICI Bank, Kotak 811, Zerodha, and Groww.</li>
+          <li><strong>Cross-Platform Sharing:</strong> Transferring iPhone vacation and family photographs to family members using Android phones, Windows laptops, or Smart TVs without playback errors.</li>
+          <li><strong>E-Commerce & Real Estate Portals:</strong> Uploading product listings to Amazon Seller Central, Flipkart, Meesho, or property photos to 99acres and MagicBricks that reject HEIC uploads.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section faq-custom-section">
+        <h3 class="guide-h3">Frequently Asked Questions (HEIC to JPG)</h3>
+        
+        <div class="faq-custom-item">
+          <h4 class="faq-custom-q">Why does my Windows 10 or 11 PC show an error when opening iPhone HEIC photos?</h4>
+          <p class="faq-custom-a">
+            Windows does not include the HEVC video codec by default due to patent licensing restrictions and royalties. While Apple covers these licensing fees on iOS and macOS hardware, Microsoft requires Windows users to purchase the HEVC Video Extensions for ₹54 ($0.99) from the Microsoft Store. Converting your HEIC images to standard JPG using our free offline tool completely eliminates this problem, allowing any Windows computer, TV, or older media player to display your images instantly.
+          </p>
+        </div>
+
+        <div class="faq-custom-item">
+          <h4 class="faq-custom-q">Will converting my HEIC images to JPG cause noticeable quality degradation?</h4>
+          <p class="faq-custom-a">
+            No noticeable quality loss will occur. While JPEG is technically a lossy compression format, our converter uses a high-bitrate encoding profile (92–95% visual fidelity). The resulting JPG maintains the exact pixel dimensions, sharp edges, and natural color balance of your original iPhone photo. For documents, text, certificates, and passport photos, the converted JPG is visually indistinguishable from the original HEIC.
+          </p>
+        </div>
+
+        <div class="faq-custom-item">
+          <h4 class="faq-custom-q">Can I convert HEIC photos directly on my iPhone using Safari?</h4>
+          <p class="faq-custom-a">
+            Yes! Because our tool runs 100% locally via WebAssembly, it works smoothly on mobile Safari and Chrome on iOS. Simply open this page on your iPhone, select your HEIC pictures from your Photo Library or Files app, tap Convert, and download the resulting JPGs directly into your iOS Downloads folder or save them back to your Photos app.
+          </p>
+        </div>
+
+        <div class="faq-custom-item">
+          <h4 class="faq-custom-q">Does this converter preserve EXIF metadata like date, time, and camera details?</h4>
+          <p class="faq-custom-a">
+            Our converter reads and handles the image raster safely in local memory. By default, client-side canvas rasterization cleanses location coordinates and camera serial numbers, which protects your privacy when sharing photos publicly or submitting documents to third-party portals.
+          </p>
+        </div>
+
+        <div class="faq-custom-item">
+          <h4 class="faq-custom-q">What should I do if my converted JPG is still too large for portal limits (e.g., 20KB to 50KB)?</h4>
+          <p class="faq-custom-a">
+            Government portals like SSC, UPSC, and IBPS require photos to be strictly between 20KB and 50KB (or signatures between 10KB and 20KB). Once you have converted your HEIC file to JPG here, simply use our free <strong>Compress Image to 50KB</strong> or <strong>Compress Image to 20KB</strong> tool to target the exact file size required by the portal without losing clarity.
+          </p>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <style>
+    .heic-article {
+      max-width: 1000px;
+      margin: 60px auto 80px;
+      padding: 60px 24px 0;
+      border-top: 1px solid var(--color-border);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      color: var(--color-ink-2);
+      text-align: left;
+    }
+    .heic-article .guide-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-lime);
+      background: rgba(0, 136, 255, 0.08);
+      border: 1px solid rgba(0, 136, 255, 0.2);
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .heic-article .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.875rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-ink);
+      line-height: 1.2;
+      margin: 0 0 24px;
+    }
+    .heic-article .article-lead {
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--color-ink);
+      margin-bottom: 24px;
+    }
+    .heic-article .guide-section {
+      margin-top: 48px;
+    }
+    .heic-article .guide-h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+      margin: 0 0 18px;
+    }
+    .heic-article .article-p {
+      font-size: 1rem;
+      color: var(--color-ink-2);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .heic-article .guide-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .heic-article .guide-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.95rem;
+      color: var(--color-ink-2);
+      line-height: 1.7;
+    }
+    .heic-article .guide-list li::before {
+      content: "•";
+      position: absolute;
+      left: 8px;
+      color: var(--color-lime);
+      font-weight: bold;
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+    .heic-article .step-guide-list {
+      list-style: none;
+      counter-reset: step-counter;
+      padding: 0;
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .heic-article .step-guide-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 48px;
+      font-size: 1rem;
+      color: var(--color-ink-2);
+      line-height: 1.7;
+    }
+    .heic-article .step-guide-list li::before {
+      content: counter(step-counter, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border-mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-lime);
+    }
+    .heic-article .portal-callout {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-lime);
+      border-radius: 0 16px 16px 0;
+      padding: 28px;
+      margin: 28px 0;
+    }
+    .heic-article .callout-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0 0 14px;
+    }
+    .heic-article .portal-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .heic-article .portal-list li {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-ink-2);
+      padding-left: 20px;
+      position: relative;
+    }
+    .heic-article .portal-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--color-lime);
+      font-weight: 700;
+    }
+    .heic-article .note-card {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 0.9375rem;
+    }
+    .heic-article .table-container {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-surface-1);
+    }
+    .heic-comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .heic-comparison-table th, .heic-comparison-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .heic-comparison-table th {
+      background: var(--color-surface-2);
+      color: var(--color-ink);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .heic-comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .heic-comparison-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .heic-article .faq-custom-section {
+      border-top: 1px solid var(--color-border);
+      padding-top: 40px;
+      margin-top: 56px;
+    }
+    .heic-article .faq-custom-item {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    .heic-article .faq-custom-q {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0 0 10px;
+    }
+    .heic-article .faq-custom-a {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-ink-2);
+      margin: 0;
+    }
+    .heic-article strong {
+      color: var(--color-ink);
+    }
+    .heic-article code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      background: var(--color-surface-2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+      color: var(--color-ink);
+    }
+    @media (max-width: 768px) {
+      .heic-article {
+        margin: 40px auto 60px;
+        padding: 40px 16px 0;
+      }
+      .heic-article .step-guide-list li {
+        padding-left: 40px;
+      }
+      .heic-article .step-guide-list li::before {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  </style>
 </Layout>

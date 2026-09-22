@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import RelatedTools from '../components/RelatedTools.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
 
 interface Props {
   title: string;
@@ -15,6 +15,27 @@ const { title, description = "Precision image compression. Target any file size.
 const siteUrl = "https://pdfandimg.com";
 const path = Astro.url.pathname.replace(/\/+$/, '');
 const canonicalUrl = new URL(path || '/', siteUrl).toString();
+
+// BreadcrumbList structured data
+const pathSegments = path.split('/').filter(Boolean);
+const breadcrumbItems = [
+  { name: 'Home', url: siteUrl },
+  ...(pathSegments.length > 0 ? [{
+    name: title.split('—')[0].trim(),
+    url: canonicalUrl,
+  }] : []),
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url,
+  })),
+};
 ---
 
 <!doctype html>
@@ -22,6 +43,7 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="E83688B2D84F2650E3B27304930BD2B7" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -65,6 +87,9 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
 
       gtag('config', 'G-S9WR64YT2D');
     </script>
+
+    <!-- BreadcrumbList structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </head>
 
   <body>
@@ -190,8 +215,8 @@ const canonicalUrl = new URL(path || '/', siteUrl).toString();
       <slot />
     </main>
 
-    <!-- Footer -->
-      {showRelatedTools && <RelatedTools />}
+    <!-- Smart Related Tools (dynamic internal linking) -->
+      <SmartRelatedTools />
     <footer style="position: relative; z-index: 10; padding-bottom: 48px;">
       <div
         style="

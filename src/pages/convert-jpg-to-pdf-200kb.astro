@@ -1,10 +1,68 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import JPGToPDFSize from '../components/JPGToPDFSize.astro';
-import SEOContentPDF from '../components/SEOContentPDF.astro';
 
 const SEO_TITLE = "JPG to PDF 200KB — Convert JPG to PDF 200 KB Online";
-const SEO_DESC = "Convert your JPG image to a PDF file that is exactly 200KB in size online. Perfect for applications. 100% free and processed offline.";
+const SEO_DESC = "Convert your JPG image to a PDF file under 200KB online. Perfect for GATE GOAPS, university admissions, and marksheet uploads. 100% free and private.";
+
+const faqData = [
+  {
+    q: "Why do university admission portals and GATE require PDFs under 200KB?",
+    a: "Application portals for examinations like GATE (GOAPS) and universities like Delhi University (CSAS) handle hundreds of thousands of candidate documents simultaneously. A 200KB ceiling prevents server storage overloads while allocating sufficient data budget (204,800 bytes) for automated OCR parsers and scrutiny officers to inspect fine print, roll numbers, stamps, and signatures without blurring."
+  },
+  {
+    q: "How does a 200KB PDF compare to a 100KB PDF in visual quality?",
+    a: "Doubling the file budget from 100KB to 200KB dramatically reduces JPEG Discrete Cosine Transform (DCT) compression artifacts. Small 8pt to 10pt text, subject codes, college seals, and signature strokes remain clear and crisp at 200KB, whereas aggressive 100KB compression often introduces mosquito noise, illegible numbers, and blurry verification marks."
+  },
+  {
+    q: "What scanner resolution (DPI) should I choose for an exact 200KB PDF?",
+    a: "Scanning at 200 DPI is the mathematical sweet spot for A4 documents. An A4 page at 200 DPI yields approximately 1654 × 2338 pixels. This resolution delivers full legibility for printed text and handwritten endorsements while fitting naturally into the 180KB–200KB window without severe lossy compression."
+  },
+  {
+    q: "Can I use this tool for multi-page marksheets or certificates?",
+    a: "Our 200KB converter is optimized for single-sheet certificates, degrees, caste certificates, and front/back identity proofs. If you have multiple semester grade cards, convert each page to an optimized PDF under 200KB, or use our Merge PDF tool to combine them into an ordered dossier according to your portal's multi-page guidelines."
+  },
+  {
+    q: "Is my personal document or marksheet uploaded to your servers?",
+    a: "No. All conversion and compression operations are conducted 100% locally in your web browser using HTML5 Canvas and client-side WebAssembly. Your academic marks, registration numbers, and confidential government proofs never leave your computer or smartphone."
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg JPG to PDF 200KB Converter",
+  "url": "https://pdfandimg.com/convert-jpg-to-pdf-200kb",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const relatedTools = [
+  { name: 'JPG to PDF 100KB', href: '/convert-jpg-to-pdf-100kb' },
+  { name: 'Compress PDF to 200KB', href: '/compress-pdf-to-200kb' },
+  { name: 'Convert JPG to PDF', href: '/jpg-to-pdf' },
+  { name: 'GATE Photo Resizer', href: '/gate-photo-resizer' },
+  { name: 'Compress Image to 200KB', href: '/compress-image-to-200kb' },
+  { name: 'Passport Size Photo', href: '/passport-size-photo' },
+];
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC}>
@@ -32,5 +90,332 @@ const SEO_DESC = "Convert your JPG image to a PDF file that is exactly 200KB in 
     <JPGToPDFSize defaultTargetKB={200} />
   </section>
 
-  <SEOContentPDF toolName="compress" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+  <article class="seo-section">
+    <div class="seo-divider"></div>
+    <div class="seo-grid">
+      
+      <div class="seo-main">
+        <div class="seo-intro">
+          <h2 class="seo-h2">Why Convert JPG to PDF 200KB? The Critical Balance of Quality and Compliance</h2>
+          <p class="seo-p">
+            In the world of online job applications, higher education admissions, and government recruitment portals, file upload constraints are a constant source of friction. While candidate passport photos and digital signatures are routinely compressed down to 20KB or 50KB, academic and legal documents exist in an entirely different category. A graduation degree, consolidated marksheet, category certificate, or government-issued identity proof carries dense alphanumeric data, issuing authority seals, holographic marks, and official signatures. Compressing these documents too aggressively destroys the fine details required to authenticate them.
+          </p>
+          <p class="seo-p">
+            This is precisely why converting <strong>JPG to PDF at a 200KB target size</strong> has become the undisputed standard across Indian institutional portals. At 200KB (or 204,800 bytes), you have more than double the data budget of a 100KB file. This critical headroom allows modern image compression algorithms to preserve sharp typography, clean table grids, and legible official stamps while keeping the file comfortably underneath strict server upload ceilings. Whether you are finalizing your GATE application on the GOAPS portal, submitting undergraduate preferences on Delhi University's CSAS platform, or uploading income certificates for state counseling, our browser-based <strong>JPG to PDF 200KB converter</strong> gives you pixel-perfect compliance without risking document rejection.
+          </p>
+        </div>
+
+        <div class="seo-steps">
+          <h3 class="seo-h3">How the Client-Side 200KB PDF Conversion Works</h3>
+          <p class="seo-p">
+            Converting an image to an exact target file size requires an intelligent, iterative optimization pipeline. Traditional converters often compress images using a fixed, arbitrary percentage, resulting in files that are either bloated beyond portal limits or blurry and unreadable. Our tool employs an adaptive client-side algorithm directly inside your browser:
+          </p>
+          <ol class="seo-list">
+            <li>
+              <div class="seo-step-num">01</div>
+              <div>
+                <h4 class="seo-step-title">Local Image Ingestion & Memory Allocation</h4>
+                <p class="seo-p-small">
+                  When you select or drag-and-drop your JPG, JPEG, PNG, or WEBP image, our script loads the raw file into your device's browser memory using modern HTML5 File APIs. Your sensitive certificates and transcripts are never sent to an external web server, guaranteeing complete privacy for personal identification numbers and academic scores.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">02</div>
+              <div>
+                <h4 class="seo-step-title">Adaptive Canvas Scaling & Binary Compression</h4>
+                <p class="seo-p-small">
+                  The engine calculates the physical aspect ratio of your image and maps it onto a standardized document viewport (such as ISO A4). Next, an iterative binary search evaluates the image's entropy and color density, fine-tuning the JPEG compression quality factor between 70% and 88% until the compiled PDF payload lands precisely at or just under your target of 200KB.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">03</div>
+              <div>
+                <h4 class="seo-step-title">PDF Stream Assembly & Immediate Download</h4>
+                <p class="seo-p-small">
+                  Once the optimal quality threshold is determined, the engine encapsulates the compressed image stream into an ISO-compliant PDF container structure, complete with valid xref tables and catalog dictionaries. The finished PDF is compiled into a local Blob URL, allowing you to download the document immediately without any network latency.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="seo-details">
+          <h3 class="seo-h3">Why 200KB Delivers Noticeably Better Quality Than 100KB</h3>
+          <p class="seo-p">
+            Many candidates make the mistake of compressing their certificates down to 50KB or 100KB under the false assumption that "smaller is always better." While smaller files do upload slightly faster, aggressive compression incurs severe graphical degradation. Understanding how lossy Discrete Cosine Transform (DCT) compression works illustrates why 200KB is vastly superior to 100KB for official documents:
+          </p>
+          <p class="seo-p">
+            At <strong>100KB</strong>, an A4-sized document scan must undergo extreme quantization. High-frequency visual data—such as sharp serif edges on printed letters, thin decimal points in CGPA percentages, and fine lines in state emblem stamps—is discarded first. This produces noticeable "mosquito noise" and blocky 8&times;8 pixel distortion around text. In high-stakes admissions, an ambiguous digit (such as a '3' that looks like an '8', or an '0' resembling a '6') can trigger immediate application rejection or disqualify you during manual certificate verification.
+          </p>
+          <p class="seo-p">
+            At <strong>200KB</strong>, the compression ratio is gentle. The encoder retains enough frequency coefficients to preserve clear letterforms, unbroken lines, and recognizable watermark textures. Table borders in semester marksheets remain straight and sharp, subject codes are effortlessly legible, and verification QR codes retain sufficient contrast for standard optical smartphone scanners to decode without hesitation.
+          </p>
+
+          <div style="overflow-x: auto; margin: 28px 0;">
+            <table class="seo-table">
+              <thead>
+                <tr>
+                  <th>Feature / Parameter</th>
+                  <th>100KB Target PDF</th>
+                  <th>200KB Target PDF (Recommended)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Visual Compression Ratio</strong></td>
+                  <td>Heavy (~25:1 to 35:1)</td>
+                  <td>Moderate (~10:1 to 15:1)</td>
+                </tr>
+                <tr>
+                  <td><strong>Small Font Legibility (8pt–10pt)</strong></td>
+                  <td>Blurred, visible artifacts</td>
+                  <td>Crisp, clean character stems</td>
+                </tr>
+                <tr>
+                  <td><strong>Official Stamps & Crests</strong></td>
+                  <td>Washed out, muddy details</td>
+                  <td>Intact ink outlines and seal textures</td>
+                </tr>
+                <tr>
+                  <td><strong>Barcode / QR Verification</strong></td>
+                  <td>Higher scan failure rate</td>
+                  <td>Easily scanned by mobile & laser readers</td>
+                </tr>
+                <tr>
+                  <td><strong>Best Suited For</strong></td>
+                  <td>Basic single-page text notices</td>
+                  <td>Marksheets, Degree scrolls, GATE docs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="seo-h3">Official Document Guidelines: GATE, University Portals & Public Sector</h3>
+          <p class="seo-p">
+            Strict PDF size caps are not arbitrary; they are engineered by institutional IT departments to prevent server crashes while guaranteeing that verification officers can authenticate candidate records. Here is how key portals handle document uploads:
+          </p>
+          
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 20px 0 10px;">GATE GOAPS Document Mandates (Organized by IITs)</h4>
+          <p class="seo-p">
+            The Graduate Aptitude Test in Engineering (GATE), organized by premier institutes like IIT Roorkee, IISc Bangalore, IIT Kanpur, IIT Bombay, and IIT Kharagpur, enforces rigorous document upload protocols through its GOAPS (GATE Online Application Processing System) portal. While candidate photographs and signatures must be uploaded as JPEG files, all supporting certificates must be submitted strictly in <strong>PDF format within a 10KB to 200KB window</strong>:
+          </p>
+          <ul class="seo-list" style="margin-bottom: 24px;">
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">Category Certificate (SC / ST / OBC-NCL / EWS)</h4>
+                <p class="seo-p-small">
+                  Candidates seeking reservation or fee concession must upload their valid caste or category certificate as a PDF between 10KB and 200KB. If the issuing authority's seal, circular stamp, or digital signature registration number is unreadable due to excessive compression, the candidate is automatically shifted to the unreserved (General) category, forfeiting their reservation benefits.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">Person with Benchmark Disability (PwD) Certificate</h4>
+                <p class="seo-p-small">
+                  Candidates with benchmark disabilities (40% or more) must upload their medical board certificate as a PDF strictly under 200KB. All clinical evaluations, signatures of medical officers, and disability percentages must remain completely sharp.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">Dyslexic Candidate Certificate</h4>
+                <p class="seo-p-small">
+                  Candidates claiming compensatory examination time or scribe assistance must submit their authority certificates in PDF format within the 10KB to 200KB bracket.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">Qualifying Degree / Provisional Certificate / Course Completion</h4>
+                <p class="seo-p-small">
+                  Final year engineering students and graduates must upload their degree certificate or principal's endorsement letter as a PDF under 200KB for eligibility verification.
+                </p>
+              </div>
+            </li>
+          </ul>
+
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 20px 0 10px;">University Admission Portals Across India</h4>
+          <p class="seo-p">
+            <strong>Delhi University CSAS (Common Seat Allocation System):</strong> For both UG and PG admissions, Delhi University mandates PDF format for Class 10th certificates (date of birth proof), Class 12th marksheets, and category documents, enforcing file sizes under 200KB for high-speed indexing.
+          </p>
+          <p class="seo-p">
+            <strong>Mumbai University (MU Digital Portal):</strong> Online enrollment and semester registration modules reject document PDFs exceeding 200KB.
+          </p>
+          <p class="seo-p">
+            <strong>Anna University & TNEA Counseling:</strong> Tamil Nadu Engineering Admissions require qualifying 10th, 11th, and 12th standard marksheets in PDF format under 200KB.
+          </p>
+          <p class="seo-p">
+            <strong>Central Universities (JNU, BHU via SAMARTH Portal):</strong> Document verification gateways enforce strict 200KB PDF caps on domicile, migration, and character certificates.
+          </p>
+          <p class="seo-p">
+            <strong>State Public Service Commissions (UPPSC, BPSC, MPSC, TNPSC):</strong> Document verification portals for state recruitment exams enforce 200KB PDF caps on qualifying educational certificates.
+          </p>
+
+          <h3 class="seo-h3">Multi-Document Workflows: Converting Certificates, Marksheets & Official Proofs</h3>
+          <p class="seo-p">
+            Preparing an application package often requires converting multiple paper records into compliant digital documents. Here is how to handle diverse document types:
+          </p>
+          <p class="seo-p">
+            <strong>1. Academic Marksheets and Board Certificates:</strong> Secondary (10th) and Higher Secondary (12th) certificates feature detailed subject tables, school codes, and roll numbers. When converting these from smartphone photos, ensure the paper is completely flat. Cropping away background wooden desks or bedsheets before converting eliminates wasted file budget, allowing our 200KB target converter to spend all available bytes on text sharpness.
+          </p>
+          <p class="seo-p">
+            <strong>2. Degree Scrolls & Convocational Certificates:</strong> College degree certificates often contain embossed metallic crests and signatures of the Chancellor and Registrar. Our adaptive algorithm ensures these ornate visual elements retain their contrast without blurring.
+          </p>
+          <p class="seo-p">
+            <strong>3. Caste Validity, EWS, and Income Certificates:</strong> Government welfare certificates issued by Revenue Officers, Tehsildars, or Sub-Divisional Magistrates (SDM) feature official bilingual text, state emblems, circular ink stamps, and digital signing certificates. A 200KB PDF provides the clarity needed to inspect these legal endorsements without distortion.
+          </p>
+          <p class="seo-p">
+            <strong>4. Government Identity Proofs (Aadhaar, PAN, Voter ID):</strong> When submitting an identity proof as a single-page PDF, place both the front and back of your card onto a single canvas. Converting to a 200KB PDF ensures that your photo, unique identification number, and address text remain crisp and easily readable.
+          </p>
+
+          <h3 class="seo-h3">Scanner Optimization: Why 200 DPI is the Gold Standard for 200KB PDFs</h3>
+          <p class="seo-p">
+            A common misconception among applicants is that scanning at 300 DPI or 600 DPI always produces a better document. In reality, scanner DPI (Dots Per Inch) directly dictates the pixel dimensions of your image:
+          </p>
+          <ul class="seo-list" style="margin-bottom: 24px;">
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">72 to 96 DPI (Too Low)</h4>
+                <p class="seo-p-small">
+                  An A4 page at 72 DPI produces only 595 &times; 842 pixels. At this resolution, fine 8pt fonts and signatures appear pixelated, blocky, and difficult to read.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">300 DPI (The Overcompression Trap)</h4>
+                <p class="seo-p-small">
+                  An A4 page at 300 DPI produces 2480 &times; 3508 pixels (~8.7 megapixels), yielding raw image files between 2MB and 6MB. Compressing an 8.7-megapixel image into a 200KB PDF forces the encoder to crunch the JPEG quality factor down to ~35%, resulting in heavy ringing noise and smeared characters.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">&bull;</div>
+              <div>
+                <h4 class="seo-step-title">200 DPI (The Mathematical Sweet Spot)</h4>
+                <p class="seo-p-small">
+                  An A4 page at 200 DPI produces exactly <strong>1654 &times; 2338 pixels</strong> (~3.86 megapixels). This resolution captures every minute pen stroke and printed letter with complete clarity while allowing our compressor to maintain a high 78%–84% JPEG quality factor inside the 200KB budget.
+                </p>
+              </div>
+            </li>
+          </ul>
+
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 20px 0 10px;">Pro-Tips for Mobile Camera Scans:</h4>
+          <p class="seo-p">
+            <strong>1. Direct Overhead Lighting:</strong> Avoid shadows cast by your hands or phone by using even overhead lighting or natural indirect daylight near a window.
+          </p>
+          <p class="seo-p">
+            <strong>2. Parallel Camera Angle:</strong> Keep your camera parallel to the document to prevent trapezoidal distortion, ensuring all four corners form 90-degree angles.
+          </p>
+          <p class="seo-p">
+            <strong>3. Grayscale Mode for Monochrome Records:</strong> If your marksheet or certificate does not rely on colored graphics, converting the image to grayscale before PDF generation discards two-thirds of the color channel data, directing the full 200KB budget toward pure textural contrast and sharpness.
+          </p>
+        </div>
+
+        <div class="seo-faq">
+          <h3 class="seo-h3">Frequently Asked Questions</h3>
+          <div class="faq-stack">
+            {faqData.map(item => (
+              <div class="faq-item">
+                <h4 class="faq-q">{item.q}</h4>
+                <p class="faq-a">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seo-sidebar">
+        <div class="sidebar-box">
+          <h3 class="sidebar-title">200KB Portal Checklist</h3>
+          <ul class="sidebar-list">
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>GATE GOAPS (10KB–200KB PDF)</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Delhi University CSAS Portals</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mumbai Univ & Anna Univ TNEA</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>UPSC DAF & State PSC Proofs</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Bank KYC & Mortgage Submissions</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-stats">
+          <h3 class="stats-title">Technical Specifications</h3>
+          <p class="stats-text"><strong>Target Size:</strong> Exactly 200 KB (204,800 B)</p>
+          <p class="stats-text"><strong>Optimal DPI:</strong> 200 DPI (1654 &times; 2338 px)</p>
+          <p class="stats-text"><strong>Output Format:</strong> Standardized PDF (ISO 32000)</p>
+          <p class="stats-text"><strong>Processing:</strong> Local Browser Memory (Zero Upload)</p>
+        </div>
+
+        <div class="sidebar-box" style="margin-top: 40px;">
+          <h3 class="sidebar-title">Related Converters</h3>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+            {relatedTools.map(tool => (
+              <a href={tool.href} class="related-tag">{tool.name}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <style>
+    .seo-section { max-width: 1000px; margin: 80px auto 0; padding: 0 24px; text-align: left; }
+    .seo-divider { height: 1px; background: linear-gradient(to right, transparent, var(--color-border), transparent); margin-bottom: 80px; }
+    .seo-grid { display: grid; grid-template-columns: 1fr; gap: 80px; }
+    @media (min-width: 900px) { .seo-grid { grid-template-columns: 1.8fr 1fr; } }
+    .seo-main { display: flex; flex-direction: column; gap: 64px; }
+    .seo-h2 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 32px; color: var(--color-ink); line-height: 1.1; }
+    .seo-h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; color: var(--color-ink); }
+    .seo-p { font-size: 1rem; color: var(--color-ink-2); line-height: 1.8; margin-bottom: 20px; }
+    .seo-p-small { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.6; }
+    .seo-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+    .seo-list li { display: flex; gap: 20px; }
+    .seo-step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-lime); font-weight: 700; }
+    .seo-step-title { font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+    .seo-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; color: var(--color-ink-2); }
+    .seo-table th, .seo-table td { padding: 12px 14px; border: 1px solid var(--color-border); text-align: left; }
+    .seo-table th { background: var(--color-surface-2); color: var(--color-ink); font-weight: 700; }
+    .seo-table tr:nth-child(even) { background: var(--color-surface-1); }
+    .faq-stack { display: flex; flex-direction: column; gap: 40px; }
+    .faq-q { color: var(--color-ink); font-weight: 700; font-size: 1.125rem; margin-bottom: 12px; }
+    .faq-a { color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7; }
+    .sidebar-box { background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+    .sidebar-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-lime); margin-bottom: 24px; }
+    .sidebar-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+    .check-icon { color: var(--color-lime); margin-top: 2px; }
+    .sidebar-stats { padding: 0 32px; }
+    .stats-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-ink-3); margin-bottom: 16px; }
+    .stats-text { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 8px; }
+    .related-tag { display: block; padding: 8px; background: var(--color-surface-3); border: 1px solid var(--color-border); border-radius: 8px; font-size: 0.75rem; color: var(--color-ink-2); text-decoration: none; text-align: center; transition: all 0.2s ease; }
+    .related-tag:hover { border-color: var(--color-lime); color: var(--color-lime); transform: translateY(-2px); }
+    @media (max-width: 640px) { .seo-h2 { font-size: 1.75rem; } .seo-grid { gap: 48px; } .seo-main { gap: 48px; } }
+  </style>
 </Layout>

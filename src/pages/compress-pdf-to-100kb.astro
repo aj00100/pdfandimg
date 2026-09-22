@@ -5,6 +5,52 @@ import SEOContentPDF from '../components/SEOContentPDF.astro';
 
 const SEO_TITLE = "Compress PDF to 100KB — Free & Secure Offline Tool";
 const SEO_DESC = "Compress your PDF file to exactly 100KB online. Fast, secure, and processed completely in your browser without uploading to any server.";
+const compress100KbFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why did my compressed 100KB PDF get rejected on the portal, and how do I fix it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Government portals often calculate file sizes using strict binary limits where 100 KB equals exactly 102,400 bytes (100 KiB) or 100,000 bytes. If an online compressor creates a file that is 100.2 KB (102,604 bytes), the server firewall will reject it. Our tool deliberately targets between 92 KB and 98 KB to ensure guaranteed compliance. If a rejection still occurs, confirm that your destination portal does not require a specific naming format (e.g., no spaces or special characters in the filename) or require the PDF to be free from password protection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can multi-page PDF documents be compressed to under 100KB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, multi-page PDFs with 2 to 4 pages can successfully be compressed below 100KB, particularly if they consist of black-and-white scanned certificates, contracts, or text sheets. To achieve the 100KB ceiling across multiple pages, ensure your document is saved in grayscale or monochrome mode at 120–150 DPI. For large booklets exceeding 10 pages, maintaining high readability below 100KB becomes challenging; in such cases, consider using our PDF Page Remover tool to extract only the mandatory pages required by the portal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will compressing my marksheet or certificate to 100KB blur official stamps and QR codes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Our smart compression algorithm uses adaptive bicubic downsampling that selectively maintains sharp contrast along text glyphs, rubber stamp contours, and 2D QR code matrices. Verifying officers and automated optical scanners will have no issue reading the registration numbers, subject marks, and cryptographic verification codes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to compress confidential PDFs like EPFO passbooks and PAN card copies here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it is completely safe. PdfAndImg is designed with a strict Zero-Server architecture. The entire compression process takes place within your web browser's local sandbox memory. No file is ever transmitted over the network or saved to an external database, eliminating any risk of identity theft or data leakage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I scan my document to get the best quality before compressing to 100KB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For ideal results, scan physical papers at 150 DPI to 200 DPI using 'Document' or 'Grayscale' mode rather than 'Color Photo' mode. Place the paper flat under even lighting to avoid shadows, and crop out desk edges, shadows, and scanner glass margins. Eliminating heavy dark borders dramatically reduces raw image weight, allowing the compressor to preserve maximum sharpness in the actual document text."
+      }
+    }
+  ]
+};
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC}>
@@ -33,4 +79,434 @@ const SEO_DESC = "Compress your PDF file to exactly 100KB online. Fast, secure, 
   </section>
 
   <SEOContentPDF toolName="compress" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(compress100KbFaqSchema)} />
+
+  <article class="portal-guide-article">
+    <h2>Complete Guide: Compressing PDF Files to 100KB for Government Portals & Official Forms</h2>
+    <p>
+      When applying for government recruitment drives, university admissions, or statutory welfare schemes in India, one of the most persistent hurdles applicants face is the strict document file size limit. Portals frequently demand that supporting documents—including matriculation marksheets, caste certificates, domicile proofs, and bank passbooks—be uploaded strictly in PDF format with an upper file size ceiling of 100 KB. Attempting to upload a file that is even slightly oversized (for instance, 102 KB or 105 KB) invariably triggers an immediate upload failure, often displaying frustrating errors like <em>"File size exceeds maximum allowable limit of 100 KB"</em> or <em>"HTTP 413: Payload Too Large"</em>.
+    </p>
+    <p>
+      Our free, browser-based PDF compressor solves this exact challenge. Engineered with a privacy-first, client-side architecture, it compresses your multi-page and single-page PDF files to precisely 100KB directly on your computer or smartphone, without sending sensitive identity documents to any external server.
+    </p>
+
+    <h3>Why Government and Exam Portals Strictly Enforce Sub-100KB PDF Limits</h3>
+    <p>
+      Applicants often wonder why modern government infrastructure enforces such stringent limitations when high-speed internet and gigabytes of cloud storage are commonplace. The requirement is driven by mission-critical architectural constraints:
+    </p>
+    <ul>
+      <li>
+        <strong>Extreme Server Concurrency During Deadline Windows:</strong> Major recruitment agencies like the Staff Selection Commission (SSC), Union Public Service Commission (UPSC), Institute of Banking Personnel Selection (IBPS), and Railway Recruitment Boards (RRB) handle between 3 million and 10 million applicants per recruitment cycle. Over 60% of candidates submit their applications during the final 72 hours before the closing deadline. If every applicant uploaded uncompressed 3 MB to 5 MB scans, the incoming network throughput would overwhelm web gateways and crash backend relational database servers. Capping attachments at 100KB reduces server load by up to 98%, ensuring the portal remains online and accessible.
+      </li>
+      <li>
+        <strong>Low-Bandwidth Reliability in Tier-2, Tier-3, and Rural Areas:</strong> A substantial percentage of candidates access government portals from village Common Service Centres (CSCs), cyber cafes, or mobile connections with unstable 3G/4G coverage. Uploading a 5 MB file on a spotty 200 kbps uplink frequently times out, resulting in broken HTTP POST sessions and lost payment transactions. Conversely, a streamlined 95 KB PDF uploads in less than two seconds, guaranteeing an uninterrupted submission process.
+      </li>
+      <li>
+        <strong>Storage Optimization for National Repositories:</strong> Government databases hosted by the National Informatics Centre (NIC) and State Data Centres (SDCs) must retain candidate records, verification affidavits, and certificates for 10 to 30 years for service auditing and pension records. Multiplying tens of millions of records by 100KB creates manageable petabyte-scale storage, whereas uncompressed scans would balloon data center infrastructure budgets by hundreds of crores of rupees.
+      </li>
+      <li>
+        <strong>Legacy Validation Scripts & Gateway Firewalls:</strong> Many recruitment systems run on mature Java EE / Apache Tomcat architectures where servlet multipart request filters are hardcoded with fixed byte ceilings (e.g., <code>max-file-size=102400</code>). Uploading a file even 1 byte over 102,400 bytes triggers an unhandled validation exception, causing the page to reset.
+      </li>
+    </ul>
+
+    <h3>Major Indian Portals Requiring Under 100KB PDFs</h3>
+    <p>
+      Understanding the exact upload specifications of your destination portal prevents repeated rejections and missed deadlines. Below is a detailed review of prominent national and state portals that mandate sub-100KB PDFs:
+    </p>
+    <ul>
+      <li>
+        <strong>EPFO Unified Member Portal (UAN / Member e-Sewa):</strong> When submitting an online withdrawal or transfer claim (Form 19 for Provident Fund settlement, Form 10C for EPS pension withdrawal, or Form 31 for emergency advances), the Employees' Provident Fund Organisation mandates the upload of a self-attested bank passbook copy or cancelled cheque. While the portal accepts sizes between 100KB and 500KB depending on current server revisions, compressing your bank proof to approximately 100KB guarantees instant server validation without upload timeouts.
+      </li>
+      <li>
+        <strong>Income Tax Department e-Filing Portal (e-Filing 2.0):</strong> Taxpayers submitting replies to outstanding tax demands, filing rectification petitions under Section 154, responding to defective return notices under Section 139(9), or lodging appeals before the Commissioner of Income Tax (Appeals) must attach documentary evidence. Individual attachments for transaction vouchers, Form 16 annexures, and charitable donation receipts under Section 80G are frequently restricted to 100KB per file to avoid exceeding total session payload limits.
+      </li>
+      <li>
+        <strong>DigiLocker & State e-District Portals:</strong> When applying for digital issuance or physical verification of certificates across state portals—such as e-District Uttar Pradesh (edistrict.up.gov.in), Aaple Sarkar Maharashtra, Seva Sindhu Karnataka, or RTPS Bihar—uploaded legacy caste certificates, income certificates, and residential domicile proofs must strictly adhere to a maximum 100KB PDF format.
+      </li>
+      <li>
+        <strong>State Public Service Commissions (State PSCs):</strong> Portals such as BPSC (Bihar), UPPSC (Uttar Pradesh), MPSC (Maharashtra), TNPSC (Tamil Nadu), KPSC (Karnataka), and WBPSC (West Bengal) enforce rigid PDF constraints during Online Application Form (OAF) submission. Matriculation (10th) certificates used for Date of Birth (DOB) proof, degree certificates, and non-creamy layer (OBC-NCL) or Economically Weaker Section (EWS) certificates must consistently measure between 50KB and 100KB.
+      </li>
+      <li>
+        <strong>Bar Council of India & State Bar Councils:</strong> Law graduates completing state bar enrollment (such as Bar Council of Delhi or Bar Council of Maharashtra & Goa) and registering for the All India Bar Examination (AIBE) must upload their LL.B degree certificates and verification affidavits as sub-100KB PDF files.
+      </li>
+    </ul>
+
+    <div class="portal-table-wrapper">
+      <table class="portal-table">
+        <thead>
+          <tr>
+            <th>Portal / Organization</th>
+            <th>Required Document Type</th>
+            <th>Mandatory Format</th>
+            <th>File Size Ceiling</th>
+            <th>Recommended Scanning Specs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>EPFO Member e-Sewa</strong></td>
+            <td>Cancelled Cheque / Passbook First Page</td>
+            <td>PDF / JPEG</td>
+            <td>100 KB – 500 KB</td>
+            <td>150 DPI, Grayscale, High Contrast</td>
+          </tr>
+          <tr>
+            <td><strong>Income Tax e-Filing</strong></td>
+            <td>Demand Grievance Proofs & 80G Receipts</td>
+            <td>PDF Only</td>
+            <td>Max 100 KB per proof</td>
+            <td>150 DPI, Black & White (Binary)</td>
+          </tr>
+          <tr>
+            <td><strong>State PSCs (UPPSC, BPSC)</strong></td>
+            <td>10th Marksheet / Degree Certificate</td>
+            <td>PDF Only</td>
+            <td>50 KB – 100 KB</td>
+            <td>150–200 DPI, Grayscale</td>
+          </tr>
+          <tr>
+            <td><strong>State e-District Portals</strong></td>
+            <td>Caste, Domicile & Income Certificates</td>
+            <td>PDF Only</td>
+            <td>Max 100 KB</td>
+            <td>100–150 DPI, Grayscale</td>
+          </tr>
+          <tr>
+            <td><strong>e-Courts High Court Annexures</strong></td>
+            <td>Petitioner Affidavits & Case Documents</td>
+            <td>PDF (OCR compliant)</td>
+            <td>100 KB – 200 KB per page</td>
+            <td>200 DPI, Monochrome Bitmap</td>
+          </tr>
+          <tr>
+            <td><strong>ICAI / ICSI Student Portals</strong></td>
+            <td>Articleship Registration & Passing Cert</td>
+            <td>PDF / JPEG</td>
+            <td>Max 100 KB</td>
+            <td>150 DPI, Grayscale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>How PDF Compression Works: Under the Hood</h3>
+    <p>
+      Unlike raw JPEG or PNG image files, a Portable Document Format (PDF) file is an intricate, structured document container. A standard PDF comprises multiple internal streams: embedded raster bitmaps, vector drawing instructions, PostScript font dictionaries, XML metadata (XMP streams), color lookup tables, and object xref tables.
+    </p>
+    <p>
+      When you compress a 2 MB or 5 MB PDF document down to 100KB using our local processing engine, several sophisticated computational optimizations occur in real time:
+    </p>
+    <ul>
+      <li>
+        <strong>Adaptive Raster Downsampling & Bicubic Interpolation:</strong> Physical scanners commonly output documents at 300 to 600 Dots Per Inch (DPI). For a standard A4 page (8.27 × 11.69 inches), a 300 DPI color scan generates approximately 8.7 million pixels (approx. 25 MB of uncompressed bitmap data). Our client-side rendering pipeline renders the PDF page to an offscreen HTML5 Canvas and downsamples the image to an optimal 150 DPI or 120 DPI using bicubic interpolation. This dramatically reduces pixel count while maintaining crisp, readable character contours.
+      </li>
+      <li>
+        <strong>Dynamic Chrominance Subsampling & Color Space Reduction:</strong> Official certificates are often scanned in 24-bit TrueColor RGB, storing 16.7 million colors even though the document consists solely of black text on off-white or cream-colored paper. Our compression engine analyzes the pixel distribution, removing redundant color spectrum data and applying 4:2:0 chrominance subsampling or high-efficiency grayscale conversion to strip up to 60% of unnecessary byte weight.
+      </li>
+      <li>
+        <strong>Font Subsetting and Glyph Stripping:</strong> Word processors and PDF creation software routinely bundle entire multi-megabyte font libraries into the PDF container—even if the document uses only 20 unique characters from that font. Font subsetting strips away all unused glyph characters, preserving only the exact letters present in the document text.
+      </li>
+      <li>
+        <strong>Metadata & XML Stream Purging:</strong> Documents generated by desktop scanners often include invisible bloated metadata, such as thumbnail caches, device profiles, scanner serial numbers, revision histories, and Adobe XMP streams. Stripping these unnecessary metadata structures immediately removes 30 KB to 80 KB of invisible file bloat without touching document quality.
+      </li>
+      <li>
+        <strong>Smart Target Bisection Algorithm:</strong> Compressing to an exact target size like 100KB requires adaptive calibration. The compression engine runs an automated bisection search, testing compression ratios in memory until the output file lands safely within the target range (typically 92 KB to 98 KB), guaranteeing acceptance while maximizing visual sharpness.
+      </li>
+    </ul>
+
+    <h3>Preserving Legibility & Legal Validity During Compression</h3>
+    <p>
+      The most severe risk when compressing official PDF documents is over-compression. If text becomes blurry or pixelated, document verification (DV) committees and automated OCR verification tools will reject your application. When preparing a 100KB PDF, verify that these four vital elements remain perfectly legible:
+    </p>
+    <ul>
+      <li>
+        <strong>Critical Numerical Figures:</strong> Serial numbers, roll numbers, marks obtained, percentage calculations, dates of birth, and registration codes must remain razor-sharp. Over-compression causes numbers like '8' and '3' or '6' and '5' to blur into indistinguishable blobs, which can lead to instant disqualification during document scrutiny.
+      </li>
+      <li>
+        <strong>Institutional Rubber Stamps & Signatures:</strong> University seals, revenue department round stamps, and gazetted officer attestations frequently feature faint purple, green, or blue ink. The compression algorithm maintains strong midtone contrast so stamped text and signature strokes remain clear and verifiable.
+      </li>
+      <li>
+        <strong>2D Barcodes and Verification QR Codes:</strong> Modern certificates—such as CBSE digital marksheets, revenue caste certificates, and computerized land records—incorporate a cryptographic QR code for online validation. The compressed PDF must maintain sharp contrast along QR code pixel blocks so smartphone optical scanners can authenticate the digital signature.
+      </li>
+      <li>
+        <strong>Watermarks & Security Borders:</strong> Government stamp papers and university certificates contain microline security borders and anti-copy watermarks. Proper compression eliminates background scanner noise while keeping essential watermarks legible.
+      </li>
+    </ul>
+
+    <div class="portal-callout">
+      <p>
+        <strong>Pro Tip for Crisp Scans:</strong> Before uploading your document, scan it in <em>Grayscale</em> mode at 150–200 DPI instead of full-color mode. Crop away any surrounding wooden desks, shadows, or scanner glass borders. Removing empty borders cuts out 30% to 50% of unnecessary pixel data before compression even begins!
+      </p>
+    </div>
+
+    <h3>Common Scenarios for Compressing PDF to 100KB</h3>
+    <p>
+      Candidates and professionals encounter specific document types that require precision compression to 100KB:
+    </p>
+    <ul>
+      <li>
+        <strong>Class 10th and 12th Marksheets & Passing Certificates:</strong> Mandatory for UPSC, SSC CGL/CHSL, IBPS PO, and State Police recruitment portals as proof of age and minimum educational qualification. A 100KB PDF ensures that both the subject marks table and the board secretary's signature remain perfectly legible.
+      </li>
+      <li>
+        <strong>EPFO Cancelled Cheque & Bank Passbook:</strong> Essential for online PF withdrawal claim processing. Compressing to 100KB removes scanner background shadows, making the printed account number, account holder name, and bank IFSC code unmistakably clear for the EPFO nodal officer.
+      </li>
+      <li>
+        <strong>Caste, EWS, and Domicile Affidavits:</strong> Reserved category applicants must upload valid OBC-NCL, SC, ST, or EWS certificates issued by the Tehsildar or Sub-Divisional Magistrate (SDM). Compressing these multi-column certificates to 100KB retains official seal clarity and circular dispatch numbers.
+      </li>
+      <li>
+        <strong>Income Tax Return Verification (ITR-V) Forms & Form 16:</strong> Uploaded as income proof for home loan applications, bank credit limits, and embassy visa processing. Compressing the ITR-V PDF under 100KB keeps the barcode and tax acknowledgement number fully scannable.
+      </li>
+    </ul>
+
+    <h3>Step-by-Step Guide: How to Compress PDF to 100KB on PdfAndImg</h3>
+    <div class="portal-step-card">
+      <div class="portal-step-badge">01</div>
+      <div class="portal-step-content">
+        <h4>Select or Drop Your PDF File</h4>
+        <p>Click the upload zone or drag and drop your PDF document directly into the tool box above. The file is loaded instantly into your browser's local memory.</p>
+      </div>
+    </div>
+
+    <div class="portal-step-card">
+      <div class="portal-step-badge">02</div>
+      <div class="portal-step-content">
+        <h4>Verify the 100KB Target Setting</h4>
+        <p>On this dedicated tool page, the target file size is pre-set to 100 KB. You can easily adjust it if your specific portal enforces a tighter limit (such as 80 KB or 90 KB).</p>
+      </div>
+    </div>
+
+    <div class="portal-step-card">
+      <div class="portal-step-badge">03</div>
+      <div class="portal-step-content">
+        <h4>Automatic Client-Side Compression</h4>
+        <p>Our client-side WebAssembly engine immediately compresses your document: downsampling images, purging unused fonts, and stripping excess metadata without sending a single byte to an external server.</p>
+      </div>
+    </div>
+
+    <div class="portal-step-card">
+      <div class="portal-step-badge">04</div>
+      <div class="portal-step-content">
+        <h4>Review Output File Size & Quality</h4>
+        <p>Check the exact file size of the compressed output. The tool calibrates the payload to sit comfortably below 100 KB (typically 92 KB – 98 KB) for guaranteed portal compliance.</p>
+      </div>
+    </div>
+
+    <div class="portal-step-card">
+      <div class="portal-step-badge">05</div>
+      <div class="portal-step-content">
+        <h4>Download Your Compliant PDF</h4>
+        <p>Click the download button to save your compressed PDF instantly to your local device, ready for immediate upload to any government or exam portal.</p>
+      </div>
+    </div>
+
+    <h3>Why Client-Side (Zero-Server) Compression Is Essential for Privacy</h3>
+    <p>
+      Government documents, exam admit cards, marks certificates, and bank passbooks contain highly sensitive Personally Identifiable Information (PII). A standard document contains your full name, father's name, residential address, date of birth, Aadhaar number, PAN number, biometric photograph, signature, and active bank account details.
+    </p>
+    <p>
+      When you use generic online PDF compression tools, your sensitive identity documents are uploaded across the internet to unknown remote cloud servers. These files may be stored in temporary folders, cached on unencrypted server disks, or subjected to automated data scraping.
+    </p>
+    <p>
+      <strong>PdfAndImg eliminates this security risk entirely.</strong> By utilizing modern WebAssembly and Canvas APIs built into your web browser, all compression algorithms run 100% locally on your own machine. Your document is never uploaded, never transmitted, and never logged on any server. In fact, once this webpage finishes loading, you can completely disconnect your device from the internet and compress your documents entirely offline.
+    </p>
+
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq-accordion-item">
+      <h4 class="faq-accordion-q">Why did my compressed 100KB PDF get rejected on the portal, and how do I fix it?</h4>
+      <p class="faq-accordion-a">
+        Government portals often calculate file sizes using strict binary limits where 100 KB equals exactly 102,400 bytes (100 KiB) or 100,000 bytes. If an online compressor creates a file that is 100.2 KB (102,604 bytes), the server firewall will reject it. Our tool deliberately targets between 92 KB and 98 KB to ensure guaranteed compliance. If a rejection still occurs, confirm that your destination portal does not require a specific naming format (e.g., no spaces or special characters in the filename) or require the PDF to be free from password protection.
+      </p>
+    </div>
+
+    <div class="faq-accordion-item">
+      <h4 class="faq-accordion-q">Can multi-page PDF documents be compressed to under 100KB?</h4>
+      <p class="faq-accordion-a">
+        Yes, multi-page PDFs with 2 to 4 pages can successfully be compressed below 100KB, particularly if they consist of black-and-white scanned certificates, contracts, or text sheets. To achieve the 100KB ceiling across multiple pages, ensure your document is saved in grayscale or monochrome mode at 120–150 DPI. For large booklets exceeding 10 pages, maintaining high readability below 100KB becomes challenging; in such cases, consider using our PDF Page Remover tool to extract only the mandatory pages required by the portal.
+      </p>
+    </div>
+
+    <div class="faq-accordion-item">
+      <h4 class="faq-accordion-q">Will compressing my marksheet or certificate to 100KB blur official stamps and QR codes?</h4>
+      <p class="faq-accordion-a">
+        No. Our smart compression algorithm uses adaptive bicubic downsampling that selectively maintains sharp contrast along text glyphs, rubber stamp contours, and 2D QR code matrices. Verifying officers and automated optical scanners will have no issue reading the registration numbers, subject marks, and cryptographic verification codes.
+      </p>
+    </div>
+
+    <div class="faq-accordion-item">
+      <h4 class="faq-accordion-q">Is it safe to compress confidential PDFs like EPFO passbooks and PAN card copies here?</h4>
+      <p class="faq-accordion-a">
+        Yes, it is completely safe. PdfAndImg is designed with a strict Zero-Server architecture. The entire compression process takes place within your web browser's local sandbox memory. No file is ever transmitted over the network or saved to an external database, eliminating any risk of identity theft or data leakage.
+      </p>
+    </div>
+
+    <div class="faq-accordion-item">
+      <h4 class="faq-accordion-q">How should I scan my document to get the best quality before compressing to 100KB?</h4>
+      <p class="faq-accordion-a">
+        For ideal results, scan physical papers at 150 DPI to 200 DPI using 'Document' or 'Grayscale' mode rather than 'Color Photo' mode. Place the paper flat under even lighting to avoid shadows, and crop out desk edges, shadows, and scanner glass margins. Eliminating heavy dark borders dramatically reduces raw image weight, allowing the compressor to preserve maximum sharpness in the actual document text.
+      </p>
+    </div>
+  </article>
+
+  <style>
+    .portal-guide-article {
+      max-width: 1000px;
+      margin: 60px auto 100px;
+      padding: 0 24px;
+      color: var(--color-ink-2);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      text-align: left;
+    }
+    .portal-guide-article h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 800;
+      color: var(--color-ink);
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+    .portal-guide-article h3 {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-top: 48px;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .portal-guide-article h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+    .portal-guide-article p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: var(--color-ink-2);
+    }
+    .portal-guide-article strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+    .portal-guide-article ul, .portal-guide-article ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+    .portal-guide-article li {
+      margin-bottom: 12px;
+      font-size: 0.975rem;
+    }
+    .portal-table-wrapper {
+      overflow-x: auto;
+      margin: 32px 0;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-1);
+    }
+    .portal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .portal-table th {
+      background: var(--color-surface-2);
+      color: var(--color-ink);
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-border-mid);
+      white-space: nowrap;
+    }
+    .portal-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-ink-2);
+    }
+    .portal-table tr:last-child td {
+      border-bottom: none;
+    }
+    .portal-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .portal-callout {
+      background: var(--color-surface-1);
+      border-left: 4px solid var(--color-lime);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 28px 0;
+      border-top: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .portal-callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .portal-step-card {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .portal-step-badge {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-surface-3);
+      border: 1px solid var(--color-border-mid);
+      color: var(--color-lime);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portal-step-content h4 {
+      margin-top: 0;
+      margin-bottom: 6px;
+    }
+    .portal-step-content p {
+      margin-bottom: 0;
+      font-size: 0.9375rem;
+    }
+    .faq-accordion-item {
+      background: var(--color-surface-1);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .faq-accordion-q {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .faq-accordion-a {
+      font-size: 0.9375rem;
+      color: var(--color-ink-2);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    @media (max-width: 640px) {
+      .portal-guide-article {
+        padding: 0 16px;
+        margin-top: 40px;
+      }
+      .portal-step-card {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
 </Layout>

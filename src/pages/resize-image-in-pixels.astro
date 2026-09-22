@@ -5,6 +5,215 @@ import SEOContentResize from '../components/SEOContentResize.astro';
 
 const SEO_TITLE = "Change Image Size in Pixel — Fast Online Resizer";
 const SEO_DESC = "Instantly change image size in pixel (width & height). Fast, bulk resizing directly in your browser with no quality loss.";
+
+const uniqueTitle = "Comprehensive Guide: Resizing Images to Exact Pixel Dimensions Online";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Every digital image is composed of a structured grid of individual color units called <strong>pixels (px)</strong>. Whether you are submitting an application for an Indian competitive exam (like IBPS, SSC, or UPSC), uploading square product photos to Amazon or Flipkart, or optimizing website graphics, having <strong>exact pixel dimensions</strong> is non-negotiable. Submitting an image with incorrect width and height causes automated portal rejections, distorted visuals, and layout issues.
+  </p>
+  <p class="seo-p">
+    Our <strong>free online pixel resizer</strong> lets you adjust the width and height of single or multiple images directly in your browser. With zero server uploads, your confidential photos, identity cards, and signatures remain 100% private on your device.
+  </p>
+
+  <h3 class="seo-h3">Why Exact Pixel Dimensions Matter</h3>
+  <p class="seo-p">
+    Digital platforms enforce rigid dimension rules across varied use cases:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Social Media:</strong> Feeding exact dimensions to Instagram, LinkedIn, and Facebook prevents aggressive compression and unexpected cropping.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Web Development & Core Web Vitals:</strong> Explicit image dimensions prevent <strong>Cumulative Layout Shift (CLS)</strong> and accelerate <strong>Largest Contentful Paint (LCP)</strong> speeds.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Game Development:</strong> Engines like Unity and Godot require exact pixel grids and power-of-two dimensions (e.g., 256x256, 512x512) for sprite atlases and texture mapping.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Government Upload Portals:</strong> Automated validation systems reject candidate files immediately if pixel width and height deviate from official exam guidelines.
+    </li>
+  </ul>
+
+  <h3 class="seo-h3">Standard Social Media Pixel Dimensions</h3>
+  <p class="seo-p">
+    Keep your social media profiles and marketing campaigns sharp by resizing to these standard resolutions:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Instagram:</strong> Square Posts (<strong>1080 x 1080 px</strong>, 1:1); Portrait Posts (<strong>1080 x 1350 px</strong>, 4:5); Stories & Reels (<strong>1080 x 1920 px</strong>, 9:16); Profile (<strong>320 x 320 px</strong>).
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">LinkedIn:</strong> Profile Picture (<strong>400 x 400 px</strong>); Background Banner (<strong>1584 x 396 px</strong>); Company Logo (<strong>300 x 300 px</strong>); Shared Link Image (<strong>1200 x 627 px</strong>).
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Facebook:</strong> Profile Photo (<strong>180 x 180 px</strong> min); Cover Photo (<strong>820 x 312 px</strong>); Shared Post Graphic (<strong>1200 x 630 px</strong>).
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">YouTube & X:</strong> YouTube Banner (<strong>2560 x 1440 px</strong>); YouTube Avatar (<strong>800 x 800 px</strong>); X Profile (<strong>400 x 400 px</strong>); X Header (<strong>1500 x 500 px</strong>).
+    </li>
+  </ul>
+
+  <h3 class="seo-h3">Government Exam & Recruitment Portal Specifications</h3>
+  <p class="seo-p">
+    Applying for Indian competitive exams requires exact pixel compliance to pass portal verification:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">IBPS (PO, Clerk, SO, RRB):</strong> Photo must be exactly <strong>200 x 230 px</strong> (20–50 KB). Signature must be <strong>140 x 60 px</strong> (10–20 KB). Left Thumb Impression: <strong>240 x 240 px</strong>. Handwritten Declaration: <strong>800 x 400 px</strong>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">SSC (CGL, CHSL, MTS, GD):</strong> Photo requires <strong>100 x 120 px</strong> to <strong>200 x 230 px</strong> (3.5 x 4.5 cm, 20–50 KB). Signature requires <strong>140 x 60 px</strong> (10–20 KB).
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">UPSC (Civil Services, NDA, CDS):</strong> Photo and Signature require minimum <strong>350 x 350 px</strong> to maximum <strong>1000 x 1000 px</strong> (1:1 square ratio, 20–300 KB).
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">NEET UG & JEE Main (NTA):</strong> Passport Photo requires <strong>413 x 531 px</strong> (3.5 x 4.5 cm at 300 DPI, 10–200 KB). Postcard Photo: <strong>1200 x 1800 px</strong> (4 x 6 inches at 300 DPI). Signature: <strong>140 x 60 px</strong>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">GATE (IIT / IISc):</strong> Photo ranges from <strong>240 x 320 px</strong> to <strong>480 x 640 px</strong> (3:4 ratio). Signature ranges from <strong>80 x 280 px</strong> to <strong>160 x 560 px</strong>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">State PSCs (UPPSC, BPSC, MPSC, TNPSC):</strong> Enforce strict pixel windows like <strong>150 x 200 px</strong> or <strong>200 x 250 px</strong>.
+    </li>
+  </ul>
+
+  <h3 class="seo-h3">Understanding Aspect Ratios & Avoiding Distortion</h3>
+  <p class="seo-p">
+    An image's <strong>aspect ratio</strong> is the proportional relationship between width and height (e.g., 1:1, 4:3, 16:9). Changing pixel width and height independently without considering the original ratio distorts the picture.
+  </p>
+  <p class="seo-p">
+    For instance, forcing a 3000 x 4000 portrait (3:4) into a 1200 x 400 banner (3:1) squishes the subject horizontally. To avoid distortion:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Proportional Scaling:</strong> When changing one dimension, calculate: <em>New Height = (Original Height / Original Width) &times; New Width</em>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Pre-Cropping:</strong> Crop outer borders to your target aspect ratio (such as 1:1 square) before setting exact final pixels.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Canvas Padding:</strong> Place your image inside a fixed-dimension canvas with white or transparent padding instead of stretching.
+    </li>
+  </ul>
+
+  <h3 class="seo-h3">DPI vs. Pixels: Demystified for Beginners</h3>
+  <p class="seo-p">
+    Saving an image at "300 DPI" does not make it crisper on screens than "72 DPI". <strong>DPI (Dots Per Inch)</strong> is strictly a print density metric that tells printers how many ink dots to deposit per linear inch of paper.
+  </p>
+  <p class="seo-p">
+    Screens display graphics pixel-for-pixel. A <strong>1080 x 1080 px</strong> image looks identical on any display regardless of whether metadata specifies 72 DPI or 300 DPI. DPI only matters when converting physical print dimensions into digital pixels:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong>Inches to Pixels:</strong> <em>Pixels = Inches &times; DPI</em>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong>Centimeters to Pixels:</strong> <em>Pixels = (Centimeters / 2.54) &times; DPI</em>.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong>Exam Application Example:</strong> A 3.5 cm &times; 4.5 cm photo at 200 DPI equals <em>(3.5 / 2.54) &times; 200 &asymp; 276 px width</em> and <em>(4.5 / 2.54) &times; 200 &asymp; 354 px height</em>. At 300 DPI, it equals 413 &times; 531 pixels.
+    </li>
+  </ul>
+
+  <h3 class="seo-h3">Responsive Web Images: Sizing for Performance</h3>
+  <p class="seo-p">
+    Modern smartphones capture photos at 12 to 50 megapixels (over 4000 x 3000 px), generating 5 MB to 15 MB files. Serving unresized master photos on a website severely degrades mobile page speed.
+  </p>
+  <p class="seo-p">
+    Loading a 4000-pixel asset into a 400-pixel mobile container wastes data and harms Google Core Web Vitals. Resizing images to their actual display dimensions (e.g., 400 px for cards, 800 px for body images, 1200 px for hero headers) reduces file sizes by up to 90%, boosting SEO rankings and user retention.
+  </p>
+
+  <h3 class="seo-h3">Batch Pixel Resizing for E-Commerce Product Catalogs</h3>
+  <p class="seo-p">
+    For online sellers on <strong>Amazon India, Flipkart, Meesho, Shopify, and WooCommerce</strong>, consistent product photography directly drives conversion rates. Marketplace requirements include:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px; gap: 12px;">
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Amazon India:</strong> Minimum <strong>1000 x 1000 px</strong> (1:1 square) to activate hover-zoom; <strong>1600 x 1600 px</strong> or <strong>2000 x 2000 px</strong> recommended on pure white backgrounds.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Flipkart:</strong> Minimum <strong>1000 x 1000 px</strong> at a square 1:1 aspect ratio.
+    </li>
+    <li style="display: list-item; color: var(--color-ink-2); line-height: 1.7;">
+      <strong style="color: var(--color-ink);">Catalog Grids:</strong> Unaligned photos create jagged store layouts. Batch-resizing all listings to uniform dimensions (e.g., 1200 x 1200 px) delivers a clean, professional storefront.
+    </li>
+  </ul>
+  <p class="seo-p">
+    Using our bulk resizer, sellers can upload dozens of product photos, set uniform pixel dimensions, and download all resized images at once in a convenient ZIP archive.
+  </p>
+
+  <h3 class="seo-h3">Step-by-Step: How to Resize Images in Pixels with PdfAndImg</h3>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">Upload Image(s)</h4>
+          <p class="seo-p-small">
+            Drag and drop single or multiple JPG, PNG, or WebP images into the drop zone, or click "Browse files".
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Set Target Width & Height</h4>
+          <p class="seo-p-small">
+            Enter your required pixel values into the Width (px) and Height (px) input fields (e.g., 200 x 230 for IBPS or 1080 x 1080 for Instagram).
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">Choose Output Format</h4>
+          <p class="seo-p-small">
+            Keep the original format or convert dynamically to JPG, PNG, WebP, or PDF.
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">Instant Resize & Download</h4>
+          <p class="seo-p-small">
+            Click "Instant Resize". Your browser processes the scaling in milliseconds. Download individual images or save all files in a single ZIP folder.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">Why Choose PdfAndImg Over Alternative Tools?</h3>
+  <p class="seo-p">
+    Unlike paid desktop software like Adobe Photoshop that requires expensive subscriptions and complex resample dialogs, or server-based upload websites that endanger your personal ID data, PdfAndImg is 100% free, private, and works right in your browser without software installations or user accounts.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "How do I calculate pixel dimensions from centimeters or inches for an exam portal?",
+    a: "Use the standard conversion formula: Pixels = (Centimeters / 2.54) × DPI. For example, if an Indian recruitment portal specifies a 3.5 cm × 4.5 cm photograph at 200 DPI, calculate the width as (3.5 / 2.54) × 200 ≈ 276 pixels, and height as (4.5 / 2.54) × 200 ≈ 354 pixels. If the portal requires 300 DPI, set your dimensions to 413 × 531 pixels."
+  },
+  {
+    q: "Will increasing an image's pixel dimensions (upscaling) make it blurry?",
+    a: "Yes, upscaling can reduce sharpness. When you increase dimensions (such as enlarging a 200×200 px image to 1000×1000 px), the browser must interpolate and invent new pixels between existing ones. For optimal clarity, always start with a high-resolution master photo and downscale to your target dimensions."
+  },
+  {
+    q: "Why was my photo rejected by SSC or IBPS even though the file size in KB was correct?",
+    a: "Recruitment portals run automated server-side checks on both file weight (KB) and exact pixel dimensions. Even if your file size is well under 50 KB, uploading an image that measures 205×235 pixels instead of the mandatory 200×230 pixels triggers an instant rejection. You must ensure both the exact pixel dimensions and file size limits match the official notification."
+  },
+  {
+    q: "Can I resize multiple images to the same pixel dimensions at once?",
+    a: "Yes! Our bulk pixel resizer allows you to drag and drop multiple images simultaneously. Simply set your target width and height (such as 1080×1080 px for social media or product catalogs), click 'Instant Resize', and download all processed images in a single organized ZIP archive."
+  },
+  {
+    q: "Is it safe to resize confidential documents, ID photos, or signatures on PdfAndImg?",
+    a: "Yes, 100% safe. PdfAndImg uses client-side HTML5 Canvas technology. All resizing operations are executed entirely within your web browser's local memory. Your personal identity photos, signatures, and certificates are never uploaded or stored on any external server."
+  }
+];
 ---
 
 <Layout title={SEO_TITLE} description={SEO_DESC}>
@@ -33,5 +242,10 @@ const SEO_DESC = "Instantly change image size in pixel (width & height). Fast, b
     <Resizer allowMultiple={true} />
   </section>
 
-  <SEOContentResize isPassport={false} />
+  <SEOContentResize 
+    isPassport={false} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
 </Layout>

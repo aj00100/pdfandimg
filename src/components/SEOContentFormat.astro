@@ -2,14 +2,16 @@
 interface Props {
   fromFormat: string;
   toFormat: string;
+  uniqueContent?: string;
+  customFaqs?: {q: string; a: string}[];
 }
 
-const { fromFormat, toFormat } = Astro.props;
+const { fromFormat, toFormat, uniqueContent, customFaqs } = Astro.props;
 
 const isToJpg = toFormat.toUpperCase() === 'JPG' || toFormat.toUpperCase() === 'JPEG';
 
 // FAQ Data for JSON-LD
-const faqData = [
+const faqData = customFaqs || [
   {
     q: `Is it safe to convert my private ${fromFormat.toUpperCase()} files online?`,
     a: `Absolutely. Unlike older converter websites, PdfAndImg processes your ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} conversions entirely within your browser using HTML5 Canvas. Your images are never uploaded to our servers, ensuring 100% data privacy for sensitive documents.`
@@ -72,79 +74,85 @@ const relatedTools = [
 
   <div class="seo-grid">
     
-    <!-- Main Content Area -->
-    <div class="seo-main">
-      
-      <!-- Dynamic Heading -->
-      <div class="seo-intro">
-        <h2 class="seo-h2">
-          Comprehensive Guide: Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()}
-        </h2>
+      <!-- Main Content Area -->
+      <div class="seo-main">
         
-        <p class="seo-p">
-          In the digital age, understanding image formats is crucial for web performance, storage optimization, and professional digital submissions. The choice between formats like PNG and JPEG goes far beyond just file extensions—it dictates how data is compressed, whether transparency is supported, and how quickly a webpage loads on mobile devices. Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()} is one of the most common requirements for digital workflows, from applying for international visas to optimizing eCommerce storefronts.
-        </p>
-        <p class="seo-p">
-          Historically, format conversion required downloading bulky software or relying on cloud-based websites that force you to upload your private files to a remote server. At PdfAndImg, we’ve re-engineered this process. Our converter utilizes advanced HTML5 Canvas APIs to handle the entire format translation securely within your own browser. This means zero upload times, no server bottlenecks, and complete cryptographic privacy for your personal photographs and official documents.
-        </p>
-      </div>
+        {uniqueContent ? (
+          <div set:html={uniqueContent} />
+        ) : (
+          <>
+            <!-- Dynamic Heading -->
+            <div class="seo-intro">
+              <h2 class="seo-h2">
+                Comprehensive Guide: Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()}
+              </h2>
+              
+              <p class="seo-p">
+                In the digital age, understanding image formats is crucial for web performance, storage optimization, and professional digital submissions. The choice between formats like PNG and JPEG goes far beyond just file extensions—it dictates how data is compressed, whether transparency is supported, and how quickly a webpage loads on mobile devices. Converting {fromFormat.toUpperCase()} to {toFormat.toUpperCase()} is one of the most common requirements for digital workflows, from applying for international visas to optimizing eCommerce storefronts.
+              </p>
+              <p class="seo-p">
+                Historically, format conversion required downloading bulky software or relying on cloud-based websites that force you to upload your private files to a remote server. At PdfAndImg, we’ve re-engineered this process. Our converter utilizes advanced HTML5 Canvas APIs to handle the entire format translation securely within your own browser. This means zero upload times, no server bottlenecks, and complete cryptographic privacy for your personal photographs and official documents.
+              </p>
+            </div>
 
-      <!-- How it works -->
-      <div class="seo-steps">
-        <h3 class="seo-h3">Technical Workflow: How the Converter Works</h3>
-        <ol class="seo-list">
-          <li>
-            <div class="seo-step-num">01</div>
-            <div>
-              <h4 class="seo-step-title">Local File Ingestion</h4>
-              <p class="seo-p-small">
-                When you drag and drop your files, our system reads the binary data locally. Your image never leaves your device's RAM, ensuring maximum privacy.
-              </p>
+            <!-- How it works -->
+            <div class="seo-steps">
+              <h3 class="seo-h3">Technical Workflow: How the Converter Works</h3>
+              <ol class="seo-list">
+                <li>
+                  <div class="seo-step-num">01</div>
+                  <div>
+                    <h4 class="seo-step-title">Local File Ingestion</h4>
+                    <p class="seo-p-small">
+                      When you drag and drop your files, our system reads the binary data locally. Your image never leaves your device's RAM, ensuring maximum privacy.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="seo-step-num">02</div>
+                  <div>
+                    <h4 class="seo-step-title">Canvas Rendering</h4>
+                    <p class="seo-p-small">
+                      The image is drawn onto an invisible HTML5 Canvas element. This step decodes the original pixel data, separating it from the constraints of its original format.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="seo-step-num">03</div>
+                  <div>
+                    <h4 class="seo-step-title">Format Re-Encoding</h4>
+                    <p class="seo-p-small">
+                      We then extract the raw pixel data and re-encode it using your target format's specific compression algorithms (such as the Discrete Cosine Transform for JPEGs).
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="seo-step-num">04</div>
+                  <div>
+                    <h4 class="seo-step-title">Instant Bulk ZIP</h4>
+                    <p class="seo-p-small">
+                      If you uploaded multiple files, the newly encoded images are instantly bundled into a ZIP archive using a local JavaScript compiler, ready for an instant, zero-latency download.
+                    </p>
+                  </div>
+                </li>
+              </ol>
             </div>
-          </li>
-          <li>
-            <div class="seo-step-num">02</div>
-            <div>
-              <h4 class="seo-step-title">Canvas Rendering</h4>
-              <p class="seo-p-small">
-                The image is drawn onto an invisible HTML5 Canvas element. This step decodes the original pixel data, separating it from the constraints of its original format.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="seo-step-num">03</div>
-            <div>
-              <h4 class="seo-step-title">Format Re-Encoding</h4>
-              <p class="seo-p-small">
-                We then extract the raw pixel data and re-encode it using your target format's specific compression algorithms (such as the Discrete Cosine Transform for JPEGs).
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="seo-step-num">04</div>
-            <div>
-              <h4 class="seo-step-title">Instant Bulk ZIP</h4>
-              <p class="seo-p-small">
-                If you uploaded multiple files, the newly encoded images are instantly bundled into a ZIP archive using a local JavaScript compiler, ready for an instant, zero-latency download.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
 
-      <!-- Detailed Use Cases -->
-      <div class="seo-details">
-        <h3 class="seo-h3">Why Format Conversion Matters</h3>
-        <p class="seo-p">
-          Different image formats were engineered for different specific purposes. PNG (Portable Network Graphics) is a lossless format, meaning it preserves every single pixel exactly as it was created. It is the gold standard for graphics that contain text, sharp lines, or require a transparent background. However, this perfection comes at a cost: file sizes can be massive, which leads to slow website loading times and frequent rejections from strict government portals.
-        </p>
-        <p class="seo-p">
-          Conversely, JPEG (Joint Photographic Experts Group) utilizes lossy compression. It analyzes an image and discards visual data that the human eye cannot easily detect. This makes it incredibly efficient for complex photographs, reducing file sizes by up to 90% without a noticeable drop in perceived quality. This is why nearly every university application portal, visa submission system, and professional platform demands images in the JPEG/JPG format.
-        </p>
-        <p class="seo-p">
-          By utilizing PdfAndImg's specialized converter, you bridge the gap between these two technologies. Whether you need to shrink a massive PNG screenshot into a lightweight JPG for an email attachment, or you need to convert a JPG into a PNG to prepare it for graphic design work, our browser-based engine ensures the highest fidelity transfer possible without compromising your personal data.
-        </p>
-      </div>
+            <!-- Detailed Use Cases -->
+            <div class="seo-details">
+              <h3 class="seo-h3">Why Format Conversion Matters</h3>
+              <p class="seo-p">
+                Different image formats were engineered for different specific purposes. PNG (Portable Network Graphics) is a lossless format, meaning it preserves every single pixel exactly as it was created. It is the gold standard for graphics that contain text, sharp lines, or require a transparent background. However, this perfection comes at a cost: file sizes can be massive, which leads to slow website loading times and frequent rejections from strict government portals.
+              </p>
+              <p class="seo-p">
+                Conversely, JPEG (Joint Photographic Experts Group) utilizes lossy compression. It analyzes an image and discards visual data that the human eye cannot easily detect. This makes it incredibly efficient for complex photographs, reducing file sizes by up to 90% without a noticeable drop in perceived quality. This is why nearly every university application portal, visa submission system, and professional platform demands images in the JPEG/JPG format.
+              </p>
+              <p class="seo-p">
+                By utilizing PdfAndImg's specialized converter, you bridge the gap between these two technologies. Whether you need to shrink a massive PNG screenshot into a lightweight JPG for an email attachment, or you need to convert a JPG into a PNG to prepare it for graphic design work, our browser-based engine ensures the highest fidelity transfer possible without compromising your personal data.
+              </p>
+            </div>
+          </>
+        )}
 
       <!-- FAQ Section -->
       <div class="seo-faq">

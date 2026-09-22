@@ -4,16 +4,17 @@ interface Props {
   type?: 'compress' | 'enhance' | 'crop';
   customTitle?: string;
   uniqueContent?: string;
+  customFaqs?: {q: string; a: string}[];
 }
 
-const { targetKB, type = 'compress', customTitle, uniqueContent } = Astro.props;
+const { targetKB, type = 'compress', customTitle, uniqueContent, customFaqs } = Astro.props;
 
 const isEnhance = type === 'enhance';
 const isCrop = type === 'crop';
 const kbText = targetKB.toString().toLowerCase() === 'any' ? 'Any KB' : targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
 
 // FAQ Data for JSON-LD
-const faqData = [
+const faqData = customFaqs || [
   {
     q: `Will I lose quality when I ${isCrop ? 'crop' : isEnhance ? 'enhance' : 'compress'} an image?`,
     a: `PdfAndImg uses "Smart Scaling" and Smart Compression Algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`

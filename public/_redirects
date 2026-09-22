@@ -1,0 +1,5 @@
+# Block .pages.dev staging domain from being indexed
+https://pdfandimg.pages.dev/* https://pdfandimg.com/:splat 301
+
+# Block www to non-www
+https://www.pdfandimg.com/* https://pdfandimg.com/:splat 301

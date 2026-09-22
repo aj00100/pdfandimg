@@ -1,6 +1,9 @@
 https://pdfandimg.pages.dev/*
   X-Robots-Tag: noindex
 
+https://www.pdfandimg.com/*
+  X-Robots-Tag: noindex
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN

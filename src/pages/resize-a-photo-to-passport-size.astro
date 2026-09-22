@@ -1,55 +1,258 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExamResizer from '../components/ExamResizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Resize a Photo to Passport Size Online | Free Tool";
+const SEO_DESC = "Easily resize a photo to passport size online. Pre-configured for Indian passports, US, UK, Schengen & Canada visas. Free, fast, and 100% private.";
+
+const uniqueTitle = "Comprehensive Guide to Passport Photo Dimensions, DPI & Country Requirements";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Having an urgent passport, international visa, or official government document application delayed due to a rejected photograph is a frustrating yet remarkably common experience. Whether you are submitting an online application via India's <strong>Passport Seva Kendra (PSK / POPSK)</strong> portal, applying for a United States non-immigrant B1/B2 or student F1 visa on the <strong>CEAC DS-160</strong> platform, booking a Schengen visa appointment through <strong>VFS Global</strong>, or updating your <strong>Aadhaar card</strong> and <strong>PAN card (NSDL / UTIITL)</strong> records, biometric photograph compliance is non-negotiable. Government validation algorithms and consular verification officers enforce millimeter-precise framing, strict background illumination, and exact pixel boundaries.
+  </p>
+  <p class="seo-p">
+    Our free <strong>online passport photo resizer</strong> removes the guesswork from document preparation. Built with modern, high-precision browser-side canvas rendering, it automatically crops, scales, and compresses your photos to meet rigid government specifications—without reducing visual clarity. Best of all, because the entire resizing and cropping process operates 100% locally within your browser, your private biometric portrait is never uploaded to any remote server or third-party database.
+  </p>
+
+  <h3 class="seo-h3">Passport Photo Dimensions & Specifications by Country</h3>
+  <p class="seo-p">
+    A frequent mistake made by applicants is assuming that "passport size" is a single universal measurement worldwide. In reality, national immigration authorities have established drastically different physical dimensions, aspect ratios, and head-to-frame proportions. Submitting an American square photograph to a British portal, or a Canadian rectangular print to a US consulate, triggers an immediate rejection. Below is the definitive country-by-country specification breakdown:
+  </p>
+
+  <div style="overflow-x: auto; margin-bottom: 32px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; background: var(--color-surface-2); border-radius: 8px; border: 1px solid var(--color-border);">
+      <thead>
+        <tr style="border-bottom: 2px solid var(--color-border); text-align: left;">
+          <th style="padding: 12px 14px; color: var(--color-ink);">Country / Authority</th>
+          <th style="padding: 12px 14px; color: var(--color-ink);">Physical Dimensions</th>
+          <th style="padding: 12px 14px; color: var(--color-ink);">Digital Pixels (300 DPI)</th>
+          <th style="padding: 12px 14px; color: var(--color-ink);">File Size & Format</th>
+          <th style="padding: 12px 14px; color: var(--color-ink);">Mandatory Background</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 14px;"><strong>India (Passport Seva Kendra / PSK)</strong></td>
+          <td style="padding: 12px 14px;">3.5 cm x 4.5 cm (35 x 45 mm)</td>
+          <td style="padding: 12px 14px;">413 x 531 px (online min 350 x 450 px)</td>
+          <td style="padding: 12px 14px;">10 KB – 50 KB (JPEG)</td>
+          <td style="padding: 12px 14px;">Plain White</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 14px;"><strong>India (OCI & Consular Visa Abroad)</strong></td>
+          <td style="padding: 12px 14px;">2 x 2 inches (51 x 51 mm)</td>
+          <td style="padding: 12px 14px;">600 x 600 px</td>
+          <td style="padding: 12px 14px;">20 KB – 200 KB (JPEG)</td>
+          <td style="padding: 12px 14px;">Plain Light / White</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 14px;"><strong>United States (State Dept / DS-160)</strong></td>
+          <td style="padding: 12px 14px;">2 x 2 inches (51 x 51 mm)</td>
+          <td style="padding: 12px 14px;">600 x 600 px up to 1200 x 1200 px</td>
+          <td style="padding: 12px 14px;">Max 240 KB (JPEG)</td>
+          <td style="padding: 12px 14px;">Pure White / Off-White</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 14px;"><strong>United Kingdom (HM Passport Office)</strong></td>
+          <td style="padding: 12px 14px;">35 mm width x 45 mm height</td>
+          <td style="padding: 12px 14px;">600 x 750 px minimum</td>
+          <td style="padding: 12px 14px;">50 KB – 10 MB</td>
+          <td style="padding: 12px 14px;">Light Grey or Cream</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 14px;"><strong>Schengen Zone (29 European States)</strong></td>
+          <td style="padding: 12px 14px;">35 mm width x 45 mm height</td>
+          <td style="padding: 12px 14px;">413 x 531 px (300 DPI)</td>
+          <td style="padding: 12px 14px;">Under 250 KB (portal upload)</td>
+          <td style="padding: 12px 14px;">Uniform Light Grey / Neutral</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 14px;"><strong>Canada (IRCC / Passport Program)</strong></td>
+          <td style="padding: 12px 14px;">50 mm width x 70 mm height</td>
+          <td style="padding: 12px 14px;">590 x 827 px (or 420 x 540 px min)</td>
+          <td style="padding: 12px 14px;">60 KB – 4 MB</td>
+          <td style="padding: 12px 14px;">Plain White or Light-Coloured</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3">The 300 DPI Requirement: Why Resolution and Pixel Density Matter</h3>
+  <p class="seo-p">
+    DPI stands for <strong>Dots Per Inch</strong>, representing the number of individual ink droplets a printer places within one inch of paper. In digital image processing, DPI determines how many screen pixels translate into physical linear inches upon print output. For official biometric documents, the universal international standard established by the International Civil Aviation Organization (ICAO Doc 9303) is <strong>300 DPI</strong> (with 600 DPI recommended for ultra-high-definition archival scans).
+  </p>
+  <p class="seo-p">
+    The mathematical formula for converting physical dimensions to digital pixels is:
+  </p>
+  <div style="background: var(--color-surface-2); padding: 16px 20px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 20px; border: 1px solid var(--color-border);">
+    Pixels = (Dimension in Millimetres / 25.4) × DPI
+  </div>
+  <p class="seo-p">
+    For example, calculating an Indian or Schengen 35 mm × 45 mm portrait at 300 DPI yields:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 24px; list-style: disc; padding-left: 24px;">
+    <li><strong>Width:</strong> (35 / 25.4) × 300 ≈ <strong>413 pixels</strong></li>
+    <li><strong>Height:</strong> (45 / 25.4) × 300 ≈ <strong>531 pixels</strong></li>
+  </ul>
+  <p class="seo-p">
+    If an applicant captures a photo at a low screen density such as 72 DPI and scales it up, the resulting print appears pixelated and grainy. Border control infrared scanners, facial recognition e-Gates, and consular OCR readers fail to detect essential biometric markers—such as the interpupillary distance between your irises, cheekbone contour, and nasal bridge geometry—causing instant gate-side or portal rejection. Our resizer guarantees clean pixel interpolation so that downscaled photos maintain razor-sharp biometric definition.
+  </p>
+
+  <h3 class="seo-h3">Background Color Rules: Pure White vs. Light Grey vs. Cream</h3>
+  <p class="seo-p">
+    Background color mismatches are among the leading triggers for automatic document refusal. Each consular jurisdiction maintains specific backdrop criteria:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 28px; list-style: disc; padding-left: 24px;">
+    <li><strong style="color: var(--color-ink);">India & United States (Strictly Pure White):</strong> The Indian Passport Seva Kendra (PSK) and the US Department of State mandate a solid, pure white background. Any off-white beige, shadows, doorway outlines, texture, or pattern behind the head will result in the automated portal flagging the image as defective.</li>
+    <li><strong style="color: var(--color-ink);">United Kingdom & Ireland (Light Grey or Cream):</strong> Her Majesty’s Passport Office (HMPO) explicitly forbids blinding white backgrounds for light-skinned individuals, as overexposure washes out hair and facial boundaries. Instead, the UK officially requires a uniform light grey or light cream backdrop.</li>
+    <li><strong style="color: var(--color-ink);">Schengen Countries (Uniform Neutral Light Grey):</strong> Member consulates including Germany, France, Italy, and Spain demand a neutral light grey or off-white background with zero color cast, gradients, or vignetting. Saturated colors like blue, red, or green backgrounds are completely banned.</li>
+    <li><strong style="color: var(--color-ink);">Canada (Plain White or Light Tint):</strong> Immigration, Refugees and Citizenship Canada (IRCC) accepts either pure white or a uniform light-colored backdrop, provided that shadow-free separation between the subject and the background is maintained.</li>
+  </ul>
+
+  <h3 class="seo-h3">Biometric Head Positioning & The 70% to 80% Framing Rule</h3>
+  <p class="seo-p">
+    The core of biometric security relies on the "facial oval." Across Indian, US, British, and Schengen guidelines, your face must occupy between <strong>70% and 80% of the total frame height</strong>:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 28px; list-style: disc; padding-left: 24px;">
+    <li><strong>Crown-to-Chin Measurement:</strong> The vertical distance from the top of your head (crown of the skull, including hair volume) down to the lowest tip of your chin must measure between <strong>31 mm and 36 mm</strong> on a standard 35 × 45 mm photo, or between <strong>1.0 inch and 1.375 inches (25 mm to 35 mm)</strong> on a 2 × 2 inch (51 × 51 mm) photograph.</li>
+    <li><strong>Eye Level Placement:</strong> Your horizontal eye line must rest between 50% and 60% of the total image height from the bottom edge. This ensures your facial features remain centrally balanced for camera tracking hardware.</li>
+    <li><strong>Shoulder Alignment & Centering:</strong> Both shoulders must be square to the camera lens. The vertical midline of your face (running down through the bridge of the nose and the philtrum) must align with the exact center axis of the photograph. Tilting your head sideways, pitching it upwards, or turning at a three-quarter angle is strictly prohibited.</li>
+  </ul>
+
+  <h3 class="seo-h3">Digital Portal Uploads vs. Physical Hardcopy Prints: Key Differences</h3>
+  <p class="seo-p">
+    Depending on whether you are submitting an online web form or attending an offline appointment, document requirements differ substantially:
+  </p>
+  <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px; border: 1px solid var(--color-border);">
+    <p class="seo-p" style="margin-bottom: 14px;">
+      <strong>1. Digital Portal Uploads:</strong> Online services (such as the Passport Seva portal, US CEAC DS-160, SSC CGL, UPSC OTR, and NEET UG) validate digital files through automated scripts. These enforce strict upper and lower file-size limits—typically between 10 KB and 50 KB for Indian government portals, and up to 240 KB for US visas. Digital images must use the <strong>sRGB 24-bit color space</strong>, save exclusively as baseline JPEG format, and contain zero alpha transparency or progressive encoding.
+    </p>
+    <p class="seo-p" style="margin-bottom: 0;">
+      <strong>2. Physical Hardcopy Prints:</strong> Offline submissions at VFS Global centers, BLS International, or post office passport centers require physical photographs. Prints must be trimmed with clean, laser-straight borders to exact physical dimensions. They must be completely free of staple holes, paperclip scratches, ink smudges, or thumb creases. Notably, Canadian passport applications mandate that the reverse side of one photograph must carry the photographer's studio stamp, address, and the date of capture, along with the guarantor's signature.
+    </p>
+  </div>
+
+  <h3 class="seo-h3">Step-by-Step: How to Take a Studio-Quality Passport Photo with Your Smartphone</h3>
+  <p class="seo-p">
+    You do not need to spend money at an expensive photo studio. Modern smartphones are equipped with high-resolution sensors that easily surpass consular quality benchmarks when used correctly. Follow this four-step home photography procedure:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 36px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <strong style="color: var(--color-ink); display: block; font-size: 1.05rem; margin-bottom: 4px;">Set Up Diffused Daylight Illumination</strong>
+          <p class="seo-p-small">Stand indoors facing a large, bright window during daylight hours. Diffused natural sunlight produces clean, balanced illumination across both sides of your face without harsh shadows beneath your nose, eyes, or jawline. Never shoot with direct ceiling downlights, fluorescent tubes, or camera flash, as these cast distracting dark patches on the wall.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <strong style="color: var(--color-ink); display: block; font-size: 1.05rem; margin-bottom: 4px;">Maintain Proper Distance & Avoid the Front Selfie Camera</strong>
+          <p class="seo-p-small">Never use your phone's front-facing selfie camera. The wide-angle focal length of front cameras creates severe barrel distortion, unnaturally expanding the nose and flattening the ears. Have a friend hold the phone at a distance of 1.5 to 2 meters (5 to 6.5 feet), exactly at your eye level, using the rear camera lens (or 2× optical zoom mode) to capture true-to-life facial proportions.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <strong style="color: var(--color-ink); display: block; font-size: 1.05rem; margin-bottom: 4px;">Choose Contrasting Professional Attire</strong>
+          <p class="seo-p-small">Wear dark or medium-toned everyday attire—such as a navy blue, charcoal, or dark green collared shirt—that contrasts vividly against a white or light background. Avoid wearing white shirts or light pastels, as they blend seamlessly into the wall, giving the impression of a floating head. Uniforms, military apparel, and deep v-necks should be avoided.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <strong style="color: var(--color-ink); display: block; font-size: 1.05rem; margin-bottom: 4px;">Upload, Frame & Download with Our Tool</strong>
+          <p class="seo-p-small">Maintain a completely neutral facial expression with mouth closed and eyes looking directly into the lens. Drag and drop your photo into our tool above. The preset automatically locks the exact aspect ratio and compresses the file to the compliant KB threshold. Position the crop boundary to frame your head at 70-80%, and download your official photo instantly.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">7 Common Mistakes That Trigger Automatic Passport Photo Rejection</h3>
+  <p class="seo-p">
+    Government portals process millions of images every year using automated artificial intelligence filters. Avoid these seven common blunders to ensure your photo is approved on your very first try:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px;">
+    <li><strong style="color: var(--color-ink);">Wearing Eyeglasses:</strong> Both the Indian Passport Seva Kendra and the US Department of State have a zero-tolerance policy against eyeglasses. Even clear prescription lenses produce subtle glare, reflections, or frame shadows across the iris, prompting immediate algorithmic rejection.</li>
+    <li><strong style="color: var(--color-ink);">Smiling or Showing Teeth:</strong> A pleasant smile feels natural, but biometric facial recognition requires a relaxed, neutral expression with mouth completely closed. Parted lips, exposed teeth, or furrowed brows change key geometric distances between facial landmarks.</li>
+    <li><strong style="color: var(--color-ink);">Using Beauty Filters or AI Retouching:</strong> Never run your passport photo through smartphone portrait smoothing, airbrushing, or blemish-removal apps. Blurring natural skin textures, birthmarks, moles, or facial scars alters biometric identity and violates international ICAO standards.</li>
+    <li><strong style="color: var(--color-ink);">Wall Shadows Behind the Head:</strong> If you stand pressed flat against a wall, your shoulders and head cast dense, dark drop shadows. Step at least 1 to 2 feet away from the background wall so that lighting wraps smoothly around your silhouette.</li>
+    <li><strong style="color: var(--color-ink);">Hair Covering Eyes or Eyebrows:</strong> Hair bangs resting across your forehead, strands falling over your eyes, or voluminous curls hiding your jawline prevent AI scanners from verifying your facial boundary. Tuck hair neatly behind your ears and shoulders.</li>
+    <li><strong style="color: var(--color-ink);">Distorted Aspect Ratio:</strong> Squeezing or stretching an image horizontally or vertically to match a specific pixel size ruins natural head proportions. Our tool locks the aspect ratio automatically, ensuring your facial geometry remains true to life.</li>
+    <li><strong style="color: var(--color-ink);">Hats, Caps & Audio Gear:</strong> Headwear of any kind is prohibited, except for documented religious garments (such as a turban, dastar, or hijab) that leave the forehead, chin, and cheeks entirely uncovered. In-ear Bluetooth earbuds or headphones must always be removed.</li>
+  </ul>
+
+  <h3 class="seo-h3">Photo Print Paper Recommendations for Physical Visa & PSK Submissions</h3>
+  <p class="seo-p">
+    When your application instructions call for submitting physical photographs at a consulate or exam center, printing on ordinary 75–80 GSM office paper will result in immediate disqualification. Immigration authorities specify strict photographic paper parameters:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 24px;">
+    <li><strong style="color: var(--color-ink);">Paper Weight (GSM):</strong> Use premium photographic paper with a weight of <strong>200 GSM to 250 GSM</strong>. This paper thickness offers necessary durability, rigidity, and prevents ink bleed-through or curling during archival handling.</li>
+    <li><strong style="color: var(--color-ink);">Surface Finish:</strong> For Indian Passport Seva Kendra and US visa applications, a <strong>glossy</strong> or <strong>semi-gloss (lustre)</strong> finish is widely preferred because it yields deep contrast and vibrant black levels. For Schengen visa centers and Canadian submissions, a high-quality <strong>matte or satin</strong> finish is often recommended to prevent visible fingerprint smudges when handling documents.</li>
+    <li><strong style="color: var(--color-ink);">Printing Method:</strong> Produce prints using continuous-tone dye-sublimation or 6-color inkjet photo printers utilizing archival, pigment-based inks. Avoid laser office copiers, as toners leave a subtle plastic sheen that peels over time.</li>
+  </ul>
+
+  <h3 class="seo-h3">Why Choose Our Free Browser-Based Passport Resizer?</h3>
+  <p class="seo-p">
+    Traditional neighborhood photo studios charge ₹150 to ₹300 per set (and upwards of $15 to $25 in North America and the UK). Worse, they often refuse to hand over the original high-resolution digital file without additional charges, or they use outdated, overly saturated blue backdrops that violate modern PSK standards.
+  </p>
+  <p class="seo-p">
+    With <strong>pdfandimg.com</strong>, you enjoy complete creative control from home. Retake your portrait as many times as you like until you are 100% happy with your look. Our purpose-built resizing engine instantly handles dimensional cropping, DPI calibration, and byte-size compression—completely free, with zero intrusive watermarks, and guaranteed private client-side processing.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "What is the exact photo dimension for an Indian Passport Seva Kendra (PSK) online application?",
+    a: "For the online application portal (passportindia.gov.in), the required digital photo dimensions are 3.5 cm × 4.5 cm (approximately 413 × 531 pixels at 300 DPI, with a portal minimum of 350 × 450 pixels). The file size must be between 10 KB and 50 KB in JPEG format, with a pure white background and 70% to 80% face coverage."
+  },
+  {
+    q: "Can I use a 2x2 inch photo for both US Visa and Indian Passport applications?",
+    a: "A 2×2 inch (51 × 51 mm or 600 × 600 pixels) photo is mandatory for US Visa (DS-160) and Overseas Citizenship of India (OCI) or Indian consular services abroad. However, domestic Indian passport renewals processed inside India require 3.5 cm × 4.5 cm photos. Our resizer supports both presets with one click."
+  },
+  {
+    q: "Why are eyeglasses strictly prohibited in passport photographs?",
+    a: "Immigration authorities including the US Department of State and Indian Passport Seva strictly ban eyeglasses because lens reflections, frame shadows, and optical glare obscure the iris and eye corners. This prevents biometric facial recognition algorithms and consular verification software from confirming candidate identity."
+  },
+  {
+    q: "How does the 70% to 80% face coverage rule work?",
+    a: "Biometric rules require that your facial oval—measured vertically from the crown of your head to the base of your chin—must take up between 70% and 80% of the entire image height. In our tool, adjust the crop box so that your head fills the majority of the framing guide while leaving comfortable breathing room above your hair and showing the top of your shoulders."
+  },
+  {
+    q: "What paper should I use to print my resized passport photos at home?",
+    a: "You should print your resized passport photo on high-quality photographic paper with a weight between 200 GSM and 250 GSM using an inkjet or dye-sublimation photo printer. For Indian and US submissions, a glossy or lustre finish is preferred, while European consulates often prefer matte or semi-matte to avoid fingerprint smudges."
+  }
+];
 ---
 
 <Layout 
-  title="Resize a Photo to Passport Size Online | Free Tool"
-  description="Easily resize a photo to passport size online. Perfect for Indian passports, visas, and official documents. Free, fast, and 100% private."
+  title={SEO_TITLE}
+  description={SEO_DESC}
 >
-  <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
+  <main class="container mx-auto px-4 py-12 md:py-20" style="max-width: 1000px;">
     
     <div style="text-align: center; margin-bottom: 48px;">
       <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--color-ink); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.1;">
         Resize a Photo to <span style="color: var(--color-lime);">Passport Size</span>
       </h1>
       <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        Convert any image into an official passport-size photo. Pre-configured for the standard Indian passport dimensions (3.5 cm x 4.5 cm).
+        Convert any image into an official passport-size photo. Pre-configured for standard Indian passport dimensions (3.5 cm x 4.5 cm), international visas, and government exams.
       </p>
     </div>
 
     <!-- The Exam Resizer Component -->
     <ExamResizer defaultExam="passport" defaultType="photo" />
 
-    <!-- SEO Content Section -->
-    <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
-      <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em;">Indian Passport Photo Dimensions</h2>
-      
-      <p style="margin-bottom: 20px;">
-        When applying for or renewing an Indian passport through the Passport Seva Kendra (PSK) online portal, you need a digital copy of your photograph. Getting the dimensions wrong is one of the most common reasons for application delays. 
-      </p>
-
-      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
-        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Standard Requirements</h3>
-        
-        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
-          <li style="margin-bottom: 8px;">✓ <strong>Physical Size:</strong> 3.5 cm width x 4.5 cm height (35mm x 45mm)</li>
-          <li style="margin-bottom: 8px;">✓ <strong>Digital Pixels:</strong> Approximately 350 x 450 pixels</li>
-          <li style="margin-bottom: 8px;">✓ <strong>Background:</strong> Plain white background is mandatory.</li>
-          <li style="margin-bottom: 8px;">✓ <strong>Face Coverage:</strong> Your face should occupy 70-80% of the photograph.</li>
-          <li>✓ <strong>File Format:</strong> JPEG/JPG under 50KB.</li>
-        </ul>
-      </div>
-
-      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">How to Resize a Photo to Passport Size</h3>
-      <ol style="padding-left: 20px; margin-bottom: 32px;">
-        <li style="margin-bottom: 12px;"><strong>Take a Photo:</strong> Stand against a plain white wall and take a clear, well-lit photo looking directly at the camera.</li>
-        <li style="margin-bottom: 12px;"><strong>Upload:</strong> Drop your image into the tool above. The "Passport" preset is already selected.</li>
-        <li style="margin-bottom: 12px;"><strong>Auto-Resize:</strong> The tool will instantly convert your photo to the standard passport dimensions and compress the file size.</li>
-        <li><strong>Download & Print:</strong> Download the perfectly sized image to upload to the Passport Seva portal or print it on glossy photo paper.</li>
-      </ol>
-
-    </article>
-
   </main>
+
+  <!-- SEO Content Component -->
+  <SEOContentResize 
+    isPassport={true}
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
 </Layout>

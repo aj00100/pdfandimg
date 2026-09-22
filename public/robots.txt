@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /.env.production.bak
-
 Disallow: /me
+
 Sitemap: https://pdfandimg.com/sitemap-index.xml

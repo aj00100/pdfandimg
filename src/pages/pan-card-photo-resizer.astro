@@ -4,8 +4,8 @@ import ExamResizer from '../components/ExamResizer.astro';
 ---
 
 <Layout 
-  title="PAN Card Photo Resizer Online | NSDL 213x213 px"
-  description="Resize your photo and signature exactly for PAN Card applications (NSDL/UTIITL). Automatically crops to 213x213 pixels, 200 DPI, and under 50KB."
+  title="PAN Card Photo Resizer Online | 213x213 px & Signature (NSDL / UTIITSL)"
+  description="Resize and compress your photo to 213x213 pixels (<50KB) and signature to 140x60 pixels (<50KB) for NSDL, UTIITSL, and PAN 2.0 applications. Free & client-side."
 >
   <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
     
@@ -14,7 +14,7 @@ import ExamResizer from '../components/ExamResizer.astro';
         PAN Card Photo <span style="color: var(--color-lime);">&</span> Signature Resizer
       </h1>
       <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        Instantly format your photo to <strong style="color: var(--color-ink);">213x213 pixels</strong> and your signature to the exact NSDL requirements. Processed 100% locally in your browser for total privacy.
+        Instantly format your photo to <strong style="color: var(--color-ink);">213x213 pixels</strong> and your signature to the exact NSDL & UTIITSL requirements. Processed 100% locally in your browser for total privacy.
       </p>
     </div>
 
@@ -23,48 +23,241 @@ import ExamResizer from '../components/ExamResizer.astro';
 
     <!-- SEO Content Section -->
     <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
-      <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em;">NSDL & UTIITL PAN Card Image Requirements</h2>
       
-      <p style="margin-bottom: 20px;">
-        Applying for a new PAN card or updating an existing one online requires uploading scanned images of your photograph and signature. Both the NSDL and UTIITL portals have very strict guidelines. If your images do not meet the exact <strong>213x213 pixel dimensions</strong> or exceed the KB limit, your upload will fail.
+      <h2 style="font-size: 2rem; font-weight: 800; color: var(--color-ink); margin-bottom: 24px; letter-spacing: -0.02em; line-height: 1.2;">
+        Complete Guide to PAN Card Photo & Signature Resizing (NSDL, UTIITSL & PAN 2.0)
+      </h2>
+      
+      <p style="margin-bottom: 24px; font-size: 1.125rem;">
+        Applying for a Permanent Account Number (PAN) in India—whether for a fresh card via Form 49A / Form 49AA, updating demographic details via Form CSF (Change / Correction in PAN Data), or upgrading under the new PAN 2.0 initiative—demands strict compliance with digital image specifications. Both authorized issuing agencies, <strong>Protean eGov Technologies (formerly NSDL)</strong> and <strong>UTIITSL (UTI Infrastructure Technology And Services Limited)</strong>, employ automated image verification algorithms on their filing servers. Uploading a photograph or signature that deviates by even a single pixel or exceeds the 50 KB ceiling results in immediate upload failure, or worse, administrative delays in card dispatch.
       </p>
 
-      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
-        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">Official Specifications</h3>
+      <p style="margin-bottom: 32px;">
+        This free browser-based PAN Card Photo & Signature Resizer formats your images to the exact <strong>213 x 213 pixel</strong> square photograph dimensions and the recommended <strong>140 x 60 pixel</strong> signature dimensions, balancing 200 DPI clarity with safe file sizes under 50 KB. All processing happens directly inside your web browser, ensuring your private identity documents never leave your personal computer or smartphone.
+      </p>
+
+      <!-- Official Specifications Grid -->
+      <div style="background: var(--color-surface-2); padding: 32px; border-radius: 16px; margin-bottom: 40px; border: 1px solid var(--color-border);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px;">Official PAN Card Document Specifications</h3>
         
-        <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div style="display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
           <div>
-            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Photograph</strong>
-            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
-              <li style="margin-bottom: 8px;">✓ <strong>Dimensions:</strong> 213 x 213 pixels</li>
-              <li style="margin-bottom: 8px;">✓ <strong>Resolution:</strong> 200 DPI</li>
-              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> Less than 50 KB</li>
-              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Applicant Photograph (Form 49A / 49AA)
+            </strong>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> Exactly 213 x 213 pixels (3.5 cm x 2.5 cm aspect)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly under 50 KB (ideal: 25 KB – 45 KB)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Resolution:</strong> 200 to 300 DPI (Dots Per Inch)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Format:</strong> JPEG / JPG format only</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Framing & Background:</strong> 80% face coverage, plain white or light neutral background, eyes open and looking straight forward</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✗</span> <span style="color: #ef4444;"><strong>Prohibited:</strong> Sunglasses, tinted spectacles, caps, side angles, or self-cropped casual photos</span></li>
             </ul>
           </div>
           <div>
-            <strong style="color: var(--color-ink); display: block; margin-bottom: 8px;">Signature</strong>
-            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem;">
-              <li style="margin-bottom: 8px;">✓ <strong>Dimensions:</strong> 400 x 200 pixels (approx)</li>
-              <li style="margin-bottom: 8px;">✓ <strong>Resolution:</strong> 200 DPI</li>
-              <li style="margin-bottom: 8px;">✓ <strong>File Size:</strong> Less than 50 KB</li>
-              <li>✓ <strong>Format:</strong> JPEG/JPG</li>
+            <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Applicant Signature / Thumb Impression
+            </strong>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 140 x 60 pixels (NSDL/e-Filing) or up to 400 x 200 pixels (UTIITSL)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly under 50 KB (ideal: 15 KB – 40 KB)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Resolution:</strong> 200 DPI minimum</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Format:</strong> JPEG / JPG only</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Ink & Surface:</strong> Clean black or dark blue ink pen on pure white unlined paper</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✗</span> <span style="color: #ef4444;"><strong>Prohibited:</strong> Capital/block letters only, cropped signatures with cut off tails, or signatures on ruled/lined notebook paper</span></li>
             </ul>
           </div>
         </div>
       </div>
 
-      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">How to Resize Photo for PAN Card Online</h3>
-      <ol style="padding-left: 20px; margin-bottom: 32px;">
-        <li style="margin-bottom: 12px;"><strong>Select Preset:</strong> The tool above is pre-configured with the official PAN Card specifications.</li>
-        <li style="margin-bottom: 12px;"><strong>Upload Image:</strong> Select your scanned passport-size photograph or signature image.</li>
-        <li style="margin-bottom: 12px;"><strong>Automatic Processing:</strong> The tool instantly crops the image to exactly 213x213 px and compresses the file size to under 50KB.</li>
-        <li><strong>Download:</strong> Click download and upload the file directly to the NSDL or UTIITL portal.</li>
+      <!-- NSDL vs UTIITSL -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">
+        NSDL Protean vs. UTIITSL Portals: Key Differences in Image Uploading
+      </h3>
+      <p style="margin-bottom: 16px;">
+        In India, the Central Board of Direct Taxes (CBDT) authorizes two premier organizations to accept and process PAN card applications: <strong>Protean eGov Technologies Limited (formerly NSDL)</strong> and <strong>UTI Infrastructure Technology And Services Limited (UTIITSL)</strong>. While both issue the identical legally binding laminated PVC card, their online submission workflows and image parsers feature subtle differences:
+      </p>
+      
+      <ul style="padding-left: 20px; margin-bottom: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <li>
+          <strong style="color: var(--color-ink);">Protean (NSDL) Portal Workflow:</strong> The Protean filing interface enforces strict client-side validation for scanned uploads. When you select the <em>"Submit scanned images through e-Sign"</em> option, you must upload a photograph of exactly 213 x 213 pixels and a signature of 140 x 60 pixels (or 2 cm x 4.5 cm proportion). Files that measure even 214 x 214 pixels or 50.1 KB will trigger an immediate red pop-up blocker preventing form submission. Crucially, if you pick the paperless Aadhaar e-KYC option instead, NSDL automatically pulls the old photo stored in your UIDAI Aadhaar record and produces a PAN card without any printed physical signature (requiring you to sign manually with a permanent marker). To get a pristine card with your recent picture and engraved signature, uploading scanned images via our resizer is essential.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">UTIITSL Portal Workflow:</strong> UTIITSL uses a dedicated document upload batch utility for Form 49A and Form 49AA. For photos, UTIITSL strictly checks that the file is 213 x 213 pixels at 300 DPI, with a file size under 30 KB to 50 KB. For signatures, UTIITSL allows a wider canvas of 400 x 200 pixels at 200 DPI or 140 x 60 pixels under 50 KB. UTIITSL validation servers inspect the JFIF / EXIF DPI header, meaning downsampling an image without maintaining correct print density tags can trigger a <em>"Please upload 300 DPI photo"</em> warning. Our tool automatically formats your image to satisfy these exact constraints.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Income Tax Department Instant e-PAN Portal:</strong> The Income Tax e-filing portal offers an instantaneous digital e-PAN generated solely through Aadhaar OTP. While instantaneous, the generated e-PAN PDF does not contain a signature box—it displays the text <em>"Signature Not Verified / Sign Here Physically"</em>. For banking KYC, passport renewals, home loans, and visa applications, financial institutions insist on a physical PAN card with an embossed signature. To convert an instant e-PAN into a physical card with a printed signature, you must file a reprint/correction form on NSDL or UTIITSL using properly formatted 213x213 px photo and 140x60 px signature files.
+        </li>
+      </ul>
+
+      <!-- PAN 2.0 Project -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">
+        New PAN 2.0 Card Requirements: What You Must Know
+      </h3>
+      <p style="margin-bottom: 16px;">
+        The Cabinet Committee on Economic Affairs (CCEA), chaired by the Prime Minister of India, formally approved the landmark <strong>PAN 2.0 Project</strong> with a dedicated budget outlay of ₹1,435 crore. The PAN 2.0 initiative completely modernizes the digital taxation and identity architecture across India:
+      </p>
+
+      <div style="background: var(--color-surface-2); padding: 24px; border-radius: 12px; margin-bottom: 32px; border: 1px solid var(--color-border);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px;">
+          <li style="display: flex; gap: 10px;">
+            <span style="color: var(--color-lime); font-weight: bold;">01.</span>
+            <span><strong style="color: var(--color-ink);">Unified Common Identity Platform:</strong> PAN 2.0 integrates the existing fragmented interfaces of NSDL, UTIITSL, and the Income Tax e-filing system into a consolidated, high-throughput digital pipeline, eliminating disparate regional validation bugs.</span>
+          </li>
+          <li style="display: flex; gap: 10px;">
+            <span style="color: var(--color-lime); font-weight: bold;">02.</span>
+            <span><strong style="color: var(--color-ink);">Dynamic QR Code Technology:</strong> Every new and updated physical PAN card under PAN 2.0 is manufactured with an encrypted Dynamic QR code. This code securely encapsulates the cardholder's demographic details, high-resolution biometric facial photograph, and signature hash for real-time offline authentication by financial institutions.</span>
+          </li>
+          <li style="display: flex; gap: 10px;">
+            <span style="color: var(--color-lime); font-weight: bold;">03.</span>
+            <span><strong style="color: var(--color-ink);">Tightened Image Quality Standards:</strong> Because the dynamic QR code and thermal dye-sublimation PVC printing equipment rely on crisp digital masters, PAN 2.0 automated scrutiny pipelines reject pixelated, low-contrast, or overly compressed images. Uploads must maintain 200+ DPI sharpness without jagged artifacts.</span>
+          </li>
+          <li style="display: flex; gap: 10px;">
+            <span style="color: var(--color-lime); font-weight: bold;">04.</span>
+            <span><strong style="color: var(--color-ink);">Free Upgrades for Existing Holders:</strong> Existing 10-digit alphanumeric PAN numbers remain 100% valid. However, taxpayers opting for upgraded dynamic QR cards or correcting misspelled details must supply newly compliant 213x213 px photos and crisp signatures.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Common Errors -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">
+        Common Errors on NSDL & Income Tax Portals (And How to Fix Them)
+      </h3>
+      <p style="margin-bottom: 16px;">
+        During peak tax filing deadlines and government recruitment cycles, thousands of PAN applications are placed on hold due to recurring document errors. Here are the most prevalent validation failures and their solutions:
+      </p>
+
+      <ul style="padding-left: 20px; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <li>
+          <strong style="color: var(--color-ink);">"Image dimensions do not match specified 213 x 213 pixels":</strong> This is the single most common error on NSDL. Phone cameras take pictures in 3:4 or 9:16 aspect ratios (such as 3000 x 4000 px). Uploading these uncropped photos will always fail. Our tool crops your photograph to a 1:1 square ratio and scales the matrix to precisely 213 x 213 pixels.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">"File size exceeds maximum allowable limit of 50 KB":</strong> Modern smartphone photographs average between 3 MB and 8 MB. Using arbitrary online compressors often crushes the file down to 8 KB (making the face unrecognizable) or leaves it at 52 KB (which the portal rejects). Our algorithm automatically optimizes compression to hit approximately 40 KB to 45 KB—safely below the 50 KB ceiling while preserving crisp facial features.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">"Invalid image format - Only JPEG/JPG allowed":</strong> Many iPhone and Android users unknowingly upload files saved as <code>.heic</code>, <code>.webp</code>, or <code>.png</code>. The government portal returns a cryptic upload error without explaining why. Our tool automatically converts any uploaded image into a compliant baseline JPEG with valid JFIF headers.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">"Signature is faint, illegible, or shadowed":</strong> Capturing your signature under warm indoor light leaves a yellowish or gray paper background. When compressed, the signature lines blend into the background, prompting the assessing officer to reject the application under rule <em>"Signature unclear"</em>. Follow our white paper photography guide below to prevent this.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">"Signature written in capital/block letters":</strong> The Income Tax Department rejects signatures written exclusively in block capital letters (e.g., "VIKRAM KUMAR"). The signature must be your standard running script signature, exactly matching the signature on your banking records and driving license.
+        </li>
+      </ul>
+
+      <!-- How to Photograph Signature -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">
+        How to Photograph Your Signature on White Paper with a Smartphone
+      </h3>
+      <p style="margin-bottom: 20px;">
+        You do not need an expensive flatbed scanner to produce a government-accepted digital signature. You can capture a pristine signature using any smartphone by following this simple six-step protocol:
+      </p>
+
+      <ol style="padding-left: 20px; margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px;">
+        <li>
+          <strong style="color: var(--color-ink);">Use Fresh, Unlined White Paper:</strong> Take a clean, unruled sheet of white A4 printing paper (75 or 80 GSM). Never use ruled exercise notebook pages, paper with faint gridlines, or paper with printing on the reverse side that shows through.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Sign with a Dark Ink Pen:</strong> Use a dark black or deep blue gel pen, rollerball pen, or fine-point felt pen (0.7 mm to 1.0 mm tip). Avoid 0.5 mm ballpoint pens, as their faint, thin ink strokes can break or disappear during compression down to 50 KB.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Utilize Bright, Indirect Natural Light:</strong> Place the paper flat on a table adjacent to a window during daylight hours. Do not shoot directly under an overhead light bulb, as holding your smartphone over the paper will cast a dark shadow across your signature.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Keep Your Camera Parallel:</strong> Hold your phone completely flat and parallel to the paper, directly above the signature. Do not take the picture at a diagonal or slanted angle, which distorts the signature's natural geometry.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Zoom Optically (2x) Instead of Leaning In:</strong> If your smartphone camera casts a slight shadow, step back 12 inches and switch to 2x optical zoom. This eliminates your device's shadow while maintaining sharp edge definition.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Crop Tightly Before Uploading:</strong> Crop the image so that only your signature and a small 10 mm white margin around it are visible. Upload this cropped image into our tool above, select the <em>"Signature"</em> preset, and download your ready-to-upload 140 x 60 pixel file.
+        </li>
       </ol>
 
-      <div style="padding: 16px; background: rgba(163, 230, 53, 0.1); border-left: 4px solid var(--color-lime); border-radius: 4px;">
-        <strong style="color: var(--color-ink);">Privacy Notice:</strong> This PAN card photo resizer operates entirely within your web browser. Your sensitive documents, photographs, and signatures are never uploaded to our servers, ensuring your identity remains 100% secure.
+      <!-- Step by Step Guide -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 16px;">
+        Step-by-Step Guide: How to Resize Photo and Signature for PAN Card Online
+      </h3>
+      <p style="margin-bottom: 24px;">
+        Follow these steps to format your files in less than 30 seconds:
+      </p>
+
+      <ol style="padding-left: 20px; margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px;">
+        <li>
+          <strong style="color: var(--color-ink);">Step 1 — Choose Document Type:</strong> In the preset configuration box above, verify that <em>PAN Card (NSDL/UTIITL)</em> is selected. Choose whether you want to process your <strong>Photograph</strong> (213 x 213 px, 45 KB) or <strong>Signature</strong> (140 x 60 px or 400 x 200 px, 45 KB).
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Step 2 — Upload Your Raw File:</strong> Drag and drop your passport photograph or signature image onto the upload canvas, or click <em>"Browse files"</em> to select the file from your phone gallery or desktop folder.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Step 3 — Automatic Processing:</strong> Click <em>"Generate Exam Photo"</em>. The client-side engine immediately scales your image to the required dimensions, applies optimal compression algorithms, and targets a file size between 35 KB and 45 KB.
+        </li>
+        <li>
+          <strong style="color: var(--color-ink);">Step 4 — Download & Upload to Portal:</strong> Click <em>"Download Photo"</em>. Your processed, properly named JPEG file is saved to your downloads folder, ready for immediate upload to Protean NSDL (onlineservices.nsdl.com) or UTIITSL (pan.utiitsl.com).
+        </li>
+      </ol>
+
+      <!-- Privacy Callout -->
+      <div style="background: var(--color-surface-1); border-left: 4px solid var(--color-lime); padding: 24px; margin-bottom: 48px; border-radius: 0 8px 8px 0;">
+        <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">100% Client-Side Privacy Guarantee</h4>
+        <p style="margin: 0; font-size: 0.95rem;">
+          Your photograph and personal signature represent sensitive biometric and legal credentials. Unlike generic online image compressors that transmit your documents to foreign cloud servers, our PAN Card Photo Resizer operates entirely within your web browser using HTML5 Canvas and WebAssembly. Your photos never leave your device, ensuring total data security and adherence to strict privacy standards.
+        </p>
       </div>
+
+      <!-- FAQ Section -->
+      <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px;">
+        Frequently Asked Questions (PAN Card Photo & Signature)
+      </h3>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div>
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">
+            1. Why do NSDL and UTIITSL specifically mandate 213 x 213 pixel dimensions?
+          </h4>
+          <p style="margin: 0;">
+            The 213 x 213 pixel dimension originates from physical printing equipment calibration. The standard photograph box on physical PAN application forms (Form 49A/49AA) measures 3.5 cm in height by 2.5 cm in width. When scanned or rendered digitally at 200 to 300 DPI, this exact area translates mathematically to approximately 213 x 213 dots on the thermal dye-sublimation PVC card printers used by the government. The portals enforce this specific pixel grid to prevent photo stretching or distortion during printing.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">
+            2. Can I sign using blue ink, or is black ink strictly required for PAN card applications?
+          </h4>
+          <p style="margin: 0;">
+            While both dark blue ink and black ink are technically accepted by the Income Tax Department, <strong>black ink is strongly recommended</strong>. Black ink provides maximum optical contrast against white paper. When the image is compressed to under 50 KB and digitized for the physical card or dynamic QR code, blue ink—especially faint royal blue or turquoise—can wash out or appear gray, leading to rejection during backend manual verification.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">
+            3. What is the difference between Aadhaar e-KYC mode and Scanned Image upload mode on NSDL?
+          </h4>
+          <p style="margin: 0;">
+            In Aadhaar e-KYC paperless mode, NSDL pulls your photograph directly from the UIDAI Aadhaar database. You cannot upload a new photo, and your resulting PAN card will NOT have a printed physical signature—it will feature a blank box with a notice that you must sign manually. In contrast, if you select <em>"Submit scanned images through e-Sign"</em>, you can upload your latest passport photo (213 x 213 px) and signature (140 x 60 px) using this tool. Your physical PAN card will arrive with your recent photo and your signature professionally printed on the plastic card.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">
+            4. How does the new PAN 2.0 project affect photo and signature requirements?
+          </h4>
+          <p style="margin: 0;">
+            Under the PAN 2.0 initiative approved by the Union Cabinet, all physical cards are being upgraded with dynamic QR codes and enhanced security features. While you do not need to replace your existing PAN number, any new card application or correction request processed under PAN 2.0 requires high-clarity 200+ DPI photographs and signatures. Low-resolution or heavily compressed images will be automatically rejected by the upgraded unified system to ensure tamper-proof dynamic QR generation.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">
+            5. Can I use this tool for minor PAN card applications?
+          </h4>
+          <p style="margin: 0;">
+            Yes. When applying for a PAN card for a minor (under 18 years of age), a photograph of the minor is uploaded (213 x 213 px). However, the signature uploaded must be that of the minor's representative assessee (parent or legal guardian). The parent's signature should be formatted to 140 x 60 px and under 50 KB using our tool. When the minor turns 18, they can file Form CSF to update their own signature on the card.
+          </p>
+        </div>
+      </div>
+
     </article>
 
   </main>

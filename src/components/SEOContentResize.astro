@@ -1,12 +1,15 @@
 ---
 interface Props {
   isPassport?: boolean;
+  customTitle?: string;
+  uniqueContent?: string;
+  customFaqs?: {q: string; a: string}[];
 }
 
-const { isPassport = false } = Astro.props;
+const { isPassport = false, customTitle, uniqueContent, customFaqs } = Astro.props;
 
 // FAQ Data for JSON-LD
-const faqData = [
+const faqData = customFaqs || [
   {
     q: `Is it safe to upload my personal photo for ${isPassport ? 'passport resizing' : 'pixel resizing'}?`,
     a: `Yes, it is 100% safe. PdfAndImg processes your images locally in your web browser. Your sensitive identity photographs are never uploaded to a remote server, ensuring total privacy and preventing identity theft.`
@@ -75,79 +78,89 @@ const relatedTools = [
       <!-- Dynamic Heading -->
       <div class="seo-intro">
         <h2 class="seo-h2">
-          {isPassport 
+          {customTitle || (isPassport 
             ? "Comprehensive Guide: Creating Official Passport & Visa Photos"
             : "Comprehensive Guide: Resizing Images to Exact Pixel Dimensions"
-          }
+          )}
         </h2>
         
-        <p class="seo-p">
-          In an increasingly strict digital landscape, uploading photos with incorrect dimensions is the leading cause of application rejection. Whether you are submitting a job application to a corporate portal, uploading a headshot for a government ID card, or preparing assets for a high-performance website, getting the pixel dimensions exactly right is non-negotiable. 
-        </p>
-        <p class="seo-p">
-          Most modern smartphone cameras take incredibly high-resolution photos—often exceeding 4000x3000 pixels. While these look stunning, they are far too large for standard web portals, which usually require specific dimensions like 600x600 pixels or 1080x1080 pixels. Our browser-based resizing engine allows you to mathematically redefine the exact width and height of your image without relying on slow, privacy-invading cloud services.
-        </p>
+        {uniqueContent ? (
+          <div class="seo-unique-content" set:html={uniqueContent} />
+        ) : (
+          <>
+            <p class="seo-p">
+              In an increasingly strict digital landscape, uploading photos with incorrect dimensions is the leading cause of application rejection. Whether you are submitting a job application to a corporate portal, uploading a headshot for a government ID card, or preparing assets for a high-performance website, getting the pixel dimensions exactly right is non-negotiable. 
+            </p>
+            <p class="seo-p">
+              Most modern smartphone cameras take incredibly high-resolution photos—often exceeding 4000x3000 pixels. While these look stunning, they are far too large for standard web portals, which usually require specific dimensions like 600x600 pixels or 1080x1080 pixels. Our browser-based resizing engine allows you to mathematically redefine the exact width and height of your image without relying on slow, privacy-invading cloud services.
+            </p>
+          </>
+        )}
       </div>
 
-      <!-- How it works -->
-      <div class="seo-steps">
-        <h3 class="seo-h3">Technical Workflow: How the Resizer Engine Works</h3>
-        <ol class="seo-list">
-          <li>
-            <div class="seo-step-num">01</div>
-            <div>
-              <h4 class="seo-step-title">Zero-Upload Ingestion</h4>
-              <p class="seo-p-small">
-                Your photograph is instantly read into your device's local memory. We do not upload your sensitive identity photos to any remote server, guaranteeing absolute privacy.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="seo-step-num">02</div>
-            <div>
-              <h4 class="seo-step-title">Mathematical Scaling</h4>
-              <p class="seo-p-small">
-                Our algorithm calculates the difference between your original resolution and your target dimensions. It utilizes bicubic interpolation to smoothly downscale or upscale the pixels.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="seo-step-num">03</div>
-            <div>
-              <h4 class="seo-step-title">Canvas Rendering</h4>
-              <p class="seo-p-small">
-                The calculated pixels are drawn onto an HTML5 Canvas matching your exact required width and height, effectively cropping and scaling the image in a fraction of a second.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="seo-step-num">04</div>
-            <div>
-              <h4 class="seo-step-title">Instant Local Export</h4>
-              <p class="seo-p-small">
-                The canvas is immediately converted back into an optimized JPEG or PNG file. If you are processing multiple photos, they are instantly compiled into a ZIP archive for one-click downloading.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
+      { !uniqueContent && (
+        <>
+          <!-- How it works -->
+          <div class="seo-steps">
+            <h3 class="seo-h3">Technical Workflow: How the Resizer Engine Works</h3>
+            <ol class="seo-list">
+              <li>
+                <div class="seo-step-num">01</div>
+                <div>
+                  <h4 class="seo-step-title">Zero-Upload Ingestion</h4>
+                  <p class="seo-p-small">
+                    Your photograph is instantly read into your device's local memory. We do not upload your sensitive identity photos to any remote server, guaranteeing absolute privacy.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="seo-step-num">02</div>
+                <div>
+                  <h4 class="seo-step-title">Mathematical Scaling</h4>
+                  <p class="seo-p-small">
+                    Our algorithm calculates the difference between your original resolution and your target dimensions. It utilizes bicubic interpolation to smoothly downscale or upscale the pixels.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="seo-step-num">03</div>
+                <div>
+                  <h4 class="seo-step-title">Canvas Rendering</h4>
+                  <p class="seo-p-small">
+                    The calculated pixels are drawn onto an HTML5 Canvas matching your exact required width and height, effectively cropping and scaling the image in a fraction of a second.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="seo-step-num">04</div>
+                <div>
+                  <h4 class="seo-step-title">Instant Local Export</h4>
+                  <p class="seo-p-small">
+                    The canvas is immediately converted back into an optimized JPEG or PNG file. If you are processing multiple photos, they are instantly compiled into a ZIP archive for one-click downloading.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
 
-      <!-- Detailed Use Cases -->
-      <div class="seo-details">
-        <h3 class="seo-h3">Why Exact Dimensions Matter</h3>
-        <p class="seo-p">
-          Automated web portals utilize rigid bounding boxes. If you upload a massive smartphone photo to a government application portal, the system's automated AI will often attempt to crop it randomly, potentially cutting off vital parts of your face or signature. By taking control of the resizing process locally, you ensure that your subject matter remains perfectly centered and visible.
-        </p>
-        <p class="seo-p">
-          {isPassport 
-            ? "For official passports, visas, and ID cards, the requirements are heavily standardized. The US Department of State, for example, demands a minimum of 600x600 pixels. Our Passport Maker tool defaults to these exact dimensions, removing the guesswork and ensuring your application avoids the dreaded 'Photo Rejected' delay."
-            : "For social media professionals, web developers, and eCommerce managers, maintaining consistent image dimensions is key to a polished visual aesthetic. Our bulk resizer allows you to drag 50 diverse images into the engine and instantly unify them to the exact same width and height."
-          }
-        </p>
-        <p class="seo-p">
-          Avoid the security risks of uploading your face and identity to sketchy free-tier websites. With PdfAndImg's client-side processing architecture, you achieve professional-grade results instantly, with the absolute certainty that your data never left your computer.
-        </p>
-      </div>
+          <!-- Detailed Use Cases -->
+          <div class="seo-details">
+            <h3 class="seo-h3">Why Exact Dimensions Matter</h3>
+            <p class="seo-p">
+              Automated web portals utilize rigid bounding boxes. If you upload a massive smartphone photo to a government application portal, the system's automated AI will often attempt to crop it randomly, potentially cutting off vital parts of your face or signature. By taking control of the resizing process locally, you ensure that your subject matter remains perfectly centered and visible.
+            </p>
+            <p class="seo-p">
+              {isPassport 
+                ? "For official passports, visas, and ID cards, the requirements are heavily standardized. The US Department of State, for example, demands a minimum of 600x600 pixels. Our Passport Maker tool defaults to these exact dimensions, removing the guesswork and ensuring your application avoids the dreaded 'Photo Rejected' delay."
+                : "For social media professionals, web developers, and eCommerce managers, maintaining consistent image dimensions is key to a polished visual aesthetic. Our bulk resizer allows you to drag 50 diverse images into the engine and instantly unify them to the exact same width and height."
+              }
+            </p>
+            <p class="seo-p">
+              Avoid the security risks of uploading your face and identity to sketchy free-tier websites. With PdfAndImg's client-side processing architecture, you achieve professional-grade results instantly, with the absolute certainty that your data never left your computer.
+            </p>
+          </div>
+        </>
+      )}
 
       <!-- FAQ Section -->
       <div class="seo-faq">
