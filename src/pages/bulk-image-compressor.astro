@@ -1,0 +1,195 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Bulk Image Compressor — Compress Multiple Images at Once Online Free";
+const SEO_DESC = "Free bulk image compressor online. Batch process, compress, and optimize multiple images at once for web developers, photographers, and e-commerce. Fast & private.";
+
+const faqData = [
+  {
+    "@type": "Question",
+    "name": "How many images can I compress at once?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Our bulk image compressor can handle dozens of images in a single batch. Because all processing happens locally in your browser, the limit depends on your device's memory, but processing 50-100 images simultaneously is well within typical limits."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "Does bulk compression reduce image quality?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Our smart algorithm is designed to reduce file size significantly while retaining maximum visual fidelity. We target optimal web compression levels to ensure your images remain crisp while drastically improving load times."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "Is there a file size limit?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Unlike server-side tools that impose strict 5MB or 10MB limits, our browser-based processor can handle much larger files (up to 50MB+ per file) since nothing is being uploaded to a server."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "Can I set different target sizes for different images?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Currently, the bulk compressor applies a uniform intelligent compression algorithm across the entire batch to streamline the process. For precise size-targeting of individual images (e.g., exactly 100KB), you can use our specific size compression tools."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "Is it safe to compress product photos?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, absolutely. Since our tool runs entirely client-side, your unreleased product photos, client galleries, or sensitive images never leave your computer. Privacy is 100% guaranteed."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "What's the best image format for websites?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "For the web, WebP is generally considered the best format as it offers superior compression and quality characteristics compared to JPEG and PNG. Our tool intelligently processes standard web formats to ensure fast loading times."
+    }
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Batch Processing</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+         Bulk Image <br/>
+        <span style="color: var(--color-lime);">Compressor.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Compress multiple images at once. No uploads, no limits, instant ZIP download. Optimized for web developers, photographers, and e-commerce.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={200} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="200" 
+      uniqueContent={`
+        <p class="seo-p">
+          In the modern digital ecosystem, web performance is no longer a luxury; it is a fundamental requirement. Large, unoptimized images are the primary culprits behind sluggish website load times. For professionals handling dozens or hundreds of images daily, resizing and optimizing files one by one is an inefficient bottleneck. A powerful <strong>bulk image compressor</strong> is an essential utility for web developers, digital marketing agencies, photographers, and e-commerce sellers across the US, UK, and Europe looking to streamline their asset management pipelines.
+        </p>
+
+        <h3 class="seo-h3">Why Bulk Image Compression Matters for Performance and SEO</h3>
+        <p class="seo-p">
+          Search engines, particularly Google, place immense weight on page speed and user experience metrics, known collectively as Core Web Vitals. The Largest Contentful Paint (LCP) metric measures how quickly the primary content (often a hero image or product gallery) renders on the user's screen. If your images are bloated and heavy, your LCP score tanks, directly impacting your search engine rankings and organic visibility.
+        </p>
+        <p class="seo-p">
+          The financial implications of poor performance are staggering. An extensive study by Amazon demonstrated that every 100ms of latency—just a tenth of a second in load time—costs them 1% in overall revenue. For a modern e-commerce storefront, serving 5MB JPEGs instead of optimized 150KB WebP files translates directly into abandoned carts, frustrated users, and lost sales. Implementing a robust batch processing workflow with our <strong>bulk image compressor</strong> ensures that every asset on your domain is precisely tuned for rapid delivery across all devices and bandwidth conditions.
+        </p>
+
+        <h3 class="seo-h3">The Ultimate Tool for Digital Professionals</h3>
+        <p class="seo-p">
+          Our platform was engineered with high-volume digital workflows in mind, addressing the specific pain points of different professional disciplines:
+        </p>
+        <ul class="seo-list" style="gap: 16px; margin-bottom: 24px;">
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">1</span>
+            <p class="seo-p-small"><strong>Web Developers & Agencies:</strong> When migrating websites or deploying new content hubs, developers frequently inherit massive directories of raw images from clients. Our drag-and-drop interface allows you to process entire folders instantly, compressing JPEGs, PNGs, and WebPs in seconds, then downloading the optimized assets cleanly packaged in a single ZIP file ready for FTP or CDN deployment.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">2</span>
+            <p class="seo-p-small"><strong>Photographers:</strong> Delivering a wedding or commercial gallery containing hundreds of high-resolution proofs to a client portal can consume significant bandwidth and storage quotas. By using our tool to batch compress proof galleries, you drastically reduce transfer times and hosting costs without introducing noticeable artifacting to your meticulously graded edits.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">3</span>
+            <p class="seo-p-small"><strong>E-commerce Sellers:</strong> Platforms like Shopify, WooCommerce, and Amazon mandate fast-loading product images to maintain conversion rates. When launching a new seasonal catalog with hundreds of SKUs, batch processing your entire product photography suite ensures your storefront remains lightning-fast, satisfying both impatient shoppers and strict platform algorithms.</p>
+          </li>
+        </ul>
+
+        <h3 class="seo-h3">How Our Bulk Compressor Outperforms the Competition</h3>
+        <p class="seo-p">
+          The market is saturated with image optimization tools, but many impose frustrating friction points on professional users. When evaluating your workflow, consider how our solution compares to the legacy giants in the space:
+        </p>
+        <p class="seo-p">
+          <strong>Compared to TinyPNG/TinyJPG:</strong> While TinyPNG offers excellent compression, their free tier severely throttles your workflow. They impose strict limits on file size (usually a 5MB maximum per file) and cap the number of images you can process at once (typically 20 files). Our client-side architecture removes these arbitrary server-side restrictions entirely. You can drop massive 40MB raw exports into our compressor without hitting paywalls or size limits.<br/><br/>
+          <strong>Compared to ShortPixel:</strong> Server-based solutions like ShortPixel often require account registration, API keys, and paid credit subscriptions for bulk processing. We believe essential performance optimization utilities should be frictionless. Our tool requires zero sign-ups, no email captures, and no credit card details. It is instantly accessible the moment the page loads.<br/><br/>
+          <strong>Compared to ImageOptim:</strong> While native applications like ImageOptim are powerful, they are strictly limited to macOS users and require local installation. Our web-based platform delivers desktop-class performance across any modern operating system (Windows, Mac, Linux, ChromeOS) directly within your browser, ensuring your team has access to enterprise-grade compression regardless of their hardware ecosystem.
+        </p>
+
+        <h3 class="seo-h3">Uncompromising Privacy and Security</h3>
+        <p class="seo-p">
+          For agencies handling embargoed product launches or photographers processing sensitive client data, uploading unreleased assets to a remote server constitutes a severe security vulnerability. Traditional cloud-based compressors ingest your images, process them on their hardware, and temporarily store them—exposing your proprietary intellectual property to potential breaches.
+        </p>
+        <p class="seo-p">
+          Our <strong>bulk image compressor</strong> fundamentally rewrites this paradigm using cutting-edge WebAssembly (Wasm) and HTML5 File API technologies. <strong>All processing occurs 100% locally within your device's browser.</strong> Your images never leave your local machine; they are not transmitted over the internet, and no remote servers are involved in the compression lifecycle. This client-side processing guarantees absolute privacy and compliance with strict data protection frameworks like GDPR and CCPA, making it the safest choice for enterprise and agency usage in the EU, UK, and North America.
+        </p>
+
+        <h3 class="seo-h3">Advanced Format Support</h3>
+        <p class="seo-p">
+          The digital landscape is transitioning rapidly from legacy formats to modern, highly efficient codecs. Our engine is format-agnostic, providing comprehensive support for the complete spectrum of web imagery:
+        </p>
+        <p class="seo-p">
+          <strong>JPEG & JPG:</strong> The traditional workhorse of the internet. Our algorithm optimizes the quantization tables to strip out invisible data and unnecessary metadata (like EXIF data) while preserving structural integrity.<br/>
+          <strong>PNG:</strong> Essential for graphics requiring transparency. We utilize advanced color quantization to significantly reduce the footprint of 24-bit PNGs without introducing harsh banding.<br/>
+          <strong>WebP:</strong> Google's modern format offering superior lossy and lossless compression. Our tool excels at processing WebP assets for next-generation web deployment.<br/>
+          <strong>GIF:</strong> We streamline animated elements by optimizing frame data and color palettes, ensuring lighter motion graphics for social and web use.
+        </p>
+
+        <h3 class="seo-h3">Frequently Asked Questions</h3>
+        <div class="faq-stack" style="margin-top: 16px;">
+          ${faqData.map(faq => `
+            <div class="faq-item">
+              <h4 class="faq-q">${faq.name}</h4>
+              <p class="faq-a">${faq.acceptedAnswer.text}</p>
+            </div>
+          `).join('')}
+        </div>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Enterprise Grade Performance
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         Engineered for high-throughput environments. Our client-side WebAssembly architecture bypasses network latency and server limitations, empowering digital professionals to optimize hundreds of megabytes of visual assets securely and instantaneously directly within the browser ecosystem.
+       </p>
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>

@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "Compress Image for Email — Reduce Photo Size for Email Attachments";
+const SEO_DESC = "Reduce image file size for email. Compress photos to fit email attachment limits for Gmail, Outlook, and corporate servers. Free, fast, private.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Email Optimized</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Compress Images for <br/>
+        <span style="color: var(--color-lime);">Email Attachments.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Instantly shrink photo file sizes so they easily bypass Gmail, Outlook, and corporate server limits without losing professional clarity.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={500} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="500" 
+      customTitle="Compress Image for Email: Ensure Your Photos and Documents Always Deliver"
+      customFaqs={[
+        {
+          q: "What's the best image size for email?",
+          a: "For inline images (embedded in the body), aim for under 500KB to ensure fast loading times on mobile networks. For email attachments, individual images should ideally be under 1MB to avoid hitting strict corporate server limits."
+        },
+        {
+          q: "How do I compress a photo for Gmail?",
+          a: "Gmail has a hard limit of 25MB per email. To attach multiple high-res photos, upload them to our compressor, set the target size to 500KB or 1MB, and compress them locally in your browser before attaching."
+        },
+        {
+          q: "Will compression reduce image quality?",
+          a: "We use smart local compression that balances file size with visual clarity. While technically data is removed, the visual difference is practically unnoticeable for on-screen viewing in emails, preserving a professional look."
+        },
+        {
+          q: "What image format is best for email?",
+          a: "JPEG is universally supported and offers the best balance of quality and small file size for photos. PNG is best for logos or text-heavy graphics where sharp edges are required, though PNG files tend to be larger."
+        },
+        {
+          q: "How to send high-res photos via email?",
+          a: "If you must send an uncompressed, multi-megabyte RAW or high-res TIFF file, do not attach it directly. Instead, upload it to a cloud storage service like Google Drive or Dropbox and paste the sharing link into the email body."
+        }
+      ]}
+      uniqueContent={`
+        <p class="seo-p">
+          In today's fast-paced digital workplace, communication needs to be instant and seamless. Whether you are sending project updates, sharing event photos, or submitting digital portfolios, email remains the primary channel for professionals across the US, UK, and EU. However, large image attachments frequently cause delivery failures, bounce-backs, and clogged inboxes. This is why you must <strong>compress image for email</strong> before hitting send.
+        </p>
+
+        <h3 class="seo-h3">Why Do Email Attachments Get Blocked?</h3>
+        <p class="seo-p">
+          Email protocols were designed decades ago, long before smartphones routinely captured 10MB to 20MB photos. To keep servers running smoothly and prevent malicious abuse, every major email provider enforces strict file size limits on attachments. 
+        </p>
+        <p class="seo-p">
+          For instance, <strong>Gmail</strong> and <strong>Yahoo</strong> cap total attachments at 25MB per email. <strong>Microsoft Outlook</strong> restricts you to 20MB. While 20MB might sound like a lot, a single uncompressed photo from a modern iPhone or Android device can easily exceed 5MB. Try attaching five photos to a single email, and you will hit the ceiling immediately. Furthermore, many corporate Exchange servers implement even stricter policies, often rejecting incoming emails larger than 5MB to 10MB to conserve enterprise storage. By compressing your images, you ensure your vital communications are delivered instantly without triggering "Quota Exceeded" errors.
+        </p>
+
+        <h3 class="seo-h3">Understanding How Image Compression Works</h3>
+        <p class="seo-p">
+          Image compression reduces the digital footprint of a file so it takes up less space on a hard drive and requires less bandwidth to transmit. There are two primary techniques involved when preparing images for email:
+        </p>
+        <p class="seo-p">
+          First, <strong>resolution scaling</strong> reduces the physical pixel dimensions of the image. A photo that is 4000x3000 pixels is overkill for an email, where most recipients will view it on a laptop screen (typically 1920x1080) or a mobile device. Scaling it down to 1600 or 1200 pixels on the longest side drastically cuts the file size. 
+        </p>
+        <p class="seo-p">
+          Second, <strong>JPEG quality optimization</strong> analyzes the image and cleverly discards redundant color data—a process known as chroma subsampling. Because the human eye is more sensitive to changes in brightness than color, the algorithm can compress the color data aggressively while maintaining sharp structural details. The result is a file that is 80% to 90% smaller but visually indistinguishable to the recipient.
+        </p>
+
+        <h3 class="seo-h3">Best Image Sizes for Email Success</h3>
+        <p class="seo-p">
+          Finding the sweet spot between visual fidelity and file size is crucial for professional correspondence. As a general rule:
+        </p>
+        <ul class="seo-list" style="gap: 16px; margin-bottom: 32px;">
+          <li style="display: flex; gap: 12px; align-items: flex-start;">
+            <svg style="flex-shrink: 0; color: var(--color-lime); margin-top: 4px;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <strong>Inline Images (Under 500KB):</strong> If you are embedding an image directly into the body of the email (so the recipient sees it as soon as they open the message), keep it lightweight. Aim for 200KB to 500KB. This ensures the email renders instantly even on a weak mobile connection.
+            </div>
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start;">
+            <svg style="flex-shrink: 0; color: var(--color-lime); margin-top: 4px;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <strong>Standard Attachments (Under 1MB):</strong> For photos that the recipient will download and view later, 500KB to 1MB is ideal. This provides enough data to maintain high clarity for presentations or document printing while keeping the overall email size manageable.
+            </div>
+          </li>
+          <li style="display: flex; gap: 12px; align-items: flex-start;">
+            <svg style="flex-shrink: 0; color: var(--color-lime); margin-top: 4px;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <strong>Email Signatures (Under 50KB):</strong> Logos, headshots, or banner graphics in your automated email signature should be heavily optimized. Keep these under 50KB to prevent them from becoming annoying, heavy attachments in long reply chains.
+            </div>
+          </li>
+        </ul>
+
+        <h3 class="seo-h3">Crucial Tips for Email Marketing Campaigns</h3>
+        <p class="seo-p">
+          If you use platforms like Mailchimp, Constant Contact, or HubSpot, optimizing your visual assets is non-negotiable. Large images can trigger spam filters and ruin your engagement metrics. Most marketing platforms recommend keeping individual header images under 1MB, with optimal widths around 600 to 800 pixels. Heavy emails take longer to load, and studies show that users will abandon an email if the images don't appear within three seconds. By proactively compressing your campaign assets, you guarantee a snappy, professional experience for your subscribers, leading to higher click-through rates.
+        </p>
+
+        <h3 class="seo-h3">Our Tool vs. Photoshop and Cloud Alternatives</h3>
+        <p class="seo-p">
+          While professional software like Adobe Photoshop offers granular "Save for Web" controls, it is often too expensive, slow, and complex for everyday office tasks. You just need to send a quick email, not edit a magazine cover. 
+        </p>
+        <p class="seo-p">
+          Conversely, many online image compressors force you to upload your sensitive business photos to their remote servers, wait in a queue, and download a ZIP file. Not only is this slow, but it poses a severe data security risk for corporate documents. 
+        </p>
+        <p class="seo-p">
+          Our email image compressor bridges the gap. It provides professional-grade JPEG and PNG optimization completely free of charge, with zero sign-ups required. More importantly, it features a blazingly fast interface that handles batch processing efficiently.
+        </p>
+
+        <h3 class="seo-h3">100% Client-Side Privacy: Total Security</h3>
+        <p class="seo-p">
+          In business environments, data privacy is paramount. When you use our tool to compress images for email, the entire optimization process happens locally within your web browser. <strong>Your photos are never uploaded to our servers.</strong> Whether you are dealing with sensitive financial documents, private client photos, or unreleased product designs, your files remain strictly on your local device. Enjoy enterprise-level security with consumer-level simplicity.
+        </p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Lightning Fast, Secure Processing
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         Optimizing photos for email doesn't have to be a chore. Our client-side compression ensures your files are instantly shrunken to fit Gmail and Outlook limits without sacrificing visual quality or comprising your data privacy.
+       </p>
+    </div>
+  </section>
+</Layout>

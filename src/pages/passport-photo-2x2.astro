@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Passport Photo 2x2 Inches — Free US Passport Photo Maker Online";
+const SEO_DESC = "Create a perfect 2x2 inches US passport photo online. Instant auto-crop to 600x600 pixels. 100% free, private, and meets US State Department requirements.";
+
+const uniqueTitle = "The Complete Guide to US Passport Photos (2x2 Inches)";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Getting ready for international travel is exciting, but navigating the strict <strong>US State Department passport photo requirements</strong> can be a headache. The official standard for a United States passport is exactly <strong>2x2 inches (51 x 51 mm)</strong>. Getting this wrong is one of the most common reasons for application delays and rejections.
+  </p>
+  <p class="seo-p">
+    Our free online <strong>passport photo 2x2 inches maker</strong> is designed to help US citizens and visa applicants generate perfect, compliant photos in seconds. Unlike expensive drugstores, our tool works entirely in your web browser—ensuring your sensitive identity photos are kept completely private and are never uploaded to the cloud.
+  </p>
+
+  <h3 class="seo-h3">Understanding 2x2 Inches in Pixels & Dimensions</h3>
+  <p class="seo-p">
+    When applying online or preparing an image for printing, understanding digital dimensions is crucial. A 2x2 inch physical photo translates directly to digital pixels based on the DPI (Dots Per Inch) resolution:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">300 DPI (Standard):</strong> The exact digital size is <strong>600x600 pixels</strong>. This is the official dimension required for US digital passport and visa uploads.</li>
+    <li><strong style="color: var(--color-ink);">450 DPI (High Res):</strong> Translates to 900x900 pixels, suitable for high-quality printing.</li>
+    <li><strong style="color: var(--color-ink);">600 DPI (Ultra Res):</strong> Translates to 1200x1200 pixels, though often unnecessary for standard applications.</li>
+    <li><strong style="color: var(--color-ink);">Metric Conversion:</strong> 2x2 inches is equivalent to 51 x 51 millimeters.</li>
+  </ul>
+
+  <h3 class="seo-h3">Strict Photo Composition Rules</h3>
+  <p class="seo-p">
+    Meeting the 600x600 pixel requirement is just the beginning. The State Department has rigid composition rules that our cropping tool helps you achieve:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">Proper Head Sizing</h4>
+          <p class="seo-p-small">Your head, measured from the bottom of the chin to the top of the hair, must measure between 1 and 1.375 inches (25 to 35 mm). This means your face should fill most of the frame.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Eye Height Placement</h4>
+          <p class="seo-p-small">Your eyes must be located between 1.125 and 1.375 inches (28 to 35 mm) from the bottom edge of the photo. Keep your head centered.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">White or Off-White Background</h4>
+          <p class="seo-p-small">The background must be plain white or off-white, free of shadows, textures, or patterns. No doors or wallpaper should be visible.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">No Glasses (Since 2016)</h4>
+          <p class="seo-p-small">Eyeglasses are completely banned from US passport photos. Even if you wear prescription glasses every day, you must remove them to avoid glare and frame shadows.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">Common Rejection Reasons</h3>
+  <p class="seo-p">
+    Avoid these frequent mistakes that lead to an immediate rejection of your passport application:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Shadows on Face or Background:</strong> Use flat, even lighting facing a window.</li>
+    <li><strong style="color: var(--color-ink);">Unnatural Expressions:</strong> Smiling with teeth showing or frowning is not allowed. Maintain a neutral expression with both eyes open.</li>
+    <li><strong style="color: var(--color-ink);">Incorrect Uniforms/Attire:</strong> Do not wear uniforms, camouflage, or headphones. Religious headwear is allowed only with a signed statement.</li>
+    <li><strong style="color: var(--color-ink);">Filters or Retouching:</strong> Do not apply social media filters, airbrushing, or digital alterations to your face.</li>
+  </ul>
+
+  <h3 class="seo-h3">CVS & Walgreens vs. Free Online Tools</h3>
+  <p class="seo-p">
+    Traditionally, getting a passport photo meant a trip to a local pharmacy like CVS, Walgreens, or Rite Aid. These services typically charge anywhere from $15 to $17 for two printed photos.
+  </p>
+  <p class="seo-p">
+    By taking a photo at home with your smartphone and using our <strong>passport photo 2x2 online tool</strong>, you can create a perfectly compliant digital photo for absolutely free. If you need physical prints, you can align six 2x2 photos on a standard 4x6 print and print it at those same pharmacies for just 35 cents!
+  </p>
+
+  <h3 class="seo-h3">Beyond Passports: Visas, Green Cards, and DV Lottery</h3>
+  <p class="seo-p">
+    The 2x2 inch (600x600 pixel) dimension is the universal standard across the US immigration system. Our tool works perfectly for:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li>US Visa Applications (DS-160)</li>
+    <li>Diversity Visa (DV) Lottery entries</li>
+    <li>Green Card (Permanent Resident) applications</li>
+    <li>OPT and EAD card photos for international students</li>
+  </ul>
+`;
+
+const customFaqs = [
+  {
+    q: "What size is a US passport photo in pixels?",
+    a: "A standard US passport photo is 2x2 inches. For digital uploads, the official requirement is a square 600x600 pixels (at 300 DPI resolution)."
+  },
+  {
+    q: "Can I take my own passport photo at home?",
+    a: "Yes, taking your own photo at home is fully allowed by the US State Department. Stand in front of a plain white wall, face a window for natural light, and use our free tool to crop it perfectly to 2x2 inches."
+  },
+  {
+    q: "What is the background color for a US passport photo?",
+    a: "The background must be plain white or off-white. It must be free of shadows, patterns, or any visible objects behind your head."
+  },
+  {
+    q: "How much does a passport photo cost at CVS vs online?",
+    a: "A set of passport photos at CVS or Walgreens usually costs around $16.99. Using our online cropper is 100% free, and you can print the resulting image on a standard 4x6 sheet at a pharmacy for under 40 cents."
+  },
+  {
+    q: "Do passport photos have to be exactly 2x2 inches?",
+    a: "Yes. The US Department of State strictly enforces the 2x2 inches (51x51 mm) rule. Using incorrect dimensions will result in a mandatory rejection and delay your application."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      --color-lime: #ff7e33;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 126, 51, 0.08); border: 1px solid rgba(255, 126, 51, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">US Standard</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        US Passport Photo <br/>
+        <span style="color: var(--color-lime);">2x2 Inches.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Instantly crop and resize your picture to exactly 2x2 inches (600x600 px). Meets all US passport, visa, and green card requirements.
+      </p>
+    </div>
+
+    <Resizer allowMultiple={false} defaultWidth={600} defaultHeight={600} />
+  </section>
+
+  <SEOContentResize 
+    isPassport={true} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
+</Layout>

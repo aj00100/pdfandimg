@@ -17,7 +17,8 @@ export type ToolCategory =
   | 'exam-resize'
   | 'resize-crop'
   | 'pdf-tools'
-  | 'heic-convert';
+  | 'heic-convert'
+  | 'use-case';
 
 export const allTools: Tool[] = [
   // Image Compression
@@ -32,6 +33,7 @@ export const allTools: Tool[] = [
   { name: 'Compress to 500KB', href: '/compress-image-to-500kb', category: 'compress-image', desc: 'High-detail archive quality' },
   { name: 'Compress to 1MB', href: '/compress-image-to-1mb', category: 'compress-image', desc: 'Professional documents' },
   { name: 'Reduce Image Size in KB', href: '/reduce-image-size-in-kb', category: 'compress-image', desc: 'Custom target size reducer' },
+  { name: 'Bulk Image Compressor', href: '/bulk-image-compressor', category: 'compress-image', desc: 'Batch compress multiple images' },
   { name: 'Increase Image Size in KB', href: '/increase-image-size-in-kb', category: 'compress-image', desc: 'Meet minimum KB requirements' },
 
   // PDF Compression
@@ -65,8 +67,10 @@ export const allTools: Tool[] = [
   { name: 'Exam Photo Hub', href: '/exam-photo-resizer', category: 'exam-resize', desc: 'All exam photo tools' },
 
   // Resize & Crop
+  { name: 'LinkedIn Image Optimizer', href: '/linkedin-image-optimizer', category: 'resize-crop', desc: 'Optimize & resize LinkedIn photos' },
   { name: 'Crop Image Online', href: '/crop-image-online', category: 'resize-crop', desc: 'Free-form image cropping' },
   { name: 'Passport Size Photo', href: '/passport-size-photo', category: 'resize-crop', desc: 'Official passport photo maker' },
+  { name: 'Passport Photo 2x2', href: '/passport-photo-2x2', category: 'resize-crop', desc: 'US standard 2x2 passport photos' },
   { name: 'Passport Crop Tool', href: '/crop-image-to-passport-size', category: 'resize-crop', desc: 'Auto passport size cropper' },
   { name: 'Resize to Passport Size', href: '/resize-a-photo-to-passport-size', category: 'resize-crop', desc: 'Resize any photo to passport' },
   { name: 'Resize Image in Pixels', href: '/resize-image-in-pixels', category: 'resize-crop', desc: 'Exact pixel dimensions' },

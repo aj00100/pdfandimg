@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Amazon Image Resizer — Resize Product Photos for Amazon Listings";
+const SEO_DESC = "Resize image for Amazon listing to meet exact seller requirements. Optimize product photos to 2000x2000px for A+ zoom, 100% free and private.";
+
+const faqData = [
+  {
+    q: "What size should Amazon product images be?",
+    a: "Amazon requires product images to be at least 1000 pixels on either the height or width. However, to enable the highly converting 'hover to zoom' feature, your main product images should be a minimum of 1600x1600 pixels. The optimal sweet spot for maximum detail and fast loading is 2000x2000 pixels."
+  },
+  {
+    q: "What is the minimum image size for Amazon zoom?",
+    a: "To trigger the magnifying glass 'zoom' function on Amazon listings, the absolute minimum size is 1600 pixels on the longest side. Using our Amazon image resizer to set your photos to exactly 2000x2000 ensures this feature is activated across all devices."
+  },
+  {
+    q: "Can I use PNG for Amazon listings?",
+    a: "Yes, Amazon accepts JPEG, TIFF, PNG, and GIF (non-animated) formats. While JPEG is the most common format due to faster loading times, PNG is excellent for infographic images or secondary listing photos that require crisp text or sharp diagrams without compression artifacts."
+  },
+  {
+    q: "What background color does Amazon require?",
+    a: "For your MAIN product image (the first one customers see in search results), Amazon strictly requires a pure white background with RGB values of (255, 255, 255). Secondary images, lifestyle photos, and A+ content can have varying backgrounds and environments."
+  },
+  {
+    q: "How do I resize images for Amazon without losing quality?",
+    a: "By using our browser-based resizing engine, your image dimensions are perfectly scaled using mathematical interpolation. Because the processing happens locally on your machine, it avoids aggressive server-side compression algorithms, preserving the sharpness of your product details."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Seller Tools</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+         Amazon Product <br/>
+        <span style="color: var(--color-lime);">Image Resizer.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Resize product photos for Amazon listings precisely. Optimize images to 2000x2000px for A+ Zoom functionality with absolute privacy.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Resizer defaultWidth={2000} defaultHeight={2000} />
+
+    <SEOContentResize 
+      customTitle="Complete Guide: Optimizing Product Photos for Amazon FBA"
+      customFaqs={faqData}
+      uniqueContent={`
+        <p class="seo-p">
+          If you are an international seller targeting audiences in the US, UK, Canada, Australia, or the broader EU marketplace, the quality of your visual presentation directly impacts your conversion rate. When shoppers cannot physically touch your product, high-resolution imagery becomes the only metric of trust. Using a dedicated <strong>resize image for Amazon listing</strong> tool is crucial to ensure your digital storefront meets Amazon’s rigorous technical constraints while capturing every intricate detail of your merchandise.
+        </p>
+
+        <h3 class="seo-h3">The Technical Requirements of Amazon Photography</h3>
+        <p class="seo-p">
+          Amazon's A9 algorithm not only indexes your product's title and bullet points but also strictly monitors adherence to image guidelines. Uploading images that violate these rules can result in sudden listing suppression, effectively removing your product from search results.
+        </p>
+        <ul class="seo-list" style="gap: 16px; margin-bottom: 24px;">
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">1</span>
+            <p class="seo-p-small"><strong>Main Image Background:</strong> The primary listing image must feature your product against a pure white background (RGB 255,255,255). No shadows, props, logos, or watermarks are allowed.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">2</span>
+            <p class="seo-p-small"><strong>File Format and Size:</strong> Accepted file types are JPEG, TIFF, PNG, and non-animated GIF. Images must not exceed a maximum file limit of 10MB.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">3</span>
+            <p class="seo-p-small"><strong>Color Profile:</strong> Always export your photos in sRGB or CMYK. Using unconventional color profiles may cause the final uploaded image to appear washed out or overly saturated on mobile screens.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">4</span>
+            <p class="seo-p-small"><strong>Product Frame Coverage:</strong> The product itself should comfortably fill 85% or more of the overall image frame.</p>
+          </li>
+        </ul>
+
+        <h3 class="seo-h3">Why 2000x2000 Pixels is the Sweet Spot</h3>
+        <p class="seo-p">
+          Amazon demands a minimum of 1000 pixels to simply list the product, and a minimum of 1600 pixels to enable the essential hover-to-zoom feature. However, top-tier global sellers standardly format their assets to <strong>2000x2000 pixels</strong>. At this specific resolution, the image remains incredibly sharp when a customer zooms in to inspect fabric textures, electronics branding, or cosmetic packaging. Additionally, formatting images in a perfect square (1:1 aspect ratio) ensures consistency across desktop grids and the Amazon mobile app.
+        </p>
+        <p class="seo-p">
+          Our browser-based resizer is specifically pre-configured for these optimal dimensions. By mathematically scaling your original files, it maintains the sharpness required to convert cautious browsers into verified buyers without risking distortion.
+        </p>
+
+        <h3 class="seo-h3">Mastering the 7-Image Listing Gallery</h3>
+        <p class="seo-p">
+          A fully optimized Amazon listing allows up to seven images (and a video). To maximize sales across international borders, your gallery must cater to diverse buyer behaviors:
+        </p>
+        <p class="seo-p">
+          <strong>1. The Main Hero Shot:</strong> The pure white background shot that dominates search results.<br/><br/>
+          <strong>2. Multiple Angles:</strong> Show the back, side, and internal components if applicable.<br/><br/>
+          <strong>3. Lifestyle Photography:</strong> Show the product in use. If selling to European or North American markets, ensure your lifestyle models and environments resonate with those demographics.<br/><br/>
+          <strong>4. Infographics and Features:</strong> Call out premium materials, durability stats, or unique selling points using text overlays. PNG format is heavily recommended here to prevent text blurring.<br/><br/>
+          <strong>5. Sizing Charts:</strong> Crucial for apparel or hardware. Clear dimensions prevent costly international returns.
+        </p>
+
+        <h3 class="seo-h3">Privacy, Speed, and Zero Uploads</h3>
+        <p class="seo-p">
+          In the competitive landscape of e-commerce, your pre-launch product photography is highly confidential intellectual property. Using generic, cloud-based resizing tools exposes your unreleased designs to remote servers. Our platform operates entirely client-side. The resizing process happens locally within your device's web browser, ensuring zero network uploads, absolute privacy, and instantaneous scaling.
+        </p>
+
+        <h3 class="seo-h3">Cross-Platform E-commerce Compatibility</h3>
+        <p class="seo-p">
+          While specifically calibrated for Amazon sellers, the 2000x2000 resolution standard is universally acclaimed. The images processed through this engine are perfectly dimensioned for seamless deployment across eBay, Etsy, Walmart Marketplace, and independent Shopify or WooCommerce storefronts, allowing you to synchronize your multi-channel inventory effortlessly.
+        </p>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Amazon Vendor Standard
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         Optimized specifically for strict e-commerce marketplace requirements. Ensure your files are exported with an sRGB color profile to guarantee accurate color representation on mobile and desktop displays.
+       </p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,221 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Compressor from '../components/Compressor.astro';
+import SEOContent from '../components/SEOContent.astro';
+
+const SEO_TITLE = "LinkedIn Image Optimizer — Resize & Compress Photos for LinkedIn";
+const SEO_DESC = "Optimize, resize, and compress your LinkedIn profile photos, banners, and post images instantly. Ensure professional quality with our free LinkedIn Image Optimizer.";
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What size should a LinkedIn profile photo be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The recommended size for a LinkedIn profile photo is 400 x 400 pixels. It should be a square image, ideally under 8MB in file size, to ensure it displays sharply across all devices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the LinkedIn banner image size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your personal LinkedIn banner (or background image) should ideally be 1584 x 396 pixels. For company pages, the cover image size is 1128 x 191 pixels."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I resize an image for a LinkedIn post?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For standard LinkedIn posts (shared images with links or standalone photos), the optimal size is 1200 x 627 pixels. You can use our LinkedIn Image Optimizer to adjust your photo to these exact dimensions without losing quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best file format for LinkedIn images?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LinkedIn supports JPEG, PNG, and GIF formats. PNG is best for logos or images with text to prevent compression artifacts, while JPEG is ideal for standard photographs and headshots due to its balance of quality and smaller file size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How to make my LinkedIn photo look professional?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To ensure a professional look, use soft, natural lighting, a clean, uncluttered background, and frame the shot from your shoulders up. Your face should take up about 60% of the frame. Finally, ensure the image is correctly sized (400x400) and optimized to prevent pixelation."
+      }
+    }
+  ]
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <section class="relative z-20 pt-20 container-stripe">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(34,211,238,0.08);
+          border: 1px solid rgba(34,211,238,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-cyan);
+          "
+        >Professional</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+         LinkedIn Image <br/>
+        <span style="color: var(--color-lime);">Optimizer.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Resize and compress photos for your LinkedIn profile, banners, and posts. Maintain professional credibility with crisp, fast-loading imagery.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={200} hideHeader={true} />
+
+    <SEOContent 
+      targetKB="200" 
+      uniqueContent={`
+        <p class="seo-p">
+          In the modern professional landscape, your LinkedIn profile acts as your digital storefront, business card, and resume all rolled into one. When recruiters, potential clients, or business partners visit your page, the very first things they notice are your visual assets: your profile photo and your banner image. Using a dedicated <strong>LinkedIn image optimizer</strong> ensures that your visual branding is pixel-perfect, conveying an immediate sense of competence and attention to detail.
+        </p>
+
+        <h3 class="seo-h3">Current LinkedIn Image Size Requirements</h3>
+        <p class="seo-p">
+          LinkedIn’s platform has specific, rigid dimensions for different types of imagery. Uploading an image with the wrong aspect ratio can result in awkward cropping, pixelation, or vital information being cut off on mobile devices. Here are the precise dimensions you need to target when you <strong>compress image for LinkedIn</strong>:
+        </p>
+        <ul class="seo-list" style="gap: 16px; margin-bottom: 24px;">
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">1</span>
+            <p class="seo-p-small"><strong>Personal Profile Photo:</strong> 400 x 400 pixels. This must be a 1:1 square ratio. LinkedIn allows files up to 8MB, but optimizing to a smaller size without losing quality ensures the page loads instantly.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">2</span>
+            <p class="seo-p-small"><strong>Personal Background Banner:</strong> 1584 x 396 pixels. This expansive header is your prime real estate for personal branding. Keep important text and logos near the top and right, as your profile picture will overlap the bottom left corner.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">3</span>
+            <p class="seo-p-small"><strong>Standard Feed Post Image:</strong> 1200 x 627 pixels. When sharing an update, article link, or milestone, this 1.91:1 ratio ensures your image commands maximum real estate in the feed without being cropped on mobile displays.</p>
+          </li>
+          <li>
+            <span class="seo-step-num" style="width: 24px; height: 24px; font-size: 0.75rem;">4</span>
+            <p class="seo-p-small"><strong>Article Cover Image:</strong> 744 x 400 pixels. If you publish long-form content directly on LinkedIn Pulse, this is the header dimension you must use for your article to look professional.</p>
+          </li>
+        </ul>
+
+        <h3 class="seo-h3">Company Page & Advertising Dimensions</h3>
+        <p class="seo-p">
+          For B2B marketers and corporate brand managers, the stakes are even higher. A blurry company logo instantly diminishes brand trust.
+        </p>
+        <p class="seo-p">
+          <strong>Company Logo:</strong> 300 x 300 pixels. This is the square logo that appears next to your company name in searches and on employee profiles. It must be exceptionally crisp. <br/><br/>
+          <strong>Company Cover Image:</strong> 1128 x 191 pixels. Note that this is significantly different from the personal banner size. <br/><br/>
+          <strong>LinkedIn Ads:</strong> Sponsored content follows the 1200 x 627 pixel standard, but if you are running Carousel Ads, you must use perfect 1080 x 1080 pixel squares. Our optimizer allows you to achieve these exact dimensions effortlessly.
+        </p>
+
+        <h3 class="seo-h3">Why Image Quality Matters for Professional Credibility</h3>
+        <p class="seo-p">
+          A grainy, poorly cropped, or heavily artifacted profile picture subconsciously signals a lack of professionalism. Studies on professional networking show that profiles with high-quality headshots receive up to 21 times more profile views and 9 times more connection requests. 
+        </p>
+        <p class="seo-p">
+          However, high quality does not mean massive file sizes. Uploading a raw 15MB photograph directly from a DSLR camera can cause issues. LinkedIn's internal compression algorithm will forcefully crush the file to save server space, often introducing terrible artifacting (blurriness and blocky pixels) in the process. By using our <strong>LinkedIn image optimizer</strong> beforehand, you take control of the compression process, maintaining the sharpness of your eyes, the texture of your clothing, and the clarity of background text.
+        </p>
+
+        <h3 class="seo-h3">Optimal File Sizes and Mobile Loading Speeds</h3>
+        <p class="seo-p">
+          Over 57% of LinkedIn traffic comes from mobile devices. When a recruiter is scrolling through candidates on their morning commute over a 4G or 3G network, a massive 5MB banner image will severely delay your profile's rendering time. 
+        </p>
+        <p class="seo-p">
+          The goal is to serve an image that is visually lossless but digitally lightweight. We recommend aiming for:
+          <br/>• Profile Photos: Under 200KB
+          <br/>• Banners: Under 500KB
+          <br/>• Feed Posts: Under 300KB
+          <br/>Our tool utilizes advanced compression algorithms that strip out unnecessary metadata (like EXIF camera data) and efficiently encode the color profiles, allowing you to hit these target sizes while preserving absolute visual fidelity.
+        </p>
+
+        <h3 class="seo-h3">Tips for the Perfect Professional Headshot</h3>
+        <p class="seo-p">
+          Even the best optimizer cannot fix a fundamentally bad photograph. To stand out on the platform, consider these core principles of corporate photography:
+        </p>
+        <ul class="seo-list" style="gap: 16px; margin-bottom: 24px;">
+          <li>
+            <p class="seo-p-small"><strong>Lighting is Everything:</strong> Avoid harsh overhead office lighting which casts dark shadows under your eyes. Opt for soft, diffused natural light facing you (e.g., standing in front of a window). This illuminates your face evenly.</p>
+          </li>
+          <li>
+            <p class="seo-p-small"><strong>The 60% Rule:</strong> Your face should take up roughly 60% of the circular frame. Don't upload a full-body shot where your face is indistinguishable, and don't crop so closely that the edges of your head are cut off.</p>
+          </li>
+          <li>
+            <p class="seo-p-small"><strong>Clean Backgrounds:</strong> A solid color, a subtle gradient, or a heavily blurred office environment (bokeh effect) ensures that you remain the sole focal point of the image.</p>
+          </li>
+        </ul>
+
+        <h3 class="seo-h3">100% Privacy: Your Photos Never Leave Your Browser</h3>
+        <p class="seo-p">
+          For business professionals, privacy and data security are paramount. You might be optimizing unreleased product marketing assets, confidential slide decks for a post, or private corporate headshots. 
+        </p>
+        <p class="seo-p">
+          Unlike many free online tools that upload your imagery to a remote server, process it, and send it back (potentially storing your photos in their databases), our <strong>LinkedIn image optimizer</strong> operates entirely client-side. The resizing, cropping, and compression happen directly within your web browser using WebAssembly. Your professional photos never touch our servers, guaranteeing absolute privacy, zero data retention, and instantaneous processing speeds. There is no signup required, no watermarks added, and the service remains completely free for professionals worldwide.
+        </p>
+
+        <h3 class="seo-h3">Frequently Asked Questions</h3>
+        <div class="faq-stack" style="margin-top: 16px;">
+          <div class="faq-item">
+            <h4 class="faq-q">What size should a LinkedIn profile photo be?</h4>
+            <p class="faq-a">The ideal size is 400 x 400 pixels in a 1:1 square ratio. While LinkedIn accepts up to 8MB, using an optimized file under 200KB ensures faster loading while maintaining crisp quality on high-resolution displays.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">What is the LinkedIn banner image size?</h4>
+            <p class="faq-a">For personal profiles, the banner dimensions are 1584 x 396 pixels. For corporate Company Pages, the cover image should be 1128 x 191 pixels. Keep critical text away from the bottom-left corner where your profile photo overlaps.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">How do I resize an image for a LinkedIn post?</h4>
+            <p class="faq-a">For standard feed posts containing an image, resize your photo to 1200 x 627 pixels. This 1.91:1 ratio prevents awkward cropping and maximizes your visibility in both desktop and mobile feeds.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">What's the best file format for LinkedIn images?</h4>
+            <p class="faq-a">PNG is highly recommended for company logos, infographics, or any image containing text, as it prevents compression blurring. For standard photographic headshots and banners, JPEG is optimal due to smaller file sizes with excellent visual quality.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-q">How to make my LinkedIn photo look professional?</h4>
+            <p class="faq-a">Use soft, natural lighting, a clean background, and appropriate professional attire. Ensure your face occupies about 60% of the frame. Finally, run the image through an optimizer to prevent LinkedIn's aggressive automatic compression from making the photo blurry.</p>
+          </div>
+        </div>
+      `}
+    />
+
+    <!-- Technical Note -->
+    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
+       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         Client-Side Processing Security
+       </h3>
+       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
+         This tool prioritizes enterprise-grade privacy. All image resizing and compression algorithms are executed locally in your browser using modern Web APIs. Your files are never uploaded to any external server, ensuring your corporate assets and personal headshots remain strictly confidential.
+       </p>
+    </div>
+  </section>
+  
+  <script type="application/ld+json" set:html={JSON.stringify(faqData)} />
+</Layout>
