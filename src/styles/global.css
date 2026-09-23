@@ -24,9 +24,9 @@
   --color-ink-3:        #5a5a6a;
 
   /* Typography */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'Outfit', system-ui, sans-serif;
-  --font-mono:    'IBM Plex Mono', monospace;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────────── */

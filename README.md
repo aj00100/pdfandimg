@@ -12,7 +12,7 @@
 
 > **The Ultimate Multi-Tool Utility Suite**
 > 
-> *PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **44 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing.*
+> *PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **over 60 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing.*
 
 Designed for maximum SEO, instant load speeds, and zero-server privacy, PdfAndImg processes everything directly in the user's browser.
 
@@ -35,8 +35,12 @@ Designed for maximum SEO, instant load speeds, and zero-server privacy, PdfAndIm
 ### 4. Zero-Server Privacy
 All image processing, resizing, format conversion, and PDF packaging happens **100% locally** in the user's browser. User data, sensitive documents, and personal photos **never** touch a remote server.
 
-### 5. Multi-Page Architecture (MPA) for SEO
-Built strategically as a Multi-Page Application using Astro. Each of the 44 micro-tools has its own dedicated, statically generated HTML page. This guarantees perfect Core Web Vitals, instantaneous load times, and maximum visibility for Google Search indexing.
+### 5. Internationalization & Localization (i18n)
+- **Localized Tools:** Deploys translated, region-specific tools (e.g., Indonesian versions of image compressors).
+- **Hreflang SEO:** Implements intelligent `hreflang` mapping to correctly bridge localized content and maximize international search engine visibility.
+
+### 6. Multi-Page Architecture (MPA) for SEO
+Built strategically as a Multi-Page Application using Astro. Each of the **60+ micro-tools** has its own dedicated, statically generated HTML page. This guarantees perfect Core Web Vitals, instantaneous load times, and maximum visibility for Google Search indexing.
 
 ---
 
@@ -61,7 +65,7 @@ Built strategically as a Multi-Page Application using Astro. Each of the 44 micr
 ├── src/
 │   ├── components/         # Reusable UI tools (PDFRemove, HEICConverter, etc.)
 │   ├── layouts/            # Global page layouts and navigation wrappers
-│   ├── pages/              # 44 individual Astro routing pages for maximum SEO
+│   ├── pages/              # 60+ individual Astro routing pages for maximum SEO
 │   └── utils/              
 │       └── imageCompressor.ts # Core algorithms for Binary Search compression & scaling
 ├── DESIGN.md               # Core architectural and design philosophy guidelines

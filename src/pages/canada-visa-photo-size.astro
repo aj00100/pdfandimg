@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Canada Visa Photo Size — Free Online Resizer & Requirements";
+const SEO_DESC = "Canadian visa photo must be 35x45mm (420x540px minimum). Resize your photo free online to exact IRCC specifications. Private, instant processing.";
+
+const uniqueTitle = "Complete Guide to Canada Visa & PR Photo Requirements";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Applying for a Canadian visa, study permit, or Permanent Resident (PR) card requires strict adherence to Immigration, Refugees and Citizenship Canada (IRCC) standards. The official <strong>Canada visa photo size</strong> is <strong>35x45 mm (3.5x4.5 cm)</strong>. For digital online applications, this translates to a minimum requirement of <strong>420x540 pixels</strong>.
+  </p>
+  <p class="seo-p">
+    A seemingly minor mistake in your digital photo submission can cause significant delays to your Canadian immigration journey. Fortunately, using our free online resizer tool, you can easily crop and format your digital picture to meet exact IRCC digital photo requirements without leaving your home. Everything is processed directly in your browser, guaranteeing your privacy.
+  </p>
+
+  <h3 class="seo-h3">IRCC Digital Photo Specifications</h3>
+  <p class="seo-p">
+    When uploading a digital photo to the IRCC portal, the image must comply with highly specific formatting rules. It's not just about the outer dimensions; the composition of your face within the frame is equally scrutinized:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Pixel Dimensions:</strong> The image must be exactly 420x540 pixels or larger, maintaining the 35x45mm aspect ratio. Our tool defaults to this exact specification.</li>
+    <li><strong style="color: var(--color-ink);">Head Size:</strong> The distance from your chin to the crown of your head must measure between 31mm and 36mm. In digital terms, your face should take up a significant portion of the image, centered perfectly.</li>
+    <li><strong style="color: var(--color-ink);">File Size & Format:</strong> The final image file size must be under 4MB, in JPEG or JPEG2000 format. (If your image is too large, use our <a href="/compress-image-to-500kb" style="color: var(--color-lime); text-decoration: underline;">image compressor</a> tool first).</li>
+    <li><strong style="color: var(--color-ink);">Color:</strong> The photo must be in full color (24-bit). Black and white photos are not accepted for digital visa applications.</li>
+  </ul>
+
+  <h3 class="seo-h3">Background & Composition Rules</h3>
+  <p class="seo-p">
+    Getting the background and your posture right is essential for approval. Pay close attention to these rules before using our cropping tool:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">White or Light-Colored Background</h4>
+          <p class="seo-p-small">The background must be plain white or light-colored (such as pale gray). It must be completely uniform without any textures, patterns, or shadows behind your head.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Neutral Facial Expression</h4>
+          <p class="seo-p-small">Your mouth must be completely closed. Do not smile, frown, or show teeth. A relaxed, perfectly neutral expression is mandatory for biometric scanning.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">Eyeglasses and Glare</h4>
+          <p class="seo-p-small">While glasses are technically permitted if they don't obscure your eyes, it is strongly recommended to remove them to prevent flash glare and frame shadows, which are immediate grounds for rejection.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">Head Coverings</h4>
+          <p class="seo-p-small">Hats and head coverings are not permitted unless worn daily for religious beliefs or medical reasons. Even then, your full face from the bottom of your chin to the top of your forehead must be clearly visible.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">Digital Application vs. Paper Application</h3>
+  <p class="seo-p">
+    It is important to note the difference between online applications and physical paper applications. If you are mailing a paper application for a Permanent Resident (PR) card or citizenship, you must provide physical printed photos.
+  </p>
+  <p class="seo-p">
+    Physical PR card photos have an additional, unique requirement: the back of one photo must include the date it was taken, the photographer's name, and the studio address. For these, a professional studio is often required. However, for <strong>online visa applications, study permits, and work permits</strong>, you can use our free tool to prepare the digital file yourself! You can also cross-check our standard <a href="/passport-size-photo" style="color: var(--color-lime); text-decoration: underline;">passport tool</a> if you are applying for dual citizenship with different requirements.
+  </p>
+
+  <h3 class="seo-h3">How to Get Started</h3>
+  <p class="seo-p">
+    Don't let photo specifications hold up your move to Canada. To use our tool, upload a high-quality picture taken against a white wall. Drag the handles on the crop box so your head is centered and your face fills the appropriate space. 
+  </p>
+  <p class="seo-p">
+    Once you click download, your new image will be precisely 420x540 pixels, ready to be uploaded directly into the IRCC secure portal. Good luck with your application!
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "What is the Canada visa photo size in pixels?",
+    a: "For digital IRCC applications, the photo must be exactly 35x45mm in proportion, which requires a minimum pixel dimension of 420x540 pixels."
+  },
+  {
+    q: "Can I smile in my Canadian visa photo?",
+    a: "No, you must maintain a completely neutral expression. Your mouth must be closed, and you should not smile or frown. Any facial expression will result in rejection."
+  },
+  {
+    q: "What background color is required for Canada visa photos?",
+    a: "The background must be plain white or light-colored. There must be no shadows, patterns, or objects visible in the background."
+  },
+  {
+    q: "What is the maximum file size for uploading to the IRCC portal?",
+    a: "The digital photo file size must be less than 4MB, and it should be in JPEG (.jpg or .jpeg) or JPEG2000 format."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      --color-lime: #ef4444;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Canada Standard</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Canada Visa<br/>
+        <span style="color: var(--color-lime);">Photo Size.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Resize your photo free online to exact 420x540px IRCC specifications. Processed locally, 100% private.
+      </p>
+    </div>
+
+    <Resizer allowMultiple={false} defaultWidth={420} defaultHeight={540} />
+  </section>
+
+  <SEOContentResize 
+    isPassport={false} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
+</Layout>

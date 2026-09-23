@@ -1,0 +1,209 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Compressor from '../../components/Compressor.astro';
+
+const SEO_TITLE = "Kompres Foto 100KB Online Gratis — Akurat & Cepat";
+const SEO_DESC = "Kompres foto menjadi tepat 100KB secara instan. Cocok untuk pendaftaran online, formulir pemerintah, dan syarat dokumen. Gratis dan privat.";
+
+const faqData = [
+  {
+    q: "Apa bedanya kompres 100KB dan 200KB?",
+    a: "Perbedaannya terletak pada persyaratan batas maksimal portal yang dituju. Beberapa formulir pendaftaran, beasiswa, dan portal pendaftaran universitas menetapkan batas 100KB yang lebih kecil, sementara pendaftaran pegawai atau pemerintah bisa sampai 200KB."
+  },
+  {
+    q: "Mengapa foto saya ditolak meskipun sudah 100KB?",
+    a: "Seringkali masalahnya bukan pada ukuran file. Anda perlu memastikan bahwa dimensi (contoh 4x6 cm), warna latar belakang (merah atau biru), dan format file (harus JPG/JPEG) sudah sesuai dengan pedoman pendaftaran."
+  },
+  {
+    q: "Bisakah saya kompres banyak foto sekaligus?",
+    a: "Untuk saat ini alat kami difokuskan pada pengoptimalan satu foto secara maksimal demi kualitas terbaik, namun fitur batch (banyak file) sedang dalam pengembangan dan akan segera hadir."
+  },
+  {
+    q: "Apakah foto saya diunggah ke server?",
+    a: "Tidak. Sama sekali tidak. Proses kompresi 100% berjalan di peramban (browser) Anda. Foto Anda tidak pernah meninggalkan perangkat Anda, menjaga privasi data Anda sepenuhnya."
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg Kompres Foto 100KB",
+  "url": "https://pdfandimg.com/id/kompres-foto-100kb",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} lang="id">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  
+  <style is:global>
+    :root { --color-lime: #c8f135; }
+    
+    .seo-section { max-width: 1000px; margin: 80px auto 0; padding: 0 24px; text-align: left; }
+    .seo-divider { height: 1px; background: linear-gradient(to right, transparent, var(--color-border), transparent); margin-bottom: 80px; }
+    .seo-grid { display: grid; grid-template-columns: 1fr; gap: 80px; }
+    @media (min-width: 900px) { .seo-grid { grid-template-columns: 1.8fr 1fr; } }
+    .seo-main { display: flex; flex-direction: column; gap: 64px; }
+    .seo-h2 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 32px; color: var(--color-ink); line-height: 1.1; }
+    .seo-h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; color: var(--color-ink); }
+    .seo-p { font-size: 1rem; color: var(--color-ink-2); line-height: 1.8; margin-bottom: 20px; }
+    .seo-p-small { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.6; }
+    .seo-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+    .seo-list li { display: flex; gap: 20px; }
+    .seo-step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-lime); font-weight: 700; }
+    .seo-step-title { font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+    .faq-stack { display: flex; flex-direction: column; gap: 40px; }
+    .faq-q { color: var(--color-ink); font-weight: 700; font-size: 1.125rem; margin-bottom: 12px; }
+    .faq-a { color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7; }
+    .sidebar-box { background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+    .sidebar-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-lime); margin-bottom: 24px; }
+    .sidebar-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+    .check-icon { color: var(--color-lime); margin-top: 2px; }
+    .sidebar-stats { padding: 0 32px; }
+    .stats-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-ink-3); margin-bottom: 16px; }
+    .stats-text { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 8px; }
+    @media (max-width: 640px) { .seo-h2 { font-size: 1.75rem; } .seo-grid { gap: 48px; } .seo-main { gap: 48px; } }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.1);
+          border: 1px solid rgba(200,241,53,0.3);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Alat Gratis: Kompres Foto Online</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Kompres Foto<br/>
+        <span style="color: var(--color-lime);">100KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Kompres foto Anda menjadi tepat 100KB. Ideal untuk pendaftaran online dan persyaratan dokumen resmi.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={100} hideHeader={true} allowMultiple={false} />
+
+  </section>
+
+  <!-- SEO Content -->
+  <section class="seo-section">
+    <div class="seo-divider"></div>
+    <div class="seo-grid">
+      <div class="seo-main">
+        <div class="seo-intro">
+          <h2 class="seo-h2">Kompres Foto ke 100KB: Panduan untuk Pendaftaran Online</h2>
+          <p class="seo-p">
+            Saat Anda melakukan pendaftaran online, melamar beasiswa, atau mendaftar di portal pendaftaran universitas dan kampus-kampus di Indonesia, Anda biasanya akan diminta untuk melampirkan berkas digital. Sebagian besar instansi pendidikan, maupun rekrutmen online lainnya menerapkan aturan ketat soal batas ukuran maksimal pas foto, yang seringkali dipatok tepat di angka 100KB.
+          </p>
+          <p class="seo-p">
+            Batas ini digunakan untuk meminimalkan beban server saat ratusan ribu peserta mendaftar secara serentak. Jika file Anda melebihi 100KB, formulir aplikasi online Anda bisa saja otomatis tertolak. Di sinilah alat kami membantu: memastikan ukuran foto berada pas di angka target tanpa mengorbankan kualitas identitas visual Anda yang penting.
+          </p>
+        </div>
+
+        <div class="seo-details">
+          <h3 class="seo-h3">Kebutuhan Rekrutmen BUMN (FHCI) & Perusahaan Swasta</h3>
+          <p class="seo-p">
+            Dalam Rekrutmen Bersama BUMN, persyaratan dokumen dan foto profil sering kali menuntut file di bawah 100KB. Dokumen ini menjadi langkah krusial dalam tahap seleksi awal (screening). Jika foto terlihat tidak jelas, buram, atau Anda tidak bisa mengunggahnya karena masalah batas ukuran, kesempatan lolos tahap awal bisa terbuang sia-sia.
+          </p>
+          <p class="seo-p">
+            PdfAndImg membantu pelamar kerja untuk mengompres pas foto yang awalnya beresolusi tinggi dan berukuran beberapa megabyte menjadi sebuah file ringan 100KB. Kejelasan wajah, warna, serta detail-detail lainnya tetap proporsional dan mudah dikenali oleh pihak penyeleksi sumber daya manusia.
+          </p>
+        </div>
+        
+        <div class="seo-details">
+          <h3 class="seo-h3">Kenapa Foto Pecah Saat Dikompres?</h3>
+          <p class="seo-p">
+            Banyak orang mengeluh foto mereka menjadi buram, terlihat "pixelated" atau kotak-kotak setelah diperkecil ukurannya menjadi 100KB. Hal ini terjadi karena mereka menggunakan aplikasi yang melakukan kompresi agresif dengan sekadar memotong piksel secara membabi buta tanpa mempertahankan struktur citra.
+          </p>
+          <p class="seo-p">
+            Algoritma Smart Compression kami menghindari hal tersebut. Alat ini menggunakan pendekatan adaptif di mana rasio kompresi disesuaikan secara cerdas pada elemen yang tidak terlalu mencolok oleh mata manusia (seperti latar belakang monoton merah/biru). Hasilnya: bagian krusial seperti fitur wajah, mata, dan rambut tetap terlihat tajam, namun kapasitas file berhasil dipangkas mencapai 100KB.
+          </p>
+        </div>
+
+        <div class="seo-faq">
+          <h3 class="seo-h3">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+          <div class="faq-stack">
+            {faqData.map(item => (
+              <div class="faq-item">
+                <h4 class="faq-q">{item.q}</h4>
+                <p class="faq-a">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seo-sidebar">
+        <div class="sidebar-box">
+          <h3 class="sidebar-title">Kasus Penggunaan</h3>
+          <ul class="sidebar-list">
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Pendaftaran Universitas</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Loker BUMN (FHCI)</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Beasiswa LPDP & Lainnya</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Formulir Prakerja</span>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-stats">
+          <h3 class="stats-title">Spesifikasi Teknis</h3>
+          <p class="stats-text"><strong>Format:</strong> JPG, PNG, WEBP</p>
+          <p class="stats-text"><strong>Privasi:</strong> Lokal 100% (Tanpa Server)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

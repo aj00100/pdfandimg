@@ -7,9 +7,10 @@ interface Props {
   description?: string;
   showRelatedTools?: boolean;
   noindex?: boolean;
+  lang?: string;
 }
 
-const { title, description = "Precision image compression. Target any file size.", showRelatedTools = false, noindex = false } = Astro.props;
+const { title, description = "Precision image compression. Target any file size.", showRelatedTools = false, noindex = false, lang = "en" } = Astro.props;
 
 // Canonical URL Logic
 const siteUrl = "https://pdfandimg.com";
@@ -36,12 +37,28 @@ const breadcrumbSchema = {
     "item": item.url,
   })),
 };
+
+// Hreflang logic for internationalization
+const hreflangMap: Record<string, { en: string; id: string }> = {
+  '/id/kompres-foto-100kb': { en: '/compress-image-to-100kb', id: '/id/kompres-foto-100kb' },
+  '/compress-image-to-100kb': { en: '/compress-image-to-100kb', id: '/id/kompres-foto-100kb' },
+  '/id/kompres-foto-200kb': { en: '/compress-image-to-200kb', id: '/id/kompres-foto-200kb' },
+  '/compress-image-to-200kb': { en: '/compress-image-to-200kb', id: '/id/kompres-foto-200kb' },
+};
+const pageHreflangs = hreflangMap[path || '/'];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
+    {pageHreflangs && (
+      <>
+        <link rel="alternate" hreflang="en" href={new URL(pageHreflangs.en, siteUrl).toString()} />
+        <link rel="alternate" hreflang="id" href={new URL(pageHreflangs.id, siteUrl).toString()} />
+        <link rel="alternate" hreflang="x-default" href={new URL(pageHreflangs.en, siteUrl).toString()} />
+      </>
+    )}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="msvalidate.01" content="E83688B2D84F2650E3B27304930BD2B7" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -70,11 +87,11 @@ const breadcrumbSchema = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={`${siteUrl}/og-image.png`} />
 
-    <!-- Fonts: Syne (display) + DM Sans (body) + JetBrains Mono -->
+    <!-- Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 

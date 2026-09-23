@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FormatConverter from '../components/FormatConverter.astro';
+import SEOContentFormat from '../components/SEOContentFormat.astro';
+
+const SEO_TITLE = "TIFF to JPG Converter Online — Free & Private — PdfAndImg";
+const SEO_DESC = "Convert TIFF and TIF images to JPG format instantly in your browser. Perfect for large scanner documents. 100% private, no upload required.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      /* Electric Blue Theme */
+      --color-lime: #0088ff;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 136, 255, 0.08); border: 1px solid rgba(0, 136, 255, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Zero-Upload Converter</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        TIFF to JPG <br/>
+        <span style="color: var(--color-lime);">Converter.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Convert TIFF and TIF images to JPG format instantly in your browser. Perfect for large scanner documents. 100% private, no upload required.
+      </p>
+    </div>
+
+    <FormatConverter toFormat="jpeg" allowMultiple={true} />
+  </section>
+
+  <SEOContentFormat 
+    fromFormat="tiff" 
+    toFormat="jpg" 
+    uniqueContent={`
+      <div class="seo-intro">
+        <h2 class="seo-h2">Understanding TIFF: The Professional Image Format</h2>
+        <p class="seo-p">
+          The Tagged Image File Format, or <strong>TIFF</strong>, is a heavyweight image format created originally by Aldus (now part of Adobe) designed specifically for high-quality printing and professional scanning. Because it often utilizes lossless compression or no compression at all, TIFF files preserve absolute visual fidelity. This makes TIFF the gold standard for high-end digital photography, medical imaging systems, legal document archiving, and Geographic Information Systems (GIS).
+        </p>
+        <p class="seo-p">
+          However, that uncompromising quality comes at a massive cost: file size. A single high-resolution TIFF scan of a legal contract or medical record can easily exceed 50MB. When you need to share these documents online, attach them to an email, or submit them through a web portal, you immediately hit a wall. That is where a secure, private <strong>tiff to jpg converter</strong> becomes an absolute necessity.
+        </p>
+      </div>
+
+      <div class="seo-steps">
+        <h3 class="seo-h3">Why Convert TIFF to JPG?</h3>
+        <ol class="seo-list">
+          <li>
+            <div class="seo-step-num">01</div>
+            <div>
+              <h4 class="seo-step-title">Massive File Sizes</h4>
+              <p class="seo-p-small">
+                Because TIFF images store uncompressed or lightly compressed pixel data, their file sizes are notoriously massive (often 50MB+). By using a <strong>convert tiff to jpg</strong> tool, you utilize JPG's efficient lossy compression algorithm to shrink the file by 90% or more, transforming a gigabyte folder into a few megabytes.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">02</div>
+            <div>
+              <h4 class="seo-step-title">Email Attachment Limits</h4>
+              <p class="seo-p-small">
+                Almost all enterprise email servers cap attachments at 10MB to 25MB. Attaching even one high-res TIFF can bounce your email. Changing the format to JPG allows you to send dozens of scanned pages in a single email without breaking a sweat.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">03</div>
+            <div>
+              <h4 class="seo-step-title">Web Compatibility</h4>
+              <p class="seo-p-small">
+                Browsers and web platforms were built for JPG, PNG, and WebP, not TIFF. If you try to upload a TIFF to a CMS, social media, or basic web app, it will likely break or be rejected. Converting ensures immediate, universal viewing across any device or browser.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">04</div>
+            <div>
+              <h4 class="seo-step-title">Official Portal Uploads</h4>
+              <p class="seo-p-small">
+                Whether you are dealing with a government portal, a university admissions site, or corporate HR software, the strict requirements are almost universally "JPG or PDF under 2MB." Our tool quickly bridges the gap from professional scanner to web-ready upload. Check out our <a href="/png-to-jpg">PNG to JPG</a> or <a href="/convert-heic-to-jpg">HEIC to JPG</a> tools for other formats!
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="seo-details">
+        <h3 class="seo-h3">Privacy Advantage: Convert Locally</h3>
+        <p class="seo-p">
+          One of the biggest concerns with online converters is data privacy. TIFF files are overwhelmingly used for sensitive, confidential materials—think medical records, signed legal contracts, corporate financial scans, and government archives. 
+        </p>
+        <p class="seo-p">
+          Uploading these highly sensitive files to a remote, anonymous cloud server to convert them is a massive security risk and often violates compliance standards (like HIPAA or GDPR). Our tool provides a massive privacy advantage: <strong>local, on-device processing</strong>. When you use our converter, HTML5 and WebAssembly technologies perform the conversion directly within your browser. Your sensitive legal and medical documents never leave your laptop, and no server upload is ever required.
+        </p>
+
+        <h3 class="seo-h3">TIFF vs JPG: When to Use Which</h3>
+        <p class="seo-p">
+          Knowing when to rely on TIFF and when to switch to JPG is crucial for managing your digital assets effectively.
+        </p>
+        <p class="seo-p">
+          <strong>Archival vs Sharing:</strong> TIFF is an archival format. If you are scanning historical documents for permanent cold storage, or working on professional print photography, keep the original TIFF. It ensures zero degradation. However, the moment that file needs to be shared, reviewed, or published, you must <strong>convert tiff to jpg</strong>. JPG is designed for distribution—it compromises slightly on microscopic details to provide a lightweight, universally accessible image.
+        </p>
+        <p class="seo-p">
+          While TIFF uses lossless compression (meaning every byte of data is preserved), JPG uses lossy compression, which discards invisible visual data. For text documents, scanned contracts, or standard photography, this loss is completely imperceptible to the human eye, but the file size savings are monumental.
+        </p>
+      </div>
+    `}
+    customFaqs={[
+      {
+        q: "How large can my TIFF files be for conversion?",
+        a: "Because our tool processes files entirely within your web browser, there is no server upload bottleneck. You can convert massive TIFF files (even those over 100MB), limited only by your own device's RAM and processing power."
+      },
+      {
+        q: "Is it safe to convert legal documents from TIFF to JPG?",
+        a: "Absolutely. Our zero-upload architecture means the conversion happens locally on your computer or phone. Your confidential legal documents and medical records are never uploaded to our servers, ensuring 100% privacy and security."
+      },
+      {
+        q: "Will converting TIFF to JPG reduce quality?",
+        a: "Yes, slightly. JPG uses lossy compression, meaning it discards some pixel data to achieve smaller file sizes. However, for scanned text, legal documents, and everyday photography, this quality loss is practically imperceptible to the human eye."
+      },
+      {
+        q: "Can I convert multi-page TIFF files?",
+        a: "Currently, our tool supports single-page TIFF conversion. Multi-page TIFF files will generally have their first page converted. We are actively working on an update to extract and convert all pages into separate JPG files."
+      }
+    ]}
+  />
+</Layout>

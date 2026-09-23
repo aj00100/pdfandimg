@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Schengen Visa Photo Size — Requirements & Free Resizer Tool";
+const SEO_DESC = "Official Schengen visa photo size is 35x45mm (3.5x4.5cm). Use our free tool to resize and crop your photo to exact specifications. Instant, private processing.";
+
+const uniqueTitle = "Complete Guide to Schengen Visa Photo Requirements";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Applying for a Schengen visa opens the door to 27 European countries, but before you can start packing your bags, you need to ensure your application is perfect. One of the most critical elements of your application is the photograph. The official <strong>Schengen visa photo size</strong> is strictly <strong>35x45mm (3.5x4.5cm)</strong>, which roughly translates to 413x531 pixels when captured digitally at 300 DPI.
+  </p>
+  <p class="seo-p">
+    A non-compliant photo is a leading cause for visa application delays and rejections. Fortunately, you don't need to visit an expensive photo studio. Our free, browser-based tool allows you to easily resize and crop your image to the exact Schengen specifications from the comfort of your home. Your photos are processed completely locally on your device, ensuring total privacy.
+  </p>
+
+  <h3 class="seo-h3">Official Dimensions & Biometric Specifications</h3>
+  <p class="seo-p">
+    Schengen visa photos must meet stringent biometric requirements established by the ICAO (International Civil Aviation Organization). Simply cropping an image to 35x45mm is not enough; the internal composition of the photo must also be precise:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Overall Size:</strong> The physical dimensions must be exactly 35 millimeters in width and 45 millimeters in height.</li>
+    <li><strong style="color: var(--color-ink);">Head Size:</strong> Your head (measured from the tip of the chin to the top of the head) must take up 70-80% of the photograph. This equates to 31-36mm of the total 45mm height.</li>
+    <li><strong style="color: var(--color-ink);">Eye Position:</strong> Your eyes should be horizontally aligned and positioned roughly 27-35mm from the bottom edge of the photo.</li>
+    <li><strong style="color: var(--color-ink);">Resolution:</strong> If submitting digitally or preparing for print, a resolution of at least 300 DPI (approximately 413x531 pixels) is required to ensure crystal clear quality. File sizes are typically kept under 240KB. (Need to adjust file size? Try our <a href="/compress-image-to-200kb" style="color: var(--color-lime); text-decoration: underline;">200KB compressor</a>).</li>
+  </ul>
+
+  <h3 class="seo-h3">Background, Lighting, and Composition Rules</h3>
+  <p class="seo-p">
+    The environment in which your photo is taken plays a crucial role in its acceptability. Follow these strict guidelines to avoid a rejection:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">Background Color and Texture</h4>
+          <p class="seo-p-small">The background must be plain and uniformly colored—specifically light gray or white. There must be no patterns, textures, or shadows cast on the background behind your head.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Lighting & Shadows</h4>
+          <p class="seo-p-small">Your face must be evenly illuminated. Avoid harsh directional lighting that creates shadows on one side of your face. Natural daylight facing a window is highly recommended. Flash photography can sometimes cause red-eye or wash out your features.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">Facial Expression</h4>
+          <p class="seo-p-small">You must maintain a neutral facial expression with your mouth completely closed. Smiling, frowning, or raising your eyebrows will invalidate the photograph.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">Looking Directly at the Camera</h4>
+          <p class="seo-p-small">Your face and shoulders must be squared directly towards the camera. Do not tilt your head up, down, or to the side. Both ears or edges of the face should be equally visible.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">Common Rejection Reasons You Must Avoid</h3>
+  <p class="seo-p">
+    Visa officers review hundreds of photos daily and will instantly reject applications that fail to meet these common visual checks:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Wearing Glasses:</strong> Due to glare and frame obstruction, it is highly recommended to remove all eyeglasses. Thick frames or tinted lenses are strictly forbidden.</li>
+    <li><strong style="color: var(--color-ink);">Head Coverings:</strong> Hats, caps, and fashion headbands are not permitted. Religious head coverings are allowed, provided they do not cast shadows on the face and the full facial features (from the bottom of the chin to the top of the forehead) are visible.</li>
+    <li><strong style="color: var(--color-ink);">Poor Quality/Edited Photos:</strong> Do not use social media filters, beauty retouching apps, or artificial background removers. The photo must be an authentic representation of your current appearance.</li>
+    <li><strong style="color: var(--color-ink);">Wrong Proportions:</strong> Submitting a standard US 2x2 inch photo instead of the European 35x45mm format is a frequent error. If you need a US standard instead, check out our <a href="/passport-size-photo" style="color: var(--color-lime); text-decoration: underline;">passport photo tool</a> or <a href="/crop-image-to-passport-size" style="color: var(--color-lime); text-decoration: underline;">passport cropper</a>.</li>
+  </ul>
+
+  <h3 class="seo-h3">Country-Specific Variations in the Schengen Zone</h3>
+  <p class="seo-p">
+    While the Schengen area operates on a standardized set of rules (the ICAO standard), some individual consulates may have slight subjective preferences regarding background shades:
+  </p>
+  <p class="seo-p">
+    For instance, the consulates of France and Germany sometimes strictly prefer a light gray background over stark white to provide better contrast for lighter hair colors. Spain and Italy are generally flexible as long as the background is completely plain and light-colored. The Netherlands strongly enforces the 70-80% face coverage rule. When in doubt, a plain, neutral light gray background is the safest, most universally accepted choice for any Schengen state application.
+  </p>
+
+  <h3 class="seo-h3">How to Take a Perfect Visa Photo at Home</h3>
+  <p class="seo-p">
+    Taking your own Schengen visa photo is easy with modern smartphone cameras. Follow these DIY steps:
+  </p>
+  <p class="seo-p">
+    First, find a plain, light-colored wall. Stand about 1.5 feet away from the wall to prevent casting sharp shadows behind you. Face a natural light source, like a large window, to ensure your face is brightly and evenly lit. Ask a friend or family member to take the photo from about 4-6 feet away, holding the camera exactly at eye level.
+  </p>
+  <p class="seo-p">
+    Take multiple shots to ensure your expression is completely neutral and your eyes are open. Once you have a high-quality, unedited picture, simply upload it to our free tool at the top of this page. Drag the crop box so your head fills the appropriate space, and download your perfectly formatted 35x45mm visa photo!
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "What is the exact Schengen visa photo size?",
+    a: "The exact official size for a Schengen visa photo is 35x45 millimeters (3.5x4.5 cm). In digital terms, this is approximately 413x531 pixels when printed at 300 DPI."
+  },
+  {
+    q: "Can I take a Schengen visa photo with my phone?",
+    a: "Yes, you can absolutely take your photo with a smartphone. Just ensure you stand in front of a plain light gray or white wall, use even natural lighting, maintain a neutral expression, and crop it to the correct 35x45mm size using our online tool."
+  },
+  {
+    q: "Are Schengen visa photo requirements the same for all countries?",
+    a: "Generally, yes. All 27 Schengen countries follow the standard ICAO photo guidelines (35x45mm). However, some countries like France or Germany may strictly prefer a light gray background over pure white."
+  },
+  {
+    q: "Do I need to remove my glasses for a Schengen visa photo?",
+    a: "Yes, it is highly recommended to remove your glasses. According to recent ICAO guidelines, glasses often cause glare, frame shadows, or obscure the eyes, which leads to instant application rejection."
+  },
+  {
+    q: "How do I resize my photo to 35x45mm online?",
+    a: "You can use the free tool at the top of this page. Simply upload your image, adjust the bounding box so your face is centered and takes up 70-80% of the frame, and download your perfectly sized photo."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      --color-lime: #10b981;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Visa Photo Tool</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Schengen Visa<br/>
+        <span style="color: var(--color-lime);">Photo Size.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Resize your photo to exact 35×45mm Schengen visa requirements. Processed locally, 100% private.
+      </p>
+    </div>
+
+    <Resizer allowMultiple={false} defaultWidth={413} defaultHeight={531} />
+  </section>
+
+  <SEOContentResize 
+    isPassport={false} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
+</Layout>

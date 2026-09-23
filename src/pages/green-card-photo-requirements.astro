@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Green Card Photo Requirements — Free 600x600 Photo Tool";
+const SEO_DESC = "US Green Card and DV Lottery photo must be 2x2 inches (600x600px), 54-240KB. Use our free tool to resize and compress your photo to exact USCIS specifications.";
+
+const uniqueTitle = "Comprehensive Guide to Green Card & DV Lottery Photos";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Applying for a US Green Card or entering the Diversity Visa (DV) Lottery is a life-changing opportunity. However, the United States Citizenship and Immigration Services (USCIS) has exceptionally rigid rules regarding your application photograph. The exact <strong>Green Card photo requirements</strong> state the image must be a square <strong>2x2 inches (51x51 mm)</strong>, translating digitally to exactly <strong>600x600 pixels</strong>.
+  </p>
+  <p class="seo-p">
+    For years, applicants relied on a free photo cropper provided by the Department of State. Since that official tool was built on Flash and subsequently retired, applicants have been left searching for alternatives. Our free online photo tool replaces that retired cropper, allowing you to seamlessly format your image to the exact 600x600 pixel specification. Your photo is processed directly in your browser without ever being uploaded to our servers, ensuring your identity remains 100% private.
+  </p>
+
+  <h3 class="seo-h3">USCIS vs. DV Lottery Specifications</h3>
+  <p class="seo-p">
+    Whether you are adjusting your status via marriage, employment, or participating in the annual DV Lottery, the foundational photo rules are identical. Both systems require a perfectly square 600x600 pixel image. However, the DV Lottery portal enforces a strict file size limit during the online entry period:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Dimensions:</strong> 600x600 pixels minimum and maximum (perfectly square).</li>
+    <li><strong style="color: var(--color-ink);">File Format:</strong> The image must be in JPEG (.jpg) format.</li>
+    <li><strong style="color: var(--color-ink);">File Size limit:</strong> For the DV Lottery, the file cannot exceed 240KB. Typically, it should be between 54KB and 240KB. (Use our <a href="/compress-image-to-200kb" style="color: var(--color-lime); text-decoration: underline;">200KB compressor</a> if your file is too large).</li>
+    <li><strong style="color: var(--color-ink);">Color:</strong> It must be a 24-bit color image. Black and white, grayscale, or heavily filtered photos are strictly prohibited.</li>
+  </ul>
+
+  <h3 class="seo-h3">Internal Composition & Head Sizing</h3>
+  <p class="seo-p">
+    Getting a 600x600 pixel square is only half the battle. USCIS uses biometric scanning software that expects your face to be positioned precisely within that square. When using our cropping tool above, ensure you follow these structural guidelines:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">Head Height Measurement</h4>
+          <p class="seo-p-small">Your head, measured from the bottom of your chin to the top of your hair, must be between 1 inch and 1 3/8 inches (25mm - 35mm). This means your head should take up between 50% and 69% of the total height of the image.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Eye Placement</h4>
+          <p class="seo-p-small">Your eyes must be located between 1 1/8 inches and 1 3/8 inches (28mm - 35mm) from the bottom edge of the photo. Ensure your head is vertically centered.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">Background Rules</h4>
+          <p class="seo-p-small">You must stand in front of a plain white or off-white background. The background should be free of textures, wallpaper patterns, or dark shadows.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">No Glasses Rule</h4>
+          <p class="seo-p-small">Just like US passports, eyeglasses are strictly banned from Green Card and DV Lottery photos. You must remove your glasses, even if you wear them daily for medical reasons.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">Good vs. Bad Photo Examples</h3>
+  <p class="seo-p">
+    To help you visualize what USCIS expects, let's contrast a compliant photo with common rejection triggers:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Good:</strong> You are facing the camera directly, wearing everyday clothing, with a neutral expression and no glasses, set against a bright, plain white wall. Lighting is even.</li>
+    <li><strong style="color: var(--color-ink);">Bad (Shadows):</strong> Standing too close to the wall can create a dark outline shadow behind your head. Step away from the wall by about a foot to let light fall evenly.</li>
+    <li><strong style="color: var(--color-ink);">Bad (Attire):</strong> Wearing a uniform or camouflage is not allowed. Wearing a hat that covers your hairline is also a rejection trigger (unless for verified religious purposes).</li>
+    <li><strong style="color: var(--color-ink);">Bad (Editing):</strong> Removing the background artificially using a digital tool or app often leaves unnatural edges around your hair. USCIS software flags artificial backgrounds. You must shoot against a real white wall.</li>
+  </ul>
+  <p class="seo-p">
+    Need a photo for a different US document? Check out our <a href="/passport-photo-2x2" style="color: var(--color-lime); text-decoration: underline;">passport photo maker</a> and our <a href="/crop-image-to-passport-size" style="color: var(--color-lime); text-decoration: underline;">passport cropping tool</a>.
+  </p>
+
+  <h3 class="seo-h3">How to Use the Free Tool</h3>
+  <p class="seo-p">
+    Our tool was built as a direct replacement for the retired government flash cropper. Simply upload your raw photograph from your smartphone or camera. Click and drag the handles on the crop overlay to position your face perfectly in the center. Use the guides to ensure your head isn't too large or too small.
+  </p>
+  <p class="seo-p">
+    Once aligned, click download. Your new file will be a perfect 600x600 square, ready for immediate upload to the DV Lottery form, DS-260, or standard Green Card application portals!
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "What is the correct photo size for the US Green Card?",
+    a: "The correct physical size is 2x2 inches (51x51 mm). For online applications, this must be exactly 600x600 pixels in a square aspect ratio."
+  },
+  {
+    q: "What are the DV Lottery photo requirements?",
+    a: "DV Lottery photos must be exactly 600x600 pixels, in JPEG format, and the file size must be less than 240KB. The photo must have a white background, and you cannot wear glasses."
+  },
+  {
+    q: "Can I use the same photo for a US Visa and a Green Card?",
+    a: "Yes, the US Department of State and USCIS use the exact same 2x2 inch (600x600 pixel) requirement across passports, visas, Green Cards, and the DV Lottery."
+  },
+  {
+    q: "What happened to the official USCIS photo tool?",
+    a: "The official Department of State photo cropper was built on Adobe Flash, which was discontinued globally. Our free browser-based tool is a safe, modern replacement that does not require any plugins."
+  },
+  {
+    q: "Can I wear religious clothing in my Green Card photo?",
+    a: "Yes, religious clothing and head coverings are permitted if worn daily. However, the head covering must not cast shadows on your face, and your full face (from chin to forehead) must be visible."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      --color-lime: #3b82f6;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">US Immigration Standard</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Green Card<br/>
+        <span style="color: var(--color-lime);">Photo Requirements.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Resize and compress your photo to exact 2x2 inches (600x600px) USCIS specifications for free.
+      </p>
+    </div>
+
+    <Resizer allowMultiple={false} defaultWidth={600} defaultHeight={600} />
+  </section>
+
+  <SEOContentResize 
+    isPassport={false} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
+</Layout>

@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Resizer from '../components/Resizer.astro';
+import SEOContentResize from '../components/SEOContentResize.astro';
+
+const SEO_TITLE = "Australian Passport Photo Size — Requirements & Free Resizer";
+const SEO_DESC = "Australian passport photo must be 35-40mm × 45-50mm with white background. Resize and crop your photo to exact Australian specifications for free.";
+
+const uniqueTitle = "Complete Guide to Australian Passport Photo Size";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Getting an Australian passport is your ticket to world travel, but navigating the strict photo rules laid out by the Australian Passport Office can be tricky. Unlike the standard US 2x2 inch photo, the <strong>Australian passport photo size</strong> is specified as a range: exactly <strong>35-40mm in width and 45-50mm in height</strong>. 
+  </p>
+  <p class="seo-p">
+    A photograph that falls outside these dimensions—or fails to meet the stringent background and shadow rules—will be rejected immediately, delaying your travel plans. Using our free online resizer, you can bypass expensive AusPost photo fees and crop your picture precisely to the optimal 35x45mm digital ratio right from your browser, completely free and 100% private.
+  </p>
+
+  <h3 class="seo-h3">Understanding the Size Range</h3>
+  <p class="seo-p">
+    Unlike many countries that demand a single, rigid dimension, Australia provides a small window of acceptability. However, aiming for the exact middle—such as a 35x45mm proportion—is the safest bet to ensure compliance. When preparing digital photos, the internal composition (how much space your face takes up) is tightly controlled:
+  </p>
+  <ul class="seo-list" style="margin-bottom: 32px; list-style: disc; padding-left: 20px;">
+    <li><strong style="color: var(--color-ink);">Width and Height:</strong> The physical print must be between 35mm and 40mm wide, and between 45mm and 50mm high. Digital uploads typically require this proportional aspect ratio. Our tool defaults to this optimal proportion.</li>
+    <li><strong style="color: var(--color-ink);">Head Size:</strong> The distance from the bottom of your chin to the crown of your head must strictly measure between 32mm and 36mm.</li>
+    <li><strong style="color: var(--color-ink);">Resolution:</strong> High quality is mandatory. For digital prints, ensure your final image is high-resolution (at least 300 DPI) and free from pixelation.</li>
+  </ul>
+
+  <h3 class="seo-h3">AusPost Rules vs. Online Application Guidelines</h3>
+  <p class="seo-p">
+    Many Australians traditionally head to their local Australia Post (AusPost) to have their passport photos taken, which can cost around $20. While convenient, the strict guidelines apply exactly the same whether you pay AusPost or do it yourself online. 
+  </p>
+  <p class="seo-p">
+    When applying or renewing online, the system performs a digital biometric check. Your digital file must be pristine. Taking the photo yourself with a smartphone and cropping it using our <a href="/crop-image-to-passport-size" style="color: var(--color-lime); text-decoration: underline;">passport cropper</a> allows you to submit digital applications seamlessly. Just remember, your photo must have been taken within the last 6 months.
+  </p>
+
+  <h3 class="seo-h3">The #1 Rejection Reason: Shadows</h3>
+  <p class="seo-p">
+    The Australian Passport Office is notoriously strict about lighting. Let's look at the critical composition and lighting rules you must follow to get approved on your first try:
+  </p>
+  <div class="seo-steps" style="margin-bottom: 40px;">
+    <ol class="seo-list">
+      <li>
+        <div class="seo-step-num">01</div>
+        <div>
+          <h4 class="seo-step-title">Zero Shadow Tolerance</h4>
+          <p class="seo-p-small">Shadows are the number one reason Australian passport photos are rejected. There must be absolutely no shadows behind your head on the background, nor across your face (such as under your nose or chin). Use flat, even natural lighting to prevent this.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">02</div>
+        <div>
+          <h4 class="seo-step-title">Plain White Background</h4>
+          <p class="seo-p-small">The background must be a plain white or light gray color. There can be no patterns, textures, or objects visible.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">03</div>
+        <div>
+          <h4 class="seo-step-title">No Glasses Permitted</h4>
+          <p class="seo-p-small">Since 2018, glasses are not permitted in Australian passport photos. Even if you wear glasses constantly, you must remove them to avoid glare and frame obstruction. Very rare medical exceptions require an official medical certificate.</p>
+        </div>
+      </li>
+      <li>
+        <div class="seo-step-num">04</div>
+        <div>
+          <h4 class="seo-step-title">Neutral Expression</h4>
+          <p class="seo-p-small">Your mouth must be completely closed. Do not smile. Keep your eyes open, looking straight at the camera. Hair must be tucked behind your ears so the edges of your face are clearly visible.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h3 class="seo-h3">How to Use This Free Tool</h3>
+  <p class="seo-p">
+    To save money and time, find a white wall in your home facing a window. Stand about half a meter away from the wall to eliminate shadows behind you. Have someone take your photo straight-on.
+  </p>
+  <p class="seo-p">
+    Upload the original image to our tool above. Drag the cropping box to center your face, ensuring your head takes up the majority of the frame vertically (leaving a small gap above your head and showing just your upper shoulders). Download the image—it's now perfectly formatted! If your file ends up being too large for the digital application portal, you can run it through our <a href="/compress-image-to-200kb" style="color: var(--color-lime); text-decoration: underline;">200KB compressor</a> to reduce the file size safely.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "What is the Australian passport photo size in cm?",
+    a: "The required size is 3.5cm to 4.0cm in width, and 4.5cm to 5.0cm in height. The head size must measure 3.2cm to 3.6cm from the bottom of the chin to the top of the head."
+  },
+  {
+    q: "Can I take my Australian passport photo on my phone?",
+    a: "Yes, you can use a high-quality smartphone camera. However, you must ensure there are absolutely no shadows, the background is plain white, and the image is unedited (no filters)."
+  },
+  {
+    q: "Do I have to remove my glasses for an Australian passport?",
+    a: "Yes. As of 2018, glasses must be removed for all Australian passport photos to prevent glare and obstruction of the eyes."
+  },
+  {
+    q: "Why do Australian passport photos get rejected?",
+    a: "The most common rejection reasons are shadows on the face or background, incorrect photo dimensions, smiling (mouth open), and wearing glasses."
+  }
+];
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      --color-lime: #eab308;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">AU Standard</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Australian Passport<br/>
+        <span style="color: var(--color-lime);">Photo Size.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Resize and crop your photo to exact 35-40mm × 45-50mm Australian specifications for free.
+      </p>
+    </div>
+
+    <Resizer allowMultiple={false} defaultWidth={413} defaultHeight={531} />
+  </section>
+
+  <SEOContentResize 
+    isPassport={true} 
+    customTitle={uniqueTitle}
+    uniqueContent={uniqueContent}
+    customFaqs={customFaqs}
+  />
+</Layout>

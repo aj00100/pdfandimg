@@ -18,6 +18,7 @@ export type ToolCategory =
   | 'resize-crop'
   | 'pdf-tools'
   | 'heic-convert'
+  | 'visa-photo'
   | 'use-case';
 
 export const allTools: Tool[] = [
@@ -55,6 +56,21 @@ export const allTools: Tool[] = [
   { name: 'HEIC to JPG', href: '/convert-heic-to-jpg', category: 'heic-convert', desc: 'iPhone photos to JPG' },
   { name: 'HEIC to PNG', href: '/convert-heic-to-png', category: 'heic-convert', desc: 'iPhone photos to PNG' },
   { name: 'HEIC to PDF', href: '/convert-heic-to-pdf', category: 'heic-convert', desc: 'iPhone photos to PDF' },
+
+  // Advanced Format Converters
+  { name: 'AVIF to JPG', href: '/avif-to-jpg', category: 'format-convert', desc: 'Next-gen AVIF to universal JPG' },
+  { name: 'TIFF to JPG', href: '/tiff-to-jpg', category: 'format-convert', desc: 'Scanner/legal docs to JPG' },
+  { name: 'BMP to JPG', href: '/bmp-to-jpg', category: 'format-convert', desc: 'Legacy bitmap to compressed JPG' },
+
+  // Visa & Passport Photo Tools
+  { name: 'Schengen Visa Photo', href: '/schengen-visa-photo-size', category: 'visa-photo', desc: '35×45mm EU visa photo resizer' },
+  { name: 'Canada Visa Photo', href: '/canada-visa-photo-size', category: 'visa-photo', desc: 'IRCC-spec Canadian visa photos' },
+  { name: 'Green Card Photo', href: '/green-card-photo-requirements', category: 'visa-photo', desc: 'USCIS 600×600px photo tool' },
+  { name: 'Australian Passport Photo', href: '/australian-passport-photo-size', category: 'visa-photo', desc: 'AU passport 35-40×45-50mm' },
+
+  // Indonesian Market (Kompres Foto)
+  { name: 'Kompres Foto 200KB', href: '/id/kompres-foto-200kb', category: 'compress-image', desc: 'Kompres foto untuk CPNS & BUMN' },
+  { name: 'Kompres Foto 100KB', href: '/id/kompres-foto-100kb', category: 'compress-image', desc: 'Kompres foto untuk pendaftaran online' },
 
   // Exam Resizers
   { name: 'IBPS Photo Resizer', href: '/ibps-photo-resizer', category: 'exam-resize', desc: 'Banking exam photos (20-50KB)' },
@@ -110,6 +126,8 @@ export function getRelatedTools(currentPath: string, maxCount = 6): Tool[] {
       '/reduce-image-size-in-kb',
       '/png-to-jpg',
       '/compress-pdf-to-100kb',
+      '/avif-to-jpg',
+      '/schengen-visa-photo-size',
     ].includes(t.href));
 
   // Take up to maxCount-2 from same category, then fill with cross-category

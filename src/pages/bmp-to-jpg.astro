@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FormatConverter from '../components/FormatConverter.astro';
+import SEOContentFormat from '../components/SEOContentFormat.astro';
+
+const SEO_TITLE = "BMP to JPG Converter Online — Free & Instant — PdfAndImg";
+const SEO_DESC = "Convert BMP bitmap images to compressed JPG format instantly. Free, browser-based, no upload. Perfect for old Windows screenshots and legacy files.";
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <style is:global>
+    :root {
+      /* Electric Blue Theme */
+      --color-lime: #0088ff;
+    }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 136, 255, 0.08); border: 1px solid rgba(0, 136, 255, 0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">Zero-Upload Converter</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        BMP to JPG <br/>
+        <span style="color: var(--color-lime);">Converter.</span>
+      </h1>
+      <p style="color: var(--color-ink-2); font-size: 1.125rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Convert BMP bitmap images to compressed JPG format instantly. Free, browser-based, no upload. Perfect for old Windows screenshots and legacy files.
+      </p>
+    </div>
+
+    <FormatConverter toFormat="jpeg" allowMultiple={true} />
+  </section>
+
+  <SEOContentFormat 
+    fromFormat="bmp" 
+    toFormat="jpg" 
+    uniqueContent={`
+      <div class="seo-intro">
+        <h2 class="seo-h2">What is BMP? The Original Windows Image Format</h2>
+        <p class="seo-p">
+          The <strong>BMP</strong> (Bitmap) file format is one of the oldest and most fundamental image formats in computing. Co-developed by Microsoft and IBM in the early days of personal computers, BMP was the default format for classic programs like Microsoft Paint. It stores color data for every single pixel individually, typically completely uncompressed. 
+        </p>
+        <p class="seo-p">
+          Because of this straightforward structure, BMP files are incredibly crisp but notoriously massive. While they were perfect for local desktop wallpapers and basic illustrations in the 1990s, today's internet demands efficiency. This makes an efficient <strong>bmp to jpg converter</strong> essential for anyone trying to modernize old file archives.
+        </p>
+      </div>
+
+      <div class="seo-steps">
+        <h3 class="seo-h3">Why Convert BMP to JPG?</h3>
+        <ol class="seo-list">
+          <li>
+            <div class="seo-step-num">01</div>
+            <div>
+              <h4 class="seo-step-title">Huge File Sizes</h4>
+              <p class="seo-p-small">
+                A simple 1080p screenshot saved as a BMP can easily weigh 6MB or more, since there is no compression algorithm minimizing the data. By choosing to <strong>convert bmp to jpg</strong>, you can instantly shrink that same screenshot down to just a few hundred kilobytes—a reduction of over 95%—without a noticeable drop in quality.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">02</div>
+            <div>
+              <h4 class="seo-step-title">Incompatible with the Web</h4>
+              <p class="seo-p-small">
+                Modern web browsers, content management systems (like WordPress), and social media platforms heavily frown upon or outright reject BMP uploads. The sheer size of BMP files destroys page load speeds and SEO rankings. Converting them to universally accepted JPG format ensures seamless web integration.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="seo-step-num">03</div>
+            <div>
+              <h4 class="seo-step-title">Modernizing Legacy Files</h4>
+              <p class="seo-p-small">
+                Many users still have old CD-ROM backups or external hard drives filled with classic Windows screenshots, scanned documents, and digital camera photos saved as BMPs. Converting these legacy files modernizes your digital library, saving massive amounts of precious cloud storage space.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="seo-details">
+        <h3 class="seo-h3">Batch Convert Old Archives</h3>
+        <p class="seo-p">
+          When dealing with legacy BMP files, you are rarely just converting one image. You are often dealing with entire folders of old screenshots or graphics. Doing this one by one is incredibly tedious. 
+        </p>
+        <p class="seo-p">
+          Our online <strong>bmp to jpg</strong> tool is designed for bulk processing. You can drag and drop dozens of uncompressed Bitmap files into the browser at once. Our WebAssembly engine processes them simultaneously, strictly on your local device. Once the batch is complete, you can download all your modernized JPG files in a single, convenient ZIP archive. (Need to convert newer formats? Check out our <a href="/avif-to-jpg">AVIF to JPG</a> converter!)
+        </p>
+      </div>
+    `}
+    customFaqs={[
+      {
+        q: "Why are BMP files so large?",
+        a: "BMP files are uncompressed. They store the exact color value of every single pixel on the screen independently, without using any compression algorithms to group similar colors. This results in massive file sizes compared to modern formats."
+      },
+      {
+        q: "Is it safe to convert BMP files online?",
+        a: "Yes, our tool is uniquely safe. Instead of uploading your personal files to a remote server, our platform runs the conversion entirely in your browser using local processing. Your privacy is 100% guaranteed."
+      },
+      {
+        q: "Can I convert multiple BMP files at once?",
+        a: "Absolutely! Our tool supports batch conversion. You can select multiple BMP files, convert them simultaneously in your browser, and download the compressed JPGs as a neat ZIP file."
+      }
+    ]}
+  />
+</Layout>

@@ -3,3 +3,10 @@ https://pdfandimg.pages.dev/* https://pdfandimg.com/:splat 301
 
 # Block www to non-www
 https://www.pdfandimg.com/* https://pdfandimg.com/:splat 301
+
+# SEO Fix: Server-side redirects
+/remove-password-from-pdf /unlock-pdf 301
+/crop-image /crop-image-online 301
+/enhance-image-size /increase-image-size-in-kb 301
+/resize-image-to-exact-pixels /resize-image-dimensions 301
+/resize-image-pixel /resize-image-in-pixels 301

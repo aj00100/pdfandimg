@@ -1,0 +1,260 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Compressor from '../../components/Compressor.astro';
+
+const SEO_TITLE = "Kompres Foto 200KB Online Gratis — Cepat & Akurat";
+const SEO_DESC = "Kompres foto menjadi 200KB secara instan dan gratis. Cocok untuk syarat CPNS, BUMN, SKCK, dan formulir pemerintah. 100% privat, diproses langsung di browser Anda.";
+
+const faqData = [
+  {
+    q: "Apakah aman mengompres foto KTP dan pas foto saya?",
+    a: "Sangat aman. Semua proses kompresi dilakukan secara lokal di browser Anda. Foto Anda tidak pernah diunggah ke server mana pun, sehingga 100% privat dan aman untuk dokumen penting."
+  },
+  {
+    q: "Berapa ukuran foto yang dibutuhkan untuk pendaftaran CPNS?",
+    a: "Sebagian besar portal CPNS (seperti SSCASN dan BKN) mewajibkan pas foto dengan ukuran maksimal 200KB, dimensi 4x6 cm, dengan latar belakang merah atau biru."
+  },
+  {
+    q: "Apakah kualitas foto akan menurun setelah dikompres?",
+    a: "Kami menggunakan algoritma kompresi pintar (Smart Compression) yang meminimalkan penurunan kualitas. Resolusi dan kejelasan wajah tetap terjaga dengan baik."
+  },
+  {
+    q: "Bisakah saya mengompres foto dari HP langsung?",
+    a: "Ya, alat kompresi kami sepenuhnya responsif dan dirancang untuk berfungsi dengan sempurna di semua perangkat seluler tanpa perlu menginstal aplikasi."
+  },
+  {
+    q: "Format foto apa yang didukung?",
+    a: "Kami mendukung berbagai format gambar populer, termasuk JPG, PNG, dan WebP. Hasil akhir selalu akan dioptimalkan ke format yang paling sesuai."
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg Kompres Foto 200KB",
+  "url": "https://pdfandimg.com/id/kompres-foto-200kb",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} lang="id">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  
+  <style is:global>
+    :root { --color-lime: #c8f135; }
+    
+    .seo-section { max-width: 1000px; margin: 80px auto 0; padding: 0 24px; text-align: left; }
+    .seo-divider { height: 1px; background: linear-gradient(to right, transparent, var(--color-border), transparent); margin-bottom: 80px; }
+    .seo-grid { display: grid; grid-template-columns: 1fr; gap: 80px; }
+    @media (min-width: 900px) { .seo-grid { grid-template-columns: 1.8fr 1fr; } }
+    .seo-main { display: flex; flex-direction: column; gap: 64px; }
+    .seo-h2 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 32px; color: var(--color-ink); line-height: 1.1; }
+    .seo-h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; color: var(--color-ink); }
+    .seo-p { font-size: 1rem; color: var(--color-ink-2); line-height: 1.8; margin-bottom: 20px; }
+    .seo-p-small { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.6; }
+    .seo-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+    .seo-list li { display: flex; gap: 20px; }
+    .seo-step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-lime); font-weight: 700; }
+    .seo-step-title { font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+    .faq-stack { display: flex; flex-direction: column; gap: 40px; }
+    .faq-q { color: var(--color-ink); font-weight: 700; font-size: 1.125rem; margin-bottom: 12px; }
+    .faq-a { color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7; }
+    .sidebar-box { background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+    .sidebar-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-lime); margin-bottom: 24px; }
+    .sidebar-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.875rem; color: var(--color-ink-2); }
+    .check-icon { color: var(--color-lime); margin-top: 2px; }
+    .sidebar-stats { padding: 0 32px; }
+    .stats-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-ink-3); margin-bottom: 16px; }
+    .stats-text { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 8px; }
+    @media (max-width: 640px) { .seo-h2 { font-size: 1.75rem; } .seo-grid { gap: 48px; } .seo-main { gap: 48px; } }
+  </style>
+
+  <section class="relative z-20 pt-20 container-stripe">
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.1);
+          border: 1px solid rgba(200,241,53,0.3);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 24px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Alat Gratis: Kompres Foto Online</span>
+      </div>
+
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
+        Kompres Foto<br/>
+        <span style="color: var(--color-lime);">200KB.</span>
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
+        Kompres foto Anda menjadi tepat 200KB. Cocok untuk persyaratan CPNS, BUMN, dan formulir pemerintah lainnya.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <Compressor defaultKB={200} hideHeader={true} allowMultiple={false} />
+
+  </section>
+
+  <!-- SEO Content -->
+  <section class="seo-section">
+    <div class="seo-divider"></div>
+    <div class="seo-grid">
+      <div class="seo-main">
+        <div class="seo-intro">
+          <h2 class="seo-h2">Panduan Lengkap: Kompres Foto 200KB untuk CPNS dan Formulir Resmi</h2>
+          <p class="seo-p">
+            Saat mendaftar untuk Calon Pegawai Negeri Sipil (CPNS), Badan Usaha Milik Negara (BUMN), pembuatan Surat Keterangan Catatan Kepolisian (SKCK), atau formulir resmi pemerintah lainnya, Anda akan sering menemui syarat ketat mengenai ukuran berkas. Salah satu yang paling umum adalah batas maksimal ukuran file gambar sebesar 200KB.
+          </p>
+          <p class="seo-p">
+            Portal seperti SSCASN (Sistem Seleksi Calon Aparatur Sipil Negara) dan BKN (Badan Kepegawaian Negara) menggunakan sistem pendaftaran online (SSCASN BKN) yang akan secara otomatis menolak foto profil (pas foto) maupun KTP Anda jika ukurannya lebih dari 200KB. Menggunakan alat pengompres kami akan menjamin Anda bisa menghemat waktu, menjaga kualitas gambar tetap prima, namun mematuhi limit 200KB ini.
+          </p>
+        </div>
+
+        <div class="seo-steps">
+          <h3 class="seo-h3">Cara Kompres Foto 200KB</h3>
+          <ol class="seo-list">
+            <li>
+              <div class="seo-step-num">01</div>
+              <div>
+                <h4 class="seo-step-title">Pilih Foto Anda</h4>
+                <p class="seo-p-small">
+                  Klik tombol unggah atau seret dan lepas (drag-and-drop) foto KTP, pas foto, atau dokumen Anda ke area yang disediakan. Sistem kami segera menganalisis file secara lokal di perangkat Anda.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">02</div>
+              <div>
+                <h4 class="seo-step-title">Sesuaikan Ukuran Target</h4>
+                <p class="seo-p-small">
+                  Pastikan angka 200KB sudah tertera pada pengaturan kompresi. Sistem kami secara otomatis menyesuaikan nilai target terbaik untuk memaksimalkan kualitas dalam batas ini.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">03</div>
+              <div>
+                <h4 class="seo-step-title">Proses Kompresi Otomatis</h4>
+                <p class="seo-p-small">
+                  Dalam hitungan milidetik, algoritma cerdas kami akan menyesuaikan kompresi gambar tanpa mengubah dimensi atau memecahkan warna (pixelate), memastikan file siap diunggah.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="seo-step-num">04</div>
+              <div>
+                <h4 class="seo-step-title">Unduh File Siap Pakai</h4>
+                <p class="seo-p-small">
+                  Klik tombol unduh untuk menyimpan foto berukuran 200KB Anda. Foto ini kini siap diunggah ke portal SSCASN, BUMN, atau platform resmi lainnya dengan lancar.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="seo-details">
+          <h3 class="seo-h3">Mengapa Alat Kami Berbeda</h3>
+          <p class="seo-p">
+            Sebagian besar alat kompresi foto generik melakukan pekerjaan ini di server mereka. Artinya, Anda harus mengunggah data pribadi yang sangat sensitif—seperti KTP, dokumen identitas resmi, atau pas foto pendaftaran CPNS—ke internet. Alat kami bekerja 100% menggunakan teknologi "client-side" (berbasis peramban). Tidak ada data yang pernah dikirim, diproses, atau disimpan di server mana pun, memberikan keamanan dan privasi tingkat tinggi yang sangat krusial bagi pelamar CPNS.
+          </p>
+          <p class="seo-p">
+            Selain aman, alat ini super cepat dan mobile-friendly. Jika Anda menggunakan ponsel cerdas atau tablet saat melamar, halaman ini otomatis menyesuaikan ukuran tanpa nge-lag. Algoritma kami bekerja instan dan menjaga agar pas foto Anda tetap tajam.
+          </p>
+        </div>
+
+        <div class="seo-details">
+          <h3 class="seo-h3">Spesifikasi Foto CPNS</h3>
+          <p class="seo-p">
+            Agar foto pendaftaran Anda langsung diterima, pastikan mengikuti aturan emas untuk pas foto resmi di portal SSCASN BKN dan BUMN:
+            <br/><br/>
+            - <strong>Ukuran Maksimal:</strong> 200KB (Kadang-kadang minimal 100KB).
+            <br/>
+            - <strong>Dimensi:</strong> 4x6 cm (Proporsi wajah harus mendominasi 70-80% area foto).
+            <br/>
+            - <strong>Latar Belakang (Background):</strong> Merah untuk pendaftaran CPNS/PPPK, atau Biru bergantung pada pedoman instansi spesifik.
+            <br/>
+            - <strong>Format File:</strong> JPG atau JPEG (PNG sering kali ditolak).
+          </p>
+        </div>
+
+        <div class="seo-faq">
+          <h3 class="seo-h3">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+          <div class="faq-stack">
+            {faqData.map(item => (
+              <div class="faq-item">
+                <h4 class="faq-q">{item.q}</h4>
+                <p class="faq-a">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seo-sidebar">
+        <div class="sidebar-box">
+          <h3 class="sidebar-title">Kasus Penggunaan</h3>
+          <ul class="sidebar-list">
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Pendaftaran CPNS / SSCASN</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Loker BUMN (FHCI)</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Pengurusan SKCK Online</span>
+            </li>
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Pembuatan Paspor RI</span>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-stats">
+          <h3 class="stats-title">Spesifikasi Teknis</h3>
+          <p class="stats-text"><strong>Format:</strong> JPG, PNG, WEBP</p>
+          <p class="stats-text"><strong>Privasi:</strong> Lokal 100% (Tanpa Server)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
