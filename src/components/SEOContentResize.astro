@@ -43,7 +43,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": isPassport ? `PdfAndImg Passport Photo Maker` : `PdfAndImg Exact Pixel Resizer`,
-  "url": Astro.url.href,
+  "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
   "offers": {
@@ -55,10 +55,10 @@ const softwareSchema = {
 
 // Internal Linking Data (Topic Cluster)
 const relatedTools = [
-  { name: 'Crop Image', href: '/crop-image-online' },
-  { name: 'Compress to 20KB', href: '/compress-image-to-20kb' },
-  { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
-  { name: 'PNG to JPG', href: '/png-to-jpg' },
+  { name: 'Crop Image', href: '/crop-image-online/' },
+  { name: 'Compress to 20KB', href: '/compress-image-to-20kb/' },
+  { name: 'Compress to 50KB', href: '/compress-image-to-50kb/' },
+  { name: 'PNG to JPG', href: '/png-to-jpg/' },
 ];
 ---
 

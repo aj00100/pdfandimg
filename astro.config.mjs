@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://pdfandimg.com',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
 
   vite: {
     plugins: [tailwindcss()],
@@ -16,12 +16,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [sitemap({
-    filter: (page) => 
-      !page.includes('/merge-multiple-pdf-into-one') &&
-      !page.includes('/separate-pdf-pages') &&
-      !page.includes('/remove-pdf-pages') &&
-      !page.includes('/extract-images-from-pdf') &&
-      !page.includes('/add-images-to-pdf')
-  })],
+  integrations: [sitemap()],
 });

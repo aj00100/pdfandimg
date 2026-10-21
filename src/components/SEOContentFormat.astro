@@ -45,7 +45,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": `PdfAndImg ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} Converter`,
-  "url": Astro.url.href,
+  "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
   "offers": {
@@ -57,10 +57,10 @@ const softwareSchema = {
 
 // Internal Linking Data (Topic Cluster)
 const relatedTools = [
-  { name: 'Resize Image Pixels', href: '/resize-image-in-pixels' },
-  { name: 'Crop Image', href: '/crop-image-online' },
-  { name: 'Compress to 20KB', href: '/compress-image-to-20kb' },
-  { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
+  { name: 'Resize Image Pixels', href: '/resize-image-in-pixels/' },
+  { name: 'Crop Image', href: '/crop-image-online/' },
+  { name: 'Compress to 20KB', href: '/compress-image-to-20kb/' },
+  { name: 'Compress to 50KB', href: '/compress-image-to-50kb/' },
 ];
 ---
 

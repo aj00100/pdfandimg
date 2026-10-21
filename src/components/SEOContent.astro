@@ -11,7 +11,13 @@ const { targetKB, type = 'compress', customTitle, uniqueContent, customFaqs } = 
 
 const isEnhance = type === 'enhance';
 const isCrop = type === 'crop';
-const kbText = targetKB.toString().toLowerCase() === 'any' ? 'Any KB' : targetKB.toString().includes('MB') ? targetKB : `${targetKB}KB`;
+const rawKB = targetKB.toString().trim();
+const kbText = /^(any|custom)$/i.test(rawKB) ? 'Exact KB'
+  : /^passport$/i.test(rawKB) ? '20KB–50KB Passport'
+  : /^exam/i.test(rawKB) ? '10KB–250KB Exam'
+  : /(?:kb|mb)$/i.test(rawKB) || rawKB.toUpperCase().includes('KB') || rawKB.toUpperCase().includes('MB') ? rawKB
+  : /^\d+$/.test(rawKB) ? `${rawKB}KB`
+  : rawKB;
 
 // FAQ Data for JSON-LD
 const faqData = customFaqs || [
@@ -46,7 +52,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": `PdfAndImg ${kbText} Optimizer`,
-  "url": Astro.url.href,
+  "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
   "offers": {
@@ -58,12 +64,12 @@ const softwareSchema = {
 
 // Internal Linking Data (Topic Cluster)
 const relatedTools = [
-  { name: '10KB', href: '/compress-image-to-10kb' },
-  { name: '20KB', href: '/compress-image-to-20kb' },
-  { name: '50KB', href: '/compress-image-to-50kb' },
-  { name: '100KB', href: '/compress-image-to-100kb' },
-  { name: 'Custom Reducer', href: '/reduce-image-size-in-kb' },
-  { name: 'Crop Image Online', href: '/crop-image-online' },
+  { name: '10KB', href: '/compress-image-to-10kb/' },
+  { name: '20KB', href: '/compress-image-to-20kb/' },
+  { name: '50KB', href: '/compress-image-to-50kb/' },
+  { name: '100KB', href: '/compress-image-to-100kb/' },
+  { name: 'Custom Reducer', href: '/reduce-image-size-in-kb/' },
+  { name: 'Crop Image Online', href: '/crop-image-online/' },
 ].filter(tool => !tool.href.includes(targetKB.toString().toLowerCase()));
 ---
 
