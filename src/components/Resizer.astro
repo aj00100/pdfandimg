@@ -4,52 +4,169 @@ interface Props {
   defaultWidth?: number;
   defaultHeight?: number;
   defaultKB?: number;
+  defaultFit?: 'cover' | 'contain' | 'stretch';
 }
 
-const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, defaultKB = 0 } = Astro.props;
+const {
+  allowMultiple = true,
+  defaultWidth = 1080,
+  defaultHeight = 1080,
+  defaultKB,
+  defaultFit = 'cover',
+} = Astro.props;
 ---
 
 <div id="resizer-root" style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
   <div class="panel p-5 md:p-8">
-    <div id="rs-drop-zone" class="drop-zone" style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;">
-      <input type="file" id="rs-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple={allowMultiple} />
-      
-      <div id="rs-upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
-        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <div
+      id="rs-drop-zone"
+      class="drop-zone"
+      style="min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; position: relative; border-radius: 16px;"
+    >
+      <input
+        type="file"
+        id="rs-file-input"
+        style="display: none;"
+        accept="image/jpeg,image/png,image/webp"
+        multiple={allowMultiple}
+      />
+
+      <div
+        id="rs-upload-placeholder"
+        style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;"
+      >
+        <div
+          style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--color-lime)"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
         </div>
         <div>
-          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">{allowMultiple ? 'Drop images here' : 'Drop image here'}</p>
-          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">to resize</p>
+          <p
+            style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;"
+          >
+            {allowMultiple ? 'Drop images here' : 'Drop image here'}
+          </p>
+          <p style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin: 0;">
+            JPG · PNG · WEBP (300 DPI Output)
+          </p>
         </div>
-        <button onclick="document.getElementById('rs-file-input').click()" class="btn-ghost" type="button" style="font-size: 0.75rem; z-index: 10;">Browse files</button>
+        <button
+          onclick="document.getElementById('rs-file-input').click()"
+          class="btn-ghost"
+          type="button"
+          style="font-size: 0.75rem; z-index: 10;"
+        >
+          Browse files
+        </button>
       </div>
 
-      <div id="rs-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
-        <img id="rs-upload-preview" src="data:," alt="Image preview" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;" />
-        <div id="rs-bulk-text" style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%;"></div>
-        <button id="rs-change-btn" class="btn-ghost" type="button" style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;">Change</button>
+      <div
+        id="rs-preview-container"
+        class="hidden"
+        style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;"
+      >
+        <img
+          id="rs-upload-preview"
+          src="data:,"
+          alt="Image preview"
+          style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none;"
+        />
+        <div
+          id="rs-bulk-text"
+          style="display: none; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); max-height: 200px; overflow-y: auto; width: 100%;"
+        >
+        </div>
+        <button
+          id="rs-change-btn"
+          class="btn-ghost"
+          type="button"
+          style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem; z-index: 10;"
+        >
+          Change
+        </button>
       </div>
     </div>
 
-    <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 110px;">
-        <label for="rs-width" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Width (px)</label>
-        <input type="number" id="rs-width" value={defaultWidth} class="input-number" style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;" />
+    <!-- Primary Controls: Width, Height, Target KB, Format -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 16px;">
+      <div>
+        <label
+          for="rs-width"
+          style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;"
+          >Width (px)</label
+        >
+        <input
+          type="number"
+          id="rs-width"
+          value={defaultWidth}
+          min="10"
+          max="8000"
+          class="input-number"
+          style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;"
+        />
       </div>
-      <div style="flex: 1; min-width: 110px;">
-        <label for="rs-height" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Height (px)</label>
-        <input type="number" id="rs-height" value={defaultHeight} class="input-number" style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;" />
+
+      <div>
+        <label
+          for="rs-height"
+          style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;"
+          >Height (px)</label
+        >
+        <input
+          type="number"
+          id="rs-height"
+          value={defaultHeight}
+          min="10"
+          max="8000"
+          class="input-number"
+          style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;"
+        />
       </div>
-      <div style="flex: 1; min-width: 110px;">
-        <label for="rs-kb" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Max KB (Opt)</label>
-        <input type="number" id="rs-kb" value={defaultKB > 0 ? defaultKB : ''} placeholder="Auto" class="input-number" style="width: 100%; height: 56px; font-size: 1.25rem; text-align: center;" />
+
+      <div>
+        <label
+          for="rs-kb"
+          style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;"
+          >Target KB (Optional)</label
+        >
+        <input
+          type="number"
+          id="rs-kb"
+          value={defaultKB ?? ''}
+          placeholder="Auto"
+          min="5"
+          max="10000"
+          class="input-number"
+          style="width: 100%; height: 56px; font-size: 1.125rem; text-align: center;"
+        />
       </div>
-      <div style="flex: 1; min-width: 110px;">
-        <label for="rs-format" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;">Format</label>
-        <select id="rs-format" class="input-number" style="width: 100%; height: 56px; font-size: 1.125rem; text-align: center; background: var(--color-surface-1) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2362666D%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E') no-repeat right 16px center; appearance: none; cursor: pointer; border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+
+      <div>
+        <label
+          for="rs-format"
+          style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px; text-align: center;"
+          >Format</label
+        >
+        <select
+          id="rs-format"
+          class="input-number"
+          style="width: 100%; height: 56px; font-size: 1.05rem; text-align: center; background: var(--color-surface-1) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2362666D%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E') no-repeat right 14px center; appearance: none; cursor: pointer; border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;"
+        >
           <option value="auto" selected>Keep Original</option>
-          <option value="image/jpeg">JPG</option>
+          <option value="image/jpeg">JPG (300 DPI)</option>
           <option value="image/png">PNG</option>
           <option value="image/webp">WEBP</option>
           <option value="application/pdf">PDF</option>
@@ -57,8 +174,48 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
       </div>
     </div>
 
-    <button id="rs-convert-btn" class="btn-primary" disabled style="width: 100%; height: 56px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;" type="button">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Fit Mode Selector (Center-Crop vs White Pad / Contain vs Stretch) -->
+    <div
+      style="background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;"
+    >
+      <span
+        style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ink-2);"
+      >
+        Aspect Ratio Fit Mode:
+      </span>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+        <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--color-ink);">
+          <input type="radio" name="rs-fit-mode" value="cover" checked={defaultFit === 'cover'} />
+          <span>Center-Crop (Passport / Visa)</span>
+        </label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--color-ink);">
+          <input type="radio" name="rs-fit-mode" value="contain" checked={defaultFit === 'contain'} />
+          <span>White Pad (Signatures / Full Image)</span>
+        </label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--color-ink);">
+          <input type="radio" name="rs-fit-mode" value="stretch" checked={defaultFit === 'stretch'} />
+          <span>Exact Stretch</span>
+        </label>
+      </div>
+    </div>
+
+    <button
+      id="rs-convert-btn"
+      class="btn-primary"
+      disabled
+      style="width: 100%; height: 56px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;"
+      type="button"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
       </svg>
       Instant Resize
@@ -68,18 +225,36 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
   <div id="rs-status-panel" class="hidden animate-up" style="margin-top: 24px;">
     <div class="panel" style="padding: 24px;">
       <div id="rs-processing" class="hidden" style="flex-direction: column; width: 100%; gap: 16px; padding: 16px 0;">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;" id="rs-status-text">Processing...</div>
-        <div style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;">
-          <div id="rs-progress-bar" style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"></div>
+        <div
+          style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); text-align: center;"
+          id="rs-status-text"
+        >
+          Processing...
+        </div>
+        <div
+          style="width: 100%; max-width: 500px; margin: 0 auto; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden;"
+        >
+          <div
+            id="rs-progress-bar"
+            style="width: 0%; height: 100%; background: currentColor; transition: width 0.3s ease;"
+          >
+          </div>
         </div>
       </div>
 
-      <div id="rs-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
-        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0; color: var(--color-ink);">Resize Complete!</h2>
-        <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink-2);">
-          Final Size: <strong id="rs-final-kb" style="color: var(--color-lime);">--</strong>
+      <div id="rs-result-view" class="hidden flex-col gap-6 items-center w-full text-center">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0;">Resize Complete!</h2>
+        <div
+          id="rs-result-meta"
+          style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-lime);"
+        >
         </div>
-        <a id="rs-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
+        <a
+          id="rs-download-link"
+          href="#"
+          class="btn-download"
+          style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;"
+        >
           Download Resized
         </a>
         <button id="rs-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
@@ -91,10 +266,11 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
 </div>
 
 <script>
-  const escapeHTML = (str: string) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
-
-  import { resizeImageExact, resizeAndCompressExact } from '../utils/imageCompressor';
+  import { resizeImageExact, resizeAndCompressExact, type FitMode } from '../utils/imageCompressor';
   import JSZip from 'jszip';
+
+  const escapeHTML = (str: string) =>
+    String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
 
   const root = document.getElementById('resizer-root') as HTMLDivElement;
   if (root) {
@@ -110,29 +286,37 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
     const widthInput = document.getElementById('rs-width') as HTMLInputElement;
     const heightInput = document.getElementById('rs-height') as HTMLInputElement;
     const kbInput = document.getElementById('rs-kb') as HTMLInputElement;
+    const formatSelect = document.getElementById('rs-format') as HTMLSelectElement;
+
     const statusPanel = document.getElementById('rs-status-panel') as HTMLDivElement;
     const processing = document.getElementById('rs-processing') as HTMLDivElement;
     const progressBar = document.getElementById('rs-progress-bar') as HTMLDivElement;
     const statusText = document.getElementById('rs-status-text') as HTMLDivElement;
     const resultView = document.getElementById('rs-result-view') as HTMLDivElement;
+    const resultMeta = document.getElementById('rs-result-meta') as HTMLDivElement;
     const downloadLink = document.getElementById('rs-download-link') as HTMLAnchorElement;
     const resetBtn = document.getElementById('rs-reset-btn') as HTMLButtonElement;
-    const formatSelect = document.getElementById('rs-format') as HTMLSelectElement;
-    const finalKbText = document.getElementById('rs-final-kb') as HTMLElement;
 
     let selectedFiles: File[] = [];
 
+    function getSelectedFitMode(): FitMode {
+      const checked = document.querySelector('input[name="rs-fit-mode"]:checked') as HTMLInputElement;
+      return (checked?.value || 'cover') as FitMode;
+    }
+
     dropZone.addEventListener('click', (e) => {
       if (!(e.target as Element).closest('button')) {
-        fileInput.value = ''; fileInput.click();
+        fileInput.value = '';
+        fileInput.click();
       }
     });
-    
+
     changeBtn.addEventListener('click', (e) => {
-      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.forEach((u) => URL.revokeObjectURL(u));
       blobUrlsToRevoke.length = 0;
       e.stopPropagation();
-      fileInput.value = ''; fileInput.click();
+      fileInput.value = '';
+      fileInput.click();
     });
 
     dropZone.addEventListener('dragover', (e) => {
@@ -158,7 +342,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
 
     function handleFiles(filesList: FileList | File[]) {
       const arr = Array.from(filesList);
-      selectedFiles = arr.filter(f => f.type.startsWith('image/')).slice(0, 50);
+      selectedFiles = arr.filter((f) => f.type.startsWith('image/')).slice(0, 50);
       if (selectedFiles.length === 0) return;
 
       placeholder.classList.add('hidden');
@@ -169,7 +353,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
         uploadPreview.style.display = 'block';
         bulkText.style.display = 'none';
         const reader = new FileReader();
-        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.onload = (e) => (uploadPreview.src = e.target?.result as string);
         reader.readAsDataURL(selectedFiles[0]);
       } else {
         uploadPreview.style.display = 'none';
@@ -179,30 +363,45 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
       statusPanel.classList.add('hidden');
     }
 
-    async function processFile(file: File, w: number, h: number, format: any, targetKB: number) {
-      if (targetKB > 0 && format !== 'application/pdf') {
-        const outFormat: 'image/jpeg' | 'image/png' | 'image/webp' = format === 'auto'
-          ? (file.type === 'image/png' ? 'image/png' : file.type === 'image/webp' ? 'image/webp' : 'image/jpeg')
-          : format;
-        return await resizeAndCompressExact(file, w, h, targetKB, outFormat, 'cover', 300);
-      } else {
-        return await resizeImageExact(file, w, h, format, 0.92, 'cover');
+    async function processSingleFile(
+      file: File,
+      width: number,
+      height: number,
+      targetKB: number,
+      targetFormat: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto',
+      fitMode: FitMode
+    ) {
+      if (!isNaN(targetKB) && targetKB > 0 && targetFormat !== 'application/pdf') {
+        const mime =
+          targetFormat === 'auto'
+            ? file.type === 'image/webp'
+              ? 'image/webp'
+              : 'image/jpeg'
+            : (targetFormat as 'image/jpeg' | 'image/png' | 'image/webp');
+        return await resizeAndCompressExact(file, width, height, targetKB, mime, fitMode, 300);
       }
+      return await resizeImageExact(file, width, height, targetFormat, 0.92, fitMode);
     }
 
     convertBtn.addEventListener('click', async () => {
       if (selectedFiles.length === 0) return;
-      
+
       const width = parseInt(widthInput.value);
       const height = parseInt(heightInput.value);
-      const targetKB = kbInput && kbInput.value ? parseInt(kbInput.value) : 0;
-      const targetFormat = formatSelect.value as 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto';
+      const targetKB = parseFloat(kbInput.value);
+      const targetFormat = formatSelect.value as
+        | 'image/jpeg'
+        | 'image/png'
+        | 'image/webp'
+        | 'application/pdf'
+        | 'auto';
+      const fitMode = getSelectedFitMode();
 
       if (isNaN(width) || isNaN(height) || width <= 0 || height <= 0) {
-        alert("Please enter valid width and height in pixels.");
+        alert('Please enter valid width and height in pixels.');
         return;
       }
-      
+
       statusPanel.classList.remove('hidden');
       processing.classList.remove('hidden');
       processing.style.display = 'flex';
@@ -212,46 +411,95 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
 
       try {
         if (selectedFiles.length === 1) {
-          const actualFormat = targetFormat === 'auto' ? selectedFiles[0].type : targetFormat;
-          const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
-          statusText.textContent = targetKB > 0 ? `Resizing & locking under ${targetKB}KB...` : 'Resizing image...';
+          const hasKB = !isNaN(targetKB) && targetKB > 0 && targetFormat !== 'application/pdf';
+          const actualFormat =
+            targetFormat === 'auto'
+              ? hasKB
+                ? 'image/jpeg'
+                : selectedFiles[0].type
+              : targetFormat;
+          const ext =
+            actualFormat === 'image/png'
+              ? 'png'
+              : actualFormat === 'image/webp'
+              ? 'webp'
+              : actualFormat === 'application/pdf'
+              ? 'pdf'
+              : 'jpg';
+
+          statusText.textContent = 'Resizing & calibrating 300 DPI output...';
           progressBar.style.width = '50%';
-          const result = await processFile(selectedFiles[0], width, height, targetFormat, targetKB);
+
+          const result = await processSingleFile(
+            selectedFiles[0],
+            width,
+            height,
+            targetKB,
+            targetFormat,
+            fitMode
+          );
           progressBar.style.width = '100%';
-          
+
           const url = URL.createObjectURL(result.blob);
           blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const cleanName = (selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name).replace(/\s+/g, '_');
+          const cleanName = (
+            selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name
+          ).replace(/\s+/g, '_');
           downloadLink.download = `${cleanName}_${width}x${height}.${ext}`;
           downloadLink.textContent = `Download ${ext.toUpperCase()}`;
-          if (finalKbText) {
-            finalKbText.textContent = `${(result.blob.size / 1024).toFixed(1)} KB (${width}×${height} px · 300 DPI)`;
+
+          if (resultMeta) {
+            resultMeta.textContent = `${width} × ${height} px · ${(result.blob.size / 1024).toFixed(1)} KB · 300 DPI`;
           }
         } else {
           const zip = new JSZip();
           let totalBytes = 0;
           for (let i = 0; i < selectedFiles.length; i++) {
-            const actualFormat = targetFormat === 'auto' ? selectedFiles[i].type : targetFormat;
-            const ext = actualFormat === 'image/png' ? 'png' : actualFormat === 'image/webp' ? 'webp' : actualFormat === 'application/pdf' ? 'pdf' : 'jpg';
-            statusText.textContent = `Resizing ${i+1} of ${selectedFiles.length}...`;
-            const result = await processFile(selectedFiles[i], width, height, targetFormat, targetKB);
-            const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
-            zip.file(`${cleanName}_${width}x${height}.${ext}`, result.blob);
+            const hasKB = !isNaN(targetKB) && targetKB > 0 && targetFormat !== 'application/pdf';
+            const actualFormat =
+              targetFormat === 'auto'
+                ? hasKB
+                  ? 'image/jpeg'
+                  : selectedFiles[i].type
+                : targetFormat;
+            const ext =
+              actualFormat === 'image/png'
+                ? 'png'
+                : actualFormat === 'image/webp'
+                ? 'webp'
+                : actualFormat === 'application/pdf'
+                ? 'pdf'
+                : 'jpg';
+
+            statusText.textContent = `Resizing ${i + 1} of ${selectedFiles.length}...`;
+            const result = await processSingleFile(
+              selectedFiles[i],
+              width,
+              height,
+              targetKB,
+              targetFormat,
+              fitMode
+            );
             totalBytes += result.blob.size;
+            const cleanName = (
+              selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name
+            ).replace(/\s+/g, '_');
+            zip.file(`${cleanName}_${width}x${height}.${ext}`, result.blob);
             progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
           }
           statusText.textContent = 'Zipping files...';
           const zipBlob = await zip.generateAsync({ type: 'blob' });
           progressBar.style.width = '100%';
-          
+
           const url = URL.createObjectURL(zipBlob);
           blobUrlsToRevoke.push(url);
           downloadLink.href = url;
           downloadLink.download = `resized_images_${width}x${height}.zip`;
           downloadLink.textContent = `Download ZIP`;
-          if (finalKbText) {
-            finalKbText.textContent = `${(totalBytes / 1024).toFixed(1)} KB total (${selectedFiles.length} files · ${width}×${height} px)`;
+
+          if (resultMeta) {
+            resultMeta.textContent = `${selectedFiles.length} images · ${(totalBytes / 1024).toFixed(1)} KB total`;
           }
         }
 
@@ -268,9 +516,10 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080, default
     });
 
     resetBtn.addEventListener('click', () => {
-      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.forEach((u) => URL.revokeObjectURL(u));
       blobUrlsToRevoke.length = 0;
       selectedFiles = [];
+      uploadPreview.src = 'data:,';
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');
       statusPanel.classList.add('hidden');
