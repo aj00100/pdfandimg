@@ -68,7 +68,7 @@ const { defaultTargetKB = 100 } = Astro.props;
   </div>
 </div>
 
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
   import { jsPDF } from "jspdf";
@@ -293,7 +293,7 @@ const { defaultTargetKB = 100 } = Astro.props;
             bestPdfBlob = doc.output('blob');
         }
 
-        statusText.textContent = 'Padding metadata...';
+        statusText.textContent = 'Finalizing PDF...';
         progressBar.style.width = '95%';
 
         let finalBlob = bestPdfBlob;

@@ -96,6 +96,8 @@ const softwareSchema = {
   "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
+  "description": content.desc,
+  "featureList": ["Client-Side Processing", "Zero Server Uploads", "Instant Download", "Privacy Preserving"],
   "offers": {
     "@type": "Offer",
     "price": "0",

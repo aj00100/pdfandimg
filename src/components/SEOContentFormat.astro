@@ -48,6 +48,8 @@ const softwareSchema = {
   "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
+  "description": `Free in-browser ${fromFormat.toUpperCase()} to ${toFormat.toUpperCase()} converter with zero server uploads.`,
+  "featureList": ["Client-Side Processing", "Zero Server Uploads", "Instant Download", "Privacy Preserving"],
   "offers": {
     "@type": "Offer",
     "price": "0",

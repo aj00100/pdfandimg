@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<script is:inline src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
+<script is:inline defer src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
 
 <script>
   declare global {
@@ -179,9 +179,12 @@
           
           let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
           
-          results.push({
-            blob: blobArray[0] as Blob,
-            name: file.name.replace(/\.heic$/i, '.png').replace(/\.heif$/i, '.png')
+          blobArray.forEach((blob, idx) => {
+            let n = file.name.replace(/\.heic$/i, '.png').replace(/\.heif$/i, '.png');
+            if (blobArray.length > 1) {
+              n = n.replace(/\.png$/i, `_${idx + 1}.png`);
+            }
+            results.push({ blob: blob as Blob, name: n });
           });
         }
 

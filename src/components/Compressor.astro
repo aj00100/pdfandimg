@@ -344,7 +344,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 
   <!-- Result / Status Panel -->
   <div id="status-panel" class="hidden animate-up" style="margin-top: 24px;">
-    <div class="panel" style="padding: 24px md:padding: 32px;">
+    <div class="panel" class="panel p-6 md:p-8">
 
       <!-- Processing state (Terminal Style) -->
       <div id="processing" class="hidden" style="flex-direction: column; width: 100%; gap: 24px; padding: 24px 0;">
@@ -723,7 +723,6 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           progressBar.style.width = `${Math.round((i + 1) / lines.length * 100)}%`;
         }
 
-        termCursor.style.display = 'none';
         termCursor.style.display = 'none';
         progressBar.style.width = '100%';
 

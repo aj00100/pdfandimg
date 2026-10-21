@@ -65,8 +65,8 @@
   </div>
 </div>
 
-<script is:inline src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script is:inline defer src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
+<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
   import { convertFormat } from '../utils/imageCompressor';
@@ -122,7 +122,6 @@
       blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
       blobUrlsToRevoke.length = 0;
       e.stopPropagation();
-      fileInput.value = '';
       fileInput.value = ''; fileInput.click();
     });
 

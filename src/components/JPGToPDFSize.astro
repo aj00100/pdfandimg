@@ -30,7 +30,7 @@ const { defaultTargetKB = 100 } = Astro.props;
       </div>
 
       <div id="jpg-pdf-preview-container" class="hidden" style="position: absolute; inset: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: var(--color-surface-2); border-radius: 14px; z-index: 5;">
-        <img id="jpg-pdf-preview-img" style="max-height: 160px; object-fit: contain; border-radius: 8px; margin-bottom: 12px;" />
+        <img id="jpg-pdf-preview-img" src="data:," alt="Selected image preview" style="max-height: 160px; object-fit: contain; border-radius: 8px; margin-bottom: 12px;" />
         <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); text-align: center;">
           <strong id="jpg-pdf-filename" style="display: block; margin-bottom: 4px;"></strong>
           <span id="jpg-pdf-original-size" style="color: var(--color-ink-2);"></span>
@@ -234,7 +234,7 @@ const { defaultTargetKB = 100 } = Astro.props;
             bestPdfBlob = doc.output('blob');
         }
 
-        statusText.textContent = 'Padding metadata...';
+        statusText.textContent = 'Finalizing PDF...';
         progressBar.style.width = '95%';
 
         let finalBlob = bestPdfBlob;

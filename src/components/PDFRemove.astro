@@ -373,7 +373,7 @@
 
       let thumbHtml = '';
       if (thumbUrl) {
-        thumbHtml = `<img src="${thumbUrl}" class="item-thumb" />`;
+        thumbHtml = `<img src="${thumbUrl}" alt="${escapeHTML(title)}" class="item-thumb" />`;
       } else {
         thumbHtml = `<div class="item-thumb" style="color: var(--color-ink-3);">📄</div>`;
       }

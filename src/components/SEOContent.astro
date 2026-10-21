@@ -65,6 +65,8 @@ const softwareSchema = {
   "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
+  "description": `Precision in-browser image optimizer calibrated to ${kbText} file sizes without server uploads.`,
+  "featureList": ["Client-Side Processing", "Zero Server Uploads", "Instant Download", "Privacy Preserving"],
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,6 +75,7 @@ const softwareSchema = {
 };
 
 // Internal Linking Data (Topic Cluster)
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const relatedTools = [
   { name: '10KB', href: '/compress-image-to-10kb/' },
   { name: '20KB', href: '/compress-image-to-20kb/' },
@@ -80,7 +83,7 @@ const relatedTools = [
   { name: '100KB', href: '/compress-image-to-100kb/' },
   { name: 'Custom Reducer', href: '/reduce-image-size-in-kb/' },
   { name: 'Crop Image Online', href: '/crop-image-online/' },
-].filter(tool => !tool.href.includes(targetKB.toString().toLowerCase()));
+].filter(tool => tool.href !== currentPath);
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

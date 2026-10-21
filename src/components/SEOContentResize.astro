@@ -46,6 +46,8 @@ const softwareSchema = {
   "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
   "operatingSystem": "WebBrowser",
   "applicationCategory": "UtilitiesApplication",
+  "description": isPassport ? "Generate compliant passport and visa photos directly in your browser." : "Resize images to exact pixel dimensions with zero server uploads.",
+  "featureList": ["Client-Side Processing", "Zero Server Uploads", "Instant Download", "Privacy Preserving"],
   "offers": {
     "@type": "Offer",
     "price": "0",

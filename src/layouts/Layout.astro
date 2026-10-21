@@ -20,14 +20,26 @@ const normalizedPath = Astro.url.pathname.replace(/\/+$/, '');
 const canonicalPath = normalizedPath ? `${normalizedPath}/` : '/';
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 
-// BreadcrumbList structured data
+// BreadcrumbList structured data with subfolder hierarchy support
 const pathSegments = normalizedPath.split('/').filter(Boolean);
+const cleanPageName = title.split(/[|—–-]/)[0].trim();
+let accumulatedPath = siteUrl;
+const dynamicCrumbs = pathSegments.map((segment, idx) => {
+  accumulatedPath += `/${segment}`;
+  const isLast = idx === pathSegments.length - 1;
+  const segName = isLast
+    ? cleanPageName
+    : segment === 'id'
+      ? 'Indonesia'
+      : segment.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  return {
+    name: segName,
+    url: `${accumulatedPath}/`,
+  };
+});
 const breadcrumbItems = [
   { name: 'Home', url: `${siteUrl}/` },
-  ...(pathSegments.length > 0 ? [{
-    name: title.split('—')[0].trim(),
-    url: canonicalUrl,
-  }] : []),
+  ...dynamicCrumbs,
 ];
 
 const breadcrumbSchema = {
