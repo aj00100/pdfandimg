@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'why-ssc-cgl-rejects-signature-uploads-and-how-to-fix-blurry-10kb-20kb-jpg',
     title: 'Why SSC CGL Rejects Signature Uploads (And How to Fix Blurry 10KB–20KB JPGs)',
     description: 'Complete technical breakdown of SSC OTR & CGL signature rejections: fixing blurry ink, dimensions (4.0cm × 2.0cm / 140×60 px), and hitting the strict 10KB–20KB window.',
-    publishedAt: '2026-10-15',
+    publishedAt: '2026-10-21',
     readTime: '7 min read',
     category: 'SSC Recruitment Guides',
     primaryToolHref: '/ssc-cgl-signature-resizer/',
@@ -104,7 +104,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'upsc-civil-services-otr-photo-signature-resize-guide-350x350-px',
     title: 'How to Format UPSC Civil Services & OTR Photos (350×350 to 1000×1000 px, 20–300KB)',
     description: 'Master the exact UPSC One-Time Registration (OTR) rules for IAS, IPS, NDA, and CDS: square 1:1 pixel bounding boxes, name/date placards, and 20KB–300KB JPG compression.',
-    publishedAt: '2026-10-16',
+    publishedAt: '2026-10-22',
     readTime: '8 min read',
     category: 'UPSC Portal Guides',
     primaryToolHref: '/upsc-photo-resizer/',
@@ -182,7 +182,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'how-to-increase-image-size-in-kb-without-losing-quality',
     title: 'How to Increase Image Size in KB When Your Photo Is Below the Portal Minimum',
     description: 'Why WhatsApp photos and small signatures drop below 10KB or 20KB, and how to safely increase image size in KB using high-luma chroma encoding and super-sampling.',
-    publishedAt: '2026-10-17',
+    publishedAt: '2026-10-23',
     readTime: '6 min read',
     category: 'Image Optimization Technicals',
     primaryToolHref: '/increase-image-size-in-kb/',
@@ -256,7 +256,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'ibps-po-clerk-sbi-photo-signature-thumb-declaration-size-guide',
     title: 'IBPS PO & Clerk 2026: Complete Photo, Black-Ink Signature & Thumb Impression Guide',
     description: 'Avoid disqualification in IBPS PO, Clerk, RRB, and SBI exams. Exact pixel & KB specs for all 4 uploads: photo, black-ink signature, left thumb impression, and handwritten declaration.',
-    publishedAt: '2026-10-18',
+    publishedAt: '2026-10-24',
     readTime: '8 min read',
     category: 'Banking Exam Guides',
     primaryToolHref: '/ibps-photo-resizer/',
@@ -335,7 +335,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'neet-ug-2026-passport-photo-vs-4x6-postcard-photo-specifications',
     title: 'NEET UG 2026: Passport Photo vs. 4×6 Inch Postcard Photo Specifications',
     description: 'Understand the exact difference between the NEET UG passport-size photo and the 4×6 inch postcard photo required by NTA, including white background rules and 10KB–200KB sizing.',
-    publishedAt: '2026-10-19',
+    publishedAt: '2026-10-25',
     readTime: '7 min read',
     category: 'Medical Entrance Guides',
     primaryToolHref: '/neet-photo-resizer/',
@@ -415,7 +415,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'how-to-compress-pdf-to-100kb-for-government-university-portals',
     title: 'How to Compress PDF to 100KB for State PSC & University Application Forms',
     description: 'Why scanned marksheets, caste certificates, and Aadhaar cards exceed 2MB, and how to compress PDFs under 100KB or 200KB locally in your browser without blurring text.',
-    publishedAt: '2026-10-20',
+    publishedAt: '2026-10-26',
     readTime: '7 min read',
     category: 'PDF Optimization Guides',
     primaryToolHref: '/compress-pdf-to-100kb/',
@@ -486,5 +486,291 @@ export const blogPosts: BlogPost[] = [
         <li><strong>Convert Directly from JPG if Starting with a Photo:</strong> If your marksheet is still a <code>.jpg</code> file in your phone gallery, skip creating a huge PDF first—use <a href="/convert-jpg-to-pdf-100kb/">Convert JPG to PDF 100KB</a> to go straight from photo to a 100KB-locked PDF in one step.</li>
       </ul>
     `
+  },
+
+  // POST ON DAY 7: OCTOBER 27, 2026
+  // ==========================================
+  {
+    slug: 'nsdl-utiitsl-pan-card-photo-signature-size-213x213-pixels-dpi-guide',
+    title: 'NSDL (Protean) vs. UTIITSL PAN Card Photo & Signature Size Guide (213×213 px)',
+    description: 'Exact specifications for NSDL and UTIITSL online PAN applications: how to format 213×213 pixel photos under 30KB, 400×200 signatures under 60KB, and PDF documents under 300KB.',
+    publishedAt: '2026-10-27',
+    readTime: '7 min read',
+    category: 'KYC & Government IDs',
+    primaryToolHref: '/pan-card-photo-resizer/',
+    primaryToolLabel: 'Open PAN Card Photo & Signature Resizer',
+    faqs: [
+      {
+        q: 'Why does UTIITSL require 213x213 pixels while NSDL asks for 3.5cm x 2.5cm?',
+        a: 'Both portals require a square-ish portrait, but UTIITSL validates exact pixel dimensions (213×213 px at 300 DPI, under 30KB) while NSDL (Protean) validates 3.5cm × 2.5cm (approx. 295×413 px at 200 DPI, under 50KB). Formatting at 213×213 px under 28KB satisfies UTIITSL immediately.'
+      },
+      {
+        q: 'What is the maximum PDF size for Aadhaar proof on the PAN card portal?',
+        a: 'Supporting Proof of Identity (POI), Proof of Address (POA), and Proof of Date of Birth (DOB) documents must be uploaded in PDF format not exceeding 300KB.'
+      },
+      {
+        q: 'Can I upload a selfie for an online PAN card correction?',
+        a: 'No. Both Protean (NSDL) and UTIITSL reject selfies or photos with dark/patterned backgrounds. Your face must be centered straight-on against a plain white background with both ears visible.'
+      }
+    ],
+    content: `
+      <p>Applying for a new PAN card or submitting a CSF correction form online through <strong>Protean (formerly NSDL e-Gov)</strong> or <strong>UTIITSL</strong> frequently stalls at the document upload screen. Because the two official agencies enforce slightly different pixel and kilobyte rules, uploading an NSDL-formatted photo to the UTIITSL portal results in an instant dimension mismatch error.</p>
+
+      <h2>1. NSDL (Protean) vs. UTIITSL Official Specification Matrix (2026)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Document</th>
+            <th>UTIITSL Portal Spec</th>
+            <th>NSDL (Protean) Portal Spec</th>
+            <th>Universal Safe Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Applicant Photograph</strong></td>
+            <td><strong>213 × 213 pixels</strong> (300 DPI)<br/>Under <strong>30 KB</strong> (JPG)</td>
+            <td>3.5 cm × 2.5 cm (200 DPI)<br/>Under <strong>50 KB</strong> (JPG)</td>
+            <td><strong>213 × 213 px</strong> at <strong>25 KB – 28 KB</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Applicant Signature</strong></td>
+            <td><strong>400 × 200 pixels</strong> (600 DPI)<br/>Under <strong>60 KB</strong> (JPG)</td>
+            <td>2.0 cm × 4.5 cm (200 DPI)<br/>Under <strong>50 KB</strong> (JPG)</td>
+            <td><strong>400 × 200 px</strong> at <strong>35 KB – 45 KB</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Supporting ID / Address PDF</strong></td>
+            <td>PDF up to <strong>2 MB</strong></td>
+            <td>PDF up to <strong>300 KB</strong></td>
+            <td>Compressed PDF under <strong>200 KB</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Why UTIITSL Rejects Standard Passport Photos</h2>
+      <p>A normal Indian passport photo has a vertical rectangular ratio of <code>3.5 cm × 4.5 cm</code>. However, the UTIITSL portal strictly checks for a <strong>1:1 square canvas of exactly 213 × 213 pixels</strong> weighing less than <strong>30KB</strong>. If you upload a rectangular photo, the server script blocks the file before submission.</p>
+      <p>Our <a href="/pan-card-photo-resizer/">PAN Card Photo & Signature Resizer</a> comes pre-loaded with the exact <code>213 × 213 px (28KB)</code> photograph preset and <code>400 × 200 px (45KB)</code> signature preset so your file passes validation on the very first attempt.</p>
+
+      <h2>3. Formatting Supporting Aadhaar / Voter ID PDFs Under 300KB</h2>
+      <p>If you are submitting physical document scans via the "Forward Application Documents Digitally" option on Protean (NSDL), every PDF attachment must weigh <strong>less than 300KB</strong>. Use our <a href="/compress-pdf-to-200kb/">Compress PDF to 200KB</a> utility to shrink your Aadhaar or passport scan while keeping the 12-digit UID and address text crystal clear.</p>
+    `
+  },
+
+  // ==========================================
+  // POST ON DAY 8: OCTOBER 28, 2026
+  // ==========================================
+  {
+    slug: 'gate-2026-goaps-photo-signature-upload-rectification-defect-fix',
+    title: 'How to Fix GATE 2026 (GOAPS) Photo & Signature Upload Defects',
+    description: 'Received a "Photograph/Signature Defective" email from GOAPS? Learn the exact GATE 2026 aspect ratio (3.5×4.5 cm), 480×640 pixel resolution, and 5KB–200KB rules.',
+    publishedAt: '2026-10-28',
+    readTime: '7 min read',
+    category: 'Engineering Entrance Guides',
+    primaryToolHref: '/gate-photo-resizer/',
+    primaryToolLabel: 'Open GATE 2026 Photo & Signature Resizer',
+    faqs: [
+      {
+        q: 'Why did GOAPS mark my GATE 2026 signature as defective?',
+        a: 'The #1 reason for GATE signature rejection is uploading a vertical portrait image or signing outside the central 80% area of the 2:7 / 1:3 horizontal rectangle. Signatures must be in black or dark blue ink on white paper without any ruled lines.'
+      },
+      {
+        q: 'What are the minimum and maximum pixel dimensions for a GATE 2026 photograph?',
+        a: 'GOAPS accepts photographs from a minimum of 200 × 260 pixels up to a maximum of 530 × 690 pixels (3.5cm × 4.5cm aspect ratio), with a file size between 5KB and 200KB. Setting your photo to 480 × 640 pixels at ~150KB provides maximum clarity.'
+      },
+      {
+        q: 'Can I wear glasses in my GATE 2026 application photo?',
+        a: 'Prescription glasses are permitted only if the lenses are completely transparent and show zero glare or reflection. Tinted lenses, photochromic glasses that look dark, or sunglasses result in immediate rejection.'
+      }
+    ],
+    content: `
+      <p>Every year after the initial application deadline closes, the <strong>GATE Online Application Processing System (GOAPS)</strong> sends out thousands of automated scrutiny notices warning candidates that their photograph or signature is <strong>"Defective / Needs Rectification"</strong>. Failure to re-upload a compliant JPEG before the defect rectification deadline leads to a blocked admit card.</p>
+
+      <h2>1. Official GATE 2026 (GOAPS) Image Specifications</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>GATE Photograph Spec</th>
+            <th>GATE Signature Spec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Aspect Ratio (W × H)</strong></td>
+            <td>3.5 cm × 4.5 cm (0.75 to 0.80 ratio)</td>
+            <td>1 : 2.75 to 1 : 3.75 horizontal box</td>
+          </tr>
+          <tr>
+            <td><strong>Allowed Pixel Range</strong></td>
+            <td>Min: 200 × 260 px<br/>Max: 530 × 690 px</td>
+            <td>Min: 250 × 80 px<br/>Max: 580 × 180 px</td>
+          </tr>
+          <tr>
+            <td><strong>Optimal Target Preset</strong></td>
+            <td><strong>480 × 640 pixels</strong></td>
+            <td><strong>480 × 160 pixels</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Allowed File Size</strong></td>
+            <td>5 KB to 200 KB (JPG)</td>
+            <td>5 KB to 150 KB (JPG)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. How to Fix the 3 Most Common GOAPS Defect Notices</h2>
+      <h3>Defect 1: "Face Coverage Too Small (< 60%)"</h3>
+      <p>GOAPS scrutiny algorithms measure the bounding box of your face relative to the 480×640 pixel frame. Your head (from chin to crown) must occupy <strong>60% to 70% of the photograph's height</strong>. First crop out excess chest and background space using our <a href="/crop-image-online/">Online Image Cropper</a>, then process the cropped portrait in the <a href="/gate-photo-resizer/">GATE Photo Resizer</a>.</p>
+
+      <h3>Defect 2: "Background Not White or Contains Shadows"</h3>
+      <p>Photos clicked against colored bedroom walls, curtains, or outdoor foliage are rejected by GOAPS. Ensure your backdrop is plain white and well-lit from the front so there are no dark shadows behind your ears.</p>
+
+      <h3>Defect 3: "Signature Too Small or Cut Off"</h3>
+      <p>Your running signature must cover at least <strong>70% to 80% of the horizontal 480×160 pixel box</strong>. Do not upload a full A4 page scan with a tiny signature in the corner. Crop tightly around your handwriting and select the "Signature" radio button inside our <a href="/gate-photo-resizer/">GATE 2026 Resizer</a> to lock dimensions to <code>480 × 160 px</code> under 25KB.</p>
+    `
+  },
+
+  // ==========================================
+  // POST ON DAY 9: OCTOBER 29, 2026
+  // ==========================================
+  {
+    slug: 'convert-iphone-heic-photo-to-jpg-for-government-exam-portals',
+    title: 'How to Convert iPhone HEIC Photos to 20KB–50KB JPG for Exam & Visa Portals',
+    description: 'Why Indian government portals (SSC, UPSC, NEET, IBPS) reject iPhone .HEIC photos, and how to convert HEIC to exact-KB JPEG locally in your browser.',
+    publishedAt: '2026-10-29',
+    readTime: '6 min read',
+    category: 'Format Conversion Guides',
+    primaryToolHref: '/convert-heic-to-jpg/',
+    primaryToolLabel: 'Open HEIC to JPG Converter',
+    faqs: [
+      {
+        q: 'Why does my iPhone take photos in .HEIC instead of .JPG?',
+        a: 'Since iOS 11, Apple defaults to the High Efficiency Image Container (HEIC / HEVC H.265) format because it stores 16-bit color depth and Live Photo bursts at roughly half the file size of a standard JPEG.'
+      },
+      {
+        q: 'What happens if I just rename image.heic to image.jpg?',
+        a: 'Renaming the file extension does not change the internal binary container. When you upload a renamed HEIC file to SSC, UPSC, or IBPS, the server checks the magic bytes (file signature), sees "ftypheic" instead of JPEG "FF D8 FF", and rejects the upload as a corrupted file.'
+      },
+      {
+        q: 'Does converting HEIC to JPG on PdfAndImg upload my iPhone photos to a server?',
+        a: 'Never. PdfAndImg runs a WebAssembly (libheif) decoder directly inside your device’s browser RAM. Your personal photos stay 100% on your iPhone or Mac.'
+      }
+    ],
+    content: `
+      <p>If you use an iPhone or iPad to click your passport photo, signature, or thumb impression for an online application form, you have likely encountered the frustrating error: <strong>"Unsupported File Format—Only .JPG or .JPEG Allowed."</strong> Even though the photo looks normal in your Apple Photos app, iOS saves camera captures in Apple's proprietary <code>.HEIC</code> (High Efficiency Image Container) format.</p>
+
+      <h2>1. Why Government & Visa Portals Reject .HEIC Files</h2>
+      <p>Almost all government recruitment boards (SSC, UPSC, IBPS, NTA, RRB) and visa portals (US DS-160, Schengen, Canada IRCC) run legacy server-side validation engines built around the <strong>Baseline JPEG (ISO/IEC 10918)</strong> standard. When you select a photo from your iPhone or AirDrop it to your Windows PC or Mac:</p>
+      <ul>
+        <li><strong>Magic Byte Verification Fails:</strong> Portal servers inspect the first 4 bytes of your uploaded file. A true JPEG starts with hexadecimal <code>FF D8 FF E0</code>. An iPhone HEIC file starts with an ISO Base Media File header (<code>ftypheic</code>).</li>
+        <li><strong>Renaming <code>.heic</code> to <code>.jpg</code> Breaks the File:</strong> Simply changing the filename extension in Finder or File Explorer does not transcode the H.265 video-frame compression into JPEG Discrete Cosine Transform blocks.</li>
+      </ul>
+
+      <h2>2. Two-Step Workflow: From iPhone HEIC to Exact-KB Exam Photo</h2>
+      <ol>
+        <li><strong>Step 1 — Decode HEIC to Standard JPEG:</strong> Upload your <code>.heic</code> or <code>.heif</code> files to our <a href="/convert-heic-to-jpg/">HEIC to JPG Converter</a>. Our in-browser WebAssembly engine decodes the Apple container into a 100% standards-compliant <code>.jpg</code> file in under two seconds.</li>
+        <li><strong>Step 2 — Lock Exact Portal KB & Dimensions:</strong> Once downloaded as a JPG, open the <a href="/exam-photo-resizer/">Exam Photo Resizer</a> or <a href="/compress-image-to-50kb/">Compress Image to 50KB</a> tool to lock the exact pixel dimensions and kilobyte ceiling required by your application portal.</li>
+      </ol>
+
+      <h2>3. Need a PDF Instead of a JPG?</h2>
+      <p>If you photographed a marksheet, Aadhaar card, or multi-page document on your iPhone and need to submit it as a PDF, skip the intermediate steps and use our <a href="/convert-heic-to-pdf/">Convert HEIC to PDF</a> tool to merge multiple iPhone <code>.heic</code> captures directly into a clean A4 PDF document.</p>
+    `
+  },
+
+  // ==========================================
+  // POST ON DAY 10: OCTOBER 30, 2026
+  // ==========================================
+  {
+    slug: 'us-visa-ds-160-schengen-visa-2x2-inch-35x45mm-biometric-photo-guide',
+    title: 'US Visa DS-160 (2×2 Inch / 600×600 px) vs. Schengen & UK Visa (35×45 mm) Photo Guide',
+    description: 'Compare international biometric visa photo rules for 2026: US DS-160 & Green Card (600×600 px under 240KB), Schengen (35×45 mm), Canada IRCC, and Australia ImmiAccount.',
+    publishedAt: '2026-10-30',
+    readTime: '8 min read',
+    category: 'International Visa Guides',
+    primaryToolHref: '/passport-photo-2x2/',
+    primaryToolLabel: 'Open 2×2 Inch (600×600 px) Visa Photo Tool',
+    faqs: [
+      {
+        q: 'Why did the US CEAC DS-160 photo validator reject my 2x2 photo?',
+        a: 'The US Department of State CEAC validator enforces three strict digital rules: square 1:1 dimensions between 600×600 pixels and 1200×1200 pixels, file size strictly under 240KB in sRGB JPEG format, and zero eyeglasses (glasses have been banned in US visa photos since November 2016).'
+      },
+      {
+        q: 'What is the difference between a US 2x2 photo and a Schengen/Indian 35x45mm photo?',
+        a: 'A US visa photo is a 1:1 square (2×2 inches / 51×51 mm / 600×600 pixels), whereas Schengen, UK, Australian, and standard Indian passport photos use a vertical rectangular ratio of 35×45 mm (approx. 413×531 pixels at 300 DPI).'
+      },
+      {
+        q: 'What is the file size limit for a Canada IRCC digital visa photo?',
+        a: 'Canada IRCC requires a digital photo measuring at least 420 × 540 pixels (35×45 mm frame) with a file size between 60KB and 4MB (typically 100KB–500KB for fast portal uploads).'
+      }
+    ],
+    content: `
+      <p>International embassy portals use automated biometric facial-recognition software (compliant with <strong>ICAO Doc 9303</strong> standards) to screen digital visa and passport photographs before you can book a biometrics appointment. Submitting a rectangular 35×45mm European passport photo to the US DS-160 portal—or uploading a file over 240KB—triggers an immediate rejection.</p>
+
+      <h2>1. Global Embassy Digital Photo Specification Matrix (2026)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country / Visa System</th>
+            <th>Physical Size</th>
+            <th>Required Pixel Dimensions</th>
+            <th>Digital File Size Limit</th>
+            <th>Dedicated Tool</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>USA (DS-160 / Green Card / DV Lottery)</strong></td>
+            <td>2 × 2 inches<br/>(51 × 51 mm)</td>
+            <td><strong>600 × 600 px</strong><br/>(up to 1200 × 1200 px)</td>
+            <td>Under <strong>240 KB</strong> (JPG)</td>
+            <td><a href="/passport-photo-2x2/">2×2 Passport Photo Tool</a></td>
+          </tr>
+          <tr>
+            <td><strong>Schengen Visa (Europe)</strong></td>
+            <td>35 × 45 mm</td>
+            <td><strong>413 × 531 px</strong> (300 DPI)</td>
+            <td>Under <strong>200 KB</strong> (JPG)</td>
+            <td><a href="/schengen-visa-photo-size/">Schengen Photo Resizer</a></td>
+          </tr>
+          <tr>
+            <td><strong>Canada (IRCC e-Application)</strong></td>
+            <td>35 × 45 mm</td>
+            <td>Min: <strong>420 × 540 px</strong></td>
+            <td>60 KB – 500 KB (JPG)</td>
+            <td><a href="/canada-visa-photo-size/">Canada Visa Photo Tool</a></td>
+          </tr>
+          <tr>
+            <td><strong>Australia (ImmiAccount)</strong></td>
+            <td>35 × 45 mm</td>
+            <td><strong>413 × 531 px</strong> (up to 900×1200)</td>
+            <td>Under <strong>500 KB</strong> (JPG)</td>
+            <td><a href="/australian-passport-photo-size/">Australian Photo Resizer</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Strict Biometric Rules That Cause Automated Rejections</h2>
+      <ul>
+        <li><strong>Strict No-Eyeglasses Rule (USA & Schengen):</strong> Do not wear eyeglasses of any kind—even clear prescription frames—when taking a US DS-160, Green Card, or Schengen visa photograph.</li>
+        <li><strong>Crown-to-Chin Ratio:</strong> In a 600×600 pixel US visa photo, your head height must measure between <strong>50% and 69%</strong> of the total image height (300 to 414 pixels), and eye level must sit between 56% and 69% from the bottom edge.</li>
+        <li><strong>Pure White / Off-White Unretouched Background:</strong> Do not use AI background-removal filters that leave jagged halo edges around your hair or ears. Embassies treat digitally altered facial outlines as biometric tampering.</li>
+      </ul>
+
+      <h2>3. Formatting Your Visa Photo in Seconds</h2>
+      <ol>
+        <li>For US B1/B2, F1 student visas, H-1B, or Diversity Lottery (Green Card), open either our <a href="/passport-photo-2x2/">2×2 Inch Passport Photo Tool</a> or <a href="/green-card-photo-requirements/">Green Card Photo Resizer</a> to lock dimensions to <code>600 × 600 px</code> and compress safely under 200KB.</li>
+        <li>For European Schengen, Canadian, or Australian applications, select the corresponding regional tool above and pair it with <a href="/compress-image-to-200kb/">Compress Image to 200KB</a> for instant portal acceptance.</li>
+      </ol>
+    `
   }
 ];
+
+export function getPublishedBlogPosts(): BlogPost[] {
+  // If auto-drip is requested via environment variable:
+  if (typeof process !== 'undefined' && process.env.BLOG_AUTO_DRIP === 'true') {
+    const today = new Date().toISOString().split('T')[0];
+    return blogPosts.filter((post) => (post.publishedAt || '') <= today);
+  }
+  return blogPosts;
+}
