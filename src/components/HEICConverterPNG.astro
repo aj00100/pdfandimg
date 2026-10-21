@@ -123,11 +123,18 @@
     });
 
     function handleFiles(files: File[]) {
-      const validFiles = files.filter(f => f.name.toLowerCase().endsWith('.heic') || f.name.toLowerCase().endsWith('.heif'));
+      let validFiles = files.filter(f => f.name.toLowerCase().endsWith('.heic') || f.name.toLowerCase().endsWith('.heif'));
       
       if (validFiles.length === 0) {
         alert("Please select valid HEIC/HEIF image files.");
         return;
+      }
+
+      const isMobile = window.innerWidth < 768;
+      const maxBatch = isMobile ? 10 : 15;
+      if (validFiles.length > maxBatch) {
+        alert(`To maintain peak browser performance, batch size is limited to ${maxBatch} files at a time.`);
+        validFiles = validFiles.slice(0, maxBatch);
       }
 
       selectedFiles = validFiles;
@@ -172,6 +179,8 @@
           statusText.textContent = `Converting ${file.name} (${i + 1} of ${selectedFiles.length})...`;
           progressBar.style.width = `${Math.round((i / selectedFiles.length) * 100)}%`;
           
+          await new Promise(r => setTimeout(r, 50)); // Yield to main thread for GC
+
           const conversionResult = await window.heic2any({
             blob: file,
             toType: "image/png"

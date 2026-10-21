@@ -202,6 +202,9 @@ const { defaultTargetKB = 100 } = Astro.props;
       convertBtn.disabled = true;
       statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+      let renderedPages: { canvas: HTMLCanvasElement, viewport: any }[] = [];
+      let pdfDocInstance: any = null;
+
       try {
         statusText.textContent = `Analyzing PDF...`;
         progressBar.style.width = `10%`;
@@ -209,9 +212,8 @@ const { defaultTargetKB = 100 } = Astro.props;
         const pdfjs = await loadPdfJs();
         const loadingTask = pdfjs.getDocument({ data: fileArrayBuffer });
         const pdf = await loadingTask.promise;
+        pdfDocInstance = pdf;
         const totalPages = pdf.numPages;
-        
-        const renderedPages: { canvas: HTMLCanvasElement, viewport: any }[] = [];
         
         const isMobile = window.innerWidth < 768;
         const scaleFactor = isMobile ? 1.0 : 1.5;
@@ -233,6 +235,7 @@ const { defaultTargetKB = 100 } = Astro.props;
           if (!context) throw new Error("Could not create canvas context");
           
           await page.render({ canvasContext: context, viewport }).promise;
+          page.cleanup();
           renderedPages.push({ canvas, viewport });
         }
 
@@ -323,6 +326,15 @@ const { defaultTargetKB = 100 } = Astro.props;
         alert(err?.message || 'Compression failed.');
         processing.classList.add('hidden');
       } finally {
+        renderedPages.forEach(p => {
+          p.canvas.width = 0;
+          p.canvas.height = 0;
+        });
+        renderedPages.length = 0;
+        if (pdfDocInstance) {
+          try { await pdfDocInstance.destroy(); } catch (e) {}
+          pdfDocInstance = null;
+        }
         convertBtn.disabled = false;
       }
     });

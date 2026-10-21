@@ -236,7 +236,12 @@
           
           const pageStr = i.toString().padStart(3, '0');
           zip.file(`${cleanName}_page_${pageStr}.${ext}`, blob);
+
+          canvas.width = 0;
+          canvas.height = 0;
+          page.cleanup();
         }
+        try { await pdf.destroy(); } catch (e) {}
 
         statusText.textContent = 'Creating ZIP file...';
         progressBar.style.width = '100%';

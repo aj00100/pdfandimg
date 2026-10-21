@@ -208,6 +208,8 @@
           statusText.textContent = `Decoding ${file.name} to JPG (${i + 1} of ${selectedFiles.length})...`;
           progressBar.style.width = `${Math.round(((i) / selectedFiles.length) * 100)}%`;
           
+          await new Promise(r => setTimeout(r, 50)); // Yield to main thread for GC
+
           // 1. Convert HEIC to JPEG Blob
           const conversionResult = await window.heic2any({
             blob: file,
@@ -218,9 +220,16 @@
           let blobArray = Array.isArray(conversionResult) ? conversionResult : [conversionResult];
           const jpegBlob = blobArray[0] as Blob;
 
-          // 2. Add to PDF
-          const dataUrl = await blobToDataUrl(jpegBlob);
-          const dims = await getImageDimensions(dataUrl);
+          // 2. Add to PDF via ObjectURL to avoid Base64 memory inflation
+          const objUrl = URL.createObjectURL(jpegBlob);
+          const img = new Image();
+          await new Promise((resolve, reject) => {
+            img.onload = () => resolve(true);
+            img.onerror = reject;
+            img.src = objUrl;
+          });
+
+          const dims = { w: img.width, h: img.height };
           
           if (i > 0) {
             doc.addPage();
@@ -244,7 +253,8 @@
           const x = marginPx + (targetWidth - renderW) / 2;
           const y = marginPx + (targetHeight - renderH) / 2;
           
-          doc.addImage(dataUrl, 'JPEG', x, y, renderW, renderH);
+          doc.addImage(img, 'JPEG', x, y, renderW, renderH);
+          URL.revokeObjectURL(objUrl);
         }
 
         statusText.textContent = 'Generating PDF...';

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import { getHreflangsForPath, SUPPORTED_LOCALES } from '../data/i18nMap';
 
 interface Props {
   title: string;
@@ -53,14 +54,8 @@ const breadcrumbSchema = {
   })),
 };
 
-// Hreflang logic for internationalization (with canonical trailing slashes)
-const hreflangMap: Record<string, { en: string; id: string }> = {
-  '/id/kompres-foto-100kb': { en: '/compress-image-to-100kb/', id: '/id/kompres-foto-100kb/' },
-  '/compress-image-to-100kb': { en: '/compress-image-to-100kb/', id: '/id/kompres-foto-100kb/' },
-  '/id/kompres-foto-200kb': { en: '/compress-image-to-200kb/', id: '/id/kompres-foto-200kb/' },
-  '/compress-image-to-200kb': { en: '/compress-image-to-200kb/', id: '/id/kompres-foto-200kb/' },
-};
-const pageHreflangs = hreflangMap[normalizedPath || '/'];
+// Dynamic Hreflang lookup via centralized matrix (enforcing canonical trailing slashes)
+const pageHreflangs = getHreflangsForPath(normalizedPath || '/');
 ---
 
 <!doctype html>
@@ -69,9 +64,9 @@ const pageHreflangs = hreflangMap[normalizedPath || '/'];
     <meta charset="UTF-8" />
     {pageHreflangs && (
       <>
-        <link rel="alternate" hreflang="en" href={new URL(pageHreflangs.en, siteUrl).toString()} />
-        <link rel="alternate" hreflang="id" href={new URL(pageHreflangs.id, siteUrl).toString()} />
-        <link rel="alternate" hreflang="x-default" href={new URL(pageHreflangs.en, siteUrl).toString()} />
+        {Object.entries(pageHreflangs).map(([hreflangCode, targetPath]) => (
+          <link rel="alternate" hreflang={hreflangCode} href={new URL(targetPath, siteUrl).toString()} />
+        ))}
       </>
     )}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -247,7 +242,7 @@ const pageHreflangs = hreflangMap[normalizedPath || '/'];
 
     <!-- Smart Related Tools (dynamic internal linking) -->
       <SmartRelatedTools />
-    <footer style="position: relative; z-index: 10; padding-bottom: 48px;">
+    <footer style="position: relative; z-index: 10; padding-bottom: 96px;">
       <div
         style="
           max-width: 1100px;
@@ -329,6 +324,27 @@ const pageHreflangs = hreflangMap[normalizedPath || '/'];
             </ul>
           </div>
 
+          <!-- Global & B2B Portals -->
+          <div>
+            <p
+              style="
+                font-family: var(--font-mono);
+                font-size: 0.6875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--color-ink-3);
+                margin-bottom: 16px;
+              "
+            >Global & B2B</p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+              <li><a href="/green-card-photo-requirements/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Green Card Photo</a></li>
+              <li><a href="/passport-photo-2x2/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Passport Photo 2x2</a></li>
+              <li><a href="/schengen-visa-photo-size/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Schengen Visa Photo</a></li>
+              <li><a href="/amazon-image-resizer/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Amazon Product Image</a></li>
+              <li><a href="/unlock-pdf/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Unlock PDF Password</a></li>
+            </ul>
+          </div>
+
           <!-- Company -->
           <div>
             <p
@@ -359,6 +375,8 @@ const pageHreflangs = hreflangMap[normalizedPath || '/'];
             align-items: center;
             justify-content: space-between;
             padding-top: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
           "
         >
           <p
@@ -368,6 +386,33 @@ const pageHreflangs = hreflangMap[normalizedPath || '/'];
               color: var(--color-ink-3);
             "
           >© 2026 PdfAndImg — All rights reserved</p>
+
+          <!-- Region / Locale Switcher -->
+          {pageHreflangs && (
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span style="font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3);">Region:</span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                {SUPPORTED_LOCALES.filter(l => pageHreflangs[l.code]).map(l => (
+                  <a
+                    href={pageHreflangs[l.code]}
+                    class={`locale-pill ${lang === l.code ? 'active' : ''}`}
+                    style={`
+                      font-size: 0.75rem;
+                      padding: 3px 10px;
+                      border-radius: 9999px;
+                      border: 1px solid ${lang === l.code ? 'var(--color-lime)' : 'var(--color-border)'};
+                      color: ${lang === l.code ? 'var(--color-lime)' : 'var(--color-ink-2)'};
+                      background: ${lang === l.code ? 'rgba(200, 241, 53, 0.08)' : 'transparent'};
+                      text-decoration: none;
+                      transition: all 0.2s ease;
+                    `}
+                  >
+                    {l.flag} {l.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </footer>

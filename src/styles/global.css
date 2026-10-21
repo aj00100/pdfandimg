@@ -382,8 +382,8 @@ h1, h2, h3 {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
   padding-top: 48px;
   margin-bottom: 48px;
 }
