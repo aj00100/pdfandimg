@@ -3,7 +3,7 @@
 interface Props {
   allowMultiple?: boolean;
   defaultExam?: string;
-  defaultType?: 'photo' | 'signature';
+  defaultType?: 'photo' | 'signature' | 'thumb' | 'declaration' | 'postcard';
 }
 
 const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = Astro.props;
@@ -14,29 +14,29 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     
     <!-- Presets Section -->
     <div style="margin-bottom: 24px;">
-      <h3 style="font-family: var(--font-head); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 12px;">1. Select Exam Preset</h3>
+      <h3 style="font-family: var(--font-head); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin-bottom: 12px;">1. Select Exam & Document Type</h3>
       
       <div style="margin-bottom: 16px;">
-        <label for="er-exam-select" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin-bottom: 8px;">Select Exam</label>
+        <label for="er-exam-select" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-2); margin-bottom: 8px;">Select Exam / Portal</label>
         <select id="er-exam-select" class="input-select" style="width: 100%; height: 48px; font-size: 1rem; padding: 0 16px; border-radius: 8px; border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-ink); cursor: pointer;">
           <optgroup label="Govt & ID Documents">
-            <option value="pan">PAN Card (NSDL/UTIITL)</option>
-            <option value="passport">Indian Passport</option>
+            <option value="pan">PAN Card (NSDL / UTIITSL — 300 DPI)</option>
+            <option value="passport">Indian Passport Seva</option>
           </optgroup>
           <optgroup label="Central Exams">
-            <option value="upsc">UPSC (IAS/IPS/CDS/NDA)</option>
-            <option value="ssc">SSC (CGL/CHSL/MTS/GD)</option>
+            <option value="upsc">UPSC OTR (IAS / IPS / CDS / NDA)</option>
+            <option value="ssc">SSC (CGL / CHSL / MTS / GD)</option>
             <option value="rrb">RRB NTPC / Group D / ALP</option>
           </optgroup>
           <optgroup label="Banking Exams">
-            <option value="ibps">IBPS (PO/Clerk/RRB)</option>
-            <option value="sbi">SBI (PO/Clerk)</option>
-            <option value="rbi">RBI / LIC Exams</option>
+            <option value="ibps">IBPS (PO / Clerk / RRB / SO)</option>
+            <option value="sbi">SBI (PO / Clerk)</option>
+            <option value="rbi">RBI Grade B / Assistant / LIC</option>
           </optgroup>
           <optgroup label="Entrance Exams">
-            <option value="neet">NEET UG</option>
+            <option value="neet">NEET UG (Passport + 4x6 Postcard)</option>
             <option value="jee">JEE Main / Advanced</option>
-            <option value="gate">GATE 2026</option>
+            <option value="gate">GATE GOAPS</option>
           </optgroup>
           <optgroup label="State PSC & Police">
             <option value="bpsc">BPSC (Bihar)</option>
@@ -47,21 +47,36 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
         </select>
       </div>
 
-      <div style="display: flex; gap: 12px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 14px;">
         <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
           <input type="radio" name="er-type" value="photo" checked />
-          <span style="font-weight: 600; font-size: 0.95rem;">Photograph</span>
+          <span style="font-weight: 600; font-size: 0.92rem;">Photograph</span>
         </label>
         <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
           <input type="radio" name="er-type" value="signature" />
-          <span style="font-weight: 600; font-size: 0.95rem;">Signature</span>
+          <span style="font-weight: 600; font-size: 0.92rem;">Signature</span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="radio" name="er-type" value="thumb" />
+          <span style="font-weight: 600; font-size: 0.92rem;">Thumb Impression</span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="radio" name="er-type" value="declaration" />
+          <span style="font-weight: 600; font-size: 0.92rem;">Handwritten Declaration</span>
+        </label>
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="radio" name="er-type" value="postcard" />
+          <span style="font-weight: 600; font-size: 0.92rem;">4×6" Postcard Photo</span>
         </label>
       </div>
     </div>
 
     <!-- Configuration Section (Auto-filled by presets) -->
     <div style="background: var(--color-surface-2); padding: 16px; border-radius: 12px; margin-bottom: 24px;">
-      <h3 style="font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--color-ink-2); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Current Settings</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+        <h3 style="font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--color-ink-2); margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">Current Specifications</h3>
+        <span id="er-mode-badge" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-lime); background: rgba(200,241,53,0.1); padding: 3px 10px; border-radius: 99px; border: 1px solid rgba(200,241,53,0.25);">300 DPI · Center-Crop</span>
+      </div>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <div style="flex: 1; min-width: 100px;">
           <label for="er-width" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Width (px)</label>
@@ -105,7 +120,7 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
       </svg>
-      Generate Exam Photo
+      Generate Compliant Image
     </button>
   </div>
 
@@ -119,12 +134,12 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
       </div>
 
       <div id="er-result-view" class="hidden flex-col gap-8 items-center w-full text-center">
-        <div style="font-size: 1.5rem; font-weight: 800; margin: 0; color: var(--color-ink);">Ready for Upload!</div>
+        <div style="font-size: 1.5rem; font-weight: 800; margin: 0; color: var(--color-ink);">Ready for Portal Upload!</div>
         <div style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink-2);">
-          Final Size: <strong id="er-final-kb" style="color: var(--color-ink);">--</strong>
+          Final Size: <strong id="er-final-kb" style="color: var(--color-lime);">--</strong>
         </div>
         <a id="er-download-link" href="#" class="btn-download" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem;">
-          Download Photo
+          Download Compliant JPG
         </a>
         <button id="er-reset-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">
           ← Optimize another
@@ -134,50 +149,38 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
   </div>
 </div>
 
-<style>
-  .preset-btn {
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-ink-2);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .preset-btn:hover {
-    background: var(--color-surface-3);
-  }
-  .preset-btn.active {
-    background: var(--color-lime);
-    color: #000;
-    border-color: var(--color-lime);
-  }
-</style>
-
 <script>
   import { resizeAndCompressExact } from '../utils/imageCompressor';
   import JSZip from 'jszip';
-  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
 
+  const escapeHTML = (str: string) =>
+    String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
 
-  const presets = {
-    pan:      { photo: { w: 213, h: 213, kb: 28 },  signature: { w: 400, h: 200, kb: 45 } },
-    passport: { photo: { w: 350, h: 450, kb: 45 },  signature: { w: 350, h: 150, kb: 45 } },
-    upsc:     { photo: { w: 350, h: 350, kb: 100 }, signature: { w: 350, h: 150, kb: 45 } },
-    ssc:      { photo: { w: 100, h: 120, kb: 35 },  signature: { w: 140, h: 60,  kb: 15 } },
-    rrb:      { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 35 } },
-    ibps:     { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 18 } },
-    sbi:      { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 18 } },
-    rbi:      { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 18 } },
-    neet:     { photo: { w: 200, h: 230, kb: 150 }, signature: { w: 140, h: 60,  kb: 25 } },
-    jee:      { photo: { w: 200, h: 230, kb: 150 }, signature: { w: 140, h: 60,  kb: 25 } },
-    gate:     { photo: { w: 480, h: 640, kb: 180 }, signature: { w: 480, h: 160, kb: 25 } },
-    bpsc:     { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 25 } },
-    uppsc:    { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 25 } },
-    mppsc:    { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 25 } },
-    police:   { photo: { w: 200, h: 230, kb: 45 },  signature: { w: 140, h: 60,  kb: 25 } },
+  type DocCategory = 'photo' | 'signature' | 'thumb' | 'declaration' | 'postcard';
+  type SpecEntry = { w: number; h: number; kb: number; dpi?: number };
+
+  const defaultExtras: Record<'thumb' | 'declaration' | 'postcard', SpecEntry> = {
+    thumb:       { w: 240,  h: 240,  kb: 35,  dpi: 300 },
+    declaration: { w: 800,  h: 400,  kb: 85,  dpi: 300 },
+    postcard:    { w: 1200, h: 1800, kb: 160, dpi: 300 },
+  };
+
+  const presets: Record<string, Record<DocCategory, SpecEntry>> = {
+    pan:      { photo: { w: 213, h: 213, kb: 26, dpi: 300 },  signature: { w: 400, h: 200, kb: 45, dpi: 600 }, ...defaultExtras },
+    passport: { photo: { w: 350, h: 450, kb: 45, dpi: 300 },  signature: { w: 350, h: 150, kb: 35, dpi: 300 }, ...defaultExtras },
+    upsc:     { photo: { w: 500, h: 500, kb: 120, dpi: 300 }, signature: { w: 400, h: 400, kb: 60, dpi: 300 }, ...defaultExtras },
+    ssc:      { photo: { w: 200, h: 240, kb: 38, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
+    rrb:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 25, dpi: 300 }, ...defaultExtras },
+    ibps:     { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
+    sbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
+    rbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
+    neet:     { photo: { w: 200, h: 230, kb: 120, dpi: 300 }, signature: { w: 140, h: 60,  kb: 22, dpi: 300 }, ...defaultExtras },
+    jee:      { photo: { w: 200, h: 230, kb: 120, dpi: 300 }, signature: { w: 140, h: 60,  kb: 22, dpi: 300 }, ...defaultExtras },
+    gate:     { photo: { w: 480, h: 640, kb: 160, dpi: 300 }, signature: { w: 480, h: 160, kb: 35, dpi: 300 }, ...defaultExtras },
+    bpsc:     { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 18, dpi: 300 }, ...defaultExtras },
+    uppsc:    { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 18, dpi: 300 }, ...defaultExtras },
+    mppsc:    { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 18, dpi: 300 }, ...defaultExtras },
+    police:   { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 18, dpi: 300 }, ...defaultExtras },
   };
 
   const root = document.getElementById('exam-resizer-root') as HTMLDivElement;
@@ -191,11 +194,12 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     const bulkText = document.getElementById('er-bulk-text') as HTMLDivElement;
     const changeBtn = document.getElementById('er-change-btn') as HTMLButtonElement;
     const convertBtn = document.getElementById('er-convert-btn') as HTMLButtonElement;
-    
+    const modeBadge = document.getElementById('er-mode-badge') as HTMLSpanElement;
+
     const widthInput = document.getElementById('er-width') as HTMLInputElement;
     const heightInput = document.getElementById('er-height') as HTMLInputElement;
     const kbInput = document.getElementById('er-kb') as HTMLInputElement;
-    
+
     const statusPanel = document.getElementById('er-status-panel') as HTMLDivElement;
     const processing = document.getElementById('er-processing') as HTMLDivElement;
     const progressBar = document.getElementById('er-progress-bar') as HTMLDivElement;
@@ -207,26 +211,37 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
 
     let selectedFiles: File[] = [];
     let currentExam = root.dataset.defaultExam || 'upsc';
-    let currentType = root.dataset.defaultType || 'photo';
+    let currentType = (root.dataset.defaultType || 'photo') as DocCategory;
 
-    // Handle Presets
     const examSelect = document.getElementById('er-exam-select') as HTMLSelectElement;
     examSelect.value = currentExam;
 
     const typeRadios = document.querySelectorAll('input[name="er-type"]');
-    typeRadios.forEach(radio => {
+    typeRadios.forEach((radio) => {
       const radioInput = radio as HTMLInputElement;
       if (radioInput.value === currentType) {
         radioInput.checked = true;
       }
     });
 
+    function getActiveType(): DocCategory {
+      const checked = document.querySelector('input[name="er-type"]:checked') as HTMLInputElement;
+      return (checked?.value || 'photo') as DocCategory;
+    }
+
     function applyPreset() {
-      const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
-      const data = presets[currentExam as keyof typeof presets][type as 'photo' | 'signature'];
+      const type = getActiveType();
+      const examData = presets[currentExam] || presets.upsc;
+      const data = examData[type] || examData.photo;
       widthInput.value = data.w.toString();
       heightInput.value = data.h.toString();
       kbInput.value = data.kb.toString();
+
+      const isContain = type === 'signature' || type === 'declaration' || type === 'thumb';
+      const dpi = data.dpi || 300;
+      if (modeBadge) {
+        modeBadge.textContent = `${dpi} DPI · ${isContain ? 'White Pad (No Clip)' : 'Center-Crop (No Stretch)'}`;
+      }
     }
 
     examSelect.addEventListener('change', (e) => {
@@ -234,31 +249,35 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
       applyPreset();
     });
 
-    typeRadios.forEach(radio => {
+    typeRadios.forEach((radio) => {
       radio.addEventListener('change', applyPreset);
     });
 
-    // Initialize default preset
     applyPreset();
 
-    // File Handling
     dropZone.addEventListener('click', (e) => {
       if (!(e.target as Element).closest('button')) {
-        fileInput.value = ''; fileInput.click();
+        fileInput.value = '';
+        fileInput.click();
       }
     });
-    
+
     changeBtn.addEventListener('click', (e) => {
-      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.forEach((u) => URL.revokeObjectURL(u));
       blobUrlsToRevoke.length = 0;
       e.stopPropagation();
-      fileInput.value = ''; fileInput.click();
+      fileInput.value = '';
+      fileInput.click();
     });
 
-    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
     dropZone.addEventListener('drop', (e) => {
-      e.preventDefault(); dropZone.classList.remove('active');
+      e.preventDefault();
+      dropZone.classList.remove('active');
       if (e.dataTransfer?.files) handleFiles(e.dataTransfer.files);
     });
     fileInput.addEventListener('change', (e: any) => {
@@ -267,7 +286,7 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
 
     function handleFiles(filesList: FileList | File[]) {
       const arr = Array.from(filesList);
-      selectedFiles = arr.filter(f => f.type.startsWith('image/')).slice(0, 50);
+      selectedFiles = arr.filter((f) => f.type.startsWith('image/')).slice(0, 50);
       if (selectedFiles.length === 0) return;
 
       placeholder.classList.add('hidden');
@@ -278,7 +297,7 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
         uploadPreview.style.display = 'block';
         bulkText.style.display = 'none';
         const reader = new FileReader();
-        reader.onload = (e) => uploadPreview.src = e.target?.result as string;
+        reader.onload = (e) => (uploadPreview.src = e.target?.result as string);
         reader.readAsDataURL(selectedFiles[0]);
       } else {
         uploadPreview.style.display = 'none';
@@ -290,16 +309,20 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
 
     convertBtn.addEventListener('click', async () => {
       if (selectedFiles.length === 0) return;
-      
+
       const width = parseInt(widthInput.value);
       const height = parseInt(heightInput.value);
       const targetKB = parseInt(kbInput.value);
 
       if (isNaN(width) || isNaN(height) || isNaN(targetKB) || width <= 0 || height <= 0 || targetKB <= 0) {
-        alert("Please ensure width, height, and KB are valid positive numbers.");
+        alert('Please ensure width, height, and KB are valid positive numbers.');
         return;
       }
-      
+
+      const type = getActiveType();
+      const fitMode = type === 'signature' || type === 'declaration' || type === 'thumb' ? 'contain' : 'cover';
+      const dpi = presets[currentExam]?.[type]?.dpi || 300;
+
       statusPanel.classList.remove('hidden');
       processing.classList.remove('hidden');
       processing.style.display = 'flex';
@@ -309,41 +332,58 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
 
       try {
         if (selectedFiles.length === 1) {
-          statusText.textContent = 'Optimizing for Exam...';
+          statusText.textContent = 'Calibrating dimensions, DPI & target KB...';
           progressBar.style.width = '50%';
-          // Output is forced to JPEG for exams
-          const result = await resizeAndCompressExact(selectedFiles[0], width, height, targetKB, 'image/jpeg');
+          const result = await resizeAndCompressExact(
+            selectedFiles[0],
+            width,
+            height,
+            targetKB,
+            'image/jpeg',
+            fitMode,
+            dpi
+          );
           progressBar.style.width = '100%';
-          
+
           const url = URL.createObjectURL(result.blob);
           blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const cleanName = (selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name).replace(/\s+/g, '_');
-          const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
-          downloadLink.download = `${currentExam}_${type}_${cleanName}.jpg`;
-          
-          finalKbText.textContent = (result.blob.size / 1024).toFixed(1) + ' KB';
+          const cleanName = (
+            selectedFiles[0].name.substring(0, selectedFiles[0].name.lastIndexOf('.')) || selectedFiles[0].name
+          ).replace(/\s+/g, '_');
+          downloadLink.download = `${currentExam}_${type}_${width}x${height}_${cleanName}.jpg`;
+
+          finalKbText.textContent = `${(result.blob.size / 1024).toFixed(1)} KB (${width}×${height} px · ${dpi} DPI)`;
         } else {
           const zip = new JSZip();
           let totalBytes = 0;
           for (let i = 0; i < selectedFiles.length; i++) {
-            statusText.textContent = `Processing ${i+1} of ${selectedFiles.length}...`;
-            const result = await resizeAndCompressExact(selectedFiles[i], width, height, targetKB, 'image/jpeg');
-            const cleanName = (selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name).replace(/\s+/g, '_');
-            const type = (document.querySelector('input[name="er-type"]:checked') as HTMLInputElement).value;
-            zip.file(`${currentExam}_${type}_${cleanName}.jpg`, result.blob);
+            statusText.textContent = `Processing ${i + 1} of ${selectedFiles.length}...`;
+            const result = await resizeAndCompressExact(
+              selectedFiles[i],
+              width,
+              height,
+              targetKB,
+              'image/jpeg',
+              fitMode,
+              dpi
+            );
+            const cleanName = (
+              selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name
+            ).replace(/\s+/g, '_');
+            zip.file(`${currentExam}_${type}_${width}x${height}_${cleanName}.jpg`, result.blob);
             totalBytes += result.blob.size;
             progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 80)}%`;
           }
           statusText.textContent = 'Zipping files...';
           const zipBlob = await zip.generateAsync({ type: 'blob' });
           progressBar.style.width = '100%';
-          
+
           const url = URL.createObjectURL(zipBlob);
           blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          downloadLink.download = `${currentExam}_exam_photos.zip`;
-          finalKbText.textContent = (totalBytes / 1024).toFixed(1) + ' KB total';
+          downloadLink.download = `${currentExam}_${type}_batch.zip`;
+          finalKbText.textContent = `${(totalBytes / 1024).toFixed(1)} KB total`;
         }
 
         processing.classList.add('hidden');
@@ -359,9 +399,10 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     });
 
     resetBtn.addEventListener('click', () => {
-      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.forEach((u) => URL.revokeObjectURL(u));
       blobUrlsToRevoke.length = 0;
       selectedFiles = [];
+      uploadPreview.src = 'data:,';
       previewContainer.classList.add('hidden');
       placeholder.classList.remove('hidden');
       statusPanel.classList.add('hidden');
