@@ -14,7 +14,38 @@ let h3_1 = isUnlock ? 'Instant PDF Unlocking' : 'Automatic Permission Unlocking'
 let faq_q1 = isUnlock ? 'Can I unlock a PDF without the password?' : 'Why do I need to enter a password for some files but not others?';
 let faq_a1 = isUnlock ? 'If the PDF only has an owner password (restricting printing or copying), our tool unlocks it instantly without asking for a password. If it has a user password (restricting opening), you must provide the password to decrypt it.' : 'PDFs have two types of passwords. "User passwords" encrypt the entire document and require the password to even open it. "Owner passwords" only restrict permissions like printing. Our tool can automatically bypass owner restrictions, but requires the password to decrypt user-locked files.';
 
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": `PdfAndImg ${strongText}`,
+  "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": faq_q1,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq_a1
+      }
+    }
+  ]
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
 
 <section class="seo-content-section container-stripe">
   <div class="seo-content-wrapper">

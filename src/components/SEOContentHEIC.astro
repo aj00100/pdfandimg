@@ -56,8 +56,21 @@ const relatedTools = [
   { name: 'Convert PNG to JPG', href: '/png-to-jpg/' },
   { name: 'Convert JPEG to PNG', href: '/jpeg-to-png/' }
 ];
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg HEIC Converter",
+  "url": new URL(Astro.url.pathname.replace(/\/+$/, "") ? `${Astro.url.pathname.replace(/\/+$/, "")}/` : "/", "https://pdfandimg.com").toString(),
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
 ---
-
+<script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
 <section class="seo-section">

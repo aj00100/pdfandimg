@@ -225,6 +225,8 @@
     });
 
     function resetUI() {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFile = null;
       sourcePdfDoc = null;
       previewContainer.classList.add('hidden');

@@ -66,11 +66,13 @@
 </div>
 
 <script is:inline src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
   import { convertFormat } from '../utils/imageCompressor';
+  import { jsPDF } from 'jspdf';
+  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
+
   import JSZip from 'jszip';
 
   declare global {
@@ -172,9 +174,9 @@
         bulkText.style.display = 'block';
         if (selectedFiles.length === 1) {
             if (containsHeic) {
-                bulkText.innerHTML = `<strong>${selectedFiles[0].name}</strong><br/><span style="color:var(--color-ink-2)">HEIC Document</span>`;
+                bulkText.innerHTML = `<strong>${escapeHTML(selectedFiles[0].name)}</strong><br/><span style="color:var(--color-ink-2)">HEIC Document</span>`;
             } else if (containsPdf) {
-                bulkText.innerHTML = `<strong>${selectedFiles[0].name}</strong><br/><span style="color:var(--color-ink-2)">PDF Document</span>`;
+                bulkText.innerHTML = `<strong>${escapeHTML(selectedFiles[0].name)}</strong><br/><span style="color:var(--color-ink-2)">PDF Document</span>`;
             }
         } else {
             bulkText.innerHTML = `<strong>${selectedFiles.length} files selected</strong><br/><span style="color:var(--color-ink-2)">Ready for conversion</span>`;
@@ -277,7 +279,7 @@
                   });
                   const img = new Image();
                   await new Promise((res) => { img.onload = res; img.src = dataUrl; });
-                  const jsPDF = window.jspdf.jsPDF;
+                  // jsPDF imported from package
                   const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
                   pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
                   resultBlob = pdf.output('blob');
@@ -378,7 +380,7 @@
                           });
                           const img = new Image();
                           await new Promise((res) => { img.onload = res; img.src = dataUrl; });
-                          const jsPDF = window.jspdf.jsPDF;
+                          // jsPDF imported from package
                           const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
                           pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
                           resultBlob = pdf.output('blob');
@@ -396,7 +398,9 @@
                       const cleanName = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
                       for (let p = 1; p <= totalPages; p++) {
                           const page = await pdfDoc.getPage(p);
-                          const viewport = page.getViewport({ scale: 2.0 });
+                          const baseVp = page.getViewport({ scale: 1.0 });
+                      const scaleFactor = Math.min(2.0, 2048 / Math.max(baseVp.width, baseVp.height));
+                      const viewport = page.getViewport({ scale: scaleFactor });
                           const canvas = document.createElement('canvas');
                           const context = canvas.getContext('2d');
                           canvas.height = viewport.height;
@@ -462,7 +466,7 @@
                         });
                         const img = new Image();
                         await new Promise((res) => { img.onload = res; img.src = dataUrl; });
-                        const jsPDF = window.jspdf.jsPDF;
+                        // jsPDF imported from package
                         const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
                         pdf.addImage(dataUrl, 'JPEG', 0, 0, img.width, img.height);
                         resultBlob = pdf.output('blob');

@@ -83,6 +83,8 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
 </div>
 
 <script>
+  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
+
   import { resizeImageExact } from '../utils/imageCompressor';
   import JSZip from 'jszip';
 
@@ -162,7 +164,7 @@ const { allowMultiple = true, defaultWidth = 1080, defaultHeight = 1080 } = Astr
       } else {
         uploadPreview.style.display = 'none';
         bulkText.style.display = 'block';
-        bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+        bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${escapeHTML(f.name)}`).join('<br/>');
       }
       statusPanel.classList.add('hidden');
     }

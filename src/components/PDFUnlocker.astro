@@ -29,7 +29,7 @@
     <!-- Password Input Field (Hidden Initially) -->
     <div id="unlock-password-container" class="hidden" style="margin-bottom: 24px;">
       <label for="unlock-password" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 8px;">Document Password</label>
-      <input type="password" id="unlock-password" class="input-number" placeholder="Enter password to open the file..." style="width: 100%; height: 56px; font-size: 1rem; padding: 0 16px; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
+      <input type="password" id="unlock-password" class="input-number" placeholder="Enter password (leave blank if permissions only)..." style="width: 100%; height: 56px; font-size: 1rem; padding: 0 16px; background: var(--color-surface-1); border: 2px solid var(--color-border); border-radius: 12px; color: var(--color-ink); outline: none;">
       <p id="unlock-password-error" class="hidden" style="color: #f43f5e; font-size: 0.75rem; margin: 8px 0 0 0;">Incorrect password. Please try again.</p>
     </div>
 
@@ -207,7 +207,7 @@
       previewContainer.classList.remove('hidden');
       
       // Reset UI state
-      passwordContainer.classList.add('hidden');
+      passwordContainer.classList.remove('hidden');
       passwordError.classList.add('hidden');
       passwordInput.value = '';
       convertBtn.disabled = false;
@@ -312,7 +312,7 @@
           blobUrlsToRevoke.push(url);
           
           downloadLink.href = url;
-          const cleanName = currentFile.name.replace('.pdf', '') + '_unlocked.pdf';
+          const cleanName = currentFile.name.replace(/\.pdf$/i, '') + '_unlocked.pdf';
           downloadLink.download = cleanName;
 
           // Hide password field if it was shown

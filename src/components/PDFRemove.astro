@@ -192,6 +192,8 @@
 </style>
 
 <script>
+  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
+
   import { PDFDocument } from 'pdf-lib';
 
   const root = document.getElementById('pdf-rem-root') as HTMLDivElement;
@@ -381,7 +383,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
         ${thumbHtml}
-        <div class="item-title" title="${title}">${title}</div>
+        <div class="item-title" title="${escapeHTML(title)}">${escapeHTML(title)}</div>
       `;
 
       div.querySelector('.item-remove')?.addEventListener('click', (e) => {
@@ -413,6 +415,13 @@
       statusPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       try {
+        if (stashList && stashList.children.length > 0) {
+          if (!confirm(`You have ${stashList.children.length} page(s) in the Stash. Do you want to exclude them from the final PDF?`)) {
+            processing.classList.add('hidden');
+            step2.classList.remove('hidden');
+            return;
+          }
+        }
         const finalPdf = await PDFDocument.create();
         const items = Array.from(sortableList.children);
         
@@ -451,6 +460,8 @@
     });
 
     const resetState = () => {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       sourcePdfDoc = null;
       sortableList.innerHTML = '';
       stashList.innerHTML = '';

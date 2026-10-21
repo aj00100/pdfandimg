@@ -20,7 +20,7 @@ const kbText = /^(any|custom)$/i.test(rawKB) ? 'Exact KB'
   : rawKB;
 
 // FAQ Data for JSON-LD
-const faqData = customFaqs || [
+const defaultFaqs = [
   {
     q: `Will I lose quality when I ${isCrop ? 'crop' : isEnhance ? 'enhance' : 'compress'} an image?`,
     a: `PdfAndImg uses "Smart Scaling" and Smart Compression Algorithms. Instead of simple pixel destruction, we adjust dimensions and metadata to ensure the JPEG quality remains high, resulting in a clear image even at ${kbText}.`
@@ -32,8 +32,18 @@ const faqData = customFaqs || [
   {
     q: `Does this ${kbText} tool work for SSC, UPSC, and Bank portals?`,
     a: `Yes. Our tools are specifically calibrated for Indian government portals like SSC, UPSC, and IBPS. If a portal requires exactly ${kbText}, our engine ensures you hit that target with mathematical precision.`
+  },
+  {
+    q: "Does this tool store my personal documents?",
+    a: "No. Privacy is the core pillar of PdfAndImg. We utilize a \"Serverless Pipeline\" approach where all binary processing is performed within your browser's local sandbox. Since no data is ever transmitted to an external server, your sensitive identity documents, signatures, and photos remain completely under your control at all times."
+  },
+  {
+    q: `Can I convert PNG or WEBP to ${kbText} JPEG?`,
+    a: "Yes. Our engine handles multiple input formats. Whether you start with a high-res PNG from a professional camera or a modern WEBP screenshot, the Smart Image Compressor algorithm will automatically convert and optimize the payload to a compliant JPEG format, ensuring 100% compatibility with all major upload portals."
   }
 ];
+
+const faqData = customFaqs || defaultFaqs;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -179,25 +189,7 @@ const relatedTools = [
               <p class="faq-a">{item.a}</p>
             </div>
           ))}
-          <div class="faq-item">
-            <h4 class="faq-q">Does this tool store my personal documents?</h4>
-            <p class="faq-a">
-              No. Privacy is the core pillar of PdfAndImg. We utilize a "Serverless Pipeline" approach where all 
-              binary processing is performed within your browser's local sandbox. Since no data is ever transmitted 
-              to an external server, your sensitive identity documents, signatures, and photos remain 
-              completely under your control at all times.
-            </p>
           </div>
-          <div class="faq-item">
-            <h4 class="faq-q">Can I convert PNG or WEBP to {kbText} JPEG?</h4>
-            <p class="faq-a">
-              Yes. Our engine handles multiple input formats. Whether you start with a high-res PNG from a 
-              professional camera or a modern WEBP screenshot, the Smart Image Compressor algorithm will automatically 
-              convert and optimize the payload to a compliant JPEG format, ensuring 100% compatibility 
-              with all major upload portals.
-            </p>
-          </div>
-        </div>
       </div>
 
     </div>

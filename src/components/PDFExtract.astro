@@ -261,6 +261,8 @@
     });
 
     function resetUI() {
+      blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
+      blobUrlsToRevoke.length = 0;
       selectedFile = null;
       totalPages = 0;
       previewContainer.classList.add('hidden');

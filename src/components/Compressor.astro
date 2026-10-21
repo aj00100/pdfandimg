@@ -511,6 +511,8 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
 </div>
 
 <script>
+  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
+
   const blobUrlsToRevoke = [];
   import { compressToTarget } from '../utils/imageCompressor';
   import JSZip from 'jszip';
@@ -631,7 +633,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
       }
       bulkText.style.display = 'block';
       
-      bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+      bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${escapeHTML(f.name)}`).join('<br/>');
 
       uploadLoading.classList.add('hidden');
       uploadLoading.style.display = 'none';

@@ -51,6 +51,8 @@
 </div>
 
 <script>
+  const escapeHTML = (str) => String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
+
   import { PDFDocument } from 'pdf-lib';
 
   const root = document.getElementById('pdf-merge-root') as HTMLDivElement;
@@ -121,7 +123,7 @@
       convertBtn.disabled = false;
 
       bulkText.innerHTML = `<strong>${selectedFiles.length} PDF(s) ready to merge:</strong><br/>` + 
-                           selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
+                           selectedFiles.map((f, i) => `${i + 1}. ${escapeHTML(f.name)}`).join('<br/>');
       
       statusPanel.classList.add('hidden');
     }

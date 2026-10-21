@@ -193,7 +193,7 @@ const { defaultTargetKB = 100 } = Astro.props;
         return;
       }
       
-      const targetBytes = targetKB * 1024;
+      const targetBytes = Math.floor(targetKB * 1024 * 0.96);
       
       statusPanel.classList.remove('hidden');
       processing.classList.remove('hidden');
@@ -298,19 +298,7 @@ const { defaultTargetKB = 100 } = Astro.props;
 
         let finalBlob = bestPdfBlob;
         
-        // Pad the PDF to exactly target size if it's smaller
-        if (finalBlob && finalBlob.size < targetBytes) {
-          const diff = targetBytes - finalBlob.size;
-          // We can append dummy bytes after %%EOF safely in most PDF parsers
-          // We will append spaces
-          const padding = new Uint8Array(diff);
-          padding.fill(32); // 32 is space character
-          if (diff >= 2) {
-            padding[0] = 10; // \n
-            padding[1] = 37; // %
-          }
-          finalBlob = new Blob([finalBlob, padding], { type: 'application/pdf' });
-        }
+        // Padding removed: keep compressed file lean without artificially inflating bytes
 
         progressBar.style.width = '100%';
         statusText.textContent = 'Done!';
@@ -322,7 +310,7 @@ const { defaultTargetKB = 100 } = Astro.props;
           const url = URL.createObjectURL(finalBlob);
           blobUrlsToRevoke.push(url);
           downloadLink.href = url;
-          const originalName = selectedFile.name.replace('.pdf', '');
+          const originalName = selectedFile.name.replace(/\.pdf$/i, '');
           downloadLink.download = `${originalName}_${targetKB}kb.pdf`;
           
           processing.classList.add('hidden');
