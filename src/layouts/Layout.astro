@@ -32,7 +32,17 @@ const dynamicCrumbs = pathSegments.map((segment, idx) => {
     ? cleanPageName
     : segment === 'id'
       ? 'Indonesia'
-      : segment.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      : segment === 'de'
+        ? 'Deutschland'
+        : segment === 'pt'
+          ? 'Brasil'
+          : segment === 'es'
+            ? 'España'
+            : segment === 'it'
+              ? 'Italia'
+              : segment === 'ja'
+                ? '日本'
+                : segment.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   return {
     name: segName,
     url: `${accumulatedPath}/`,
@@ -342,6 +352,11 @@ const pageHreflangs = getHreflangsForPath(normalizedPath || '/');
               <li><a href="/schengen-visa-photo-size/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Schengen Visa Photo</a></li>
               <li><a href="/amazon-image-resizer/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Amazon Product Image</a></li>
               <li><a href="/unlock-pdf/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Unlock PDF Password</a></li>
+              <li><a href="/redact-pdf-online/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime); font-weight: 500;">Redact PDF Online</a></li>
+              <li><a href="/de/pdf-schwaerzen/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">PDF Schwärzen (DE)</a></li>
+              <li><a href="/it/convertire-p7m-in-pdf/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">Convertire P7M in PDF (IT)</a></li>
+              <li><a href="/pt/dividir-pdf-por-tamanho/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">Dividir PDF por MB (BR)</a></li>
+              <li><a href="/ja/hokensho-masking/" class="nav-link" style="padding: 0; border: none; color: var(--color-lime);">保険証マスキング (JP)</a></li>
             </ul>
           </div>
 

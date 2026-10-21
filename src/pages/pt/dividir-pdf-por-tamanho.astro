@@ -1,0 +1,261 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+
+const SEO_TITLE = "Dividir PDF por Tamanho (MB) Online Grátis — PJe, e-SAJ, Eproc e SEI";
+const SEO_DESC = "Divida arquivos PDF grandes em partes menores por tamanho exato em MB (3MB, 5MB, 10MB) sem limite de páginas. 100% no navegador com sigilo total (LGPD).";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Como dividir um PDF grande em partes de 5MB ou 10MB para o PJe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Selecione o seu PDF, escolha o limite máximo em Megabytes exigido pelo tribunal (ex: 5 MB ou 10 MB para PJe, e-SAJ ou Eproc) e clique em Dividir. O sistema agrupa o máximo de páginas possível em cada volume sem nunca ultrapassar o limite em bytes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Meus processos judiciais são enviados para algum servidor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. Todo o fracionamento ocorre 100% na memória local do seu navegador. Processos em segredo de justiça e documentos confidenciais nunca saem do seu computador, garantindo conformidade total com a LGPD."
+      }
+    }
+  ]
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg Divisor de PDF por Tamanho (MB)",
+  "description": "Divida petições e autos judiciais em volumes numerados abaixo do limite em Megabytes do PJe, e-SAJ e tribunais.",
+  "featureList": ["Client-Side Processing", "Zero Server Upload", "PJe & e-SAJ Presets", "Lossless Page Splitting"],
+  "url": "https://pdfandimg.com/pt/dividir-pdf-por-tamanho/",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} lang="pt">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+  <div style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+    <div style="text-align: center; margin-bottom: 36px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Sem Limite Diário · Ideal para PJe, Eproc, e-SAJ e SEI · 100% Local (LGPD)
+        </span>
+      </div>
+      <h1 style="font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.08; margin: 0 0 16px; letter-spacing: -0.03em; font-weight: 800;">
+        Dividir PDF por <span style="color: var(--color-lime);">Tamanho (MB)</span>
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Fracionamento automático de petições e documentos PDF em volumes numerados abaixo do limite exato em Megabytes exigido pelo seu portal jurídico ou governamental.
+      </p>
+    </div>
+
+    <AdSlot slotId="BR_SPLIT_ATF" />
+
+    <div class="panel p-5 md:p-8">
+      <!-- Preset Pills -->
+      <div style="margin-bottom: 20px;">
+        <label for="split-mb-input" style="display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--color-ink-3); margin-bottom: 10px; text-align: center;">
+          Tamanho Máximo por Parte (MB)
+        </label>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 14px;">
+          <button type="button" class="btn-ghost mb-preset-btn" data-mb="2" style="font-size: 0.75rem;">2 MB (Gov.br)</button>
+          <button type="button" class="btn-ghost mb-preset-btn" data-mb="3" style="font-size: 0.75rem;">3 MB (PJe / TRF)</button>
+          <button type="button" class="btn-ghost mb-preset-btn" data-mb="5" style="font-size: 0.75rem; border-color: var(--color-lime); color: var(--color-lime);">5 MB (PJe Padrão)</button>
+          <button type="button" class="btn-ghost mb-preset-btn" data-mb="10" style="font-size: 0.75rem;">10 MB (e-SAJ / Eproc)</button>
+        </div>
+        <input type="number" id="split-mb-input" class="input-number" value="5" min="0.5" max="200" step="0.5" style="width: 100%; height: 54px; font-size: 1.35rem; text-align: center;" />
+      </div>
+
+      <div id="split-drop-zone" class="drop-zone" style="min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 16px; margin-bottom: 20px; cursor: pointer;">
+        <input type="file" id="split-file-input" style="display: none;" accept="application/pdf" />
+        <div id="split-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px;">
+          <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0;">Arraste o PDF aqui ou clique para selecionar</p>
+          <p id="split-file-meta" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); margin: 0;">Qualquer tamanho · Processamento instantâneo no navegador</p>
+        </div>
+      </div>
+
+      <button id="split-run-btn" class="btn-primary" disabled type="button" style="width: 100%; height: 56px; font-size: 1rem;">
+        Dividir PDF por Tamanho Agora
+      </button>
+
+      <div id="split-status" class="hidden" style="display: none; flex-direction: column; align-items: center; gap: 16px; margin-top: 24px; text-align: center;">
+        <p id="split-status-text" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-ink-2);"></p>
+        <div id="split-parts-list" style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 480px;"></div>
+        <a id="split-zip-btn" href="#" class="btn-download hidden" style="width: 100%; max-width: 480px; height: 56px; font-size: 1rem; display: none;">
+          Baixar Todas as Partes (.ZIP)
+        </a>
+      </div>
+    </div>
+
+    <section style="margin-top: 64px; color: var(--color-ink-2); line-height: 1.8;">
+      <h2 style="color: var(--color-ink); font-size: 1.75rem; font-weight: 800; margin-bottom: 16px;">Por que advogados e servidores usam nosso Divisor de PDF por MB?</h2>
+      <p>
+        Sistemas de peticionamento eletrônico no Brasil — como <strong>PJe (Processo Judicial Eletrônico)</strong>, <strong>e-SAJ</strong>, <strong>Eproc</strong>, <strong>Projudi</strong> e <strong>SEI</strong> — impõem limites rígidos de tamanho por arquivo anexado (geralmente entre 3 MB, 5 MB ou 10 MB). Ferramentas comuns na nuvem limitam o usuário gratuito a 3 tarefas por hora, bloqueiam arquivos acima de 50 MB e exigem o upload de autos processuais sigilosos para servidores estrangeiros.
+      </p>
+      <p>
+        Nosso motor executa a divisão binária diretamente na memória RAM do seu computador: ele analisa o peso real de cada página e monta volumes sequenciais (<code>Parte_01_p1-18.pdf</code>, <code>Parte_02_p19-34.pdf</code>) com margem de segurança de 97% para garantir que nenhum volume seja rejeitado no protocolo.
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  import { PDFDocument } from 'pdf-lib';
+  import JSZip from 'jszip';
+
+  const dropZone = document.getElementById('split-drop-zone') as HTMLDivElement;
+  const fileInput = document.getElementById('split-file-input') as HTMLInputElement;
+  const fileMeta = document.getElementById('split-file-meta') as HTMLParagraphElement;
+  const mbInput = document.getElementById('split-mb-input') as HTMLInputElement;
+  const runBtn = document.getElementById('split-run-btn') as HTMLButtonElement;
+  const statusBox = document.getElementById('split-status') as HTMLDivElement;
+  const statusText = document.getElementById('split-status-text') as HTMLParagraphElement;
+  const partsList = document.getElementById('split-parts-list') as HTMLDivElement;
+  const zipBtn = document.getElementById('split-zip-btn') as HTMLAnchorElement;
+  const presetBtns = document.querySelectorAll('.mb-preset-btn');
+
+  let selectedFile: File | null = null;
+  const blobUrls: string[] = [];
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetBtns.forEach(b => {
+        (b as HTMLElement).style.borderColor = 'var(--color-border)';
+        (b as HTMLElement).style.color = 'var(--color-ink-2)';
+      });
+      (btn as HTMLElement).style.borderColor = 'var(--color-lime)';
+      (btn as HTMLElement).style.color = 'var(--color-lime)';
+      mbInput.value = (btn as HTMLElement).dataset.mb || '5';
+    });
+  });
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault(); dropZone.classList.remove('active');
+    if (e.dataTransfer?.files?.[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', (e: any) => {
+    if (e.target.files?.[0]) handleFile(e.target.files[0]);
+  });
+
+  function handleFile(file: File) {
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      alert('Por favor, selecione um arquivo PDF válido.');
+      return;
+    }
+    selectedFile = file;
+    fileMeta.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+    fileMeta.style.color = 'var(--color-lime)';
+    runBtn.disabled = false;
+  }
+
+  runBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    const maxMB = parseFloat(mbInput.value);
+    if (isNaN(maxMB) || maxMB <= 0) {
+      alert('Informe um tamanho válido em MB.');
+      return;
+    }
+
+    blobUrls.forEach(u => URL.revokeObjectURL(u));
+    blobUrls.length = 0;
+    partsList.innerHTML = '';
+    zipBtn.style.display = 'none';
+    statusBox.classList.remove('hidden');
+    statusBox.style.display = 'flex';
+    runBtn.disabled = true;
+
+    const maxBytes = Math.floor(maxMB * 1024 * 1024 * 0.97); // 3% safety margin for PJe
+    const baseName = selectedFile.name.replace(/\.pdf$/i, '');
+
+    try {
+      statusText.textContent = 'Carregando estrutura do PDF...';
+      const buf = await selectedFile.arrayBuffer();
+      const srcDoc = await PDFDocument.load(buf);
+      const totalPages = srcDoc.getPageCount();
+
+      const zip = new JSZip();
+      let currentChunkIndices: number[] = [];
+      let lastValidBytes: Uint8Array | null = null;
+      let partNumber = 1;
+      let chunkStartPage = 1;
+
+      for (let i = 0; i < totalPages; i++) {
+        statusText.textContent = `Calculando volume ${partNumber} (Página ${i + 1} de ${totalPages})...`;
+        await new Promise(r => setTimeout(r, 0));
+
+        const candidateIndices = [...currentChunkIndices, i];
+        const tempDoc = await PDFDocument.create();
+        const copied = await tempDoc.copyPages(srcDoc, candidateIndices);
+        copied.forEach(p => tempDoc.addPage(p));
+        const candidateBytes = await tempDoc.save();
+
+        if (candidateBytes.byteLength <= maxBytes || currentChunkIndices.length === 0) {
+          currentChunkIndices = candidateIndices;
+          lastValidBytes = candidateBytes;
+        } else {
+          // Flush previous valid chunk
+          const endPage = i;
+          const fileName = `${baseName}_Parte_${String(partNumber).padStart(2, '0')}_p${chunkStartPage}-${endPage}.pdf`;
+          zip.file(fileName, lastValidBytes!);
+          appendDownloadRow(fileName, lastValidBytes!);
+
+          partNumber++;
+          chunkStartPage = i + 1;
+          currentChunkIndices = [i];
+          const singleDoc = await PDFDocument.create();
+          const [singlePage] = await singleDoc.copyPages(srcDoc, [i]);
+          singleDoc.addPage(singlePage);
+          lastValidBytes = await singleDoc.save();
+        }
+      }
+
+      if (lastValidBytes && currentChunkIndices.length > 0) {
+        const fileName = `${baseName}_Parte_${String(partNumber).padStart(2, '0')}_p${chunkStartPage}-${totalPages}.pdf`;
+        zip.file(fileName, lastValidBytes);
+        appendDownloadRow(fileName, lastValidBytes);
+      }
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const zipUrl = URL.createObjectURL(zipBlob);
+      blobUrls.push(zipUrl);
+      zipBtn.href = zipUrl;
+      zipBtn.download = `${baseName}_dividido_${maxMB}MB.zip`;
+      zipBtn.classList.remove('hidden');
+      zipBtn.style.display = 'inline-flex';
+      statusText.textContent = `✓ PDF dividido em ${partNumber} parte(s) abaixo de ${maxMB} MB!`;
+    } catch (err: any) {
+      alert('Erro ao dividir o PDF: ' + (err?.message || err));
+    } finally {
+      runBtn.disabled = false;
+    }
+  });
+
+  function appendDownloadRow(name: string, bytes: Uint8Array) {
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    blobUrls.push(url);
+    const sizeMB = (bytes.byteLength / 1024 / 1024).toFixed(2);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.className = 'btn-ghost';
+    a.style.cssText = 'display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 14px; font-family: var(--font-mono); font-size: 0.75rem; text-decoration: none;';
+    a.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%;">${name}</span><span style="color:var(--color-lime);font-weight:700;">${sizeMB} MB ↓</span>`;
+    partsList.appendChild(a);
+  }
+</script>

@@ -1,0 +1,434 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+
+const SEO_TITLE = "PDF schwärzen online kostenlos — 100% DSGVO-konform im Browser";
+const SEO_DESC = "Schwärzen Sie sensible Texte, Kontodaten und Namen in PDF-Dateien kostenlos und unwiderruflich. 100% lokal im Browser ohne Server-Upload (DSGVO-sicher).";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Ist das Schwärzen mit diesem Tool wirklich unwiderruflich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja. Im Gegensatz zu einfachen schwarzen Rechtecken in PDF-Editoren wandelt unser Tool jede Seite in eine flache Pixel-Grafik um (Rasterisierung) und entfernt die darunterliegende Textebene sowie alle Metadaten vollständig. Geschwärzte Texte können weder markiert noch kopiert oder wiederhergestellt werden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Werden meine Dokumente auf einen Server hochgeladen (DSGVO)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Alle Berechnungen finden zu 100% lokal im Arbeitsspeicher Ihres Browsers statt. Ihre Kontoauszüge, Verträge oder Patientenakten verlassen niemals Ihr Gerät. Damit erfüllt das Tool höchste Anforderungen nach Art. 28 und Art. 32 DSGVO."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich auch ein Bild (JPG/PNG) wie einen Kontoauszug schwärzen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja. Sie können sowohl PDF-Dokumente als auch Fotos oder Screenshots (JPG, PNG) laden, sensible Stellen markieren und das Ergebnis direkt als sicheres PDF herunterladen."
+      }
+    }
+  ]
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg DSGVO PDF-Schwärzer",
+  "description": "Schwärzen Sie sensible Daten und Texte in PDF-Dokumenten unwiderruflich direkt im Webbrowser. 100% DSGVO-konform ohne Upload.",
+  "featureList": ["Client-Side Processing", "Zero Server Upload", "DSGVO / GDPR Compliant", "Irreversible Rasterization"],
+  "url": "https://pdfandimg.com/de/pdf-schwaerzen/",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "SecurityApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} lang="de">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+  <div style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+    <div style="text-align: center; margin-bottom: 36px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          100% Lokal im Browser · DSGVO-Sicher · Kein Upload
+        </span>
+      </div>
+      <h1 style="font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.08; margin: 0 0 16px; letter-spacing: -0.03em; font-weight: 800;">
+        PDF online <span style="color: var(--color-lime);">schwärzen</span>
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Entfernen Sie sensible Daten, IBANs, Umsätze und Namen unwiderruflich aus PDFs & Bildern. Die Textebene wird physisch gelöscht – ohne Anmeldung und ohne Cloud-Upload.
+      </p>
+    </div>
+
+    <AdSlot slotId="DE_REDACT_ATF" />
+
+    <div class="panel p-5 md:p-8">
+      <!-- Step 1: Upload -->
+      <div id="redact-drop-zone" class="drop-zone" style="min-height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 16px; cursor: pointer;">
+        <input type="file" id="redact-file-input" style="display: none;" accept="application/pdf,image/jpeg,image/png" />
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 28px;">
+          <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-surface-3); border: 1px solid var(--color-border-mid); display: flex; align-items: center; justify-content: center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div>
+            <p style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 4px;">PDF oder Bild hier ablegen</p>
+            <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-ink-3); margin: 0;">Unterstützt PDF, JPG, PNG · 0 Bytes verlassen Ihren Browser</p>
+          </div>
+          <button id="redact-select-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">Datei auswählen</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Interactive Canvas Workspace -->
+      <div id="redact-workspace" class="hidden" style="display: none; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-surface-2); padding: 12px 16px; border-radius: 12px; border: 1px solid var(--color-border);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="redact-prev-page" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem;">← Zurück</button>
+            <span id="redact-page-indicator" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-ink);">Seite 1 / 1</span>
+            <button id="redact-next-page" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem;">Weiter →</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="redact-undo-btn" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem;">↶ Letzten Balken löschen</button>
+            <button id="redact-clear-page" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem;">Seite zurücksetzen</button>
+            <button id="redact-change-file" class="btn-ghost" type="button" style="padding: 6px 12px; font-size: 0.75rem;">Andere Datei</button>
+          </div>
+        </div>
+
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-lime); text-align: center; margin: 0;">
+          💡 Ziehen Sie mit der Maus oder dem Finger schwarze Kästen über die zu schwärzenden Stellen.
+        </p>
+
+        <div style="position: relative; width: 100%; overflow: auto; background: #050506; border: 1px solid var(--color-border-mid); border-radius: 12px; display: flex; justify-content: center; padding: 12px; max-height: 72vh;">
+          <canvas id="redact-canvas" style="max-width: 100%; height: auto; cursor: crosshair; touch-action: none; border-radius: 4px; box-shadow: 0 8px 30px rgba(0,0,0,0.6);"></canvas>
+        </div>
+
+        <button id="redact-export-btn" class="btn-primary" type="button" style="width: 100%; height: 56px; font-size: 1rem;">
+          🔒 Unwiderruflich schwärzen & PDF herunterladen
+        </button>
+      </div>
+
+      <!-- Status / Download -->
+      <div id="redact-status" class="hidden" style="display: none; flex-direction: column; align-items: center; gap: 16px; padding: 24px 0; text-align: center;">
+        <p id="redact-status-text" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-ink-2);">Textebene und Metadaten werden zerstört...</p>
+        <a id="redact-download-btn" href="#" class="btn-download hidden" style="width: 100%; max-width: 400px; height: 56px; font-size: 1rem; display: none;">
+          Geschwärztes PDF speichern
+        </a>
+      </div>
+    </div>
+
+    <!-- German SEO Content -->
+    <section style="margin-top: 64px; color: var(--color-ink-2); line-height: 1.8;">
+      <h2 style="color: var(--color-ink); font-size: 1.75rem; font-weight: 800; margin-bottom: 16px;">Warum herkömmliches Schwärzen in PDF-Programmen oft unsicher ist</h2>
+      <p>
+        Viele Nutzer legen in Word, Vorschau (Mac) oder kostenlosen PDF-Editoren lediglich ein schwarzes Rechteck über sensible Daten wie Kontonummern, Gehaltsangaben oder Namen. <strong>Das Problem:</strong> Der eigentliche Text bleibt in der PDF-Datei unter dem schwarzen Kasten vollständig erhalten. Jeder Empfänger kann den Text mit der Maus markieren, per Strg+C kopieren oder den schwarzen Balken mit einem Klick verschieben.
+      </p>
+      <p>
+        Unser <strong>DSGVO-konformes Schwärzungs-Studio</strong> löst dieses Sicherheitsrisiko durch vollständige <em>Pixel-Rasterisierung</em> direkt in Ihrem Browser: Sobald Sie auf „Unwiderruflich schwärzen“ klicken, wird jede Seite inklusive der schwarzen Balken in eine einzige flache Bildmatrix umgewandelt und in ein neues, bereinigtes PDF-Dokument geschrieben. Die ursprüngliche Textebene, versteckte Kommentare und XMP-Metadaten existieren im fertigen Dokument schlichtweg nicht mehr.
+      </p>
+      <h3 style="color: var(--color-ink); font-size: 1.35rem; font-weight: 700; margin: 32px 0 12px;">Typische Anwendungsfälle</h3>
+      <ul style="padding-left: 20px;">
+        <li><strong>Kontoauszüge für Vermieter / Mieterselbstauskunft:</strong> Schwärzen Sie private Ausgaben und lassen Sie nur Mietzahlungen oder Gehaltseingänge sichtbar.</li>
+        <li><strong>Rechtsanwälte, Steuerberater & Behörden:</strong> DSGVO-konforme Aktenvorlage ohne Weitergabe an Drittanbieter-Clouds.</li>
+        <li><strong>Bewerbungen & Zeugnisse:</strong> Entfernen Sie Matrikelnummern, Geburtsorte oder vertrauliche Projektnamen.</li>
+      </ul>
+    </section>
+  </div>
+</Layout>
+
+<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+  import { jsPDF } from 'jspdf';
+
+  declare global { interface Window { pdfjsLib: any; } }
+
+  const dropZone = document.getElementById('redact-drop-zone') as HTMLDivElement;
+  const fileInput = document.getElementById('redact-file-input') as HTMLInputElement;
+  const selectBtn = document.getElementById('redact-select-btn') as HTMLButtonElement;
+  const workspace = document.getElementById('redact-workspace') as HTMLDivElement;
+  const canvas = document.getElementById('redact-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const prevBtn = document.getElementById('redact-prev-page') as HTMLButtonElement;
+  const nextBtn = document.getElementById('redact-next-page') as HTMLButtonElement;
+  const pageInd = document.getElementById('redact-page-indicator') as HTMLSpanElement;
+  const undoBtn = document.getElementById('redact-undo-btn') as HTMLButtonElement;
+  const clearBtn = document.getElementById('redact-clear-page') as HTMLButtonElement;
+  const changeBtn = document.getElementById('redact-change-file') as HTMLButtonElement;
+  const exportBtn = document.getElementById('redact-export-btn') as HTMLButtonElement;
+  const statusBox = document.getElementById('redact-status') as HTMLDivElement;
+  const statusText = document.getElementById('redact-status-text') as HTMLParagraphElement;
+  const downloadBtn = document.getElementById('redact-download-btn') as HTMLAnchorElement;
+
+  interface Box { x: number; y: number; w: number; h: number; }
+  let pdfDoc: any = null;
+  let singleImage: HTMLImageElement | null = null;
+  let currentFileName = 'dokument';
+  let currentPage = 1;
+  let totalPages = 1;
+  let boxesByPage: Record<number, Box[]> = {};
+  let basePageBitmap: ImageData | null = null;
+  let isDrawing = false;
+  let startX = 0;
+  let startY = 0;
+  const blobUrls: string[] = [];
+
+  async function ensurePdfJs() {
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      return window.pdfjsLib;
+    }
+    throw new Error('PDF.js wird noch geladen. Bitte kurz warten.');
+  }
+
+  if (selectBtn) {
+    selectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+  }
+
+  dropZone.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('button')) fileInput.click();
+  });
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault(); dropZone.classList.remove('active');
+    if (e.dataTransfer?.files?.[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', (e: any) => {
+    if (e.target.files?.[0]) loadFile(e.target.files[0]);
+  });
+
+  async function loadFile(file: File) {
+    currentFileName = file.name.replace(/\.[^.]+$/, '');
+    boxesByPage = {};
+    currentPage = 1;
+    statusBox.style.display = 'none';
+    downloadBtn.style.display = 'none';
+
+    if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+      const pdfjs = await ensurePdfJs();
+      if (pdfDoc) { try { await pdfDoc.destroy(); } catch {} }
+      singleImage = null;
+      const buf = await file.arrayBuffer();
+      pdfDoc = await pdfjs.getDocument({ data: buf }).promise;
+      totalPages = pdfDoc.numPages;
+    } else if (file.type.startsWith('image/')) {
+      if (pdfDoc) { try { await pdfDoc.destroy(); } catch {} pdfDoc = null; }
+      const url = URL.createObjectURL(file);
+      blobUrls.push(url);
+      singleImage = new Image();
+      await new Promise((res, rej) => { singleImage!.onload = res; singleImage!.onerror = rej; singleImage!.src = url; });
+      totalPages = 1;
+    } else {
+      alert('Bitte wählen Sie eine PDF-, JPG- oder PNG-Datei.');
+      return;
+    }
+
+    dropZone.style.display = 'none';
+    workspace.classList.remove('hidden');
+    workspace.style.display = 'flex';
+    await renderCurrentPage();
+  }
+
+  async function renderCurrentPage() {
+    pageInd.textContent = `Seite ${currentPage} / ${totalPages}`;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+
+    const isMobile = window.innerWidth < 768;
+    if (pdfDoc) {
+      const page = await pdfDoc.getPage(currentPage);
+      const scale = isMobile ? 1.35 : 1.8;
+      const vp = page.getViewport({ scale });
+      canvas.width = vp.width;
+      canvas.height = vp.height;
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      page.cleanup();
+    } else if (singleImage) {
+      const maxDim = isMobile ? 1600 : 2400;
+      let w = singleImage.width;
+      let h = singleImage.height;
+      if (w > maxDim || h > maxDim) {
+        const r = Math.min(maxDim / w, maxDim / h);
+        w = Math.round(w * r);
+        h = Math.round(h * r);
+      }
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(singleImage, 0, 0, w, h);
+    }
+    basePageBitmap = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    redrawBoxes();
+  }
+
+  function redrawBoxes(previewBox?: Box) {
+    if (!basePageBitmap) return;
+    ctx.putImageData(basePageBitmap, 0, 0);
+    ctx.fillStyle = '#000000';
+    const list = boxesByPage[currentPage] || [];
+    for (const b of list) {
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    }
+    if (previewBox) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+      ctx.fillRect(previewBox.x, previewBox.y, previewBox.w, previewBox.h);
+      ctx.strokeStyle = '#c8f135';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(previewBox.x, previewBox.y, previewBox.w, previewBox.h);
+    }
+  }
+
+  function getCanvasCoords(e: MouseEvent | TouchEvent) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY
+    };
+  }
+
+  canvas.addEventListener('pointerdown', (e) => {
+    isDrawing = true;
+    const pt = getCanvasCoords(e);
+    startX = pt.x;
+    startY = pt.y;
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (!isDrawing) return;
+    const pt = getCanvasCoords(e);
+    redrawBoxes({
+      x: Math.min(startX, pt.x),
+      y: Math.min(startY, pt.y),
+      w: Math.abs(pt.x - startX),
+      h: Math.abs(pt.y - startY)
+    });
+  });
+
+  window.addEventListener('pointerup', (e) => {
+    if (!isDrawing) return;
+    isDrawing = false;
+    const pt = getCanvasCoords(e);
+    const box: Box = {
+      x: Math.min(startX, pt.x),
+      y: Math.min(startY, pt.y),
+      w: Math.abs(pt.x - startX),
+      h: Math.abs(pt.y - startY)
+    };
+    if (box.w > 4 && box.h > 4) {
+      if (!boxesByPage[currentPage]) boxesByPage[currentPage] = [];
+      boxesByPage[currentPage].push(box);
+    }
+    redrawBoxes();
+  });
+
+  prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderCurrentPage(); } });
+  nextBtn.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; renderCurrentPage(); } });
+  undoBtn.addEventListener('click', () => {
+    if (boxesByPage[currentPage]?.length) {
+      boxesByPage[currentPage].pop();
+      redrawBoxes();
+    }
+  });
+  clearBtn.addEventListener('click', () => {
+    boxesByPage[currentPage] = [];
+    redrawBoxes();
+  });
+  changeBtn.addEventListener('click', () => {
+    blobUrls.forEach(u => URL.revokeObjectURL(u));
+    blobUrls.length = 0;
+    basePageBitmap = null;
+    canvas.width = 0;
+    canvas.height = 0;
+    if (pdfDoc) {
+      try { pdfDoc.destroy(); } catch {}
+      pdfDoc = null;
+    }
+    workspace.style.display = 'none';
+    statusBox.style.display = 'none';
+    dropZone.style.display = 'flex';
+    fileInput.value = '';
+  });
+
+  exportBtn.addEventListener('click', async () => {
+    exportBtn.disabled = true;
+    statusBox.classList.remove('hidden');
+    statusBox.style.display = 'flex';
+    downloadBtn.style.display = 'none';
+
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d')!;
+    const isMobile = window.innerWidth < 768;
+
+    try {
+      let outPdf: jsPDF | null = null;
+
+      for (let p = 1; p <= totalPages; p++) {
+        statusText.textContent = `Seite ${p} von ${totalPages} wird gerastert & bereinigt...`;
+        await new Promise(r => setTimeout(r, 10));
+
+        if (pdfDoc) {
+          const page = await pdfDoc.getPage(p);
+          const scale = isMobile ? 1.35 : 1.8;
+          const vp = page.getViewport({ scale });
+          tempCanvas.width = vp.width;
+          tempCanvas.height = vp.height;
+          await page.render({ canvasContext: tempCtx, viewport: vp }).promise;
+          page.cleanup();
+        } else if (singleImage) {
+          tempCanvas.width = canvas.width;
+          tempCanvas.height = canvas.height;
+          tempCtx.drawImage(singleImage, 0, 0, tempCanvas.width, tempCanvas.height);
+        }
+
+        const pBoxes = boxesByPage[p] || [];
+        tempCtx.fillStyle = '#000000';
+        for (const b of pBoxes) {
+          tempCtx.fillRect(b.x, b.y, b.w, b.h);
+        }
+
+        const dataUrl = tempCanvas.toDataURL('image/jpeg', 0.92);
+        const orient = tempCanvas.width > tempCanvas.height ? 'l' : 'p';
+
+        if (!outPdf) {
+          outPdf = new jsPDF({ orientation: orient, unit: 'px', format: [tempCanvas.width, tempCanvas.height] });
+        } else {
+          outPdf.addPage([tempCanvas.width, tempCanvas.height], orient);
+        }
+        outPdf.addImage(dataUrl, 'JPEG', 0, 0, tempCanvas.width, tempCanvas.height);
+
+        tempCanvas.width = 0;
+        tempCanvas.height = 0;
+      }
+
+      if (outPdf) {
+        const blob = outPdf.output('blob');
+        const url = URL.createObjectURL(blob);
+        blobUrls.push(url);
+        downloadBtn.href = url;
+        downloadBtn.download = `${currentFileName}_geschwaerzt.pdf`;
+        statusText.textContent = '✓ Alle Textebenen & Metadaten wurden unwiderruflich entfernt.';
+        downloadBtn.classList.remove('hidden');
+        downloadBtn.style.display = 'inline-flex';
+      }
+    } catch (err: any) {
+      alert('Fehler beim Erstellen der PDF: ' + (err?.message || err));
+    } finally {
+      tempCanvas.width = 0;
+      tempCanvas.height = 0;
+      exportBtn.disabled = false;
+    }
+  });
+</script>

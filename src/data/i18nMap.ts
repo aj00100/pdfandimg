@@ -1,5 +1,7 @@
+export type SupportedLocale = 'en' | 'id' | 'de' | 'es' | 'it' | 'pt' | 'ja';
+
 export interface LocaleEntry {
-  code: string;
+  code: SupportedLocale;
   label: string;
   flag: string;
 }
@@ -9,11 +11,14 @@ export const SUPPORTED_LOCALES: LocaleEntry[] = [
   { code: 'id', label: 'Indonesia', flag: '🇮🇩' },
   { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷' },
+  { code: 'ja', label: '日本語', flag: '🇯🇵' },
 ];
 
 export interface ToolI18nMapping {
   toolId: string;
-  paths: Record<string, string>; // langCode -> relative path with trailing slash
+  paths: Partial<Record<SupportedLocale, string>>; // langCode -> relative path with trailing slash
 }
 
 export const I18N_TOOL_MATRIX: ToolI18nMapping[] = [
@@ -22,8 +27,6 @@ export const I18N_TOOL_MATRIX: ToolI18nMapping[] = [
     paths: {
       en: '/compress-image-to-100kb/',
       id: '/id/kompres-foto-100kb/',
-      de: '/de/bild-komprimieren-100kb/',
-      es: '/es/comprimir-imagen-100kb/',
     },
   },
   {
@@ -31,26 +34,31 @@ export const I18N_TOOL_MATRIX: ToolI18nMapping[] = [
     paths: {
       en: '/compress-image-to-200kb/',
       id: '/id/kompres-foto-200kb/',
-      de: '/de/bild-komprimieren-200kb/',
-      es: '/es/comprimir-imagen-200kb/',
     },
   },
   {
-    toolId: 'compress-pdf-to-100kb',
+    toolId: 'pdf-redact',
     paths: {
-      en: '/compress-pdf-to-100kb/',
-      id: '/id/kompres-pdf-100kb/',
-      de: '/de/pdf-komprimieren-100kb/',
-      es: '/es/comprimir-pdf-100kb/',
+      en: '/redact-pdf-online/',
+      de: '/de/pdf-schwaerzen/',
     },
   },
   {
-    toolId: 'convert-heic-to-jpg',
+    toolId: 'p7m-to-pdf-it',
     paths: {
-      en: '/convert-heic-to-jpg/',
-      id: '/id/konversi-heic-ke-jpg/',
-      de: '/de/heic-in-jpg-umwandeln/',
-      es: '/es/convertir-heic-a-jpg/',
+      it: '/it/convertire-p7m-in-pdf/',
+    },
+  },
+  {
+    toolId: 'split-pdf-size-pt',
+    paths: {
+      pt: '/pt/dividir-pdf-por-tamanho/',
+    },
+  },
+  {
+    toolId: 'id-masking-ja',
+    paths: {
+      ja: '/ja/hokensho-masking/',
     },
   },
 ];
@@ -67,7 +75,7 @@ export function getHreflangsForPath(pathname: string): Record<string, string> | 
     if (matchingLang) {
       const alternates: Record<string, string> = {};
       for (const [lang, path] of Object.entries(entry.paths)) {
-        alternates[lang] = path;
+        if (path) alternates[lang] = path;
       }
       alternates['x-default'] = entry.paths['en'] || cleanPath;
       return alternates;

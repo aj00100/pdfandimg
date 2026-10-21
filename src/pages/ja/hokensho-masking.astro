@@ -1,0 +1,257 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+
+const SEO_TITLE = "保険証・マイナンバーカードのマスキング（黒塗り）無料ツール — ブラウザ完結で安全";
+const SEO_DESC = "本人確認書類（健康保険証の記号・番号・枝番・QRコードやマイナンバー）をブラウザ上で安全に黒塗り（マスキング）加工。サーバー送信なしで個人情報漏洩を完全防止。";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "健康保険証を提出する際、どこをマスキング（黒塗り）すべきですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "医療保険制度の適正かつ効率的な運営を図るための健康保険法等の一部を改正する法律（告知要求制限）により、本人確認目的で健康保険証のコピーを提出する際は「被保険者等記号・番号」「枝番」「保険者番号」および「QRコード（記載がある場合）」を黒塗り（マスキング）する必要があります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "アップロードした身分証の画像がサーバーに保存されることはありませんか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一切ありません。当ツールは100%お使いのスマホ・PCのブラウザ内（Canvasメモリ上）だけで画像処理を行います。画像データが外部サーバーへ送信されることは物理的にゼロのため、賃貸契約・口座開設・マッチングアプリの年齢確認にも安心してご利用いただけます。"
+      }
+    }
+  ]
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PdfAndImg 保険証・マイナンバー黒塗り（マスキング）ツール",
+  "description": "健康保険証やマイナンバーカードの機微情報をブラウザ上で安全かつ不可逆的にマスキング（黒塗り）します。",
+  "featureList": ["Client-Side Processing", "Zero Server Upload", "EXIF Data Removal", "Statutory Health Insurance Presets"],
+  "url": "https://pdfandimg.com/ja/hokensho-masking/",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "SecurityApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC} lang="ja">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+
+  <div style="max-width: 860px; margin: 0 auto; padding: 0 24px;">
+    <div style="text-align: center; margin-bottom: 36px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; color: var(--color-lime);">
+          サーバー送信ゼロ · 告知要求制限対応 · 記号・番号・枝番・マイナンバー完全消去
+        </span>
+      </div>
+      <h1 style="font-size: clamp(1.85rem, 4.5vw, 3.1rem); line-height: 1.15; margin: 0 0 16px; font-weight: 800;">
+        保険証・マイナンバー <span style="color: var(--color-lime);">マスキング（黒塗り）</span>
+      </h1>
+      <p style="font-size: 1rem; color: var(--color-ink-2); max-width: 620px; margin: 0 auto; line-height: 1.7;">
+        賃貸審査・バイト提出・マッチングアプリの年齢確認で必要な「記号・番号・枝番・QRコード」をスマホやPC上で瞬時に黒塗り。EXIF位置情報も同時に完全削除します。
+      </p>
+    </div>
+
+    <AdSlot slotId="JP_MASK_ATF" />
+
+    <div class="panel p-5 md:p-8">
+      <div id="jp-drop-zone" class="drop-zone" style="min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 16px; cursor: pointer;">
+        <input type="file" id="jp-file-input" style="display: none;" accept="image/jpeg,image/png,image/webp" />
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px;">
+          <p style="font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0;">本人確認書類の写真を選択（スマホ撮影OK）</p>
+          <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); margin: 0;">JPG / PNG / WEBP · 画像は外部へ送信されません</p>
+          <button id="jp-select-btn" class="btn-ghost" type="button" style="font-size: 0.8rem;">画像を選択する</button>
+        </div>
+      </div>
+
+      <div id="jp-workspace" class="hidden" style="display: none; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; background: var(--color-surface-2); padding: 12px; border-radius: 12px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button id="jp-preset-hokensho" class="btn-ghost" type="button" style="font-size: 0.75rem; border-color: var(--color-lime); color: var(--color-lime);">
+              ＋ 保険証プリセット（記号・番号・保険者番号）
+            </button>
+            <button id="jp-undo-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">↶ 1つ戻す</button>
+            <button id="jp-clear-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">すべて消去</button>
+          </div>
+          <button id="jp-change-btn" class="btn-ghost" type="button" style="font-size: 0.75rem;">別の画像を選ぶ</button>
+        </div>
+
+        <p style="font-size: 0.8rem; color: var(--color-lime); text-align: center; margin: 0;">
+          💡 指またはマウスで隠したい箇所（記号・番号・枝番・QRコード）をなぞって黒塗りしてください。
+        </p>
+
+        <div style="position: relative; width: 100%; overflow: auto; background: #050506; border: 1px solid var(--color-border-mid); border-radius: 12px; display: flex; justify-content: center; padding: 12px;">
+          <canvas id="jp-canvas" style="max-width: 100%; height: auto; cursor: crosshair; touch-action: none; border-radius: 6px;"></canvas>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <button id="jp-save-jpg" class="btn-primary" type="button" style="flex: 1; min-width: 220px; height: 54px; font-size: 0.95rem;">
+            黒塗り画像を保存 (JPG・EXIF削除済)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section style="margin-top: 64px; color: var(--color-ink-2); line-height: 1.9;">
+      <h2 style="color: var(--color-ink); font-size: 1.5rem; font-weight: 800; margin-bottom: 16px;">健康保険証・マイナンバーカードのマスキング必須箇所とは？</h2>
+      <p>
+        2020年10月の健康保険法改正（告知要求制限）により、不動産の賃貸契約、金融機関の口座開設、携帯電話の契約、マッチングアプリ（Pairs・Tinder・タップル等）の年齢確認で健康保険証を提出する際、<strong>「記号」「番号」「枝番」「保険者番号」「QRコード」</strong>の5箇所を黒塗り（マスキング）することが義務付けられています。
+      </p>
+      <p>
+        スマホ標準の写真編集アプリのマーカー機能（ペンツール）で塗った場合、透過度が残り明るさ調整で文字が透けてしまう危険性があります。当ツールはピクセルデータを完全な純黒（<code>#000000</code>・透過率0%）で上書きし、さらに撮影場所のGPSデータ（EXIF）を完全に消去した安全なJPEG画像を生成します。
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  const dropZone = document.getElementById('jp-drop-zone') as HTMLDivElement;
+  const fileInput = document.getElementById('jp-file-input') as HTMLInputElement;
+  const selectBtn = document.getElementById('jp-select-btn') as HTMLButtonElement;
+  const workspace = document.getElementById('jp-workspace') as HTMLDivElement;
+  const canvas = document.getElementById('jp-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const presetBtn = document.getElementById('jp-preset-hokensho') as HTMLButtonElement;
+  const undoBtn = document.getElementById('jp-undo-btn') as HTMLButtonElement;
+  const clearBtn = document.getElementById('jp-clear-btn') as HTMLButtonElement;
+  const changeBtn = document.getElementById('jp-change-btn') as HTMLButtonElement;
+  const saveJpgBtn = document.getElementById('jp-save-jpg') as HTMLButtonElement;
+
+  interface Box { x: number; y: number; w: number; h: number; }
+  let boxes: Box[] = [];
+  let baseBitmap: ImageData | null = null;
+  let isDrawing = false;
+  let startX = 0;
+  let startY = 0;
+  let baseFileName = 'masked_id';
+
+  if (selectBtn) {
+    selectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+  }
+
+  dropZone.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('button')) fileInput.click();
+  });
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault(); dropZone.classList.remove('active');
+    if (e.dataTransfer?.files?.[0]) loadImage(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', (e: any) => {
+    if (e.target.files?.[0]) loadImage(e.target.files[0]);
+  });
+
+  function loadImage(file: File) {
+    baseFileName = file.name.replace(/\.[^.]+$/, '');
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = window.innerWidth < 768 ? 1600 : 2200;
+      let w = img.width;
+      let h = img.height;
+      if (w > maxDim || h > maxDim) {
+        const r = Math.min(maxDim / w, maxDim / h);
+        w = Math.round(w * r);
+        h = Math.round(h * r);
+      }
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(img, 0, 0, w, h);
+      baseBitmap = ctx.getImageData(0, 0, w, h);
+      boxes = [];
+      URL.revokeObjectURL(url);
+      dropZone.style.display = 'none';
+      workspace.classList.remove('hidden');
+      workspace.style.display = 'flex';
+    };
+    img.src = url;
+  }
+
+  function redraw(preview?: Box) {
+    if (!baseBitmap) return;
+    ctx.putImageData(baseBitmap, 0, 0);
+    ctx.fillStyle = '#000000';
+    for (const b of boxes) ctx.fillRect(b.x, b.y, b.w, b.h);
+    if (preview) {
+      ctx.fillStyle = 'rgba(0,0,0,0.85)';
+      ctx.fillRect(preview.x, preview.y, preview.w, preview.h);
+      ctx.strokeStyle = '#c8f135';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(preview.x, preview.y, preview.w, preview.h);
+    }
+  }
+
+  function getCoords(e: PointerEvent) {
+    const r = canvas.getBoundingClientRect();
+    return {
+      x: (e.clientX - r.left) * (canvas.width / r.width),
+      y: (e.clientY - r.top) * (canvas.height / r.height)
+    };
+  }
+
+  canvas.addEventListener('pointerdown', (e) => {
+    isDrawing = true;
+    const pt = getCoords(e);
+    startX = pt.x; startY = pt.y;
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (!isDrawing) return;
+    const pt = getCoords(e);
+    redraw({ x: Math.min(startX, pt.x), y: Math.min(startY, pt.y), w: Math.abs(pt.x - startX), h: Math.abs(pt.y - startY) });
+  });
+  window.addEventListener('pointerup', (e) => {
+    if (!isDrawing) return;
+    isDrawing = false;
+    const pt = getCoords(e);
+    const b = { x: Math.min(startX, pt.x), y: Math.min(startY, pt.y), w: Math.abs(pt.x - startX), h: Math.abs(pt.y - startY) };
+    if (b.w > 4 && b.h > 4) boxes.push(b);
+    redraw();
+  });
+
+  // Standard Japanese Health Insurance card regions (Kigou/Bangou/Edaban top-right & Insurer No bottom-left)
+  presetBtn.addEventListener('click', () => {
+    const w = canvas.width;
+    const h = canvas.height;
+    boxes.push(
+      { x: w * 0.22, y: h * 0.16, w: w * 0.68, h: h * 0.10 }, // 記号・番号・枝番
+      { x: w * 0.18, y: h * 0.68, w: w * 0.42, h: h * 0.08 }, // 保険者番号
+      { x: w * 0.74, y: h * 0.64, w: w * 0.18, h: h * 0.22 }  // QRコード
+    );
+    redraw();
+  });
+
+  undoBtn.addEventListener('click', () => { boxes.pop(); redraw(); });
+  clearBtn.addEventListener('click', () => { boxes = []; redraw(); });
+  changeBtn.addEventListener('click', () => {
+    baseBitmap = null;
+    canvas.width = 0; canvas.height = 0;
+    workspace.style.display = 'none';
+    dropZone.style.display = 'flex';
+    fileInput.value = '';
+  });
+
+  saveJpgBtn.addEventListener('click', () => {
+    redraw();
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${baseFileName}_masked.jpg`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }, 'image/jpeg', 0.94);
+  });
+</script>
