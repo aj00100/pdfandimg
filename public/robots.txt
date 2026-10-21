@@ -1,5 +1,5 @@
 User-agent: *
+Disallow: /cdn-cgi/
 Allow: /
-
 
 Sitemap: https://pdfandimg.com/sitemap-index.xml
