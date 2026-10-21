@@ -2,69 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Compress Image to 1MB — Best 1MB Image Compressor Online";
-const SEO_DESC = "Compress image to 1MB online while maintaining high resolution. Use our free 1MB image compressor for detailed documents and high-res photos.";
+const pageTitle = "Compress Image to 1MB Online — DSLR, 4K Photography & Portal Uploader";
+const pageDescription = "Compress 15MB–50MB DSLR, 48MP iPhone ProRAW/JPEG, and 4K images to exact 1MB (1024KB) online for free. Studio-grade lossless perception with 100% browser privacy.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Modern 48MP and 200MP smartphone sensors (iPhone 16/17 Pro, Samsung Galaxy Ultra) and mirrorless cameras routinely generate <strong>12MB to 35MB image files</strong>. Yet virtually every corporate HR onboarding portal, insurance claim system, medical telemedicine upload, academic journal submission, and email attachment gateway enforces a hard <strong>1MB (1,024KB / 1,048,576 bytes) per-file limit</strong>.
+  </p>
+  <p class="seo-p">
+    When your target ceiling is <strong>1MB</strong>, you should never have to sacrifice 4K detail or color accuracy. PdfAndImg's Target-Lock engine keeps your high-resolution pixel geometry intact and uses binary search to find the exact 92%–96% JPEG/WebP quality threshold that lands your file between <strong>960KB and 1,010KB (0.95MB–0.99MB)</strong>—sailing past strict <code>1MB Max</code> portal validators while preserving print-grade fidelity.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Portal / Industry Use Case</th>
+          <th style="padding: 12px 16px;">Source File Weight</th>
+          <th style="padding: 12px 16px;">Target-Lock Output</th>
+          <th style="padding: 12px 16px;">Visual Fidelity Retained</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">Corporate HR & Background Verification</td>
+          <td style="padding: 12px 16px;">8MB – 15MB Phone Scan</td>
+          <td style="padding: 12px 16px;">~980KB (JPG or PDF)</td>
+          <td style="padding: 12px 16px;">100% Text & Seal Sharpness</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">Health & Motor Insurance Claims</td>
+          <td style="padding: 12px 16px;">12MB 48MP Camera Photo</td>
+          <td style="padding: 12px 16px;">~975KB (JPG)</td>
+          <td style="padding: 12px 16px;">Full Zoomable Inspection Detail</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">Portfolio, Behance & Print Proofs</td>
+          <td style="padding: 12px 16px;">25MB Uncompressed PNG</td>
+          <td style="padding: 12px 16px;">~990KB (JPG / WEBP)</td>
+          <td style="padding: 12px 16px;">Studio-Grade Color & Contrast</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Why 1,000,000 Bytes vs. 1,048,576 Bytes Matters for 1MB Portals</h3>
+  <p class="seo-p">
+    Just as with smaller KB limits, some web servers define <strong>1MB</strong> as 1,000,000 bytes (1,000 KB) while others define it as 1,048,576 bytes ($1024 \times 1024$ bytes). By applying a 4% safety buffer to 1,024KB, our engine locks your output right around <strong>970KB to 990KB (~993,000 bytes)</strong>, guaranteeing that your file passes both decimal 1MB and binary 1MiB server checks on the first upload.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "How does PdfAndImg shrink a 20MB PNG screenshot or camera photo down to 1MB so quickly?",
+    a: "Uncompressed PNGs store every pixel's RGBA channel without perceptual compression. By decoding the PNG onto a local HTML5 Canvas and re-encoding it as a high-quality JPEG or WebP (or wrapping it in a PDF), our engine eliminates 90%–95% of the byte weight in under a second while keeping 4K sharpness."
+  },
+  {
+    q: "Will my 1MB compressed file pass portals that check for 1,000KB instead of 1,024KB?",
+    a: "Yes. Our 4% mathematical safety margin targets ~980KB (under 1,000,000 bytes), so your file will never fail a strict 1,000KB decimal server validation check."
+  },
+  {
+    q: "Can I compress 30 high-resolution event or insurance photos to 1MB at the same time?",
+    a: "Yes. Drop up to 50 high-res photos into the uploader above. They are processed in parallel batches inside your browser's local memory and packaged into a single downloadable ZIP file."
+  },
+  {
+    q: "What if my original image is already 400KB and I need to increase it to 1MB?",
+    a: "If a portal unusually requires a file *above* 1MB, simply upload your 400KB image and set the target to 1.2 MB (or 1200 KB). Our engine automatically switches to Enhancement Mode, upscaling the canvas to hit your requested target."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(34,211,238,0.08);
-          border: 1px solid rgba(34,211,238,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-cyan);
-          "
-        >Target Size: 1MB Document Lock</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 1MB (1024KB) Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Compress Image to <br/>
-        <span style="color: var(--color-cyan);">Exactly 1MB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">1MB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Designed for high-resolution document uploads. Maintain professional clarity on certificates and photos with 1MB precision.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        Shrink 15MB–50MB DSLR, 48MP smartphone photos, and 4K scans to under 1MB with studio-grade fidelity and zero server uploads.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={1024} hideHeader={true} />
+    <Compressor defaultKB={1024} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="1MB" 
-      uniqueContent={`
-        <p class="seo-p">A <strong>1MB image limit</strong> is common for high-quality professional photography platforms and legal document submissions. Our engine optimizes the internal Huffman tables to provide the cleanest possible 1MB result.</p>
-        <p class="seo-p">Preserve the colors, dynamic range, and sharpness of your high-end photos while staying under the 1MB threshold for instant sharing.</p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB="1MB"
+      customTitle="Compressing High-Resolution DSLR & 48MP Smartphone Photos to 1MB"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-         Archive Integrity
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 1MB target is preferred for detailed scans, resumes, and high-quality photography. PdfAndImg prioritizes structural detail, ensuring that stamps, fine print, and facial features are perfectly preserved.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

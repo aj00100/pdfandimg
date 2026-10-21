@@ -2,73 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Compress Image to 500KB — Best 500KB Image Compressor Online";
-const SEO_DESC = "Reduce image size to 500KB online while keeping high resolution. Use our 500KB image compressor for high-quality documents and photos.";
+const pageTitle = "Compress Image to 500KB Online — International Visas, Property & E-Commerce";
+const pageDescription = "Compress high-resolution DSLR and smartphone photos to exact 500KB online for free. Ideal for Australia/Canada visas, MCA/GST filings, and e-commerce product catalogs.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    The <strong>500KB threshold (0.5 MB / 512,000 bytes)</strong> bridges the gap between strict government document portals and high-resolution commercial workflows. It is the standard upper limit for <strong>international immigration & e-Visa portals (Australia ImmiAccount, UK Gov Visas, Canada IRCC digital photos)</strong>, <strong>corporate/tax filings (GST registration, MCA director KYC, FSSAI licenses, property deed scans)</strong>, and <strong>high-speed e-commerce product galleries (Shopify, WooCommerce, Amazon listings)</strong>.
+  </p>
+  <p class="seo-p">
+    When you shoot a product photo, architectural property image, or full-page color deed on an iPhone or mirrorless camera, the raw file typically weighs <strong>5MB to 15MB</strong>. Compressing that 10MB image down to <strong>500KB</strong> achieves a massive <strong>95% bandwidth reduction</strong> while retaining full 2K/4K retina sharpness, zero visible chroma noise, and fast Core Web Vitals (LCP) loading times.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Workflow / Platform</th>
+          <th style="padding: 12px 16px;">Use Case</th>
+          <th style="padding: 12px 16px;">Typical Resolution Kept</th>
+          <th style="padding: 12px 16px;">File Size Reduction</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">Australia / Canada / UK e-Visa</td>
+          <td style="padding: 12px 16px;">Biometric Facial Portrait & Passport Bio Page</td>
+          <td style="padding: 12px 16px;">1200 × 1600 px+</td>
+          <td style="padding: 12px 16px;">6MB → ~485KB (JPG)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">GST / MCA / Income Tax Portals</td>
+          <td style="padding: 12px 16px;">Cancelled Cheque, Electricity Bill, Rent Deed</td>
+          <td style="padding: 12px 16px;">Full A4 300 DPI Scan</td>
+          <td style="padding: 12px 16px;">4.5MB → ~480KB (JPG/PDF)</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">E-Commerce & Web Publishing</td>
+          <td style="padding: 12px 16px;">2000×2000 px Zoomable Product Shots</td>
+          <td style="padding: 12px 16px;">2000 × 2000 px</td>
+          <td style="padding: 12px 16px;">8MB PNG → ~475KB WEBP/JPG</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Batch-Optimizing E-Commerce & Real Estate Galleries to 500KB</h3>
+  <p class="seo-p">
+    Uploading uncompressed 8MB studio photos directly to Shopify, WordPress, or real estate listing portals destroys mobile page speed and hurts Google Core Web Vitals rankings. With PdfAndImg, you can drag and drop up to <strong>50 high-resolution product or property images at once</strong>, select <strong>WEBP</strong> or <strong>JPG</strong> in the Output Format menu, lock the ceiling at 500KB, and download a ready-to-publish ZIP archive in seconds.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "Will compressing a 10MB camera photo to 500KB cause visible quality loss?",
+    a: "No. At 500KB (half a megabyte), a standard 2000×3000 pixel photograph encodes at 88% to 94% JPEG quality. To the human eye, it is visually indistinguishable from the 10MB original, as most of the removed weight comes from redundant high-frequency sensor noise and camera metadata."
+  },
+  {
+    q: "Does the Australian ImmiAccount visa portal require photos under 500KB?",
+    a: "Yes. The Australian Department of Home Affairs (ImmiAccount) requires digital passport photographs to be between 70KB and 500KB (maximum) with dimensions between 900×1200 px and 4500×6000 px. Our 500KB optimizer locks your portrait safely around 480KB."
+  },
+  {
+    q: "Should I choose JPG or WEBP when compressing website images to 500KB?",
+    a: "For government, tax, and visa portals, always choose JPG. For your own website, blog, or Shopify store, choosing WEBP at 500KB allows even higher pixel resolution and sharper edge detail than JPG at the exact same byte weight."
+  },
+  {
+    q: "Can I convert a scanned cancelled cheque or electricity bill into a 500KB PDF?",
+    a: "Yes. Upload the photo of your cancelled cheque or utility bill above, select 'PDF' under Output Format, and click Instant Optimize to generate a GST/KYC-compliant PDF under 500KB."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(34,211,238,0.08);
-          border: 1px solid rgba(34,211,238,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-cyan);
-          "
-        >Target Size: 500KB</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 500KB Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Compress Image to <br/>
-        <span style="color: var(--color-cyan);">Exactly 500KB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">500KB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Our smart engine resizes and optimizes your photo to stay perfectly under the 500KB threshold with maximum possible clarity.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        Shrink 10MB+ DSLR and smartphone photos to under 500KB for Australian/Canadian e-Visas, GST/MCA filings, and e-commerce catalogs.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={500} hideHeader={true} />
+    <Compressor defaultKB={500} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="500" 
-      uniqueContent={`
-        <p class="seo-p">
-          For heavy document uploads, such as full-page scanned transcripts, multi-page PDFs converted to JPG, or high-res DSLR photos, a <strong>500KB limit</strong> is often enforced by university portals and professional licensing boards.
-        </p>
-        <p class="seo-p">
-          Our 500KB compressor is optimized for large-scale documents. It intelligently reduces the file weight by stripping unnecessary metadata and optimizing color profiles without compromising the structural integrity of complex documents.
-        </p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB={500}
+      customTitle="High-Resolution 500KB Image Compression for Visas, Tax Filings & E-Commerce"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-         Optimal 500KB Compression
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 500KB target is preferred for high-fidelity document transmission. PdfAndImg prioritizes structural detail, ensuring that text, fine print, and facial features are perfectly preserved.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

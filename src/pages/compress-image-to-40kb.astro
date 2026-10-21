@@ -2,73 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Compress Image to 40KB — Best 40KB Image Compressor Online";
-const SEO_DESC = "Reduce image size to 40KB online for free. Our 40KB image compressor is the most precise way to resize photos for portals and ID cards.";
+const pageTitle = "Compress Image to 40KB Online — Safe Buffer for 20KB–50KB Exam Portals";
+const pageDescription = "Compress JPG, PNG, and WEBP photos to exact 40KB online for free. The safest high-clarity target for 20KB–50KB SSC, IBPS, SBI, and Left Thumb Impression uploads.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    In competitive exam form filling, <strong>40KB (40,960 bytes)</strong> is the ultimate <strong>"Zero-Rejection Safety Buffer"</strong> for any portal that mandates a <strong>20KB to 50KB</strong> upload window. This includes <strong>SSC CGL/CHSL/MTS live & uploaded photographs</strong>, <strong>IBPS PO/Clerk candidate headshots</strong>, <strong>IBPS 20KB–50KB Left Thumb Impressions</strong>, and <strong>State PSC (UPPSC, BPSC, WBPSC)</strong> application forms.
+  </p>
+  <p class="seo-p">
+    Why choose 40KB instead of 50KB? Some legacy government portals hardcode their backend check at <code>file.size &lt; 50000</code> (decimal 50,000 bytes = 48.8 KiB) instead of binary 51,200 bytes. A file compressed to 49.2 KiB gets unexpectedly rejected on those misconfigured servers! By locking your photograph at <strong>40KB (outputting ~38.4KB to 39.5KB)</strong>, you retain near-lossless facial detail while staying safely below both 50,000-byte decimal and 51,200-byte binary limits.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Document / Portal Requirement</th>
+          <th style="padding: 12px 16px;">Stated Window</th>
+          <th style="padding: 12px 16px;">Decimal vs Binary Server Trap</th>
+          <th style="padding: 12px 16px;">40KB Target Advantage</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">SSC / IBPS / SBI Passport Photo</td>
+          <td style="padding: 12px 16px;">20KB – 50KB</td>
+          <td style="padding: 12px 16px;">50,000 bytes = 48.8 KiB</td>
+          <td style="padding: 12px 16px;">~39KB passes 100% of servers</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">IBPS / SBI Left Thumb Impression</td>
+          <td style="padding: 12px 16px;">20KB – 50KB</td>
+          <td style="padding: 12px 16px;">240 × 240 px (3 × 3 cm)</td>
+          <td style="padding: 12px 16px;">Crisp ridge detail at ~38.8KB</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">RRB Signature & Photo Upload</td>
+          <td style="padding: 12px 16px;">15KB – 40KB</td>
+          <td style="padding: 12px 16px;">40,960 bytes strict ceiling</td>
+          <td style="padding: 12px 16px;">Locks safely at 38.5KB–39.4KB</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Eliminating the Decimal (50,000 Bytes) vs. Binary (51,200 Bytes) Bug</h3>
+  <p class="seo-p">
+    Many junior developers who build university and state recruitment portals write validation rules like <code>if (file.size &gt; 50000) return error;</code> instead of multiplying <code>50 * 1024</code>. Because 50,000 bytes is actually <strong>48.82 KiB</strong>, candidates who compress a photo to 49.5 KiB are baffled when the portal rejects their file as "Over 50KB". Using this <strong>40KB optimizer</strong> eliminates that bug forever while keeping your portrait at ~85%+ JPEG quality.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "Why did my 49KB photo get rejected on a portal that says 'Maximum 50KB'?",
+    a: "Because the portal's programmer likely set the limit to 50,000 decimal bytes (which equals 48.82 KiB) instead of 51,200 binary bytes (50 KiB). Compressing your photo to 40KB here locks the file around 39,000 bytes (~38.5 KiB), bypassing that server bug completely while maintaining high visual sharpness."
+  },
+  {
+    q: "Is 40KB accepted for IBPS and SBI Left Thumb Impressions?",
+    a: "Yes. While signatures in IBPS/SBI must be 10KB–20KB, the Left Thumb Impression (LTI) window is 20KB–50KB. Locking your thumbprint at 40KB gives you maximum ridge clarity well inside the 20KB–50KB range."
+  },
+  {
+    q: "Does compressing to 40KB work for Railway RRB 15KB–40KB limits?",
+    a: "Yes. Our 40KB Target-Lock engine applies a 4% safety margin, meaning your output file will land between 38.2KB and 39.6KB—safely underneath the 40.0KB RRB ceiling."
+  },
+  {
+    q: "Can I batch-compress multiple student photos to 40KB at once?",
+    a: "Yes! Drag and drop up to 50 photos into the box above. Our client-side engine will lock every image to under 40KB and bundle them into a single ZIP file in seconds."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(200,241,53,0.08);
-          border: 1px solid rgba(200,241,53,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-lime);
-          "
-        >Target Size: 40KB Lock</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 40KB Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Compress Image to <br/>
-        <span style="color: var(--color-lime);">Exactly 40KB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">40KB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Engineered for specific ID requirements. Our smart engine resizes and optimizes your photo to hit 40KB with high resolution.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        The safest high-resolution target for 20KB–50KB exam portals, RRB 40KB ceilings, and IBPS thumb impressions—processed 100% locally.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={40} hideHeader={true} />
+    <Compressor defaultKB={40} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="40" 
-      uniqueContent={`
-        <p class="seo-p">
-          A targeted <strong>40KB image compression</strong> is the ideal safe zone for <strong>Railway Recruitment Board (RRB) Group D and NTPC</strong> forms. Their systems require photos between 30KB and 70KB (or 40-100KB for Group D), and signatures between 30KB and 55KB.
-        </p>
-        <p class="seo-p">
-          By compressing exactly to 40KB, you comfortably clear both the minimum and maximum constraints for these critical railway exams. PdfAndImg ensures your file stays lightweight while maintaining the exact pixel clarity needed for face and signature validation.
-        </p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB={40}
+      customTitle="Why 40KB is the Ultimate Safe Buffer for 20KB–50KB Government Portals"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-         ID Card Standards
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 40KB limit is a common requirement for state-level portal uploads and ID cards. PdfAndImg uses a Smart Compression Algorithm to find the highest quality that fits into 40KB, ensuring your file is never rejected for size.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

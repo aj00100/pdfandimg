@@ -674,6 +674,8 @@
           const base64 = dataUrl.split(',')[1];
           const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
           const pdfImg = await pdfDoc.embedJpg(bytes);
+          canvas.width = 0;
+          canvas.height = 0;
           resolve(pdfImg);
         };
         img.onerror = reject;

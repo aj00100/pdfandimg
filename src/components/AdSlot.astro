@@ -7,26 +7,31 @@ interface Props {
 }
 
 const { 
-  slotId = "XXXXXXXXXX", 
+  slotId = "", 
   format = 'horizontal', 
   minHeightMobile = '100px', 
   minHeightDesktop = '90px' 
 } = Astro.props;
+
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+const isLiveAdSense = Boolean(adsenseClient && adsenseClient.startsWith('ca-pub-') && !adsenseClient.includes('XXXX'));
 ---
 
-<div 
-  class="ad-slot-wrapper" 
-  style={`--mh-mobile: ${minHeightMobile}; --mh-desktop: ${minHeightDesktop};`}
-  aria-label="Advertisement"
->
-  <span class="ad-label">ADVERTISEMENT</span>
-  <ins class="adsbygoogle"
-       style="display:block; width: 100%;"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot={slotId}
-       data-ad-format={format}
-       data-full-width-responsive="true"></ins>
-</div>
+{isLiveAdSense ? (
+  <div 
+    class="ad-slot-wrapper" 
+    style={`--mh-mobile: ${minHeightMobile}; --mh-desktop: ${minHeightDesktop};`}
+    aria-label="Advertisement"
+  >
+    <span class="ad-label">ADVERTISEMENT</span>
+    <ins class="adsbygoogle"
+         style="display:block; width: 100%;"
+         data-ad-client={adsenseClient}
+         data-ad-slot={slotId}
+         data-ad-format={format}
+         data-full-width-responsive="true"></ins>
+  </div>
+) : null}
 
 <style>
   .ad-slot-wrapper {

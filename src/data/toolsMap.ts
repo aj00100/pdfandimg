@@ -139,3 +139,5 @@ export function getRelatedTools(currentPath: string, maxCount = 6): Tool[] {
 
   return [...sameCategoryPicks, ...crossCategoryPicks].slice(0, maxCount);
 }
+
+export const toolsMap = allTools;

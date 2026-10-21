@@ -1,133 +1,119 @@
 ---
-/**
- * SmartRelatedTools — Dynamic internal linking component.
- * Automatically selects relevant tools based on the current page's category.
- * Drop-in replacement for the old hardcoded RelatedTools component.
- */
-import { getRelatedTools } from '../data/toolsMap';
+// src/components/SmartRelatedTools.astro
+import { toolsMap } from '../data/toolsMap';
+import { getLocaleChrome } from '../data/i18nMap';
 
 interface Props {
-  maxTools?: number;
+  lang?: string;
 }
 
-const { maxTools = 6 } = Astro.props;
-const currentPath = new URL(Astro.request.url).pathname.replace(/\/$/, '') || '/';
-const relatedTools = getRelatedTools(currentPath, maxTools);
+const { lang } = Astro.props;
+const rawPath = Astro.url.pathname.replace(/\/+$/, '');
+const currentPath = rawPath ? `${rawPath}/` : '/';
+
+const chrome = getLocaleChrome(lang, currentPath);
+const isNonEnglish = chrome.langCode !== 'en';
+
+// For English pages, dynamically pull from toolsMap excluding current route
+const currentTool = toolsMap.find(t => t.href === currentPath);
+const englishRelated = toolsMap
+  .filter(t => t.href !== currentPath)
+  .sort((a, b) => {
+    if (currentTool && a.category === currentTool.category && b.category !== currentTool.category) return -1;
+    if (currentTool && b.category === currentTool.category && a.category !== currentTool.category) return 1;
+    return 0;
+  })
+  .slice(0, 6);
+
+const localizedCards = isNonEnglish
+  ? chrome.relatedTools.filter(t => t.href !== currentPath)
+  : englishRelated.map(t => ({
+      name: t.name,
+      desc: t.desc,
+      href: t.href,
+      badge: t.category.toUpperCase(),
+    }));
 ---
 
-{relatedTools.length > 0 && (
-  <section class="smart-related" aria-label="Related Tools">
-    <div class="smart-related-inner">
-      <h3 class="smart-related-title">Related Tools You Might Need</h3>
-      <div class="smart-related-grid">
-        {relatedTools.map(tool => (
-          <a href={tool.href} class="smart-related-card">
-            <span class="smart-related-name">{tool.name}</span>
-            <span class="smart-related-desc">{tool.desc}</span>
-            <svg class="smart-related-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        ))}
-      </div>
+<section
+  style="
+    max-width: 1000px;
+    margin: 72px auto 0;
+    padding: 0 24px;
+  "
+  aria-label={chrome.relatedHeading}
+>
+  <div style="border-top: 1px solid var(--color-border); padding-top: 48px;">
+    <h2
+      style="
+        font-family: var(--font-display);
+        font-size: 1.375rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--color-ink);
+        margin: 0 0 24px;
+      "
+    >
+      {chrome.relatedHeading}
+    </h2>
+
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      "
+    >
+      {localizedCards.map(item => (
+        <a
+          href={item.href}
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 20px;
+            background: var(--color-surface-1);
+            border: 1px solid var(--color-border);
+            border-radius: 14px;
+            text-decoration: none;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+          "
+          class="smart-related-card"
+        >
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px;">
+              <span style="font-weight: 700; font-size: 0.95rem; color: var(--color-ink);">
+                {item.name}
+              </span>
+              <span
+                style="
+                  font-family: var(--font-mono);
+                  font-size: 0.625rem;
+                  font-weight: 700;
+                  padding: 2px 8px;
+                  border-radius: 999px;
+                  background: rgba(200,241,53,0.1);
+                  color: var(--color-lime);
+                  border: 1px solid rgba(200,241,53,0.25);
+                "
+              >
+                {item.badge}
+              </span>
+            </div>
+            <p style="font-size: 0.8125rem; color: var(--color-ink-2); margin: 0; line-height: 1.55;">
+              {item.desc}
+            </p>
+          </div>
+        </a>
+      ))}
     </div>
-  </section>
-)}
+  </div>
+</section>
 
 <style>
-  .smart-related {
-    margin-top: 64px;
-    padding: 48px 0;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .smart-related-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  .smart-related-title {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--color-ink);
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-  }
-
-  .smart-related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
-  }
-
-  .smart-related-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 20px;
-    background: var(--color-surface-1);
-    border: 1px solid var(--color-border);
-    border-radius: 16px;
-    text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
   .smart-related-card:hover {
-    border-color: var(--color-lime);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  .smart-related-name {
-    font-weight: 700;
-    font-size: 0.9375rem;
-    color: var(--color-ink);
-  }
-
-  .smart-related-desc {
-    font-size: 0.8125rem;
-    color: var(--color-ink-3);
-    line-height: 1.5;
-  }
-
-  .smart-related-arrow {
-    position: absolute;
-    top: 20px;
-    right: 16px;
-    opacity: 0;
-    color: var(--color-lime);
-    transition: all 0.25s ease;
-    transform: translateX(-4px);
-  }
-
-  .smart-related-card:hover .smart-related-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  @media (max-width: 640px) {
-    .smart-related-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .smart-related-card {
-      padding: 14px;
-    }
-
-    .smart-related-name {
-      font-size: 0.8125rem;
-    }
-
-    .smart-related-desc {
-      font-size: 0.6875rem;
-    }
-
-    .smart-related-arrow {
-      display: none;
-    }
+    border-color: var(--color-lime) !important;
+    transform: translateY(-2px);
   }
 </style>

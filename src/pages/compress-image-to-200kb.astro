@@ -2,73 +2,112 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Image Compressor to 200KB — Compress Image to 200 KB Online";
-const SEO_DESC = "Use our free Image Compressor to 200KB. Compress image to 200 KB online ensuring the highest quality while staying exactly under the size limit.";
+const pageTitle = "Compress Image to 200KB Online — NEET Postcard, UPSC & US Visa Tool";
+const pageDescription = "Compress JPG, PNG, and WEBP images to exact 200KB online for free. Calibrated for NEET UG 4x6 postcard photos, UPSC Civil Services, GATE, and US DS-160 visa portraits.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    The <strong>200KB ceiling (204,800 bytes)</strong> is the high-resolution benchmark for examinations and visa systems that perform automated biometric facial matching or require large print-ready portraits. Most notably, the <strong>National Testing Agency (NEET UG)</strong> requires candidates to upload both a standard passport photo and a <strong>4 × 6 inch Postcard Size Photograph (10KB to 200KB)</strong>, while <strong>UPSC OTR</strong> (20KB–300KB), <strong>GATE GOAPS</strong> (5KB–200KB), and the <strong>U.S. Department of State DS-160 / Diversity Visa Lottery</strong> (under 240KB) rely on this exact tier.
+  </p>
+  <p class="seo-p">
+    At <strong>200KB</strong>, there is rarely any need to downscale your image's pixel dimensions unless you are uploading a raw 24-megapixel DSLR file. PdfAndImg's binary search engine preserves your native 600×600 px (US Visa) or 1200×1800 px (4×6" Postcard) resolution while tuning the JPEG luminance quantization tables to lock your output right around <strong>190KB to 198KB</strong>.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Examination / Consular Portal</th>
+          <th style="padding: 12px 16px;">Document Specification</th>
+          <th style="padding: 12px 16px;">Allowed Byte Window</th>
+          <th style="padding: 12px 16px;">Target-Lock Output</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">NEET UG (NTA Portal)</td>
+          <td style="padding: 12px 16px;">4 × 6 inch Postcard & Passport Photo</td>
+          <td style="padding: 12px 16px;">10KB – 200KB (JPG)</td>
+          <td style="padding: 12px 16px;">~192KB (Studio Clarity)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">GATE 2026 / 2027 (GOAPS)</td>
+          <td style="padding: 12px 16px;">480 × 640 px Portrait</td>
+          <td style="padding: 12px 16px;">5KB – 200KB</td>
+          <td style="padding: 12px 16px;">~190KB (Zero Artifacts)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">U.S. Visa DS-160 & Green Card</td>
+          <td style="padding: 12px 16px;">600 × 600 px to 1200 × 1200 px</td>
+          <td style="padding: 12px 16px;">Under 240KB (sRGB JPG)</td>
+          <td style="padding: 12px 16px;">~194KB (Passes CEAC Check)</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">IBPS Handwritten Declaration</td>
+          <td style="padding: 12px 16px;">800 × 400 px (10 × 5 cm)</td>
+          <td style="padding: 12px 16px;">50KB – 100KB / 200KB</td>
+          <td style="padding: 12px 16px;">Crisp Black-on-White Text</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Compressing Scanned A4 Certificates & Multi-Column Marksheets to 200KB</h3>
+  <p class="seo-p">
+    Many central counseling portals (JoSAA, CSAB, MCC Medical Counseling, and state Domicile/Income verification systems) allow up to <strong>200KB</strong> for scanned A4 certificates. If your portal requires a <strong>200KB PDF</strong> rather than a JPEG, select <strong>PDF</strong> in the <em>Output Format</em> selector above—our tool will compress the high-res scan and wrap it into a 200KB-compliant PDF document locally in your browser.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "How do I compress a 4×6 inch NEET postcard photo to under 200KB?",
+    a: "Upload your 4×6 inch studio portrait (typically 1200×1800 pixels at 300 DPI) into the drop zone above with the target set to 200KB. Our engine strips DSLR metadata and locks the JPEG between 190KB and 198KB without cropping or altering your 2:3 postcard aspect ratio."
+  },
+  {
+    q: "Will a 200KB compressed photo pass the U.S. DS-160 and Diversity Visa (DV) photo validator?",
+    a: "Yes, provided your source image is square (between 600×600 px and 1200×1200 px). The U.S. State Department CEAC portal requires an sRGB JPEG under 240KB. Compressing to 200KB here strips incompatible AdobeRGB/Display P3 profiles and outputs a standard sRGB JPEG around 194KB."
+  },
+  {
+    q: "Can I export my 200KB compressed document directly as a PDF?",
+    a: "Yes. Change the 'Output Format' dropdown from 'Keep Original' to 'PDF' before clicking Instant Optimize, or use our dedicated Compress PDF to 200KB tool (/compress-pdf-to-200kb/)."
+  },
+  {
+    q: "Does UPSC Civil Services accept a 200KB photograph?",
+    a: "Yes. UPSC's One Time Registration (OTR) portal accepts candidate photographs between 20KB and 300KB with minimum dimensions of 350×350 pixels. A 200KB target gives your UPSC admit card photo studio-grade sharpness."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(255,107,53,0.08);
-          border: 1px solid rgba(255,107,53,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-orange);
-          "
-        >Target Size: 200KB</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 200KB Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Image Compressor to <br/>
-        <span style="color: var(--color-lime);">Exactly 200KB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">200KB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Designed for high-resolution document transmission. Preserve text legibility on certificates and detail in photos with 200KB precision.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        High-definition client-side compression calibrated for NEET 4×6" postcard photos, UPSC, GATE, US DS-160 visas, and A4 certificates.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={200} hideHeader={true} />
+    <Compressor defaultKB={200} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="200" 
-      uniqueContent={`
-        <p class="seo-p">
-          High-resolution ID proofs for private sector portals, specific state government forms, and central exams like UPSC require slightly larger file sizes with a strict maximum of <strong>300KB</strong> (and often 200KB for specific state portals).
-        </p>
-        <p class="seo-p">
-          At 200KB, you can retain excellent facial clarity and text crispness for documents like driver's licenses, full-page scanned marks sheets, or detailed identity cards. Our 200KB lock ensures you never cross the threshold while keeping the highest possible DPI for official verification.
-        </p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB={200}
+      customTitle="Optimizing NEET Postcard Photos, UPSC Portraits & US Visa Images to 200KB"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-         Document Integrity
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 200KB target is preferred for detailed scans and photographs. PdfAndImg prioritizes structural detail, ensuring that stamps, fine print, and facial features are perfectly preserved.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

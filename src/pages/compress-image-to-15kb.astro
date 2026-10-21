@@ -2,73 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Compress Image to 15KB — Precise 15KB Image Compressor Online";
-const SEO_DESC = "Compress image to 15KB online for free. Our precision 15KB image compressor is perfect for small signatures and thumbnail requirements.";
+const pageTitle = "Compress Image to 15KB Online — The 10KB–20KB Signature Sweet Spot";
+const pageDescription = "Compress signature and thumbprint images to exact 15KB online for free. The mathematical sweet spot for SSC CGL, IBPS PO, SBI Clerk, and NEET 10KB–20KB signature uploads.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    Why do experienced exam candidates and cyber-cafe operators specifically target <strong>15KB</strong>? Because nearly every major Indian recruitment board—including <strong>SSC (CGL, CHSL, MTS), IBPS (PO, Clerk, RRB), SBI, RBI Assistant, and India Post GDS</strong>—specifies a mandatory signature upload window of <strong>10KB to 20KB</strong>.
+  </p>
+  <p class="seo-p">
+    If you aim for 10KB, your file often lands at 9.7KB and gets rejected for being too small. If you aim for 20KB on an uncalibrated tool, OS filesystem rounding can push the file to 20.1KB and trigger an upper-limit rejection. Targeting <strong>15KB (15,360 bytes)</strong> places your signature or thumb impression dead-center inside the <strong>10KB–20KB sweet spot</strong> (typically locking between <strong>14.2KB and 14.8KB</strong>), guaranteeing 100% first-try acceptance across all NIC, TCS iON, and IBPS servers.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Recruitment Board</th>
+          <th style="padding: 12px 16px;">Official Notification Window</th>
+          <th style="padding: 12px 16px;">Why 15KB is Optimal</th>
+          <th style="padding: 12px 16px;">Required Aspect Ratio</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">SSC (All Online Exams)</td>
+          <td style="padding: 12px 16px;">10KB – 20KB (Signature)</td>
+          <td style="padding: 12px 16px;">~14.5KB avoids both 10KB & 20KB edge errors</td>
+          <td style="padding: 12px 16px;">4.0 × 2.0 cm (140 × 60 px)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">IBPS & SBI Portals</td>
+          <td style="padding: 12px 16px;">10KB – 20KB (Sign in Black Ink)</td>
+          <td style="padding: 12px 16px;">Zero risk of boundary byte mismatch</td>
+          <td style="padding: 12px 16px;">140 × 60 px</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">NEET UG / JEE Main (NTA)</td>
+          <td style="padding: 12px 16px;">4KB – 30KB (Running Hand Sign)</td>
+          <td style="padding: 12px 16px;">High-clarity strokes well inside 30KB max</td>
+          <td style="padding: 12px 16px;">3.5 × 1.5 cm</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Formatting Running-Hand Signatures at 15KB</h3>
+  <p class="seo-p">
+    Banking and SSC portals strictly reject signatures written in <strong>ALL CAPITAL LETTERS</strong> or signed on ruled notebook paper with horizontal blue lines. Sign your name in running handwriting on plain white A4 paper using a black ink pen, crop a horizontal rectangle around the signature, and run our 15KB optimizer above to produce a crisp, artifact-free JPEG.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "Why is 15KB the best target for a 10KB to 20KB signature requirement?",
+    a: "Different operating systems (Windows, macOS, Android) sometimes display file sizes using decimal kilobytes (1 KB = 1,000 bytes) while exam servers validate binary kilobytes (1 KiB = 1,024 bytes). Aiming for 15KB produces a ~14.5KB file (~14,850 bytes), which is safely above 10,240 bytes and well below 20,480 bytes on every platform."
+  },
+  {
+    q: "What happens if my cropped signature photo is originally only 8KB?",
+    a: "If you upload an 8KB signature and set the target to 15KB, PdfAndImg automatically activates Enhancement Mode—upscaling the canvas resolution and adjusting JPEG luminance tables so the output file grows to ~14.5KB, passing the 10KB minimum check."
+  },
+  {
+    q: "Does IBPS accept blue ink signatures compressed to 15KB?",
+    a: "Recent IBPS PO/Clerk notifications mandate that the candidate's signature must be signed on white paper with a Black Ink pen, whereas the Left Thumb Impression (20KB–50KB) can use blue or black ink. Always verify your specific exam brochure."
+  },
+  {
+    q: "Can I convert a PNG signature with a transparent background into a 15KB JPG?",
+    a: "Yes. Select 'JPG' as the Output Format above. Our engine automatically replaces transparent pixels with a solid white (#FFFFFF) background so your black signature never turns into a solid black box."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(200,241,53,0.08);
-          border: 1px solid rgba(200,241,53,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-lime);
-          "
-        >Target Size: 15KB Lock</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 15KB Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Compress Image to <br/>
-        <span style="color: var(--color-lime);">Exactly 15KB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">15KB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Surgically optimized for small data limits. Our engine finds the perfect quality balance to hit 15KB exactly.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        Hit the exact 10KB–20KB middle sweet spot for SSC, IBPS, SBI, and NEET signature uploads with 100% client-side privacy.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={15} hideHeader={true} />
+    <Compressor defaultKB={15} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="15" 
-      uniqueContent={`
-        <p class="seo-p">
-          Hitting exactly 15KB is the sweet spot for <strong>SSC CGL, SSC CHSL, and IBPS PO/Clerk</strong> Signature Uploads. These portals strictly mandate signatures to be between 10KB and 20KB.
-        </p>
-        <p class="seo-p">
-          Standard compression tools often destroy the legibility of a signature. Our 15KB optimizer is a surgical tool. PdfAndImg's Smart Compression Algorithm specifically preserves high-contrast edges—ensuring your signature remains sharp and valid for official SSC or IBPS verification while safely meeting the size constraint.
-        </p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB={15}
+      customTitle="Why 15KB is the Golden Sweet Spot for 10KB–20KB Exam Signatures"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-         Ultra-Low Size Optimization
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 15KB limit is often used for tiny avatar uploads and specific signature fields. PdfAndImg ensures your file remains clear and valid for any automated verification system.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

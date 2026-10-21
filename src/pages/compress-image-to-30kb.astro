@@ -2,73 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 import Compressor from '../components/Compressor.astro';
 import SEOContent from '../components/SEOContent.astro';
+import SmartRelatedTools from '../components/SmartRelatedTools.astro';
+import AdSlot from '../components/AdSlot.astro';
 
-const SEO_TITLE = "Compress Image to 30KB — Best 30KB Image Compressor Online";
-const SEO_DESC = "Compress image to 30KB online for free. Our 30KB image compressor ensures high resolution and clarity while staying under the size limit.";
+const pageTitle = "Compress Image to 30KB Online — PAN Card, Railway RRB & NEET Sign Tool";
+const pageDescription = "Compress JPG, PNG, and WEBP images to exact 30KB online for free. Calibrated for NSDL/UTIITSL PAN card photos, Railway RRB NTPC/ALP, and NEET UG 4KB–30KB signatures.";
+
+const uniqueContent = `
+  <p class="seo-p">
+    The <strong>30KB threshold (30,720 bytes)</strong> governs three high-volume document categories across India: <strong>NSDL (Protean) & UTIITSL PAN Card applications</strong>, <strong>Railway Recruitment Board (RRB NTPC, Group D, ALP, Technician)</strong> candidate uploads, and the <strong>NEET UG / JEE Main (NTA) 4KB–30KB signature ceiling</strong>.
+  </p>
+  <p class="seo-p">
+    When applying for a new PAN card or correction online, the portal requires a 213×213 pixel (200 DPI) colour photograph under 30KB–50KB, while RRB recruitment portals frequently enforce a strict <strong>20KB to 30KB</strong> or <strong>15KB to 40KB</strong> window for both passport photos and signatures. PdfAndImg's 30KB Target-Lock engine calibrates your image to <strong>28.2KB–29.5KB</strong>, ensuring it passes both 30KB maximum ceilings and 20KB minimum floors simultaneously.
+  </p>
+
+  <div style="overflow-x: auto; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface-1);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-surface-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-lime);">
+          <th style="padding: 12px 16px;">Portal / Authority</th>
+          <th style="padding: 12px 16px;">Document Type</th>
+          <th style="padding: 12px 16px;">Official Size Window</th>
+          <th style="padding: 12px 16px;">Standard Dimensions</th>
+        </tr>
+      </thead>
+      <tbody style="color: var(--color-ink-2); font-family: var(--font-mono); font-size: 0.8125rem;">
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">NEET UG / JEE Main (NTA)</td>
+          <td style="padding: 12px 16px;">Candidate Signature</td>
+          <td style="padding: 12px 16px;">4KB – 30KB (30KB Strict Max)</td>
+          <td style="padding: 12px 16px;">3.5 × 1.5 cm</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">RRB (NTPC / Group D / ALP)</td>
+          <td style="padding: 12px 16px;">Passport Photo & Sign</td>
+          <td style="padding: 12px 16px;">Photo: 20–50KB · Sign: 10–40KB</td>
+          <td style="padding: 12px 16px;">35 × 45 mm / 140 × 60 px</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; color: var(--color-ink); font-weight: 600;">Protean NSDL / UTIITSL PAN</td>
+          <td style="padding: 12px 16px;">200 DPI Colour Photo</td>
+          <td style="padding: 12px 16px;">Under 30KB / 50KB</td>
+          <td style="padding: 12px 16px;">213 × 213 px (3.5 × 2.5 cm)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="seo-h3" style="margin-top: 32px;">Why 30KB is Ideal for State Police & Teacher Eligibility (TET) Portals</h3>
+  <p class="seo-p">
+    Many state-level recruitment boards (including CTET, UPTET, Bihar STET, and Rajasthan SSO ID portals) specify tighter photo ranges like <strong>20KB to 30KB</strong> or <strong>15KB to 35KB</strong>. By locking your portrait at ~28.8KB with our 30KB optimizer, your single optimized file works universally across both 20KB–30KB state portals and 20KB–50KB central portals.
+  </p>
+`;
+
+const customFaqs = [
+  {
+    q: "Does a 30KB compressed image work for both 20KB–30KB and 20KB–50KB portals?",
+    a: "Yes! Because our 30KB Target-Lock engine outputs a file between 28.2KB and 29.6KB, it is simultaneously above the 20KB minimum floor and below both the 30KB and 50KB maximum ceilings. You can use the exact same file across multiple exam applications."
+  },
+  {
+    q: "How do I prepare a NEET UG signature under the 4KB to 30KB limit?",
+    a: "Sign with a black ballpoint pen on white paper, crop tightly around your signature, and upload it above with the target set to 25KB or 30KB. Our algorithm keeps the file around 28KB with maximum stroke sharpness so NTA's automated AI check never flags it."
+  },
+  {
+    q: "What if I also need exact 213×213 pixel dimensions for an NSDL PAN card photo?",
+    a: "If you need both exact pixel resizing (213×213 px for photo, 400×200 px for signature) and a ~28KB file size in one step, use our dedicated PAN Card Photo Resizer (/pan-card-photo-resizer/)."
+  },
+  {
+    q: "Are my PAN card photos and signatures deleted after compression?",
+    a: "They are never uploaded in the first place. All compression happens 100% locally inside your web browser's RAM via HTML5 Canvas."
+  }
+];
 ---
 
-<Layout title={SEO_TITLE} description={SEO_DESC}>
-  <section class="relative z-20 pt-20 container-stripe">
-    
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(200,241,53,0.08);
-          border: 1px solid rgba(200,241,53,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-lime);
-          "
-        >Target Size: 30KB</span>
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="padding-top: 40px; padding-bottom: 80px;">
+    <div style="text-align: center; max-width: 760px; margin: 0 auto 40px; padding: 0 24px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Target-Lock Engine: 30KB Exact
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 0 0 24px; letter-spacing: -0.05em;">
-        Compress Image to <br/>
-        <span style="color: var(--color-lime);">Exactly 30KB.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Compress Image to <span style="color: var(--color-lime);">30KB</span> Online
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        Our smart engine resizes and optimizes your photo to stay perfectly under the 30KB threshold with maximum possible clarity.
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 560px; margin: 0 auto; line-height: 1.65;">
+        Precision browser-based JPEG optimizer calibrated for NSDL/UTIITSL PAN cards, Railway RRB exams, and NEET UG 4KB–30KB signatures.
       </p>
     </div>
 
-    <!-- The Tool -->
-    <Compressor defaultKB={30} hideHeader={true} />
+    <Compressor defaultKB={30} hideHeader={true} allowMultiple={true} />
 
-    <SEOContent 
-      targetKB="30" 
-      uniqueContent={`
-        <p class="seo-p">
-          Applying for Railway Recruitment Board (RRB) NTPC or Group D? The strict portal requirement for photos is 20KB to 50KB, and for signatures, it's strictly <strong>30KB to 55KB</strong> (specifically 30-49KB for NTPC and 30-55KB for Group D).
-        </p>
-        <p class="seo-p">
-          Compress your photo and signature to exactly 30KB safely. Our engine respects the precise RRB portal constraints, ensuring you hit the minimum 30KB threshold without sacrificing clarity. This prevents the "file size too small" rejection errors common on railway application forms.
-        </p>
-      `}
+    <AdSlot format="horizontal" />
+
+    <SEOContent
+      targetKB={30}
+      customTitle="Compressing Photos & Signatures to 30KB for PAN Cards, RRB & NEET UG"
+      uniqueContent={uniqueContent}
+      customFaqs={customFaqs}
     />
 
-    <!-- Technical Note -->
-    <div style="max-width: 860px; margin: 64px auto 0; padding: 40px; background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px;">
-       <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-         Optimal 30KB Compression
-       </h3>
-       <p style="color: var(--color-ink-2); font-size: 0.875rem; line-height: 1.7;">
-         The 30KB limit is a precise requirement for many digital forms. PdfAndImg uses a Smart Compression Algorithm to find the highest quality that fits into 30KB, ensuring your file is never rejected.
-       </p>
-    </div>
-  </section>
+    <SmartRelatedTools />
+  </div>
 </Layout>

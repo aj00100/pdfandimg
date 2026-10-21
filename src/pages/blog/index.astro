@@ -1,0 +1,110 @@
+---
+// src/pages/blog/index.astro
+import Layout from '../../layouts/Layout.astro';
+import { blogPosts } from '../../data/blogPosts';
+
+const SEO_TITLE = "Technical Guides & Document Optimization Tutorials — Blog";
+const SEO_DESC = "In-depth tutorials on exact-KB image compression, government exam photo requirements (UPSC, SSC, NEET, IBPS), GDPR PDF redaction, and CAdES .p7m conversion.";
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "PdfAndImg Technical Guides & Blog",
+  "url": "https://pdfandimg.com/blog/",
+  "description": SEO_DESC,
+  "blogPost": blogPosts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.description,
+    "datePublished": post.publishDate,
+    "url": `https://pdfandimg.com/blog/${post.slug}/`
+  }))
+};
+---
+
+<Layout title={SEO_TITLE} description={SEO_DESC}>
+  <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 0 24px;">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(200,241,53,0.08);
+          border: 1px solid rgba(200,241,53,0.2);
+          border-radius: 100px;
+          padding: 5px 14px;
+          margin-bottom: 20px;
+        "
+      >
+        <span
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-lime);
+          "
+        >Official Knowledge Base</span>
+      </div>
+      <h1 style="font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-ink);">
+        Document & Image Optimization Guides
+      </h1>
+      <p style="font-size: 1.0625rem; color: var(--color-ink-2); max-width: 620px; margin: 0 auto; line-height: 1.65;">
+        Step-by-step tutorials for government exam portals, irreversible GDPR PDF redaction, court document splitting, and zero-server file conversion.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+      {blogPosts.map(post => (
+        <article
+          class="panel"
+          style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px;"
+        >
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px;">
+              <span
+                style="
+                  font-family: var(--font-mono);
+                  font-size: 0.6875rem;
+                  font-weight: 700;
+                  color: var(--color-lime);
+                  text-transform: uppercase;
+                "
+              >{post.category}</span>
+              <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3);">
+                {post.publishDate} · {post.readTime}
+              </span>
+            </div>
+            <h2 style="font-size: 1.2rem; font-weight: 700; line-height: 1.35; margin: 0 0 10px;">
+              <a href={`/blog/${post.slug}/`} style="color: var(--color-ink); text-decoration: none;">
+                {post.title}
+              </a>
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--color-ink-2); line-height: 1.6; margin: 0;">
+              {post.description}
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--color-border);">
+            <a
+              href={`/blog/${post.slug}/`}
+              style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); text-decoration: none;"
+            >
+              Read Guide →
+            </a>
+            <a
+              href={post.primaryToolHref}
+              style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-ink-3); text-decoration: none;"
+            >
+              Open {post.primaryToolName}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>

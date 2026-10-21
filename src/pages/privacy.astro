@@ -1,95 +1,171 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const SEO_TITLE = "Privacy Policy — PdfAndImg Service";
+const pageTitle = "Privacy Policy & AdSense Cookie Disclosure | PdfAndImg";
+const pageDescription = "Official Privacy Policy for PdfAndImg (pdfandimg.com). Learn about our 100% client-side zero-upload architecture, Google AdSense & DoubleClick DART cookies, and GDPR/LGPD/CCPA rights.";
+const lastUpdated = "October 21, 2026";
 ---
 
-<Layout title={SEO_TITLE}>
-  <section class="relative z-20 pt-20 container-stripe">
+<Layout title={pageTitle} description={pageDescription}>
+  <div style="max-width: 860px; margin: 0 auto; padding: 64px 24px 96px;">
     
-    <!-- Header centered -->
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(34,211,238,0.08);
-          border: 1px solid rgba(34,211,238,0.2);
-          border-radius: 100px;
-          padding: 5px 14px;
-          margin-bottom: 24px;
-        "
-      >
-        <span
-          style="
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-cyan);
-          "
-        >Privacy Policy</span>
+    <!-- Header -->
+    <div style="margin-bottom: 48px; border-bottom: 1px solid var(--color-border); padding-bottom: 32px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;">
+        <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-lime);">
+          Zero-Server Privacy & Compliance
+        </span>
       </div>
-
-      <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin: 0 0 24px; letter-spacing: -0.04em;">
-        Privacy <br/>
-        <span style="color: var(--color-cyan);">Policy.</span>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-ink); margin: 0 0 16px; line-height: 1.1;">
+        Privacy Policy
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); line-height: 1.6; max-width: 540px; margin: 0 auto;">
-        At PdfAndImg, accessible from pdfandimg.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by PdfAndImg and how we use it.
+      <p style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-ink-3); margin: 0;">
+        Effective Date & Last Updated: {lastUpdated} · Domain: https://pdfandimg.com
       </p>
     </div>
 
-    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+    <!-- Main Policy Content -->
+    <div class="policy-content" style="display: flex; flex-direction: column; gap: 40px; color: var(--color-ink-2); line-height: 1.8; font-size: 1rem;">
       
-      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
-        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
-          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <!-- Section 1: Core Architecture -->
+      <section class="panel" style="padding: 28px; border-left: 3px solid var(--color-lime);">
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          1. 100% Client-Side In-Browser Processing (Zero Server Uploads)
+        </h2>
+        <p style="margin: 0 0 16px;">
+          At <strong>PdfAndImg</strong> (accessible from <a href="https://pdfandimg.com/" style="color: var(--color-lime); text-decoration: underline;">https://pdfandimg.com/</a>), your privacy is engineered directly into our software architecture. Unlike traditional online file converters and image compressors, <strong>we do not upload, transmit, store, or process your files on any remote server or cloud database</strong>.
+        </p>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+          <li><strong>Local RAM Execution:</strong> Every tool on our platform—including target-KB image compression, biometric exam photo resizing, PDF redaction, PDF splitting/merging, CAdES <code>.p7m</code> extraction, and HEIC conversion—executes <strong>100% locally inside your web browser's volatile memory (RAM)</strong> using HTML5 Canvas APIs, Web Workers, and WebAssembly (WASM) modules.</li>
+          <li><strong>Zero File Retention:</strong> Your personal photographs, signatures, national ID cards, tax invoices, legal pleadings, and PDF documents never leave your device. The moment you close or refresh your browser tab, all temporary local Blob URLs and memory buffers are permanently destroyed.</li>
+          <li><strong>No Backend File Inspection:</strong> Because zero bytes of your uploaded files ever traverse the internet to reach our infrastructure, PdfAndImg personnel, hosting providers, and third parties have zero technical ability to view, intercept, or recover your documents.</li>
+        </ul>
+      </section>
+
+      <!-- Section 2: Google AdSense & DART Cookie Disclosure -->
+      <section>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          2. Google AdSense & DoubleClick DART Cookie Disclosure
+        </h2>
+        <p style="margin: 0 0 16px;">
+          To keep our 60+ web utilities completely free of charge without paywalls or subscription fees, PdfAndImg displays advertisements served by <strong>Google AdSense</strong> and certified third-party advertising partners. In strict compliance with Google Publisher Policies, we provide the following mandatory disclosures:
+        </p>
+        <div class="panel" style="padding: 24px; background: var(--color-surface-2); margin-bottom: 16px;">
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 12px;">
+            <li>
+              <strong>Third-Party Vendor Cookies:</strong> Third-party vendors, including Google, use cookies (such as the <strong>DoubleClick DART cookie</strong> and Google advertising cookies) to serve ads based on a user's prior visits to this website (<a href="https://pdfandimg.com/" style="color: var(--color-lime);">pdfandimg.com</a>) and/or other websites on the Internet.
+            </li>
+            <li>
+              <strong>Personalized Advertising:</strong> Google's use of advertising cookies enables Google and its partners to serve personalized and non-personalized advertisements to our users based on their visit to our site and other sites across the web.
+            </li>
+            <li>
+              <strong>How to Opt Out of Google Personalized Ads:</strong> Users may opt out of personalized advertising at any time by visiting <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">Google Ads Settings (My Ad Center)</a> or <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">https://adssettings.google.com</a>.
+            </li>
+            <li>
+              <strong>Industry-Wide Opt-Out Mechanism:</strong> Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">www.aboutads.info/choices</a> or the Network Advertising Initiative opt-out portal at <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">optout.networkadvertising.org</a>. European and UK users may also manage preferences via <a href="https://www.youronlinechoices.eu/" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">www.youronlinechoices.eu</a>.
+            </li>
+          </ul>
+        </div>
+        <p style="margin: 0; font-size: 0.9375rem;">
+          For additional details on how Google processes data in advertising products, please review Google's official policy document: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" style="color: var(--color-lime); text-decoration: underline;">How Google uses information from sites or apps that use our services</a>.
+        </p>
+      </section>
+
+      <!-- Section 3: Third-Party Advertising Vendors -->
+      <section>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          3. Third-Party Advertising Vendors & Ad Technology Providers
+        </h2>
+        <p style="margin: 0 0 16px;">
+          If you have not opted out of third-party ad serving, cookies and web beacons from certified third-party advertising networks and Ad Technology Providers (ATPs) may also be used to serve ads on our site, measure ad effectiveness, and prevent ad fraud (via domains such as <code>pagead2.googlesyndication.com</code>, <code>doubleclick.net</code>, and <code>adtrafficquality.google</code>).
+        </p>
+        <p style="margin: 0;">
+          PdfAndImg has no access to or control over the cookies placed by third-party advertisers. You should consult the respective privacy policies of these third-party ad servers for more detailed information on their practices as well as instructions about how to opt out of certain practices. Our Privacy Policy does not apply to, and we cannot control the activities of, such other advertisers or external websites.
+        </p>
+      </section>
+
+      <!-- Section 4: Standard Log Files, LocalStorage & Analytics -->
+      <section>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          4. Standard Log Files, Browser LocalStorage & Web Analytics
+        </h2>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 12px;">
+          <li>
+            <strong>Edge Network Log Files:</strong> PdfAndImg is hosted as a static Multi-Page Application on Cloudflare Pages. Like all standard web servers, our CDN edge nodes automatically record standard HTTP request logs. The information inside log files includes anonymized or truncated Internet Protocol (IP) addresses, browser type, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and the number of clicks. This metadata is used strictly to analyze traffic trends, mitigate DDoS attacks, and administer the site; it is never linked to any personally identifiable information or uploaded file contents.
+          </li>
+          <li>
+            <strong>Browser LocalStorage & Session Memory:</strong> Certain utilities on PdfAndImg may use your browser's native <code>localStorage</code> or <code>sessionStorage</code> solely to remember non-sensitive UI preferences (such as your last selected exam preset, preferred output format, or cookie consent banner status). You can clear this data at any time through your browser settings.
+          </li>
+          <li>
+            <strong>Aggregate Analytics:</strong> We may use privacy-centric web analytics (such as Google Analytics 4 with IP anonymization enabled) to understand aggregate page views, Core Web Vitals performance, and error rates.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 5: International Data Protection Rights (GDPR, LGPD, CCPA/CPRA) -->
+      <section>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          5. GDPR (EEA/UK/DSGVO), LGPD (Brazil) & CCPA/CPRA (California) Rights
+        </h2>
+        <p style="margin: 0 0 16px;">
+          PdfAndImg serves a global audience—including specialized local utilities for Germany (DSGVO), Italy, Brazil (LGPD), Japan (APPI), India (DPDP Act), and the United States. Depending on your jurisdiction, you are entitled to specific statutory data protection rights:
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+          <div class="panel" style="padding: 20px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 8px;">
+              A. European Economic Area (EEA), UK & Switzerland (GDPR / DSGVO)
+            </h3>
+            <p style="margin: 0; font-size: 0.9375rem;">
+              Under the General Data Protection Regulation (GDPR), our legal basis for processing minimal technical metadata is legitimate interest (Art. 6(1)(f) GDPR) to ensure network security and site functionality, and your explicit consent (Art. 6(1)(a) GDPR) for personalized advertising cookies managed via Google's IAB TCF v2.2 certified Consent Management Platform (CMP). You hold the right to access, rectification, erasure ("Right to be Forgotten"), restriction of processing, data portability, and the right to withdraw cookie consent at any time.
+            </p>
           </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">1. Local Browser Processing</h3>
-            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
-              PdfAndImg is a "Client-Side" application. All image processing, compression, and optimization happens directly in your browser's RAM. Your images are <strong>never</strong> uploaded to any server. They never leave your device.
+
+          <div class="panel" style="padding: 20px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 8px;">
+              B. Brazil (Lei Geral de Proteção de Dados — LGPD, Lei nº 13.709/2018)
+            </h3>
+            <p style="margin: 0; font-size: 0.9375rem;">
+              In accordance with Article 18 of the Brazilian LGPD, users in Brazil have the right to confirmation of the existence of processing, access to data, correction of incomplete or outdated data, anonymization, blocking or deletion of unnecessary data, and revocation of consent. All PDF splitting and legal document processing on our Brazilian portal (<code>/pt/dividir-pdf-por-tamanho/</code>) occurs 100% locally on your device without server transmission.
+            </p>
+          </div>
+
+          <div class="panel" style="padding: 20px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--color-ink); margin: 0 0 8px;">
+              C. California Residents (CCPA / CPRA Privacy Rights)
+            </h3>
+            <p style="margin: 0; font-size: 0.9375rem;">
+              Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA), California consumers have the right to: (1) Request disclosure of the categories and specific pieces of personal data collected; (2) Request deletion of personal data; (3) Opt out of the "sale" or "sharing" of personal information for cross-context behavioral advertising; and (4) Non-discrimination for exercising privacy rights. PdfAndImg does not sell personal files or identity data. To opt out of third-party ad cookie sharing, please use the Google Ads Settings links in Section 2 above.
             </p>
           </div>
         </div>
       </section>
 
-      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
-        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
-          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">2. Anonymous Analytics</h3>
-            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
-              We use lightweight, privacy-focused tracking to understand total visit counts. This data is fully anonymized and does not include any personal identifiers or the content of the files you process.
-            </p>
-          </div>
-        </div>
+      <!-- Section 6: Children's Privacy -->
+      <section>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          6. Children's Information (COPPA Compliance)
+        </h2>
+        <p style="margin: 0;">
+          Protecting the privacy of children is especially important. PdfAndImg does not knowingly collect any Personal Identifiable Information from children under the age of 13 (or under 16 in applicable European jurisdictions). Because our tools operate locally in the browser without user accounts or file uploads, no personal files from minors are ever stored on our servers. If you believe that a child has provided personal information to us via a support email, please contact us immediately and we will promptly purge such records.
+        </p>
       </section>
 
-      <section style="background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px;">
-        <div style="display: flex; gap: 24px; flex-direction: column; md-flex-direction: row;">
-          <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-surface-3); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--color-ink);">3. Third-Party Links</h3>
-            <p style="color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.7;">
-              Our website may contain links to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
-            </p>
-          </div>
-        </div>
+      <!-- Section 7: Contact Us -->
+      <section class="panel" style="padding: 28px;">
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 0 0 16px;">
+          7. Contact Information & Data Protection Inquiries
+        </h2>
+        <p style="margin: 0 0 16px;">
+          If you have any questions about this Privacy Policy, our client-side security architecture, or wish to exercise your statutory rights under GDPR, LGPD, CCPA, or the India DPDP Act, please contact our team directly:
+        </p>
+        <ul style="margin: 0; padding-left: 20px; font-family: var(--font-mono); font-size: 0.875rem; color: var(--color-ink); display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>Website:</strong> <a href="https://pdfandimg.com/" style="color: var(--color-lime);">https://pdfandimg.com/</a></li>
+          <li><strong>Support & Privacy Contact Page:</strong> <a href="/contact/" style="color: var(--color-lime);">https://pdfandimg.com/contact/</a></li>
+          <li><strong>Direct Email:</strong> <a href="mailto:privacy@pdfandimg.com" style="color: var(--color-lime);">privacy@pdfandimg.com</a></li>
+        </ul>
       </section>
 
     </div>
-
-    <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--color-border); text-align: center;">
-      <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3);">LAST UPDATED: JUNE 2026</p>
-    </div>
-  </section>
+  </div>
 </Layout>
