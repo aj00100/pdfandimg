@@ -6,10 +6,67 @@ interface Props {
 }
 
 const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.props;
+
+const isID = Astro.url.pathname.startsWith('/id/');
+const t = isID ? {
+  badge: 'Alat Online Gratis: Kompresi Gambar',
+  title1: 'Kompres ke',
+  title2: 'Ukuran Tepat',
+  subtitle: 'Unggah foto Anda, atur target KB. Mendukung pemrosesan massal instan di browser.',
+  dropSingle: 'Tarik & letakkan foto di sini',
+  dropMulti: 'Tarik & letakkan foto-foto di sini',
+  browse: 'Pilih file',
+  reading: 'Membaca file...',
+  change: 'Ganti',
+  original: 'Asli',
+  format: 'Format',
+  targetSize: 'Ukuran Target',
+  outputFormat: 'Format Output',
+  keepOriginal: 'Sesuai Asli',
+  optimizeBtn: 'Kompres Sekarang',
+  readyTitle: 'Siap diunduh',
+  algoLog: 'Ukuran optimal berhasil dikunci.',
+  finalSize: 'Ukuran Akhir',
+  savings: 'Hemat',
+  growth: 'Pertumbuhan',
+  quality: 'Kualitas',
+  time: 'Waktu',
+  renameLabel: 'Ganti Nama File (Opsional)',
+  renamePlaceholder: 'Masukkan nama file...',
+  downloadBtn: 'Unduh JPEG',
+  resetBtn: '← Kompres foto lain'
+} : {
+  badge: 'Free Online Tool: Image Compression',
+  title1: 'Compress to',
+  title2: 'Exact Size',
+  subtitle: 'Upload your images, set a KB target. Supports instant bulk processing.',
+  dropSingle: 'Drop image here',
+  dropMulti: 'Drop image(s) here',
+  browse: 'Browse files',
+  reading: 'Reading file...',
+  change: 'Change',
+  original: 'Original',
+  format: 'Format',
+  targetSize: 'Target size',
+  outputFormat: 'Output Format',
+  keepOriginal: 'Keep Original',
+  optimizeBtn: 'Instant Optimize',
+  readyTitle: 'Ready for download',
+  algoLog: 'Mathematical optimum identified.',
+  finalSize: 'Final Size',
+  savings: 'Savings',
+  growth: 'Growth',
+  quality: 'Quality',
+  time: 'Time',
+  renameLabel: 'Rename File (Optional)',
+  renamePlaceholder: 'Enter custom name...',
+  downloadBtn: 'Download JPEG',
+  resetBtn: '← Optimize another'
+};
 ---
 
 <div
-  id="compressor-root"
+  id="compressor-root" data-is-id={isID ? "true" : "false"}
   style="max-width: 860px; margin: 0 auto; padding: 0 24px;"
 >
 
@@ -37,7 +94,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
             letter-spacing: 0.1em;
             color: var(--color-lime);
           "
-        >Free Online Tool: Image Compression</span>
+        >{t.badge}</span>
       </div>
       <h2
         style="
@@ -47,13 +104,13 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           letter-spacing: -0.02em;
         "
       >
-        Compress to<br/>
+        {t.title1}<br/>
         <span
           style="
             color: var(--color-lime);
             display: inline-block;
           "
-        >Exact Size</span>
+        >{t.title2}</span>
       </h2>
       <p
         style="
@@ -64,7 +121,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           line-height: 1.65;
         "
       >
-        Upload your images, set a KB target. Supports instant bulk processing.
+        {t.subtitle}
       </p>
     </div>
   )}
@@ -135,7 +192,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
               color: var(--color-ink);
               margin: 0 0 4px;
             "
-          >{allowMultiple ? 'Drop image(s) here' : 'Drop image here'}</p>
+          >{allowMultiple ? t.dropMulti : t.dropSingle}</p>
           <p
             style="
               font-family: var(--font-mono);
@@ -153,7 +210,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           type="button"
           style="font-size: 0.75rem;"
         >
-          Browse files
+          {t.browse}
         </button>
       </div>
 
@@ -161,7 +218,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
       <div id="upload-loading" class="hidden" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
         <div class="spinner"></div>
         <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.08em;">
-          Reading file...
+          {t.reading}
         </p>
       </div>
 
@@ -197,7 +254,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           type="button"
           style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem;"
         >
-          Change
+          {t.change}
         </button>
       </div>
     </div>
@@ -214,11 +271,11 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
       "
     >
       <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
-        <span class="label">Original</span>
+        <span class="label">{t.original}</span>
         <span class="value" id="preview-size-tag">—</span>
       </span>
       <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
-        <span class="label">Format</span>
+        <span class="label">{t.format}</span>
         <span class="value" id="preview-type-tag">—</span>
       </span>
     </div>
@@ -246,7 +303,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
             margin-bottom: 8px;
             text-align: center;
           "
-        >Target size</label>
+        >{t.targetSize}</label>
         <div style="position: relative; display: flex; align-items: center;">
           <input
             type="number"
@@ -299,7 +356,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
             margin-bottom: 8px;
             text-align: center;
           "
-        >Output Format</label>
+        >{t.outputFormat}</label>
         <select
           id="output-format"
           class="input-number"
@@ -317,7 +374,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
             outline: none;
           "
         >
-          <option value="auto" selected>Keep Original</option>
+          <option value="auto" selected>{t.keepOriginal}</option>
           <option value="image/jpeg">JPG</option>
           <option value="image/png">PNG</option>
           <option value="image/webp">WEBP</option>
@@ -337,7 +394,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
-        Instant Optimize
+        {t.optimizeBtn}
       </button>
     </div>
   </div>
@@ -430,7 +487,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
                   letter-spacing: -0.04em;
                   margin: 0 0 8px;
                 "
-              >Ready for download</h2>
+              >{t.readyTitle}</h2>
               <p
                 id="algo-log"
                 style="
@@ -440,25 +497,25 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
                   margin: 0;
                   line-height: 1.6;
                 "
-              >Mathematical optimum identified.</p>
+              >{t.algoLog}</p>
             </div>
 
             <!-- Metrics grid -->
             <div class="grid grid-cols-2 gap-2">
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">Final Size</span>
+                <span class="metric-label" style="font-size: 0.625rem;">{t.finalSize}</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="result-size">—</span>
               </div>
               <div class="metric-card accent" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">Savings</span>
+                <span class="metric-label" style="font-size: 0.625rem;">{t.savings}</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="savings-percent">—</span>
               </div>
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">Quality</span>
+                <span class="metric-label" style="font-size: 0.625rem;">{t.quality}</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="quality-tag">—</span>
               </div>
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">Time</span>
+                <span class="metric-label" style="font-size: 0.625rem;">{t.time}</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="processing-time">—</span>
               </div>
             </div>
@@ -468,11 +525,11 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         <!-- Full Width Buttons -->
         <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
           <div style="position: relative;">
-            <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px; text-align: center;">Rename File (Optional)</label>
+            <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px; text-align: center;">{t.renameLabel}</label>
             <input 
               type="text" 
               id="rename-input" 
-              placeholder="Enter custom name..." 
+              placeholder={t.renamePlaceholder} 
               class="input-number"
               style="width: 100%; height: 56px; font-size: 1rem; padding: 0 12px; text-align: center;"
             />
@@ -490,7 +547,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
               <polyline points="17 8 12 3 7 8"/>
               <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
-            Download JPEG
+            {t.downloadBtn}
           </a>
 
           <!-- Compress again -->
@@ -500,7 +557,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
             type="button"
             style="align-self: center; font-size: 0.75rem; margin-top: 12px;"
           >
-            ← Optimize another
+            {t.resetBtn}
           </button>
         </div>
       </div>
@@ -516,6 +573,9 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
   const blobUrlsToRevoke = [];
   import { compressToTarget } from '../utils/imageCompressor';
   import JSZip from 'jszip';
+
+  const rootEl = document.getElementById('compressor-root') as HTMLDivElement;
+  const isID = rootEl?.dataset.isId === 'true';
 
   /* ── Elements ── */
   const dropZone     = document.getElementById('drop-zone') as HTMLDivElement;
@@ -587,7 +647,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
       const currentNames = new Set(selectedFiles.map(f => f.name));
       const newFiles = filesToProcess.filter(f => !currentNames.has(f.name));
       selectedFiles = [...selectedFiles, ...newFiles].slice(0, 50);
-      changeImageBtn.textContent = 'Add more';
+      changeImageBtn.textContent = isID ? 'Tambah lagi' : 'Add more';
     } else {
       selectedFiles = filesToProcess;
     }
@@ -661,14 +721,14 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
     const unit = unitSelect.value;
     
     if (isNaN(rawValue) || rawValue <= 0) {
-      alert('Please enter a valid target size (minimum 5KB).');
+      alert(isID ? 'Silakan masukkan target ukuran yang valid (minimal 5KB).' : 'Please enter a valid target size (minimum 5KB).');
       return;
     }
     const targetKB = unit === 'mb' ? rawValue * 1024 : rawValue;
     const targetFormat = outputFormatSelect.value as 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto';
 
     if (targetKB < 5) {
-      alert('Minimum target is 5KB. Most images cannot be compressed below this.');
+      alert(isID ? 'Target minimal adalah 5KB. Sebagian besar gambar tidak dapat dikompres di bawah ini.' : 'Minimum target is 5KB. Most images cannot be compressed below this.');
       return;
     }
 
@@ -706,12 +766,18 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         const savedPct = Math.abs(Math.round((1 - result.blob.size / selectedFile.size) * 100));
         const inputKB  = (selectedFile.size / 1024).toFixed(1);
 
-        const lines = [
-          { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135',              delay: 0   },
-          { text: `  reading input   ·  ${inputKB}kb`,          color: 'rgba(255,255,255,0.38)', delay: 160 },
+        const lines = isID ? [
+          { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135', delay: 0 },
+          { text: `  membaca file    ·  ${inputKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 160 },
+          { text: `  pencarian biner ·  ${result.iterations ?? 8} iterasi  ·  konvergen`, color: 'rgba(255,255,255,0.38)', delay: 340 },
+          { text: `  hasil           ·  ${finalKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 680 },
+          { text: `✓ selesai`, color: '#c8f135', delay: 860 },
+        ] : [
+          { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135', delay: 0 },
+          { text: `  reading input   ·  ${inputKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 160 },
           { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
           { text: `  output          ·  ${finalKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 680 },
-          { text: `✓ done`,                                                  color: '#c8f135',              delay: 860 },
+          { text: `✓ done`, color: '#c8f135', delay: 860 },
         ];
 
         for (let i = 0; i < lines.length; i++) {
@@ -762,21 +828,21 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         if (isUpsized) {
           const growth = ((resKB / origKB - 1) * 100).toFixed(0);
           savingsEl.textContent = `+${growth}%`;
-          savingsLabel.textContent = 'Growth';
+          savingsLabel.textContent = isID ? 'Pertumbuhan' : 'Growth';
         } else {
           const savings  = ((origKB - resKB) / origKB * 100).toFixed(0);
           savingsEl.textContent = savings + '%';
-          savingsLabel.textContent = 'Savings';
+          savingsLabel.textContent = isID ? 'Hemat' : 'Savings';
         }
 
         document.getElementById('quality-tag')!.textContent     = Math.round(result.quality * 100) + '%';
         document.getElementById('processing-time')!.textContent = timeInSeconds;
         
-        document.getElementById('algo-log')!.textContent        = isUpsized
-          ? `Enhancement mode: Upscaled for target size.`
-          : `Smart Scaling: Adjusted dimensions and quality.`;
+        document.getElementById('algo-log')!.textContent        = isID
+          ? (isUpsized ? 'Mode peningkatan: Ukuran ditingkatkan sesuai target.' : 'Skala Pintar: Dimensi dan kualitas disesuaikan secara optimal.')
+          : (isUpsized ? 'Enhancement mode: Upscaled for target size.' : 'Smart Scaling: Adjusted dimensions and quality.');
 
-        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Download ${ext.toUpperCase()}`;
+        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> ${isID ? "Unduh" : "Download"} ${ext.toUpperCase()}`;
         downloadLink.classList.remove('animate-jump');
       } else {
         // --- BULK FILE LOGIC ---
@@ -811,14 +877,14 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           
           const msgEl = document.createElement('div');
           msgEl.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-          msgEl.textContent = `  processed ${totalProcessed}/${selectedFiles.length} images...`;
+          msgEl.textContent = isID ? `  memproses ${totalProcessed}/${selectedFiles.length} gambar...` : `  processed ${totalProcessed}/${selectedFiles.length} images...`;
           termLines.appendChild(msgEl);
           termLines.scrollTop = termLines.scrollHeight;
         }
         
         const msgElZipping = document.createElement('div');
         msgElZipping.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        msgElZipping.textContent = `  compressing into zip archive...`;
+        msgElZipping.textContent = isID ? '  mengompresi ke arsip zip...' : '  compressing into zip archive...';
         termLines.appendChild(msgElZipping);
         termLines.scrollTop = termLines.scrollHeight;
 
@@ -827,7 +893,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         
         const doneEl = document.createElement('div');
         doneEl.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        doneEl.textContent = `✓ done`;
+        doneEl.textContent = isID ? '✓ selesai' : '✓ done';
         termLines.appendChild(doneEl);
         
         termCursor.style.display = 'none';
@@ -844,7 +910,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
           previewImg.parentElement!.appendChild(bulkResultText);
         }
         bulkResultText.style.display = 'flex';
-        bulkResultText.textContent = `${selectedFiles.length} files zipped`;
+        bulkResultText.textContent = isID ? `${selectedFiles.length} file di-zip` : `${selectedFiles.length} files zipped`;
 
         downloadLink.href = url;
         
@@ -883,9 +949,9 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
         document.getElementById('quality-tag')!.textContent     = 'MIXED';
         document.getElementById('processing-time')!.textContent = timeInSeconds;
         
-        document.getElementById('algo-log')!.textContent        = `Batch processing completed for ${selectedFiles.length} files.`;
+        document.getElementById('algo-log')!.textContent = isID ? `Pemrosesan massal selesai untuk ${selectedFiles.length} file.` : `Batch processing completed for ${selectedFiles.length} files.`;
 
-        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Download ZIP`;
+        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> ${isID ? "Unduh ZIP" : "Download ZIP"}`;
         
         // Add jump animation
         downloadLink.classList.remove('animate-jump');
@@ -903,7 +969,7 @@ const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.prop
     } catch (err: any) {
       console.error(err);
       processing.classList.add('hidden');
-      alert(err?.message || 'Compression failed. Please try a different image.');
+      alert(err?.message || (isID ? 'Kompresi gagal. Silakan coba gambar lain.' : 'Compression failed. Please try a different image.'));
     } finally {
       compressBtn.disabled = false;
     }
