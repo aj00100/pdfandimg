@@ -1,20 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C8F135" />
+    <linearGradient id="bgIso" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161618" />
+      <stop offset="100%" stop-color="#0A0A0B" />
+    </linearGradient>
+    <linearGradient id="limeIso" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4FF47" />
+      <stop offset="50%" stop-color="#C8F135" />
       <stop offset="100%" stop-color="#38E54D" />
     </linearGradient>
-    <filter id="shadow3" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.25"/>
+    <linearGradient id="midIso" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(200, 241, 53, 0.45)" />
+      <stop offset="100%" stop-color="rgba(34, 211, 238, 0.25)" />
+    </linearGradient>
+    <filter id="isoGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#C8F135" flood-opacity="0.22" />
     </filter>
   </defs>
-  <rect width="512" height="512" rx="128" fill="#111111"/>
-  
-  <g filter="url(#shadow3)">
-    <rect x="120" y="120" width="272" height="272" rx="64" fill="url(#g3)" />
-    
-    <path d="M 256 160 L 256 320" stroke="#111111" stroke-width="44" stroke-linecap="round" />
-    <path d="M 170 246 L 256 160 L 342 246" fill="none" stroke="#111111" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M 170 340 L 342 340" stroke="#111111" stroke-width="44" stroke-linecap="round" />
+
+  <!-- Squircle Base -->
+  <rect width="512" height="512" rx="128" fill="url(#bgIso)" />
+  <rect x="6" y="6" width="500" height="500" rx="122" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4" />
+
+  <!-- Bottom Layer: Locked Compressed Output (Solid Cyber Lime) -->
+  <g filter="url(#isoGlow)">
+    <path d="M 256 264 L 408 340 L 256 416 L 104 340 Z" fill="url(#limeIso)" />
+    <!-- 3D Extrusion Lip for Bottom Layer -->
+    <path d="M 104 340 L 256 416 L 408 340 L 408 362 L 256 438 L 104 362 Z" fill="#28A738" />
   </g>
+
+  <!-- Middle Layer: Binary Search Pass (Translucent Hybrid) -->
+  <path d="M 256 184 L 388 250 L 256 316 L 124 250 Z" fill="url(#midIso)" stroke="#C8F135" stroke-width="4" stroke-linejoin="round" />
+
+  <!-- Top Layer: Raw Input Plane (Wireframe + Subtle Glass) -->
+  <path d="M 256 104 L 368 160 L 256 216 L 144 160 Z" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-dasharray="16 10" stroke-linejoin="round" />
+
+  <!-- Center Vertical Laser Axis -->
+  <line x1="256" y1="140" x2="256" y2="340" stroke="#0A0A0B" stroke-width="12" stroke-linecap="round" opacity="0.5" />
+  <circle cx="256" cy="340" r="14" fill="#0A0A0B" />
 </svg>
