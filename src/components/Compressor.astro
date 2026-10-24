@@ -3,85 +3,19 @@ interface Props {
   defaultKB?: number;
   hideHeader?: boolean;
   allowMultiple?: boolean;
-  lang?: 'en' | 'id';
 }
 
-const { defaultKB = 20, hideHeader = false, allowMultiple = false, lang } = Astro.props;
-const isID = lang === 'id' || Astro.url.pathname.startsWith('/id/');
-
-const t = isID
-  ? {
-      badge: 'Alat Online Gratis: Kompresi Foto',
-      title1: 'Kompres ke',
-      title2: 'Ukuran Tepat',
-      subtitle: 'Unggah foto Anda, tentukan target KB. Mendukung pemrosesan massal instan di browser.',
-      dropSingle: 'Tarik & letakkan foto di sini',
-      dropMulti: 'Tarik & letakkan foto-foto di sini',
-      browse: 'Pilih file',
-      reading: 'Membaca file...',
-      change: 'Ganti',
-      addMore: 'Tambah lagi',
-      original: 'Ukuran Asli',
-      format: 'Format',
-      targetSize: 'Ukuran Target',
-      outputFormat: 'Format Output',
-      keepOriginal: 'Sesuai Asli',
-      optimizeBtn: 'Kompres Sekarang',
-      consolePayload: 'Memproses kompresi di memori lokal...',
-      readyTitle: 'Siap untuk diunduh',
-      algoLog: 'Ukuran optimal berhasil dikunci dengan presisi.',
-      finalSize: 'Ukuran Akhir',
-      savings: 'Hemat',
-      growth: 'Naik',
-      quality: 'Kualitas',
-      time: 'Waktu',
-      renameLabel: 'Ganti Nama File (Opsional)',
-      renamePlaceholder: 'Masukkan nama file...',
-      downloadPrefix: 'Unduh',
-      resetBtn: '← Kompres foto lainnya',
-    }
-  : {
-      badge: 'Free Online Tool: Image Compression',
-      title1: 'Compress to',
-      title2: 'Exact Size',
-      subtitle: 'Upload your images, set a KB target. Supports instant bulk processing.',
-      dropSingle: 'Drop image here',
-      dropMulti: 'Drop image(s) here',
-      browse: 'Browse files',
-      reading: 'Reading file...',
-      change: 'Change',
-      addMore: 'Add more',
-      original: 'Original',
-      format: 'Format',
-      targetSize: 'Target size',
-      outputFormat: 'Output Format',
-      keepOriginal: 'Keep Original',
-      optimizeBtn: 'Instant Optimize',
-      consolePayload: 'System processing payload...',
-      readyTitle: 'Ready for download',
-      algoLog: 'Mathematical optimum identified.',
-      finalSize: 'Final Size',
-      savings: 'Savings',
-      growth: 'Growth',
-      quality: 'Quality',
-      time: 'Time',
-      renameLabel: 'Rename File (Optional)',
-      renamePlaceholder: 'Enter custom name...',
-      downloadPrefix: 'Download',
-      resetBtn: '← Optimize another',
-    };
+const { defaultKB = 20, hideHeader = false, allowMultiple = false } = Astro.props;
+const isDefaultMB = defaultKB >= 1024 && defaultKB % 1024 === 0;
+const initialDisplayValue = isDefaultMB ? defaultKB / 1024 : defaultKB;
 ---
 
 <div
   id="compressor-root"
-  data-lang={isID ? 'id' : 'en'}
-  data-download-prefix={t.downloadPrefix}
-  data-add-more={t.addMore}
-  data-savings-label={t.savings}
-  data-growth-label={t.growth}
   style="max-width: 860px; margin: 0 auto; padding: 0 24px;"
 >
-  {!hideHeader && (
+
+  { !hideHeader && (
     <div style="text-align: center; margin-bottom: 48px;">
       <div
         style="
@@ -104,9 +38,7 @@ const t = isID
             letter-spacing: 0.1em;
             color: var(--color-lime);
           "
-        >
-          {t.badge}
-        </span>
+        >Free Online Tool: Image Compression</span>
       </div>
       <h2
         style="
@@ -116,8 +48,8 @@ const t = isID
           letter-spacing: -0.02em;
         "
       >
-        {t.title1}<br />
-        <span style="color: var(--color-lime); display: inline-block;">{t.title2}</span>
+        Compress to<br/>
+        <span style="color: var(--color-lime); display: inline-block;">Exact Size</span>
       </h2>
       <p
         style="
@@ -128,12 +60,15 @@ const t = isID
           line-height: 1.65;
         "
       >
-        {t.subtitle}
+        Upload your images, set a KB target. Supports instant bulk processing.
       </p>
     </div>
   )}
 
+  <!-- Main panel -->
   <div class="panel p-5 md:p-8">
+
+    <!-- Drop Zone -->
     <div
       id="drop-zone"
       class="drop-zone"
@@ -166,6 +101,7 @@ const t = isID
         />
       )}
 
+      <!-- Upload placeholder -->
       <div id="upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
         <div
           style="
@@ -180,9 +116,9 @@ const t = isID
           "
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
           </svg>
         </div>
         <div>
@@ -195,9 +131,7 @@ const t = isID
               color: var(--color-ink);
               margin: 0 0 4px;
             "
-          >
-            {allowMultiple ? t.dropMulti : t.dropSingle}
-          </p>
+          >{allowMultiple ? 'Drop image(s) here' : 'Drop image here'}</p>
           <p
             style="
               font-family: var(--font-mono);
@@ -207,9 +141,7 @@ const t = isID
               text-transform: uppercase;
               letter-spacing: 0.08em;
             "
-          >
-            JPEG · PNG · WEBP
-          </p>
+          >JPEG · PNG · WEBP</p>
         </div>
         <button
           onclick="document.getElementById('file-input').click()"
@@ -217,17 +149,19 @@ const t = isID
           type="button"
           style="font-size: 0.75rem;"
         >
-          {t.browse}
+          Browse files
         </button>
       </div>
 
+      <!-- Uploading state -->
       <div id="upload-loading" class="hidden" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px;">
         <div class="spinner"></div>
         <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.08em;">
-          {t.reading}
+          Reading file...
         </p>
       </div>
 
+      <!-- Preview state -->
       <div
         id="image-preview-container"
         class="hidden"
@@ -253,17 +187,30 @@ const t = isID
             border-radius: 8px;
           "
         />
-        <button
-          id="change-image-btn"
-          class="btn-ghost"
-          type="button"
-          style="position: absolute; top: 12px; right: 12px; font-size: 0.75rem;"
-        >
-          {t.change}
-        </button>
+        <div style="position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; z-index: 10;">
+          <button
+            id="replace-image-btn"
+            class="btn-ghost"
+            type="button"
+            style="font-size: 0.75rem; border-color: var(--color-lime); color: var(--color-lime); background: rgba(10,10,11,0.85);"
+          >
+            Replace Image
+          </button>
+          {allowMultiple && (
+            <button
+              id="add-more-btn"
+              class="btn-ghost"
+              type="button"
+              style="font-size: 0.75rem; background: rgba(10,10,11,0.85);"
+            >
+              + Add More
+            </button>
+          )}
+        </div>
       </div>
     </div>
 
+    <!-- File info pills -->
     <div
       id="file-info-bar"
       class="hidden"
@@ -271,19 +218,70 @@ const t = isID
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
       "
     >
       <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
-        <span class="label">{t.original}</span>
+        <span class="label">Original</span>
         <span class="value" id="preview-size-tag">—</span>
       </span>
       <span class="stat-pill" style="font-size: 0.6875rem; padding: 4px 12px;">
-        <span class="label">{t.format}</span>
+        <span class="label">Format</span>
         <span class="value" id="preview-type-tag">—</span>
       </span>
     </div>
 
+    <!-- Instant Preset Switcher (No Page Reload Required) -->
+    <div style="margin-bottom: 20px;">
+      <span
+        style="
+          display: block;
+          font-family: var(--font-mono);
+          font-size: 0.625rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--color-ink-3);
+          margin-bottom: 8px;
+          text-align: center;
+        "
+      >Quick Target Presets (No Reload)</span>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;">
+        {[
+          { label: '10 KB', val: 10, unit: 'kb' },
+          { label: '15 KB', val: 15, unit: 'kb' },
+          { label: '20 KB', val: 20, unit: 'kb' },
+          { label: '30 KB', val: 30, unit: 'kb' },
+          { label: '50 KB', val: 50, unit: 'kb' },
+          { label: '100 KB', val: 100, unit: 'kb' },
+          { label: '200 KB', val: 200, unit: 'kb' },
+          { label: '500 KB', val: 500, unit: 'kb' },
+          { label: '1 MB', val: 1, unit: 'mb' },
+        ].map((p) => (
+          <button
+            type="button"
+            class="preset-kb-pill"
+            data-val={p.val}
+            data-unit={p.unit}
+            style="
+              font-family: var(--font-mono);
+              font-size: 0.72rem;
+              font-weight: 600;
+              padding: 5px 11px;
+              border-radius: 8px;
+              background: var(--color-surface-2);
+              border: 1px solid var(--color-border);
+              color: var(--color-ink-2);
+              cursor: pointer;
+              transition: all 0.15s ease;
+            "
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Controls row -->
     <div
       style="
         display: flex;
@@ -292,6 +290,7 @@ const t = isID
         margin-bottom: 24px;
       "
     >
+      <!-- Target KB/MB input -->
       <div style="flex: 1; min-width: 140px;">
         <label
           for="target-kb"
@@ -305,16 +304,15 @@ const t = isID
             margin-bottom: 8px;
             text-align: center;
           "
-        >
-          {t.targetSize}
-        </label>
+        >Target size</label>
         <div style="position: relative; display: flex; align-items: center;">
           <input
             type="number"
             id="target-kb"
-            value={defaultKB > 5000 ? (defaultKB / 1024).toFixed(0) : defaultKB}
-            min="5"
+            value={initialDisplayValue}
+            min="1"
             max="50000"
+            step="any"
             class="input-number"
             style="padding-right: 70px; padding-left: 16px; font-size: 1.25rem; height: 56px; width: 100%; text-align: center;"
           />
@@ -340,12 +338,13 @@ const t = isID
               min-width: 58px;
             "
           >
-            <option value="kb" selected={defaultKB <= 5000}>KB</option>
-            <option value="mb" selected={defaultKB > 5000}>MB</option>
+            <option value="kb" selected={!isDefaultMB}>KB</option>
+            <option value="mb" selected={isDefaultMB}>MB</option>
           </select>
         </div>
       </div>
 
+      <!-- Output Format input -->
       <div style="flex: 1; min-width: 140px;">
         <label
           for="output-format"
@@ -359,9 +358,7 @@ const t = isID
             margin-bottom: 8px;
             text-align: center;
           "
-        >
-          {t.outputFormat}
-        </label>
+        >Output Format</label>
         <select
           id="output-format"
           class="input-number"
@@ -379,7 +376,7 @@ const t = isID
             outline: none;
           "
         >
-          <option value="auto" selected>{t.keepOriginal}</option>
+          <option value="auto" selected>Keep Original</option>
           <option value="image/jpeg">JPG</option>
           <option value="image/png">PNG</option>
           <option value="image/webp">WEBP</option>
@@ -388,6 +385,7 @@ const t = isID
       </div>
     </div>
 
+    <!-- Compress button -->
     <button
       id="compress-btn"
       class="btn-primary"
@@ -398,12 +396,15 @@ const t = isID
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
       </svg>
-      {t.optimizeBtn}
+      Instant Optimize
     </button>
   </div>
 
+  <!-- Result / Status Panel -->
   <div id="status-panel" class="hidden animate-up" style="margin-top: 24px;">
     <div class="panel p-6 md:p-8">
+
+      <!-- Processing state -->
       <div id="processing" class="hidden" style="flex-direction: column; width: 100%; gap: 24px; padding: 24px 0;">
         <div style="background: #0a0a0b; border: 1px solid var(--color-border-mid); border-radius: 12px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4);">
           <div style="background: var(--color-surface-3); padding: 8px 16px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px;">
@@ -426,11 +427,15 @@ const t = isID
           <div style="width: 100%; height: 4px; background: var(--color-surface-3); border-radius: 10px; overflow: hidden; margin-bottom: 8px;">
             <div id="progress-bar" style="width: 0%; height: 100%; background: var(--color-lime); transition: width 0.3s ease;"></div>
           </div>
-          <p style="font-family: var(--font-mono); font-size: 0.625rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">{t.consolePayload}</p>
+          <p style="font-family: var(--font-mono); font-size: 0.625rem; color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">System processing payload...</p>
         </div>
       </div>
 
-      <div id="result-view" class="hidden flex-col gap-8 items-start w-full">
+      <!-- Result view -->
+      <div
+        id="result-view"
+        class="hidden flex-col gap-8 items-start w-full"
+      >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start w-full">
           <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
             <div
@@ -463,7 +468,9 @@ const t = isID
                 <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.875rem; letter-spacing: 0.05em;">PDF READY</span>
               </div>
             </div>
-            <div class="badge-success" style="align-self: flex-start;">SUCCESS</div>
+            <div class="badge-success" style="align-self: flex-start;">
+              SUCCESS
+            </div>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
@@ -475,9 +482,7 @@ const t = isID
                   letter-spacing: -0.04em;
                   margin: 0 0 8px;
                 "
-              >
-                {t.readyTitle}
-              </h2>
+              >Ready for download</h2>
               <p
                 id="algo-log"
                 style="
@@ -487,26 +492,24 @@ const t = isID
                   margin: 0;
                   line-height: 1.6;
                 "
-              >
-                {t.algoLog}
-              </p>
+              >Mathematical optimum identified.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">{t.finalSize}</span>
+                <span class="metric-label" style="font-size: 0.625rem;">Final Size</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="result-size">—</span>
               </div>
               <div class="metric-card accent" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">{t.savings}</span>
+                <span class="metric-label" style="font-size: 0.625rem;">Savings</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="savings-percent">—</span>
               </div>
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">{t.quality}</span>
+                <span class="metric-label" style="font-size: 0.625rem;">Quality</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="quality-tag">—</span>
               </div>
               <div class="metric-card" style="padding: 12px;">
-                <span class="metric-label" style="font-size: 0.625rem;">{t.time}</span>
+                <span class="metric-label" style="font-size: 0.625rem;">Time</span>
                 <span class="metric-value" style="font-size: 1.25rem;" id="processing-time">—</span>
               </div>
             </div>
@@ -515,11 +518,11 @@ const t = isID
 
         <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
           <div style="position: relative;">
-            <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px; text-align: center;">{t.renameLabel}</label>
-            <input
-              type="text"
-              id="rename-input"
-              placeholder={t.renamePlaceholder}
+            <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px; text-align: center;">Rename File (Optional)</label>
+            <input 
+              type="text" 
+              id="rename-input" 
+              placeholder="Enter custom name..." 
               class="input-number"
               style="width: 100%; height: 56px; font-size: 1rem; padding: 0 12px; text-align: center;"
             />
@@ -533,82 +536,162 @@ const t = isID
             style="width: 100%; height: 56px; font-size: 1rem;"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
-            {t.downloadPrefix} JPEG
+            Download JPEG
           </a>
 
-          <button
-            id="reset-btn"
-            class="btn-ghost"
-            type="button"
-            style="align-self: center; font-size: 0.75rem; margin-top: 12px;"
-          >
-            {t.resetBtn}
-          </button>
+          <div style="display: flex; justify-content: center; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+            <button
+              id="replace-from-result-btn"
+              class="btn-ghost"
+              type="button"
+              style="font-size: 0.75rem; border-color: var(--color-lime); color: var(--color-lime);"
+            >
+              ↻ Replace Image
+            </button>
+            <button
+              id="reset-btn"
+              class="btn-ghost"
+              type="button"
+              style="font-size: 0.75rem;"
+            >
+              ← Clear & Start Over
+            </button>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
+
 </div>
 
 <script>
   import { compressToTarget } from '../utils/imageCompressor';
   import JSZip from 'jszip';
 
-  const escapeHTML = (str: string) =>
-    String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m] || m));
-
   const blobUrlsToRevoke: string[] = [];
 
-  const root = document.getElementById('compressor-root') as HTMLDivElement;
-  const isID = root?.dataset.lang === 'id';
-  const downloadPrefix = root?.dataset.downloadPrefix || 'Download';
-  const addMoreText = root?.dataset.addMore || 'Add more';
-  const savingsLabelText = root?.dataset.savingsLabel || 'Savings';
-  const growthLabelText = root?.dataset.growthLabel || 'Growth';
-
-  const dropZone = document.getElementById('drop-zone') as HTMLDivElement;
-  const fileInput = document.getElementById('file-input') as HTMLInputElement;
-  const targetInput = document.getElementById('target-kb') as HTMLInputElement;
-  const unitSelect = document.getElementById('target-unit') as HTMLSelectElement;
+  const dropZone           = document.getElementById('drop-zone') as HTMLDivElement;
+  const fileInput          = document.getElementById('file-input') as HTMLInputElement;
+  const targetInput        = document.getElementById('target-kb') as HTMLInputElement;
+  const unitSelect         = document.getElementById('target-unit') as HTMLSelectElement;
   const outputFormatSelect = document.getElementById('output-format') as HTMLSelectElement;
-  const compressBtn = document.getElementById('compress-btn') as HTMLButtonElement;
-  const statusPanel = document.getElementById('status-panel') as HTMLDivElement;
-  const processing = document.getElementById('processing') as HTMLDivElement;
-  const resultView = document.getElementById('result-view') as HTMLDivElement;
-  const previewImg = document.getElementById('preview-img') as HTMLImageElement;
-  const pdfIcon = document.getElementById('pdf-preview-icon') as HTMLDivElement;
-  const downloadLink = document.getElementById('download-link') as HTMLAnchorElement;
-  const renameInput = document.getElementById('rename-input') as HTMLInputElement;
+  const compressBtn        = document.getElementById('compress-btn') as HTMLButtonElement;
+  const statusPanel        = document.getElementById('status-panel') as HTMLDivElement;
+  const processing         = document.getElementById('processing') as HTMLDivElement;
+  const resultView         = document.getElementById('result-view') as HTMLDivElement;
+  const previewImg         = document.getElementById('preview-img') as HTMLImageElement;
+  const pdfIcon            = document.getElementById('pdf-preview-icon') as HTMLDivElement;
+  const downloadLink       = document.getElementById('download-link') as HTMLAnchorElement;
+  const renameInput        = document.getElementById('rename-input') as HTMLInputElement;
 
-  const uploadPlaceholder = document.getElementById('upload-placeholder') as HTMLDivElement;
-  const uploadLoading = document.getElementById('upload-loading') as HTMLDivElement;
-  const previewContainer = document.getElementById('image-preview-container') as HTMLDivElement;
-  const uploadPreview = document.getElementById('upload-preview') as HTMLImageElement;
-  const fileInfoBar = document.getElementById('file-info-bar') as HTMLDivElement;
-  const changeImageBtn = document.getElementById('change-image-btn') as HTMLButtonElement;
-  const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+  const uploadPlaceholder  = document.getElementById('upload-placeholder') as HTMLDivElement;
+  const uploadLoading      = document.getElementById('upload-loading') as HTMLDivElement;
+  const previewContainer   = document.getElementById('image-preview-container') as HTMLDivElement;
+  const uploadPreview      = document.getElementById('upload-preview') as HTMLImageElement;
+  const fileInfoBar        = document.getElementById('file-info-bar') as HTMLDivElement;
+  const replaceImageBtn    = document.getElementById('replace-image-btn') as HTMLButtonElement;
+  const replaceResultBtn   = document.getElementById('replace-from-result-btn') as HTMLButtonElement;
+  const addMoreBtn         = document.getElementById('add-more-btn') as HTMLButtonElement | null;
+  const resetBtn           = document.getElementById('reset-btn') as HTMLButtonElement;
+  const presetPills        = document.querySelectorAll('.preset-kb-pill');
 
   let selectedFiles: File[] = [];
+  let filePickMode: 'replace' | 'append' = 'replace';
+  let currentUnit = unitSelect.value;
 
+  function syncActivePresetPill() {
+    const val = parseFloat(targetInput.value);
+    const unit = unitSelect.value;
+    presetPills.forEach((btn) => {
+      const el = btn as HTMLElement;
+      const pVal = parseFloat(el.dataset.val || '0');
+      const pUnit = el.dataset.unit || 'kb';
+      if (val === pVal && unit === pUnit) {
+        el.style.borderColor = 'var(--color-lime)';
+        el.style.color = 'var(--color-lime)';
+        el.style.background = 'rgba(200,241,53,0.1)';
+      } else {
+        el.style.borderColor = 'var(--color-border)';
+        el.style.color = 'var(--color-ink-2)';
+        el.style.background = 'var(--color-surface-2)';
+      }
+    });
+  }
+  syncActivePresetPill();
+
+  /* ── Issue #2: Dynamic Unit Conversion (1 MB <-> 1024 KB) ── */
+  unitSelect.addEventListener('change', () => {
+    const newUnit = unitSelect.value;
+    const rawVal = parseFloat(targetInput.value);
+    if (!isNaN(rawVal) && rawVal > 0 && newUnit !== currentUnit) {
+      if (currentUnit === 'mb' && newUnit === 'kb') {
+        targetInput.value = String(Math.round(rawVal * 1024));
+      } else if (currentUnit === 'kb' && newUnit === 'mb') {
+        const mbVal = rawVal / 1024;
+        targetInput.value = Number.isInteger(mbVal) ? String(mbVal) : mbVal.toFixed(2);
+      }
+    }
+    currentUnit = newUnit;
+    syncActivePresetPill();
+  });
+
+  targetInput.addEventListener('input', syncActivePresetPill);
+
+  /* ── Issue #1: Preset Switcher Without Reload ── */
+  presetPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const el = pill as HTMLElement;
+      const val = el.dataset.val || '20';
+      const unit = el.dataset.unit || 'kb';
+      unitSelect.value = unit;
+      currentUnit = unit;
+      targetInput.value = val;
+      syncActivePresetPill();
+      if (selectedFiles.length > 0 && !compressBtn.disabled) {
+        compressBtn.click();
+      }
+    });
+  });
+
+  /* ── Drop zone & Replace / Add More interactions ── */
   dropZone.addEventListener('click', (e) => {
-    if (e.target === changeImageBtn || e.target === uploadLoading) return;
+    if ((e.target as Element).closest('button') || e.target === uploadLoading) return;
+    filePickMode = 'replace';
     fileInput.value = '';
     fileInput.click();
   });
 
-  changeImageBtn.addEventListener('click', (e) => {
+  replaceImageBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    filePickMode = 'replace';
     fileInput.value = '';
     fileInput.click();
   });
+
+  replaceResultBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    filePickMode = 'replace';
+    fileInput.value = '';
+    fileInput.click();
+  });
+
+  if (addMoreBtn) {
+    addMoreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      filePickMode = 'append';
+      fileInput.value = '';
+      fileInput.click();
+    });
+  }
 
   fileInput.addEventListener('change', (e: any) => {
     const files = e.target.files;
-    if (files && files.length > 0) handleFiles(files);
+    if (files && files.length > 0) handleFiles(files, filePickMode);
   });
 
   dropZone.addEventListener('dragover', (e) => {
@@ -624,10 +707,10 @@ const t = isID
     e.preventDefault();
     dropZone.classList.remove('active');
     const files = e.dataTransfer?.files;
-    if (files && files.length > 0) handleFiles(files);
+    if (files && files.length > 0) handleFiles(files, 'replace');
   });
 
-  async function handleFiles(filesList: FileList | File[]) {
+  async function handleFiles(filesList: FileList | File[], mode: 'replace' | 'append' = 'replace') {
     const arr = Array.from(filesList);
     const validFiles = arr.filter((f) => f.type.startsWith('image/'));
     if (validFiles.length === 0) return;
@@ -635,14 +718,14 @@ const t = isID
     const isMultipleAllowed = fileInput.multiple || fileInput.hasAttribute('multiple');
     const filesToProcess = isMultipleAllowed ? validFiles.slice(0, 50) : [validFiles[0]];
 
-    if (isMultipleAllowed) {
+    if (isMultipleAllowed && mode === 'append') {
       const currentNames = new Set(selectedFiles.map((f) => f.name));
       const newFiles = filesToProcess.filter((f) => !currentNames.has(f.name));
       selectedFiles = [...selectedFiles, ...newFiles].slice(0, 50);
-      changeImageBtn.textContent = addMoreText;
     } else {
       selectedFiles = filesToProcess;
     }
+
     compressBtn.disabled = true;
 
     uploadPlaceholder.classList.add('hidden');
@@ -670,7 +753,10 @@ const t = isID
 
       const sizeTag = document.getElementById('preview-size-tag')!;
       const typeTag = document.getElementById('preview-type-tag')!;
-      sizeTag.textContent = (file.size / 1024).toFixed(1) + ' KB';
+      sizeTag.textContent =
+        file.size >= 1048576
+          ? (file.size / 1048576).toFixed(2) + ' MB'
+          : (file.size / 1024).toFixed(1) + ' KB';
       typeTag.textContent = file.type.split('/')[1].toUpperCase();
     } else {
       uploadPreview.style.display = 'none';
@@ -683,7 +769,7 @@ const t = isID
         previewContainer.insertBefore(bulkText, uploadPreview);
       }
       bulkText.style.display = 'block';
-      bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${escapeHTML(f.name)}`).join('<br/>');
+      bulkText.innerHTML = selectedFiles.map((f, i) => `${i + 1}. ${f.name}`).join('<br/>');
 
       uploadLoading.classList.add('hidden');
       uploadLoading.style.display = 'none';
@@ -695,7 +781,7 @@ const t = isID
       const typeTag = document.getElementById('preview-type-tag')!;
       const totalSize = selectedFiles.reduce((acc, f) => acc + f.size, 0);
       sizeTag.textContent = (totalSize / 1024 / 1024).toFixed(2) + ' MB total';
-      typeTag.textContent = 'MIXED';
+      typeTag.textContent = `${selectedFiles.length} FILES`;
     }
 
     fileInfoBar.classList.remove('hidden');
@@ -703,6 +789,7 @@ const t = isID
     statusPanel.classList.add('hidden');
   }
 
+  /* ── Compress ── */
   compressBtn.addEventListener('click', async () => {
     if (selectedFiles.length === 0) return;
 
@@ -710,7 +797,7 @@ const t = isID
     const unit = unitSelect.value;
 
     if (isNaN(rawValue) || rawValue <= 0) {
-      alert(isID ? 'Masukkan ukuran target yang valid (minimal 5KB).' : 'Please enter a valid target size (minimum 5KB).');
+      alert('Please enter a valid target size.');
       return;
     }
     const targetKB = unit === 'mb' ? rawValue * 1024 : rawValue;
@@ -722,7 +809,7 @@ const t = isID
       | 'auto';
 
     if (targetKB < 5) {
-      alert(isID ? 'Target minimum adalah 5KB.' : 'Minimum target is 5KB. Most images cannot be compressed below this.');
+      alert('Minimum target is 5KB. Most images cannot be compressed below this.');
       return;
     }
 
@@ -751,10 +838,10 @@ const t = isID
           actualFormat === 'image/png'
             ? 'png'
             : actualFormat === 'image/webp'
-            ? 'webp'
-            : actualFormat === 'application/pdf'
-            ? 'pdf'
-            : 'jpg';
+              ? 'webp'
+              : actualFormat === 'application/pdf'
+                ? 'pdf'
+                : 'jpg';
 
         const result = await compressToTarget(selectedFile, targetKB, 12, targetFormat);
         const endTime = performance.now();
@@ -765,40 +852,20 @@ const t = isID
         const finalKB = (result.blob.size / 1024).toFixed(1);
         const inputKB = (selectedFile.size / 1024).toFixed(1);
 
-        const lines = isID
-          ? [
-              { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135', delay: 0 },
-              { text: `  membaca file    ·  ${inputKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 160 },
-              {
-                text: `  pencarian biner ·  ${result.iterations ?? 8} iterasi  ·  konvergen`,
-                color: 'rgba(255,255,255,0.38)',
-                delay: 340,
-              },
-              { text: `  hasil           ·  ${finalKB}kb (300 DPI)`, color: 'rgba(255,255,255,0.38)', delay: 680 },
-              { text: `✓ selesai`, color: '#c8f135', delay: 860 },
-            ]
-          : [
-              { text: `$ pdfandimg --target ${targetKB}kb --format ${ext}`, color: '#c8f135', delay: 0 },
-              { text: `  reading input   ·  ${inputKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 160 },
-              {
-                text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`,
-                color: 'rgba(255,255,255,0.38)',
-                delay: 340,
-              },
-              { text: `  output          ·  ${finalKB}kb (300 DPI)`, color: 'rgba(255,255,255,0.38)', delay: 680 },
-              { text: `✓ done`, color: '#c8f135', delay: 860 },
-            ];
+        const lines = [
+          { text: `$ pdfandimg --target ${rawValue}${unit} --format ${ext}`, color: '#c8f135', delay: 0 },
+          { text: `  reading input   ·  ${inputKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 160 },
+          { text: `  binary search   ·  ${result.iterations ?? 8} iterations  ·  converged`, color: 'rgba(255,255,255,0.38)', delay: 340 },
+          { text: `  output          ·  ${finalKB}kb`, color: 'rgba(255,255,255,0.38)', delay: 680 },
+          { text: `✓ done`, color: '#c8f135', delay: 860 },
+        ];
 
         for (let i = 0; i < lines.length; i++) {
           const el = document.createElement('div');
           el.style.cssText = `font-size:0.75rem;color:${lines[i].color};letter-spacing:0.02em;opacity:0;transition:opacity 0.15s ease;white-space:pre;margin-bottom:5px;line-height:1.5;`;
           el.textContent = lines[i].text;
           termLines.appendChild(el);
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => {
-              el.style.opacity = '1';
-            })
-          );
+          requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = '1'; }));
           progressBar.style.width = `${Math.round(((i + 1) / lines.length) * 100)}%`;
         }
 
@@ -843,30 +910,24 @@ const t = isID
         if (isUpsized) {
           const growth = ((resKB / origKB - 1) * 100).toFixed(0);
           savingsEl.textContent = `+${growth}%`;
-          savingsLabel.textContent = growthLabelText;
+          savingsLabel.textContent = 'Growth';
         } else {
           const savings = (((origKB - resKB) / origKB) * 100).toFixed(0);
           savingsEl.textContent = savings + '%';
-          savingsLabel.textContent = savingsLabelText;
+          savingsLabel.textContent = 'Savings';
         }
 
         document.getElementById('quality-tag')!.textContent = Math.round(result.quality * 100) + '%';
         document.getElementById('processing-time')!.textContent = timeInSeconds;
-
         document.getElementById('algo-log')!.textContent = isUpsized
-          ? isID
-            ? 'Mode Peningkatan KB: Ukuran file ditingkatkan sesuai target.'
-            : 'Enhancement mode: Upscaled for target size.'
-          : isID
-          ? 'Smart Scaling: Dimensi dan kualitas dioptimalkan.'
-          : 'Smart Scaling: Adjusted dimensions and quality.';
+          ? `Enhancement mode: Upscaled for target size.`
+          : `Smart Scaling: Adjusted dimensions and quality.`;
 
-        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> ${downloadPrefix} ${ext.toUpperCase()}`;
-        downloadLink.classList.remove('animate-jump');
+        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Download ${ext.toUpperCase()}`;
       } else {
         const el = document.createElement('div');
         el.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        el.textContent = `$ pdfandimg --batch ${selectedFiles.length} --target ${targetKB}kb`;
+        el.textContent = `$ pdfandimg --batch ${selectedFiles.length} --target ${rawValue}${unit}`;
         termLines.appendChild(el);
 
         const zip = new JSZip();
@@ -882,15 +943,15 @@ const t = isID
               actualFormat === 'image/png'
                 ? 'png'
                 : actualFormat === 'image/webp'
-                ? 'webp'
-                : actualFormat === 'application/pdf'
-                ? 'pdf'
-                : 'jpg';
+                  ? 'webp'
+                  : actualFormat === 'application/pdf'
+                    ? 'pdf'
+                    : 'jpg';
             const result = await compressToTarget(file, targetKB, 12, targetFormat);
             const cleanOriginalName = (
               file.name.substring(0, file.name.lastIndexOf('.')) || file.name
             ).replace(/\s+/g, '_');
-            const filename = `${cleanOriginalName}_compressed.${ext}`;
+            const filename = `${cleanOriginalName}_${rawValue}${unit}.${ext}`;
             zip.file(filename, result.blob);
             totalOrigSize += file.size;
             totalResSize += result.size;
@@ -898,32 +959,12 @@ const t = isID
           });
 
           await Promise.all(batchPromises);
-
           totalProcessed += batch.length;
           progressBar.style.width = `${Math.round((totalProcessed / selectedFiles.length) * 80)}%`;
-
-          const msgEl = document.createElement('div');
-          msgEl.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-          msgEl.textContent = isID
-            ? `  memproses ${totalProcessed}/${selectedFiles.length} gambar...`
-            : `  processed ${totalProcessed}/${selectedFiles.length} images...`;
-          termLines.appendChild(msgEl);
-          termLines.scrollTop = termLines.scrollHeight;
         }
-
-        const msgElZipping = document.createElement('div');
-        msgElZipping.style.cssText = `font-size:0.75rem;color:rgba(255,255,255,0.38);letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        msgElZipping.textContent = isID ? '  mengompresi ke arsip zip...' : '  compressing into zip archive...';
-        termLines.appendChild(msgElZipping);
-        termLines.scrollTop = termLines.scrollHeight;
 
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         progressBar.style.width = '100%';
-        const doneEl = document.createElement('div');
-        doneEl.style.cssText = `font-size:0.75rem;color:#c8f135;letter-spacing:0.02em;opacity:1;white-space:pre;margin-bottom:5px;line-height:1.5;`;
-        doneEl.textContent = isID ? `✓ selesai` : `✓ done`;
-        termLines.appendChild(doneEl);
-
         termCursor.style.display = 'none';
 
         const url = URL.createObjectURL(zipBlob);
@@ -939,11 +980,10 @@ const t = isID
           previewImg.parentElement!.appendChild(bulkResultText);
         }
         bulkResultText.style.display = 'flex';
-        bulkResultText.textContent = isID ? `${selectedFiles.length} file di-zip` : `${selectedFiles.length} files zipped`;
+        bulkResultText.textContent = `${selectedFiles.length} files zipped`;
 
         downloadLink.href = url;
-
-        const defaultZipName = `pdfandimg_batch_${targetKB}kb`;
+        const defaultZipName = `pdfandimg_batch_${rawValue}${unit}`;
         renameInput.value = defaultZipName;
         downloadLink.download = `${defaultZipName}.zip`;
 
@@ -954,34 +994,17 @@ const t = isID
 
         const endTime = performance.now();
         const timeInSeconds = ((endTime - startTime) / 1000).toFixed(1) + 's';
-
         const resMB = totalResSize / 1024 / 1024;
         const origKB = totalOrigSize / 1024;
         const resKB = totalResSize / 1024;
-        const isUpsized = totalResSize > totalOrigSize;
 
         document.getElementById('result-size')!.textContent = resMB.toFixed(2) + ' MB';
-
-        const savingsEl = document.getElementById('savings-percent')!;
-        const savingsLabel = savingsEl.previousElementSibling as HTMLElement;
-
-        if (isUpsized) {
-          const growth = ((resKB / origKB - 1) * 100).toFixed(0);
-          savingsEl.textContent = `+${growth}%`;
-          savingsLabel.textContent = growthLabelText;
-        } else {
-          const savings = (((origKB - resKB) / origKB) * 100).toFixed(0);
-          savingsEl.textContent = savings + '%';
-          savingsLabel.textContent = savingsLabelText;
-        }
-
+        const savings = (((origKB - resKB) / origKB) * 100).toFixed(0);
+        document.getElementById('savings-percent')!.textContent = savings + '%';
         document.getElementById('quality-tag')!.textContent = 'MIXED';
         document.getElementById('processing-time')!.textContent = timeInSeconds;
-        document.getElementById('algo-log')!.textContent = isID
-          ? `Pemrosesan massal selesai untuk ${selectedFiles.length} file.`
-          : `Batch processing completed for ${selectedFiles.length} files.`;
-
-        downloadLink.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"/></svg> ${downloadPrefix} ZIP`;
+        document.getElementById('algo-log')!.textContent = `Batch processing completed for ${selectedFiles.length} files.`;
+        downloadLink.innerHTML = `Download ZIP`;
       }
 
       processing.classList.add('hidden');
@@ -998,6 +1021,7 @@ const t = isID
     }
   });
 
+  /* ── Reset ── */
   resetBtn.addEventListener('click', () => {
     blobUrlsToRevoke.forEach((u) => URL.revokeObjectURL(u));
     blobUrlsToRevoke.length = 0;
@@ -1022,23 +1046,12 @@ const t = isID
 
 <style>
   @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
   .terminal-cursor {
     color: var(--color-lime);
     animation: blink 1s step-end infinite;
   }
-  @keyframes jump {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  .animate-jump {
-    animation: jump 0.4s ease-out 2;
-  }
 </style>
+

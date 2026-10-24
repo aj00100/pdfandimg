@@ -13,60 +13,142 @@ export interface CompressionResult {
 
 export type FitMode = 'cover' | 'contain' | 'stretch';
 
+declare global {
+  interface Window {
+    UTIF?: any;
+  }
+}
+
+async function ensureUtifLoaded(): Promise<any> {
+  if (typeof window !== 'undefined' && window.UTIF) return window.UTIF;
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src*="UTIF.min.js"]');
+    if (existing) {
+      const check = setInterval(() => {
+        if (window.UTIF) {
+          clearInterval(check);
+          resolve(window.UTIF);
+        }
+      }, 50);
+      setTimeout(() => {
+        clearInterval(check);
+        reject(new Error('UTIF.js load timeout'));
+      }, 8000);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/utif/3.1.0/UTIF.min.js';
+    script.onload = () => resolve(window.UTIF);
+    script.onerror = () => reject(new Error('Failed to load TIFF decoder library.'));
+    document.head.appendChild(script);
+  });
+}
+
+export function isTiffFile(file: File | Blob): boolean {
+  if (file instanceof File) {
+    const name = file.name.toLowerCase();
+    if (file.type === 'image/tiff' || file.type === 'image/tif' || name.endsWith('.tiff') || name.endsWith('.tif')) {
+      return true;
+    }
+  }
+  return file.type === 'image/tiff' || file.type === 'image/tif';
+}
+
 /**
- * Loads a File or Blob into an HTMLImageElement safely using ObjectURLs
+ * Loads any browser-supported image OR .tif/.tiff file into a drawable CanvasImageSource
  */
-async function loadImage(file: File | Blob): Promise<HTMLImageElement> {
-  const url = URL.createObjectURL(file);
+export async function loadImageSource(file: File | Blob): Promise<{
+  source: CanvasImageSource;
+  width: number;
+  height: number;
+  cleanup: () => void;
+}> {
+  if (isTiffFile(file)) {
+    const UTIF = await ensureUtifLoaded();
+    const buffer = await file.arrayBuffer();
+    const ifds = UTIF.decode(buffer);
+    if (!ifds || ifds.length === 0) {
+      throw new Error('Failed to decode TIFF structure.');
+    }
+    UTIF.decodeImage(buffer, ifds[0]);
+    const rgba = UTIF.toRGBA8(ifds[0]);
+    const width = ifds[0].width;
+    const height = ifds[0].height;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Failed to get 2D context for TIFF decoding.');
+
+    const imgData = ctx.createImageData(width, height);
+    imgData.data.set(rgba);
+    ctx.putImageData(imgData, 0, 0);
+
+    return {
+      source: canvas,
+      width,
+      height,
+      cleanup: () => {
+        canvas.width = 0;
+        canvas.height = 0;
+      }
+    };
+  }
+
   return new Promise((resolve, reject) => {
     const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
     img.onload = () => {
-      URL.revokeObjectURL(url);
-      resolve(img);
+      resolve({
+        source: img,
+        width: img.naturalWidth || img.width,
+        height: img.naturalHeight || img.height,
+        cleanup: () => URL.revokeObjectURL(objectUrl)
+      });
     };
+
     img.onerror = () => {
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(objectUrl);
       reject(new Error('Failed to decode image file.'));
     };
-    img.src = url;
+
+    img.src = objectUrl;
   });
 }
 
 /**
- * Multi-step high-quality downscaling with smart aspect-ratio handling:
- * - 'cover': Center-crops to fill targetW x targetH (zero facial squishing on 1:1 / 3:4 photos)
- * - 'contain': Letterboxes onto pure #FFFFFF white background (never clips signature edges)
- * - 'stretch': Legacy direct stretch
+ * High-performance bicubic-quality canvas renderer supporting FitMode (cover, contain, stretch)
  */
 function renderToCanvas(
-  img: HTMLImageElement,
+  img: CanvasImageSource,
+  imgWidth: number,
+  imgHeight: number,
   targetW: number,
   targetH: number,
   fillWhite: boolean = true,
   fitMode: FitMode = 'cover'
 ): HTMLCanvasElement {
-  // Compute source crop rectangle or destination letterbox rectangle
   let sx = 0,
     sy = 0,
-    sw = img.width,
-    sh = img.height;
+    sw = imgWidth,
+    sh = imgHeight;
   let dx = 0,
     dy = 0,
     dw = targetW,
     dh = targetH;
 
-  const srcRatio = img.width / img.height;
+  const srcRatio = imgWidth / imgHeight;
   const dstRatio = targetW / targetH;
 
   if (fitMode === 'cover' && Math.abs(srcRatio - dstRatio) > 0.01) {
     if (srcRatio > dstRatio) {
-      // Source is wider than target: crop left/right
-      sw = Math.round(img.height * dstRatio);
-      sx = Math.round((img.width - sw) / 2);
+      sw = Math.round(imgHeight * dstRatio);
+      sx = Math.round((imgWidth - sw) / 2);
     } else {
-      // Source is taller than target: crop top/bottom (bias slightly toward top for headshots)
-      sh = Math.round(img.width / dstRatio);
-      sy = Math.round((img.height - sh) * 0.35);
+      sh = Math.round(imgWidth / dstRatio);
+      sy = Math.round((imgHeight - sh) * 0.35); // Slight bias for portraits
     }
   } else if (fitMode === 'contain' && Math.abs(srcRatio - dstRatio) > 0.01) {
     if (srcRatio > dstRatio) {
@@ -78,24 +160,21 @@ function renderToCanvas(
     }
   }
 
-  // Step-down halving for crisp Lanczos-like anti-aliasing when shrinking >2x
   let curCanvas = document.createElement('canvas');
-  let curW = sw;
-  let curH = sh;
-  curCanvas.width = curW;
-  curCanvas.height = curH;
+  curCanvas.width = sw;
+  curCanvas.height = sh;
   const curCtx = curCanvas.getContext('2d');
   if (!curCtx) return curCanvas;
 
-  if (fillWhite) {
-    curCtx.fillStyle = '#FFFFFF';
-    curCtx.fillRect(0, 0, curW, curH);
-  }
-  curCtx.drawImage(img, sx, sy, sw, sh, 0, 0, curW, curH);
+  curCtx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
 
-  while (curW * 0.5 > dw && curH * 0.5 > dh) {
-    const nextW = Math.max(dw, Math.floor(curW * 0.5));
-    const nextH = Math.max(dh, Math.floor(curH * 0.5));
+  let curW = sw;
+  let curH = sh;
+
+  // Step-down scaling (halving steps) to prevent aliasing
+  while (curW / 2 > dw * 1.2 && curH / 2 > dh * 1.2) {
+    const nextW = Math.max(dw, Math.round(curW / 2));
+    const nextH = Math.max(dh, Math.round(curH / 2));
     const nextCanvas = document.createElement('canvas');
     nextCanvas.width = nextW;
     nextCanvas.height = nextH;
@@ -141,16 +220,25 @@ function canvasToBlob(canvas: HTMLCanvasElement, mimeType: string, quality: numb
   });
 }
 
+function wrapJpegDataUrlInPdf(dataUrl: string, width: number, height: number): Blob {
+  const orientation = width > height ? 'l' : 'p';
+  const pdf = new jsPDF({
+    orientation,
+    unit: 'px',
+    format: [width, height]
+  });
+  pdf.addImage(dataUrl, 'JPEG', 0, 0, width, height);
+  return pdf.output('blob');
+}
+
 /**
  * Injects 300 DPI (or custom DPI) into the JFIF APP0 header (0xFFE0) of a JPEG Blob.
- * Satisfies NSDL / UTIITSL PAN Card & strict government scanner DPI checks.
  */
 export async function injectJpegDpi(jpegBlob: Blob, dpi: number = 300): Promise<Blob> {
   if (jpegBlob.type !== 'image/jpeg') return jpegBlob;
   const buffer = await jpegBlob.arrayBuffer();
   const bytes = new Uint8Array(buffer);
 
-  // Check SOI (0xFFD8) and APP0 (0xFFE0) with "JFIF\0" magic
   if (
     bytes.length > 20 &&
     bytes[0] === 0xff &&
@@ -163,218 +251,227 @@ export async function injectJpegDpi(jpegBlob: Blob, dpi: number = 300): Promise<
     bytes[9] === 0x46 && // F
     bytes[10] === 0x00
   ) {
-    bytes[13] = 1; // Density units: 1 = dots per inch (DPI)
-    bytes[14] = (dpi >> 8) & 0xff; // Xdensity MSB
-    bytes[15] = dpi & 0xff; // Xdensity LSB
-    bytes[16] = (dpi >> 8) & 0xff; // Ydensity MSB
-    bytes[17] = dpi & 0xff; // Ydensity LSB
+    bytes[13] = 0x01; // units: dots per inch
+    bytes[14] = (dpi >> 8) & 0xff;
+    bytes[15] = dpi & 0xff;
+    bytes[16] = (dpi >> 8) & 0xff;
+    bytes[17] = dpi & 0xff;
     return new Blob([bytes], { type: 'image/jpeg' });
   }
-  return jpegBlob;
+
+  // Prepend standard JFIF APP0 header if missing
+  const jfif = new Uint8Array([
+    0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x01,
+    (dpi >> 8) & 0xff, dpi & 0xff, (dpi >> 8) & 0xff, dpi & 0xff, 0x00, 0x00
+  ]);
+  const combined = new Uint8Array(2 + jfif.length + (bytes.length - 2));
+  combined[0] = 0xff;
+  combined[1] = 0xd8;
+  combined.set(jfif, 2);
+  combined.set(bytes.subarray(2), 2 + jfif.length);
+  return new Blob([combined], { type: 'image/jpeg' });
 }
 
-/**
- * Safely pads a JPEG blob using standard 0xFFFE (COM - Comment) segments before 0xFFD9 (EOI).
- * Ensures tiny 140x60px signatures (~2.5KB) safely reach the 10KB-20KB window (e.g., ~13.5KB)
- * without altering pixel dimensions or corrupting strict JPEG parsers.
- */
 export async function padJpegToTargetBytes(jpegBlob: Blob, targetBytes: number): Promise<Blob> {
-  if (jpegBlob.type !== 'image/jpeg' || jpegBlob.size >= targetBytes) {
-    return jpegBlob;
-  }
-
+  if (jpegBlob.type !== 'image/jpeg' || jpegBlob.size >= targetBytes) return jpegBlob;
   const buffer = await jpegBlob.arrayBuffer();
   const bytes = new Uint8Array(buffer);
-  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
-    return jpegBlob;
+
+  const needed = targetBytes - bytes.length;
+  if (needed < 5) return jpegBlob;
+
+  const maxPayloadPerMarker = 65530;
+  const chunks: Uint8Array[] = [];
+  let remainingNeeded = needed;
+
+  while (remainingNeeded >= 5) {
+    const payloadLen = Math.min(remainingNeeded - 4, maxPayloadPerMarker);
+    const marker = new Uint8Array(4 + payloadLen);
+    const markerLengthField = 2 + payloadLen;
+    marker[0] = 0xff;
+    marker[1] = 0xfe; // COM marker
+    marker[2] = (markerLengthField >> 8) & 0xff;
+    marker[3] = markerLengthField & 0xff;
+    marker.fill(0x20, 4); // Space characters
+    chunks.push(marker);
+    remainingNeeded -= (4 + payloadLen);
   }
 
-  // Locate final EOI marker (0xFFD9)
-  let eoiIndex = bytes.length - 2;
-  for (let i = bytes.length - 2; i >= 2; i--) {
-    if (bytes[i] === 0xff && bytes[i + 1] === 0xd9) {
-      eoiIndex = i;
-      break;
-    }
+  let totalChunkLen = 0;
+  for (const c of chunks) totalChunkLen += c.length;
+
+  const result = new Uint8Array(bytes.length + totalChunkLen);
+  result.set(bytes.subarray(0, 2), 0);
+  let offset = 2;
+  for (const c of chunks) {
+    result.set(c, offset);
+    offset += c.length;
   }
-
-  let remaining = targetBytes - bytes.length;
-  const chunks: (Uint8Array | Blob)[] = [bytes.subarray(0, eoiIndex)];
-
-  // Each COM segment: [0xFF, 0xFE, lenMSB, lenLSB, ...payload]
-  while (remaining > 4) {
-    const segTotal = Math.min(remaining, 60000);
-    const payloadLen = segTotal - 4;
-    const lengthField = payloadLen + 2; // includes the 2 length bytes
-
-    const comSegment = new Uint8Array(segTotal);
-    comSegment[0] = 0xff;
-    comSegment[1] = 0xfe;
-    comSegment[2] = (lengthField >> 8) & 0xff;
-    comSegment[3] = lengthField & 0xff;
-    // Fill payload with deterministic ASCII '0' (0x30)
-    comSegment.fill(0x30, 4);
-
-    chunks.push(comSegment);
-    remaining -= segTotal;
-  }
-
-  chunks.push(bytes.subarray(eoiIndex));
-  return new Blob(chunks, { type: 'image/jpeg' });
+  result.set(bytes.subarray(2), offset);
+  return new Blob([result], { type: 'image/jpeg' });
 }
 
-function wrapImageInPdf(dataUrl: string, width: number, height: number): Blob {
-  const orientation = width > height ? 'l' : 'p';
-  const doc = new jsPDF({
-    orientation,
-    unit: 'px',
-    format: [width, height],
-  });
-  doc.addImage(dataUrl, 'JPEG', 0, 0, width, height);
-  return doc.output('blob');
-}
-
-/**
- * Core Target-Lock Binary Search Engine (used by Compressor.astro & KB routes)
- */
-export async function compressToTarget(
+export async function convertFormat(
   file: File,
-  targetKB: number,
-  maxIterations: number = 12,
-  outputFormat: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto' = 'auto'
+  targetMime: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf',
+  quality: number = 0.92
 ): Promise<CompressionResult> {
-  const img = await loadImage(file);
-  const targetBytes = Math.floor(targetKB * 1024 * 0.96); // 4% safety buffer under ceiling
-  const minFloorBytes = Math.floor(targetKB * 1024 * 0.85);
+  const decoded = await loadImageSource(file);
+  try {
+    const { source, width: origW, height: origH } = decoded;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const maxSafeDim = isMobile ? 2560 : 4096;
 
-  const isPdf = outputFormat === 'application/pdf';
-  const actualMime =
-    outputFormat === 'auto'
-      ? file.type === 'image/webp'
-        ? 'image/webp'
-        : 'image/jpeg'
-      : isPdf
-      ? 'image/jpeg'
-      : outputFormat === 'image/png'
-      ? 'image/jpeg' // PNG is lossless; use JPEG quantization if user requests exact KB target
-      : outputFormat;
+    let w = origW;
+    let h = origH;
+    if (w > maxSafeDim || h > maxSafeDim) {
+      const ratio = Math.min(maxSafeDim / w, maxSafeDim / h);
+      w = Math.max(1, Math.round(w * ratio));
+      h = Math.max(1, Math.round(h * ratio));
+    }
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const maxSafeDim = isMobile ? 2560 : 4096;
+    const isPdf = targetMime === 'application/pdf';
+    const fillWhite = targetMime === 'image/jpeg' || isPdf;
+    const canvas = renderToCanvas(source, origW, origH, w, h, fillWhite, 'stretch');
 
-  let curW = img.width;
-  let curH = img.height;
-  if (curW > maxSafeDim || curH > maxSafeDim) {
-    const ratio = Math.min(maxSafeDim / curW, maxSafeDim / curH);
-    curW = Math.max(1, Math.round(curW * ratio));
-    curH = Math.max(1, Math.round(curH * ratio));
-  }
-
-  // Check if upsizing / enhancement is requested (file is already smaller than targetKB)
-  const initialCanvas = renderToCanvas(img, curW, curH, true, 'stretch');
-  let maxQualityBlob = await canvasToBlob(initialCanvas, actualMime, 0.98);
-  if (isPdf) {
-    maxQualityBlob = wrapImageInPdf(initialCanvas.toDataURL('image/jpeg', 0.95), curW, curH);
-  }
-
-  if (maxQualityBlob.size < minFloorBytes && !isPdf) {
-    initialCanvas.width = 0;
-    initialCanvas.height = 0;
-    const dpiBlob = await injectJpegDpi(maxQualityBlob, 300);
-    const paddedBlob = await padJpegToTargetBytes(dpiBlob, Math.floor(targetKB * 1024 * 0.94));
-    return {
-      blob: paddedBlob,
-      size: paddedBlob.size,
-      quality: 0.98,
-      width: curW,
-      height: curH,
-      iterations: 1,
-      scale: 1.0,
-    };
-  }
-  initialCanvas.width = 0;
-  initialCanvas.height = 0;
-
-  let bestBlob: Blob | null = null;
-  let bestQuality = 0.85;
-  let bestW = curW;
-  let bestH = curH;
-  let totalIterations = 0;
-
-  // Outer loop scales dimensions down if even quality=0.15 is still above targetBytes
-  for (let scaleStep = 0; scaleStep < 6; scaleStep++) {
-    const canvas = renderToCanvas(img, curW, curH, true, 'stretch');
-
-    let low = 0.08;
-    let high = 0.96;
-    const iters = Math.max(6, Math.floor(maxIterations / (scaleStep === 0 ? 1 : 2)));
-
-    for (let i = 0; i < iters; i++) {
-      totalIterations++;
-      const mid = (low + high) / 2;
-      let candidate: Blob;
-
-      if (isPdf) {
-        const dataUrl = canvas.toDataURL('image/jpeg', mid);
-        candidate = wrapImageInPdf(dataUrl, curW, curH);
-      } else {
-        candidate = await canvasToBlob(canvas, actualMime, mid);
-      }
-
-      if (candidate.size <= targetBytes) {
-        bestBlob = candidate;
-        bestQuality = mid;
-        bestW = curW;
-        bestH = curH;
-        low = mid; // Try higher quality while staying under ceiling
-        if (candidate.size >= targetBytes * 0.9) break;
-      } else {
-        high = mid;
+    let blob: Blob;
+    if (isPdf) {
+      blob = wrapJpegDataUrlInPdf(canvas.toDataURL('image/jpeg', quality), w, h);
+    } else {
+      blob = await canvasToBlob(canvas, targetMime, quality);
+      if (blob.type === 'image/jpeg') {
+        blob = await injectJpegDpi(blob, 300);
       }
     }
 
     canvas.width = 0;
     canvas.height = 0;
 
-    if (bestBlob && bestBlob.size <= targetBytes) {
-      break;
-    }
-
-    // Scale dimensions down by 75% and retry binary search
-    curW = Math.max(60, Math.round(curW * 0.75));
-    curH = Math.max(60, Math.round(curH * 0.75));
+    return {
+      blob,
+      size: blob.size,
+      quality,
+      width: w,
+      height: h,
+      iterations: 1
+    };
+  } finally {
+    decoded.cleanup();
   }
-
-  // Fallback if still too large
-  if (!bestBlob) {
-    const fallbackCanvas = renderToCanvas(img, curW, curH, true, 'stretch');
-    bestBlob = isPdf
-      ? wrapImageInPdf(fallbackCanvas.toDataURL('image/jpeg', 0.05), curW, curH)
-      : await canvasToBlob(fallbackCanvas, actualMime, 0.05);
-    fallbackCanvas.width = 0;
-    fallbackCanvas.height = 0;
-    bestQuality = 0.05;
-  }
-
-  if (!isPdf && bestBlob.type === 'image/jpeg') {
-    bestBlob = await injectJpegDpi(bestBlob, 300);
-  }
-
-  return {
-    blob: bestBlob,
-    size: bestBlob.size,
-    quality: bestQuality,
-    width: bestW,
-    height: bestH,
-    iterations: totalIterations,
-    scale: bestW / img.width,
-  };
 }
 
-/**
- * Exact Pixel Resizer (used by Resizer.astro and International Visa/Passport pages)
- * Uses Center-Crop ('cover') by default so 1:1 and 35x45mm portraits never squish faces.
- */
+export async function compressToTarget(
+  file: File,
+  targetKB: number,
+  maxIterations: number = 12,
+  targetFormat: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf' | 'auto' = 'auto'
+): Promise<CompressionResult> {
+  const targetBytes = Math.floor(targetKB * 1024);
+  const actualMime =
+    targetFormat === 'auto'
+      ? isTiffFile(file)
+        ? 'image/jpeg'
+        : (file.type as any) || 'image/jpeg'
+      : targetFormat;
+
+  const encodeMime =
+    actualMime === 'application/pdf' || actualMime === 'image/png' ? 'image/jpeg' : actualMime;
+
+  const decoded = await loadImageSource(file);
+  try {
+    const { source, width: origW, height: origH } = decoded;
+
+    let scale = 1.0;
+    let bestBlob: Blob | null = null;
+    let bestQuality = 0.85;
+    let totalIterations = 0;
+
+    for (let scaleStep = 0; scaleStep < 5; scaleStep++) {
+      const curW = Math.max(16, Math.round(origW * scale));
+      const curH = Math.max(16, Math.round(origH * scale));
+
+      const canvas = document.createElement('canvas');
+      canvas.width = curW;
+      canvas.height = curH;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, curW, curH);
+      ctx.drawImage(source, 0, 0, curW, curH);
+
+      let minQ = 0.05;
+      let maxQ = 0.96;
+      let midQ = 0.75;
+
+      for (let i = 0; i < maxIterations; i++) {
+        totalIterations++;
+        midQ = (minQ + maxQ) / 2;
+
+        let candidateBlob: Blob;
+        if (actualMime === 'application/pdf') {
+          const dataUrl = canvas.toDataURL('image/jpeg', midQ);
+          candidateBlob = wrapJpegDataUrlInPdf(dataUrl, curW, curH);
+        } else {
+          candidateBlob = await canvasToBlob(canvas, encodeMime, midQ);
+        }
+
+        if (candidateBlob.size <= targetBytes) {
+          bestBlob = candidateBlob;
+          bestQuality = midQ;
+          minQ = midQ;
+          if (candidateBlob.size >= targetBytes * 0.93) break;
+        } else {
+          maxQ = midQ;
+        }
+      }
+
+      canvas.width = 0;
+      canvas.height = 0;
+
+      if (bestBlob && bestBlob.size <= targetBytes) {
+        return {
+          blob: bestBlob,
+          size: bestBlob.size,
+          quality: bestQuality,
+          width: curW,
+          height: curH,
+          iterations: totalIterations
+        };
+      }
+
+      scale *= 0.72;
+    }
+
+    const finalW = Math.max(16, Math.round(origW * scale));
+    const finalH = Math.max(16, Math.round(origH * scale));
+    const fallbackCanvas = document.createElement('canvas');
+    fallbackCanvas.width = finalW;
+    fallbackCanvas.height = finalH;
+    const fCtx = fallbackCanvas.getContext('2d')!;
+    fCtx.fillStyle = '#FFFFFF';
+    fCtx.fillRect(0, 0, finalW, finalH);
+    fCtx.drawImage(source, 0, 0, finalW, finalH);
+
+    const fallbackBlob =
+      actualMime === 'application/pdf'
+        ? wrapJpegDataUrlInPdf(fallbackCanvas.toDataURL('image/jpeg', 0.1), finalW, finalH)
+        : await canvasToBlob(fallbackCanvas, encodeMime, 0.1);
+
+    fallbackCanvas.width = 0;
+    fallbackCanvas.height = 0;
+
+    return {
+      blob: bestBlob || fallbackBlob,
+      size: (bestBlob || fallbackBlob).size,
+      quality: bestQuality,
+      width: finalW,
+      height: finalH,
+      iterations: totalIterations
+    };
+  } finally {
+    decoded.cleanup();
+  }
+}
+
 export async function resizeImageExact(
   file: File,
   targetWidth: number,
@@ -383,48 +480,47 @@ export async function resizeImageExact(
   quality: number = 0.92,
   fitMode: FitMode = 'cover'
 ): Promise<CompressionResult> {
-  const img = await loadImage(file);
-  const isPdf = outputFormat === 'application/pdf';
-  const actualMime =
-    outputFormat === 'auto'
-      ? file.type === 'image/png' || file.type === 'image/webp'
-        ? file.type
-        : 'image/jpeg'
-      : isPdf
-      ? 'image/jpeg'
-      : outputFormat;
+  const decoded = await loadImageSource(file);
+  try {
+    const { source, width: origW, height: origH } = decoded;
+    const isPdf = outputFormat === 'application/pdf';
+    const actualMime =
+      outputFormat === 'auto'
+        ? file.type === 'image/png' || file.type === 'image/webp'
+          ? file.type
+          : 'image/jpeg'
+        : isPdf
+        ? 'image/jpeg'
+        : outputFormat;
 
-  const fillWhite = actualMime === 'image/jpeg' || isPdf;
-  const canvas = renderToCanvas(img, targetWidth, targetHeight, fillWhite, fitMode);
+    const fillWhite = actualMime === 'image/jpeg' || isPdf;
+    const canvas = renderToCanvas(source, origW, origH, targetWidth, targetHeight, fillWhite, fitMode);
 
-  let blob: Blob;
-  if (isPdf) {
-    blob = wrapImageInPdf(canvas.toDataURL('image/jpeg', quality), targetWidth, targetHeight);
-  } else {
-    blob = await canvasToBlob(canvas, actualMime, quality);
-    if (blob.type === 'image/jpeg') {
-      blob = await injectJpegDpi(blob, 300);
+    let blob: Blob;
+    if (isPdf) {
+      blob = wrapJpegDataUrlInPdf(canvas.toDataURL('image/jpeg', quality), targetWidth, targetHeight);
+    } else {
+      blob = await canvasToBlob(canvas, actualMime, quality);
+      if (blob.type === 'image/jpeg') {
+        blob = await injectJpegDpi(blob, 300);
+      }
     }
+
+    canvas.width = 0;
+    canvas.height = 0;
+
+    return {
+      blob,
+      size: blob.size,
+      quality,
+      width: targetWidth,
+      height: targetHeight
+    };
+  } finally {
+    decoded.cleanup();
   }
-
-  canvas.width = 0;
-  canvas.height = 0;
-
-  return {
-    blob,
-    size: blob.size,
-    quality,
-    width: targetWidth,
-    height: targetHeight,
-  };
 }
 
-/**
- * Combined Exact Pixel + Exact KB Resizer (used by ExamResizer.astro)
- * - Auto-selects 'cover' (center-crop) for photos and 'contain' (white-letterbox) for signatures
- * - Injects 300 DPI JFIF header for NSDL/UTIITSL PAN & exam portals
- * - Guarantees 140x60px signatures never fall below the 10KB portal rejection floor via 0xFFFE COM padding
- */
 export async function resizeAndCompressExact(
   file: File,
   targetWidth: number,
@@ -434,107 +530,54 @@ export async function resizeAndCompressExact(
   fitMode?: FitMode,
   dpi: number = 300
 ): Promise<CompressionResult> {
-  const img = await loadImage(file);
+  const decoded = await loadImageSource(file);
+  try {
+    const { source, width: origW, height: origH } = decoded;
+    const resolvedFit: FitMode =
+      fitMode || (targetWidth / targetHeight >= 1.6 ? 'contain' : 'cover');
 
-  // Auto-detect fit mode if not explicitly provided:
-  // Wide aspect ratios (w/h >= 1.6 like 140x60 signatures or 800x400 declarations) use 'contain'
-  // Portrait/square aspect ratios (like 350x350 UPSC, 213x213 PAN, 200x230 IBPS) use 'cover'
-  const resolvedFit: FitMode =
-    fitMode || (targetWidth / targetHeight >= 1.6 ? 'contain' : 'cover');
+    const canvas = renderToCanvas(source, origW, origH, targetWidth, targetHeight, true, resolvedFit);
 
-  const canvas = renderToCanvas(img, targetWidth, targetHeight, true, resolvedFit);
+    const ceilingBytes = Math.floor(targetKB * 1024 * 0.96);
+    const floorBytes = Math.floor(targetKB * 1024 * 0.82);
 
-  const ceilingBytes = Math.floor(targetKB * 1024 * 0.96);
-  // Safe minimum floor (82% of targetKB, ensuring a 15KB SSC signature lands around ~13.2KB, well above 10KB)
-  const floorBytes = Math.floor(targetKB * 1024 * 0.82);
+    let low = 0.05;
+    let high = 0.98;
+    let bestBlob: Blob | null = null;
+    let bestQuality = 0.92;
 
-  let low = 0.05;
-  let high = 0.98;
-  let bestBlob: Blob | null = null;
-  let bestQuality = 0.92;
-
-  for (let i = 0; i < 10; i++) {
-    const mid = (low + high) / 2;
-    const candidate = await canvasToBlob(canvas, outputFormat, mid);
-
-    if (candidate.size <= ceilingBytes) {
-      bestBlob = candidate;
-      bestQuality = mid;
-      low = mid;
-    } else {
-      high = mid;
+    for (let i = 0; i < 9; i++) {
+      const mid = (low + high) / 2;
+      const candidate = await canvasToBlob(canvas, outputFormat, mid);
+      if (candidate.size <= ceilingBytes) {
+        bestBlob = candidate;
+        bestQuality = mid;
+        low = mid;
+        if (candidate.size >= floorBytes) break;
+      } else {
+        high = mid;
+      }
     }
-  }
 
-  if (!bestBlob) {
-    bestBlob = await canvasToBlob(canvas, outputFormat, 0.05);
-    bestQuality = 0.05;
-  }
-
-  canvas.width = 0;
-  canvas.height = 0;
-
-  if (outputFormat === 'image/jpeg') {
-    bestBlob = await injectJpegDpi(bestBlob, dpi);
-    // If tiny canvas dimensions (e.g., 140x60px signature = ~3KB) caused underflow below the portal floor,
-    // elevate safely using a standard 0xFFFE COM marker to ~88% of targetKB.
-    if (bestBlob.size < floorBytes) {
-      const safeTargetBytes = Math.floor(targetKB * 1024 * 0.88);
-      bestBlob = await padJpegToTargetBytes(bestBlob, safeTargetBytes);
+    let finalBlob = bestBlob || (await canvasToBlob(canvas, outputFormat, 0.05));
+    if (outputFormat === 'image/jpeg') {
+      finalBlob = await injectJpegDpi(finalBlob, dpi);
+      if (finalBlob.size < floorBytes) {
+        finalBlob = await padJpegToTargetBytes(finalBlob, floorBytes);
+      }
     }
+
+    canvas.width = 0;
+    canvas.height = 0;
+
+    return {
+      blob: finalBlob,
+      size: finalBlob.size,
+      quality: bestQuality,
+      width: targetWidth,
+      height: targetHeight
+    };
+  } finally {
+    decoded.cleanup();
   }
-
-  return {
-    blob: bestBlob,
-    size: bestBlob.size,
-    quality: bestQuality,
-    width: targetWidth,
-    height: targetHeight,
-  };
-}
-
-/**
- * Format Converter (used by FormatConverter.astro & MasterConverter.astro)
- */
-export async function convertFormat(
-  file: File,
-  targetMime: 'image/jpeg' | 'image/png' | 'image/webp' | 'application/pdf',
-  quality: number = 0.92
-): Promise<CompressionResult> {
-  const img = await loadImage(file);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const maxSafeDim = isMobile ? 2560 : 4096;
-
-  let w = img.width;
-  let h = img.height;
-  if (w > maxSafeDim || h > maxSafeDim) {
-    const ratio = Math.min(maxSafeDim / w, maxSafeDim / h);
-    w = Math.max(1, Math.round(w * ratio));
-    h = Math.max(1, Math.round(h * ratio));
-  }
-
-  const isPdf = targetMime === 'application/pdf';
-  const fillWhite = targetMime === 'image/jpeg' || isPdf;
-  const canvas = renderToCanvas(img, w, h, fillWhite, 'stretch');
-
-  let blob: Blob;
-  if (isPdf) {
-    blob = wrapImageInPdf(canvas.toDataURL('image/jpeg', quality), w, h);
-  } else {
-    blob = await canvasToBlob(canvas, targetMime, quality);
-    if (blob.type === 'image/jpeg') {
-      blob = await injectJpegDpi(blob, 300);
-    }
-  }
-
-  canvas.width = 0;
-  canvas.height = 0;
-
-  return {
-    blob,
-    size: blob.size,
-    quality,
-    width: w,
-    height: h,
-  };
 }
