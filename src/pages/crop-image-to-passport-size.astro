@@ -168,38 +168,27 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
   }
 
   :global(.cropper-modal) {
-    background-color: #fff !important;
-    opacity: 0.15 !important;
+    background-color: #000000 !important;
+    opacity: 0.55 !important;
   }
 
+  /* Crisp, high-contrast outer rectangle boundary */
   :global(.cropper-view-box) {
-    outline: 1.5px solid var(--color-lime) !important;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3) !important;
+    outline: 2px solid var(--color-lime) !important;
+    outline-offset: -1px !important;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 0 12px rgba(200, 241, 53, 0.4) !important;
   }
 
-  :global(.cropper-view-box::after) {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 3px;
-    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-    background-size: 400% 400%;
-    animation: rainbowBorder 3s linear infinite;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    pointer-events: none;
+  /* Clear Rule-of-Thirds grid lines */
+  :global(.cropper-dashed) {
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    opacity: 0.75 !important;
   }
 
-  @keyframes rainbowBorder {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
+  /* High-visibility draggable border lines */
   :global(.cropper-line) {
     background-color: var(--color-lime) !important;
-    opacity: 0.65 !important;
+    opacity: 0.85 !important;
     transition: opacity 0.15s ease;
   }
 
@@ -207,23 +196,20 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
     opacity: 1 !important;
   }
 
-  :global(.cropper-dashed) {
-    border-color: rgba(200, 241, 53, 0.5) !important;
-    opacity: 0.6 !important;
-  }
-
+  /* 8 solid resize points with contrasting dark borders */
   :global(.cropper-point) {
     background-color: var(--color-lime) !important;
-    width: 10px !important;
-    height: 10px !important;
+    width: 12px !important;
+    height: 12px !important;
     border-radius: 50% !important;
-    border: 1.5px solid #000 !important;
-    opacity: 0.95 !important;
+    border: 2px solid #000000 !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.8) !important;
   }
 
   :global(.cropper-point:hover) {
     background-color: #ffffff !important;
-    transform: scale(1.25);
+    transform: scale(1.3);
   }
 
   @media (min-width: 768px) {
