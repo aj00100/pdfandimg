@@ -101,7 +101,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
                     style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-ink); outline: none;"
                   />
                 </div>
-                <button id="apply-crop" class="btn-primary save-btn" style="width: 100%; margin-top: 12px;">Save Passport Photo</button>
+                <button id="apply-crop" class="btn-primary save-btn" style="width: 100%; margin-top: 12px;">Download Image</button>
              </div>
           </div>
        </div>
@@ -285,6 +285,14 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
 
       const ratio = parseFloat(btn.dataset.ratio);
       cropper.setAspectRatio(isNaN(ratio) ? NaN : ratio);
+
+      const label = btn.textContent.trim().toLowerCase();
+      let suffix = '_passport';
+      if (label.includes('upsc')) suffix = '_upsc';
+      else if (label.includes('signature')) suffix = '_signature';
+      else if (label.includes('free')) suffix = '_cropped';
+      const renameEl = document.getElementById('rename-input');
+      if (renameEl) renameEl.value = originalFilename + suffix;
     });
   });
 
