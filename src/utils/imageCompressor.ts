@@ -22,7 +22,7 @@ declare global {
 async function ensureUtifLoaded(): Promise<any> {
   if (typeof window !== 'undefined' && window.UTIF) return window.UTIF;
   return new Promise((resolve, reject) => {
-    const existing = document.querySelector('script[src*="UTIF.min.js"]');
+    const existing = document.querySelector('script[src*="utif"]');
     if (existing) {
       const check = setInterval(() => {
         if (window.UTIF) {
@@ -37,7 +37,7 @@ async function ensureUtifLoaded(): Promise<any> {
       return;
     }
     const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/utif/3.1.0/UTIF.min.js';
+    script.src = 'https://unpkg.com/utif@3.1.0/UTIF.js';
     script.onload = () => resolve(window.UTIF);
     script.onerror = () => reject(new Error('Failed to load TIFF decoder library.'));
     document.head.appendChild(script);
