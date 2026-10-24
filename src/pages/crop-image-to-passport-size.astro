@@ -90,7 +90,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
                   <button class="btn-ghost preset-btn active-preset" style="flex: 1 1 auto; min-width: 100px; border-color: var(--color-lime); color: var(--color-lime);" data-ratio="0.778">Passport</button>
                   <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="1">UPSC / 1:1</button>
                   <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="2.33">SSC Signature</button>
-                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="NaN">Free Form</button>
+                  
                 </div>
                 <div style="position: relative; width: 100%; margin-top: 16px;">
                   <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px;">Rename File (Optional)</label>
@@ -248,7 +248,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
       if (cropper) cropper.destroy();
       cropper = new Cropper(target, {
         aspectRatio: 0.778, // Passport preset by default
-        viewMode: 0,
+        viewMode: 1,
         dragMode: 'move',
         autoCropArea: 0.8,
         background: false,
@@ -298,7 +298,7 @@ const SEO_DESC = "Crop image to passport size instantly in your browser. Perfect
       let suffix = '_passport';
       if (label.includes('upsc')) suffix = '_upsc';
       else if (label.includes('signature')) suffix = '_signature';
-      else if (label.includes('free')) suffix = '_cropped';
+      
       const renameEl = document.getElementById('rename-input');
       if (renameEl) renameEl.value = originalFilename + suffix;
     });

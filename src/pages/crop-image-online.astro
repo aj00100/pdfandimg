@@ -87,10 +87,10 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
              </div>
              <div class="crop-controls" style="padding: 16px 0; width: 100%;">
                 <div class="preset-group" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%;">
-                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="1">UPSC / 1:1</button>
+                  <button class="btn-ghost preset-btn active-preset" style="flex: 1 1 auto; min-width: 100px; border-color: var(--color-lime); color: var(--color-lime);" data-ratio="1">UPSC / 1:1</button>
                   <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="0.778">Passport</button>
                   <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="2.33">SSC Signature</button>
-                  <button class="btn-ghost preset-btn" style="flex: 1 1 auto; min-width: 100px;" data-ratio="NaN">Free Form</button>
+                  
                 </div>
                 <div style="position: relative; width: 100%; margin-top: 16px;">
                   <label for="rename-input" style="display: block; font-family: var(--font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-3); margin-bottom: 6px;">Rename File (Optional)</label>
@@ -129,8 +129,8 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
           a: "Absolutely. Our browser-based image cropper tool processes your files entirely locally. Unlike cloud-based editors that upload your files to their servers, your sensitive documents, passport photos, and PAN card signatures never leave your device."
         },
         {
-          q: "Can I crop images to specific aspect ratios like 16:9 or 1:1?",
-          a: "Yes, you can select standard presets like 1:1 for Instagram or UPSC applications, or use the free-form tool to crop to any ratio, such as 16:9 for YouTube thumbnails or 3:4 for standard portraits."
+          q: "Can I crop images to specific aspect ratios?",
+          a: "Yes, you can select official presets like 1:1 for UPSC applications, Passport (3.5:4.5), and 2.33:1 for SSC signatures to ensure your photos meet exact application standards."
         }
       ]}
       uniqueContent={`
@@ -138,7 +138,7 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
           Composition is everything. Whether you are preparing a document for official submission or framing a product photo for your online store, using an efficient <strong>image cropper tool</strong> is the vital first step. Cropping goes beyond just making an image smaller; it's about removing unwanted background elements, shifting the focus directly onto your subject, and tailoring the visual dimensions to meet exact platform specifications. With our platform, you can seamlessly <strong>crop image online</strong> to achieve professional-grade results in seconds.
         </p>
         <p class="seo-p">
-          Different platforms demand different dimensions, which is why mastering aspect ratios is crucial. If you are updating a social media profile or applying for exams via UPSC, a perfect 1:1 square ratio is often required. For YouTube thumbnails or cinematic presentations, the widescreen 16:9 ratio is the golden standard. If you are focusing on portrait photography or standard ID photos, you will frequently rely on the 3:4 ratio. Our tool makes it incredibly easy to <strong>crop photo online free</strong>, offering intuitive presets and free-form dragging so you can hit the exact dimensions required without any guesswork.
+          Different platforms demand different dimensions, which is why mastering aspect ratios is crucial. If you are updating a social media profile or applying for exams via UPSC, a perfect 1:1 square ratio is often required. For YouTube thumbnails or cinematic presentations, the widescreen 16:9 ratio is the golden standard. If you are focusing on portrait photography or standard ID photos, you will frequently rely on the 3:4 ratio. Our tool makes it incredibly easy to <strong>crop photo online free</strong>, offering intuitive presets so you can hit the exact dimensions required without any guesswork.
         </p>
         <h3 class="seo-h3">Cropping for Official Documents: Visas, Passports, and Exams</h3>
         <p class="seo-p">
@@ -283,7 +283,7 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     if (!file) return;
 
     originalFilename = (file.name.substring(0, file.name.lastIndexOf('.')) || file.name);
-    document.getElementById('rename-input').value = originalFilename + '_cropped';
+    document.getElementById('rename-input').value = originalFilename + '_upsc';
 
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -293,7 +293,8 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
       
       if (cropper) cropper.destroy();
       cropper = new Cropper(target, {
-        viewMode: 0,
+        aspectRatio: 1,
+        viewMode: 1,
         dragMode: 'move',
         autoCropArea: 0.8,
         background: false,
@@ -346,8 +347,24 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
 
   document.querySelectorAll('.preset-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        b.style.borderColor = 'transparent';
+        b.style.color = 'var(--color-ink)';
+      });
+      btn.style.borderColor = 'var(--color-lime)';
+      btn.style.color = 'var(--color-lime)';
+
       const ratio = parseFloat(btn.dataset.ratio);
       cropper.setAspectRatio(isNaN(ratio) ? NaN : ratio);
+
+      const label = btn.textContent.trim().toLowerCase();
+      let suffix = '_cropped';
+      if (label.includes('upsc')) suffix = '_upsc';
+      else if (label.includes('passport')) suffix = '_passport';
+      else if (label.includes('signature')) suffix = '_signature';
+      
+      const renameEl = document.getElementById('rename-input');
+      if (renameEl) renameEl.value = originalFilename + suffix;
     });
   });
 
