@@ -216,8 +216,7 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
   }
 
   :global(.cropper-view-box) {
-    outline: none !important;
-    border: none !important;
+    outline: 1.5px solid var(--color-lime) !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3) !important;
   }
 
@@ -241,10 +240,33 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
     100% { background-position: 0% 50%; }
   }
 
+  :global(.cropper-line) {
+    background-color: var(--color-lime) !important;
+    opacity: 0.65 !important;
+    transition: opacity 0.15s ease;
+  }
+
+  :global(.cropper-line:hover) {
+    opacity: 1 !important;
+  }
+
+  :global(.cropper-dashed) {
+    border-color: rgba(200, 241, 53, 0.5) !important;
+    opacity: 0.6 !important;
+  }
+
   :global(.cropper-point) {
     background-color: var(--color-lime) !important;
-    width: 8px !important;
-    height: 8px !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    border: 1.5px solid #000 !important;
+    opacity: 0.95 !important;
+  }
+
+  :global(.cropper-point:hover) {
+    background-color: #ffffff !important;
+    transform: scale(1.25);
   }
 
   @media (min-width: 768px) {
@@ -285,7 +307,7 @@ const SEO_DESC = "Crop your photos and signatures to exact dimensions. Perfect f
       
       if (cropper) cropper.destroy();
       cropper = new Cropper(target, {
-        viewMode: 1,
+        viewMode: 0,
         dragMode: 'move',
         autoCropArea: 0.8,
         background: false,
