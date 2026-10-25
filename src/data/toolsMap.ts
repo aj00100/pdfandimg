@@ -92,7 +92,7 @@ export const allTools: Tool[] = [
   { name: 'Resize Image in Pixels', href: '/resize-image-in-pixels/', category: 'resize-crop', desc: 'Exact pixel dimensions' },
   { name: 'Resize Image Dimensions', href: '/resize-image-dimensions/', category: 'resize-crop', desc: 'Width & height resizer' },
 
-  // PDF Tools (noindexed but still useful for internal linking)
+  // PDF Tools
   { name: 'Unlock PDF', href: '/unlock-pdf/', category: 'pdf-tools', desc: 'Remove PDF restrictions locally' },
 ];
 
