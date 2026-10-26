@@ -16,7 +16,7 @@ const excludeDirs = new Set([
   '.wrangler-old', 
   '.vscode'
 ]);
-const excludeFiles = new Set(['package-lock.json', 'generate_argon_dump.mjs', 'pdfandimg_source_and_build_analysis.md']);
+const excludeFiles = new Set(['package-lock.json', 'generate_argon_dump.mjs']);
 const binaryExtensions = new Set(['.png', '.jpg', '.jpeg', '.webp', '.ico', '.pdf', '.woff', '.woff2', '.ttf', '.eot']);
 
 function getFiles(dir) {
