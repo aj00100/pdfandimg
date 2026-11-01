@@ -4,22 +4,25 @@ import ExamResizer from '../components/ExamResizer.astro';
 ---
 
 <Layout 
-  title="IBPS Photo Resizer & Signature Size Converter | Free Tool"
-  description="Resize your photo to 20-50KB and signature to 10-20KB for IBPS PO, Clerk, and RRB exams. Official IBPS dimensions auto-applied."
+  title="IBPS Photo, Signature, Thumb & Declaration Resizer (2026 Free) — PdfAndImg"
+  description="Free 4-in-1 IBPS image resizer for PO, Clerk, and RRB. Convert candidate photo (20-50KB), signature (10-20KB), left thumb (20-50KB), and handwritten declaration (50-100KB) in your browser."
 >
   <main class="container mx-auto px-4 py-12 md:py-24" style="max-width: 1000px;">
     
     <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-block; padding: 6px 16px; background: rgba(200, 241, 53, 0.1); border: 1px solid rgba(200, 241, 53, 0.3); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--color-lime); margin-bottom: 16px;">
+        IBPS / SBI / RRB READY
+      </div>
       <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--color-ink); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.1;">
-        IBPS Photo <span style="color: var(--color-lime);">&</span> Signature Resizer
+        IBPS 4-in-1 <span style="color: var(--color-lime);">Photo, Signature &amp; Document Resizer</span>
       </h1>
-      <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        Instantly compress your photograph (20KB - 50KB) and signature (10KB - 20KB) exactly to the strict Institute of Banking Personnel Selection guidelines.
+      <p style="font-size: 1.125rem; color: var(--color-ink-2); max-width: 680px; margin: 0 auto; line-height: 1.6;">
+        Instantly format all 4 required IBPS &amp; SBI portal documents: Photograph (20–50KB), Signature (10–20KB), Left Thumb Impression (20–50KB), and Handwritten Declaration (50–100KB).
       </p>
     </div>
 
     <!-- The Exam Resizer Component -->
-    <ExamResizer defaultExam="ibps" defaultType="photo" />
+    <ExamResizer defaultExam="ibps" defaultType="photo" allowMultiple={true} />
 
     <!-- SEO Content Section -->
     <article style="margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--color-border); font-family: var(--font-body); line-height: 1.7; color: var(--color-ink-2);">
@@ -31,33 +34,55 @@ import ExamResizer from '../components/ExamResizer.astro';
       </p>
 
       <div style="background: var(--color-surface-2); padding: 32px; border-radius: 16px; margin-bottom: 40px; border: 1px solid var(--color-border);">
-        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px;">Exact IBPS Photo & Signature Dimensions (Official Guidelines)</h3>
+        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px;">Exact 4-in-1 IBPS Document Specifications (Official Guidelines)</h3>
         
         <div style="display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
           <div>
             <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              Candidate Photograph
+              1. Candidate Photograph
             </strong>
             <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
               <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly 20 KB to 50 KB</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 200 x 230 pixels preferred</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 200 x 230 pixels</span></li>
               <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Format:</strong> .JPG or .JPEG only</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Background:</strong> Must be a light-colored or white background</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Specs:</strong> No dark glasses, caps, or hats. Eyes must be clearly visible.</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Background:</strong> Plain white or light-colored background</span></li>
             </ul>
           </div>
           <div>
             <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              Candidate Signature
+              2. Candidate Signature
             </strong>
             <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
               <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly 10 KB to 20 KB</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 140 x 60 pixels preferred</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Format:</strong> .JPG or .JPEG only</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Ink:</strong> Must be written with a Black ink pen on white paper</span></li>
-              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✗</span> <span style="color: #ef4444;"><strong>Warning:</strong> Block/Capital letters are NOT allowed.</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 140 x 60 pixels</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Ink:</strong> Black ink pen on white paper</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: #ef4444;">✗</span> <span style="color: #ef4444;"><strong>Warning:</strong> Block / Capital letters are rejected.</span></li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+              3. Left Thumb Impression (LTI)
+            </strong>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly 20 KB to 50 KB</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 240 x 240 pixels (3cm × 3cm)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Ink:</strong> Blue or Black ink stamp on white paper</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Clarity:</strong> Ensure ridges are clearly defined and unsmudged</span></li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--color-ink); display: flex; align-items: center; gap: 8px; font-size: 1.125rem; margin-bottom: 12px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-lime)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              4. Handwritten Declaration
+            </strong>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>File Size:</strong> Strictly 50 KB to 100 KB</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Dimensions:</strong> 800 x 400 pixels (10cm × 5cm)</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: var(--color-lime);">✓</span> <span><strong>Ink:</strong> Written in candidate's own hand with Black ink</span></li>
+              <li style="display: flex; gap: 8px;"><span style="color: #ef4444;">✗</span> <span style="color: #ef4444;"><strong>Warning:</strong> In English only. Capital letters prohibited.</span></li>
             </ul>
           </div>
         </div>
