@@ -260,7 +260,7 @@ export const blogPosts: BlogPost[] = [
     readTime: '8 min read',
     category: 'Banking Exam Guides',
     primaryToolHref: '/ibps-photo-resizer/',
-    primaryToolLabel: 'Open IBPS & SBI Photo/Signature Resizer',
+    primaryToolLabel: 'IBPS 4-in-1 Photo, Signature, Thumb & Declaration Resizer',
     faqs: [
       {
         q: 'Why does IBPS reject signatures signed in blue ink?',
@@ -276,7 +276,13 @@ export const blogPosts: BlogPost[] = [
       }
     ],
     content: `
-      <p>Applying for banking examinations conducted by <strong>IBPS (PO, Clerk, SO, RRB)</strong>, <strong>SBI (PO, Junior Associates)</strong>, <strong>RBI</strong>, and <strong>LIC</strong> is uniquely challenging because candidates must upload <strong>four separate image files</strong>—each governed by different pixel dimensions, file size brackets, and strict ink-color rules.</p>
+      <div style="background: rgba(200, 241, 53, 0.08); border: 1.5px solid var(--color-lime); padding: 16px 20px; border-radius: 12px; margin: 0 0 24px;">
+        <span style="font-weight: 700; color: var(--color-ink);">🚀 Fast-Track Your Application:</span>
+        <a href="/ibps-photo-resizer/" style="font-weight: 700; color: var(--color-ink); text-decoration: underline; margin-left: 6px;">Use the IBPS 4-in-1 Photo, Signature, Thumb &amp; Declaration Resizer</a>
+        to format all 4 documents in seconds without server upload.
+      </div>
+
+      <p>Applying for banking examinations conducted by <strong>IBPS (PO, Clerk, SO, RRB)</strong>, <strong>SBI (PO, Junior Associates)</strong>, <strong>RBI</strong>, and <strong>LIC</strong> is uniquely challenging because candidates must upload <strong>four separate image files</strong>—each governed by different pixel dimensions, file size brackets, and strict ink-color rules. Instead of using separate tools, <a href="/ibps-photo-resizer/">use the IBPS 4-in-1 Photo, Signature, Thumb &amp; Declaration Resizer</a> to calibrate every file in your browser.</p>
 
       <h2>1. The Master IBPS & SBI 4-Document Specification Table (2026)</h2>
       <table>
@@ -324,10 +330,11 @@ export const blogPosts: BlogPost[] = [
       <p>The handwritten declaration contains roughly 35 words across 3 to 4 lines. If you compress it using a generic 20KB tool, the words become illegible. Because IBPS allows a generous <strong>50KB to 100KB window</strong> at <strong>800 × 400 pixels</strong>, use our <a href="/compress-image-to-100kb/">Compress Image to 100KB</a> or <a href="/resize-image-in-pixels/">Resize Image in Pixels</a> tool set to <code>800×400 px</code> and <code>75KB</code> so every single letter remains crisp.</p>
 
       <h2>3. How to Format All 4 IBPS Files in Under 2 Minutes</h2>
+      <p>Instead of bouncing between multiple websites, use our all-in-one <a href="/ibps-photo-resizer/">IBPS 4-in-1 Photo, Signature, Thumb &amp; Declaration Resizer</a> to format every document locally in your browser:</p>
       <ol>
-        <li><strong>Photograph & Signature:</strong> Open our <a href="/ibps-photo-resizer/">IBPS Photo & Signature Resizer</a>. Select "Photograph" (auto-locks <code>200×230 px, 45KB</code>) for your portrait, then toggle to "Signature" (auto-locks <code>140×60 px, 18KB</code>) for your black-ink sign.</li>
-        <li><strong>Left Thumb Impression:</strong> Use the <a href="/compress-image-to-40kb/">40KB Image Compressor</a> to lock your thumb scan right in the middle of the 20KB–50KB requirement.</li>
-        <li><strong>Handwritten Declaration:</strong> Open <a href="/resize-image-in-pixels/">Resize Image in Pixels</a>, enter <code>800</code> width by <code>400</code> height, and compress to <strong>80KB</strong>.</li>
+        <li><strong>Candidate Photo &amp; Signature:</strong> Select "Candidate Photo" (auto-locks <code>200×230 px, 20–50KB</code>) and "Signature" (auto-locks <code>140×60 px, 10–20KB</code> with crisp black ink rendering).</li>
+        <li><strong>Left Thumb Impression:</strong> Switch to the "Left Thumb" tab to lock your thumb scan to <code>240×240 px, 20–50KB</code>.</li>
+        <li><strong>Handwritten Declaration:</strong> Switch to the "Declaration" tab to format your handwritten text to <code>800×400 px, 50–100KB</code>.</li>
       </ol>
     `
   },
@@ -339,7 +346,7 @@ export const blogPosts: BlogPost[] = [
     readTime: '7 min read',
     category: 'Medical Entrance Guides',
     primaryToolHref: '/neet-photo-resizer/',
-    primaryToolLabel: 'Open NEET UG Photo & Signature Resizer',
+    primaryToolLabel: 'NEET 4×6 Postcard & Passport Photo Resizer',
     faqs: [
       {
         q: 'Can I use the same studio photo for both the NEET passport photo and the 4x6 postcard photo?',
@@ -347,7 +354,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: 'What are the pixel dimensions for a 4x6 inch NEET postcard photo?',
-        a: 'At standard screen/print calibration, a 4×6 inch vertical postcard photograph translates to 400 × 600 pixels (at 100 DPI) or 600 × 900 pixels (at 150 DPI), with a file size between 10KB and 200KB in JPG format.'
+        a: 'At standard screen/print calibration, a 4×6 inch vertical postcard photograph translates to 1200 × 1800 pixels at 300 DPI (or 400 × 600 px at 100 DPI), with a file size between 10KB and 200KB in JPG format.'
       },
       {
         q: 'Are spectacles or caps allowed in the NEET UG 2026 photograph?',
@@ -355,7 +362,13 @@ export const blogPosts: BlogPost[] = [
       }
     ],
     content: `
-      <p>The National Testing Agency (NTA) application portal for <strong>NEET UG 2026</strong> requires medical aspirants to upload two distinct versions of their portrait photograph: a standard <strong>Passport-Size Photograph</strong> and a large <strong>Postcard-Size (4" × 6") Photograph</strong>, alongside their signature and left/right hand fingers and thumb impressions. Understanding the exact technical difference between these uploads prevents NTA Correction Window notices.</p>
+      <div style="background: rgba(200, 241, 53, 0.08); border: 1.5px solid var(--color-lime); padding: 16px 20px; border-radius: 12px; margin: 0 0 24px;">
+        <span style="font-weight: 700; color: var(--color-ink);">⚡ Instant NTA Formatting:</span>
+        <a href="/neet-photo-resizer/" style="font-weight: 700; color: var(--color-ink); text-decoration: underline; margin-left: 6px;">Resize your NEET 4x6 Postcard &amp; Passport Photo here</a>
+        with automatic 300 DPI scaling and Name &amp; Date (DOP) stamp.
+      </div>
+
+      <p>The National Testing Agency (NTA) application portal for <strong>NEET UG 2026</strong> requires medical aspirants to upload two distinct versions of their portrait photograph: a standard <strong>Passport-Size Photograph</strong> and a large <strong>Postcard-Size (4" × 6") Photograph</strong>, alongside their signature and left/right hand fingers and thumb impressions. Understanding the exact technical difference between these uploads prevents NTA Correction Window notices. You can <a href="/neet-photo-resizer/">resize your NEET 4x6 Postcard &amp; Passport Photo here</a> directly in your browser without uploading files to any server.</p>
 
       <h2>1. NEET UG 2026 Complete Upload Specification Comparison</h2>
       <table>
@@ -371,13 +384,13 @@ export const blogPosts: BlogPost[] = [
           <tr>
             <td><strong>1. Passport Size Photo</strong></td>
             <td>3.5 cm × 4.5 cm</td>
-            <td><strong>200 × 230 px</strong> (or 350 × 450 px)</td>
+            <td><strong>350 × 450 px</strong> (300 DPI)</td>
             <td><strong>10 KB – 200 KB</strong> (JPG)</td>
           </tr>
           <tr>
             <td><strong>2. Postcard Size Photo</strong></td>
             <td>4.0 inch × 6.0 inch</td>
-            <td><strong>400 × 600 px</strong> (or 600 × 900 px)</td>
+            <td><strong>1200 × 1800 px</strong> (300 DPI)</td>
             <td><strong>10 KB – 200 KB</strong> (JPG)</td>
           </tr>
           <tr>
@@ -389,7 +402,7 @@ export const blogPosts: BlogPost[] = [
           <tr>
             <td><strong>4. Left & Right Hand Fingers + Thumb</strong></td>
             <td>Horizontal Box</td>
-            <td><strong>400 × 200 px</strong></td>
+            <td><strong>400 × 400 px</strong></td>
             <td><strong>10 KB – 200 KB</strong> (JPG)</td>
           </tr>
         </tbody>
@@ -400,14 +413,15 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li><strong>80% Face Coverage:</strong> Your face and ears must be clearly visible against a <strong>pure white background</strong>, covering at least 80% of the frame.</li>
         <li><strong>Name & Date of Taking Photograph:</strong> Both the passport and postcard versions must display a clean white nameplate at the bottom containing your full name and the date the photo was clicked.</li>
-        <li><strong>Aspect Ratio Difference:</strong> The passport photo has an aspect ratio of roughly <code>7:9</code> (200×230 px), whereas the postcard photo has a taller <code>2:3</code> aspect ratio (400×600 px). Stretching one into the other without proper cropping distorts facial geometry.</li>
+        <li><strong>Aspect Ratio Difference:</strong> The passport photo has an aspect ratio of roughly <code>7:9</code> (350×450 px), whereas the postcard photo has a taller <code>2:3</code> aspect ratio (1200×1800 px at 300 DPI). Stretching one into the other without proper cropping distorts facial geometry.</li>
       </ul>
 
       <h2>3. Formatting Your NEET Photos & Finger Impressions</h2>
+      <p>Format all NTA-compliant documents without leaving your browser using our dedicated <a href="/neet-photo-resizer/">NEET 4x6 Postcard &amp; Passport Photo Resizer</a>:</p>
       <ol>
-        <li>For your standard passport photo and signature, open the <a href="/neet-photo-resizer/">NEET Photo & Signature Resizer</a>. It automatically configures the exact NTA dimensions and locks the file size safely under 150KB (for photos) and 25KB (for signatures).</li>
-        <li>For your 4×6 inch postcard photo, open <a href="/resize-image-in-pixels/">Resize Image in Pixels</a>, enter <code>400</code> Width and <code>600</code> Height, and keep the format set to JPG.</li>
-        <li>For your 10-finger and thumb impression sheet, use the <a href="/compress-image-to-100kb/">Compress Image to 100KB</a> tool so the ridge details of all ten fingers remain sharp for NTA verification.</li>
+        <li><strong>Passport Photo:</strong> Select the "Passport Photo" tab (auto-locks <code>350×450 px, 10–200KB</code>) with automated Name &amp; Date of Photo (DOP) stamp.</li>
+        <li><strong>4×6 Inch Postcard Photo:</strong> Click the "4×6\" Postcard" tab (auto-locks <code>1200×1800 px, 10–200KB</code> at 300 DPI) to ensure 100% adherence to NTA exam center attendance rules.</li>
+        <li><strong>Signature &amp; Thumb Impressions:</strong> Use the dedicated "Signature" (locks <code>140×60 px, 4–30KB</code>) and "Thumb &amp; Fingers" (locks <code>400×400 px, 10–200KB</code>) tabs for complete application readiness.</li>
       </ol>
     `
   },
