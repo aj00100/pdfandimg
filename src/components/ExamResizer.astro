@@ -47,26 +47,51 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
         </select>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: 14px;">
-        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-          <input type="radio" name="er-type" value="photo" checked />
-          <span style="font-weight: 600; font-size: 0.92rem;">Photograph</span>
+      <div id="er-tabs-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px;">
+        <label class="er-tab-card active" data-type="photo" id="er-card-photo" style="cursor: pointer;">
+          <input type="radio" name="er-type" value="photo" checked style="position: absolute; opacity: 0; pointer-events: none;" />
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="er-tab-title" id="er-lbl-photo" style="font-weight: 700; font-size: 0.875rem; color: var(--color-ink);">Photograph</span>
+          </div>
+          <span class="er-tab-desc" id="er-desc-photo" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-top: 4px; display: block;">Passport Size</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-          <input type="radio" name="er-type" value="signature" />
-          <span style="font-weight: 600; font-size: 0.92rem;">Signature</span>
+
+        <label class="er-tab-card" data-type="postcard" id="er-card-postcard" style="cursor: pointer; position: relative;">
+          <input type="radio" name="er-type" value="postcard" style="position: absolute; opacity: 0; pointer-events: none;" />
+          <span class="er-tab-pill-badge" id="er-badge-postcard" style="display: none; position: absolute; top: -8px; right: 8px; font-family: var(--font-mono); font-size: 0.625rem; font-weight: 800; color: #c8f135; background: #000; border: 1px solid rgba(200, 241, 53, 0.5); padding: 1px 7px; border-radius: 99px; letter-spacing: 0.04em;">NTA MANDATORY</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="8" y1="21" x2="8" y2="9"/></svg>
+            <span class="er-tab-title" id="er-lbl-postcard" style="font-weight: 700; font-size: 0.875rem; color: var(--color-ink);">4×6" Postcard</span>
+          </div>
+          <span class="er-tab-desc" id="er-desc-postcard" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-top: 4px; display: block;">10×15 cm Postcard</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-          <input type="radio" name="er-type" value="thumb" />
-          <span style="font-weight: 600; font-size: 0.92rem;">Thumb Impression</span>
+
+        <label class="er-tab-card" data-type="signature" id="er-card-signature" style="cursor: pointer;">
+          <input type="radio" name="er-type" value="signature" style="position: absolute; opacity: 0; pointer-events: none;" />
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span class="er-tab-title" id="er-lbl-signature" style="font-weight: 700; font-size: 0.875rem; color: var(--color-ink);">Signature</span>
+          </div>
+          <span class="er-tab-desc" id="er-desc-signature" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-top: 4px; display: block;">Black Ink / Clean</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-          <input type="radio" name="er-type" value="declaration" />
-          <span style="font-weight: 600; font-size: 0.92rem;">Handwritten Declaration</span>
+
+        <label class="er-tab-card" data-type="thumb" id="er-card-thumb" style="cursor: pointer;">
+          <input type="radio" name="er-type" value="thumb" style="position: absolute; opacity: 0; pointer-events: none;" />
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            <span class="er-tab-title" id="er-lbl-thumb" style="font-weight: 700; font-size: 0.875rem; color: var(--color-ink);">Thumb / Fingers</span>
+          </div>
+          <span class="er-tab-desc" id="er-desc-thumb" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-top: 4px; display: block;">Impression</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-          <input type="radio" name="er-type" value="postcard" />
-          <span style="font-weight: 600; font-size: 0.92rem;">4×6" Postcard Photo</span>
+
+        <label class="er-tab-card" data-type="declaration" id="er-card-declaration" style="cursor: pointer;">
+          <input type="radio" name="er-type" value="declaration" style="position: absolute; opacity: 0; pointer-events: none;" />
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="er-tab-title" id="er-lbl-declaration" style="font-weight: 700; font-size: 0.875rem; color: var(--color-ink);">Declaration</span>
+          </div>
+          <span class="er-tab-desc" id="er-desc-declaration" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-top: 4px; display: block;">Handwritten 50–100KB</span>
         </label>
       </div>
     </div>
@@ -99,7 +124,7 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
           <span style="font-family: var(--font-body); font-size: 0.875rem; font-weight: 700; color: var(--color-ink);">
             Print Name & Date on Photo (DOP)
           </span>
-          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-lime); background: rgba(200,241,53,0.1); padding: 2px 8px; border-radius: 99px;">SSC / UPSC Requirement</span>
+          <span id="er-dop-badge" style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-lime); background: rgba(200,241,53,0.1); padding: 2px 8px; border-radius: 99px;">SSC / UPSC Requirement</span>
         </label>
         
         <div id="er-dop-fields" style="display: none; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
@@ -193,10 +218,10 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     upsc:     { photo: { w: 500, h: 500, kb: 120, dpi: 300 }, signature: { w: 400, h: 400, kb: 60, dpi: 300 }, ...defaultExtras },
     ssc:      { photo: { w: 200, h: 240, kb: 38, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
     rrb:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 25, dpi: 300 }, ...defaultExtras },
-    ibps:     { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
-    sbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
-    rbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, ...defaultExtras },
-    neet:     { photo: { w: 200, h: 230, kb: 120, dpi: 300 }, signature: { w: 140, h: 60,  kb: 22, dpi: 300 }, ...defaultExtras },
+    ibps:     { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, thumb: { w: 240, h: 240, kb: 35, dpi: 300 }, declaration: { w: 800, h: 400, kb: 85, dpi: 300 }, postcard: { w: 1200, h: 1800, kb: 160, dpi: 300 } },
+    sbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, thumb: { w: 240, h: 240, kb: 35, dpi: 300 }, declaration: { w: 800, h: 400, kb: 85, dpi: 300 }, postcard: { w: 1200, h: 1800, kb: 160, dpi: 300 } },
+    rbi:      { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 16, dpi: 300 }, thumb: { w: 240, h: 240, kb: 35, dpi: 300 }, declaration: { w: 800, h: 400, kb: 85, dpi: 300 }, postcard: { w: 1200, h: 1800, kb: 160, dpi: 300 } },
+    neet:     { photo: { w: 350, h: 450, kb: 120, dpi: 300 }, signature: { w: 140, h: 60,  kb: 20, dpi: 300 }, thumb: { w: 400, h: 400, kb: 80, dpi: 300 }, declaration: { w: 800, h: 400, kb: 85, dpi: 300 }, postcard: { w: 1200, h: 1800, kb: 160, dpi: 300 } },
     jee:      { photo: { w: 200, h: 230, kb: 120, dpi: 300 }, signature: { w: 140, h: 60,  kb: 22, dpi: 300 }, ...defaultExtras },
     gate:     { photo: { w: 480, h: 640, kb: 160, dpi: 300 }, signature: { w: 480, h: 160, kb: 35, dpi: 300 }, ...defaultExtras },
     bpsc:     { photo: { w: 200, h: 230, kb: 42, dpi: 300 },  signature: { w: 140, h: 60,  kb: 18, dpi: 300 }, ...defaultExtras },
@@ -257,6 +282,34 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     const examSelect = document.getElementById('er-exam-select') as HTMLSelectElement;
     examSelect.value = currentExam;
 
+    const tabCards = document.querySelectorAll('.er-tab-card');
+    const postcardCard = document.getElementById('er-card-postcard') as HTMLElement;
+    const postcardBadge = document.getElementById('er-badge-postcard') as HTMLElement;
+    const thumbCard = document.getElementById('er-card-thumb') as HTMLElement;
+    const declCard = document.getElementById('er-card-declaration') as HTMLElement;
+
+    const lblPhoto = document.getElementById('er-lbl-photo');
+    const descPhoto = document.getElementById('er-desc-photo');
+    const lblPostcard = document.getElementById('er-lbl-postcard');
+    const descPostcard = document.getElementById('er-desc-postcard');
+    const lblSig = document.getElementById('er-lbl-signature');
+    const descSig = document.getElementById('er-desc-signature');
+    const lblThumb = document.getElementById('er-lbl-thumb');
+    const descThumb = document.getElementById('er-desc-thumb');
+    const lblDecl = document.getElementById('er-lbl-declaration');
+    const descDecl = document.getElementById('er-desc-declaration');
+
+    function syncActiveTabVisuals() {
+      tabCards.forEach((card) => {
+        const radio = card.querySelector('input[type="radio"]') as HTMLInputElement;
+        if (radio && radio.checked) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    }
+
     const typeRadios = document.querySelectorAll('input[name="er-type"]');
     typeRadios.forEach((radio) => {
       const radioInput = radio as HTMLInputElement;
@@ -268,6 +321,73 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     function getActiveType(): DocCategory {
       const checked = document.querySelector('input[name="er-type"]:checked') as HTMLInputElement;
       return (checked?.value || 'photo') as DocCategory;
+    }
+
+    function configureTabsForExam(exam: string) {
+      if (postcardBadge) postcardBadge.style.display = 'none';
+      if (postcardCard) postcardCard.style.display = '';
+      if (thumbCard) thumbCard.style.display = '';
+      if (declCard) declCard.style.display = '';
+
+      if (exam === 'neet') {
+        if (lblPhoto) lblPhoto.textContent = 'Passport Photo';
+        if (descPhoto) descPhoto.textContent = '3.5×4.5 cm · 10–200 KB';
+        if (lblPostcard) lblPostcard.textContent = '4×6" Postcard';
+        if (descPostcard) descPostcard.textContent = '1200×1800 px · 10–200 KB';
+        if (postcardBadge) postcardBadge.style.display = 'inline-block';
+        if (lblSig) lblSig.textContent = 'Signature';
+        if (descSig) descSig.textContent = '140×60 px · 4–30 KB';
+        if (lblThumb) lblThumb.textContent = 'Thumb & Fingers';
+        if (descThumb) descThumb.textContent = '400×400 px · 10–200 KB';
+        if (declCard) declCard.style.display = 'none';
+      } else if (exam === 'ibps' || exam === 'sbi' || exam === 'rbi') {
+        if (lblPhoto) lblPhoto.textContent = 'Candidate Photo';
+        if (descPhoto) descPhoto.textContent = '200×230 px · 20–50 KB';
+        if (lblSig) lblSig.textContent = 'Signature';
+        if (descSig) descSig.textContent = '140×60 px · 10–20 KB';
+        if (lblThumb) lblThumb.textContent = 'Left Thumb';
+        if (descThumb) descThumb.textContent = '240×240 px · 20–50 KB';
+        if (lblDecl) lblDecl.textContent = 'Declaration';
+        if (descDecl) descDecl.textContent = '800×400 px · 50–100 KB';
+        if (postcardCard) postcardCard.style.display = 'none';
+      } else if (exam === 'ssc' || exam === 'upsc') {
+        if (lblPhoto) lblPhoto.textContent = 'Photograph';
+        const p = presets[exam]?.photo || { w: 200, h: 240, kb: 50 };
+        if (descPhoto) descPhoto.textContent = `${p.w}×${p.h} px · <${p.kb} KB`;
+        if (lblSig) lblSig.textContent = 'Signature';
+        const s = presets[exam]?.signature || { w: 140, h: 60, kb: 20 };
+        if (descSig) descSig.textContent = `${s.w}×${s.h} px · <${s.kb} KB`;
+        if (postcardCard) postcardCard.style.display = 'none';
+        if (thumbCard) thumbCard.style.display = 'none';
+        if (declCard) declCard.style.display = 'none';
+      } else if (exam === 'pan') {
+        if (lblPhoto) lblPhoto.textContent = 'Passport Photo';
+        if (descPhoto) descPhoto.textContent = '213×213 px · <50 KB';
+        if (lblSig) lblSig.textContent = 'Signature';
+        if (descSig) descSig.textContent = '400×200 px · 600 DPI';
+        if (postcardCard) postcardCard.style.display = 'none';
+        if (thumbCard) thumbCard.style.display = 'none';
+        if (declCard) declCard.style.display = 'none';
+      } else {
+        if (lblPhoto) lblPhoto.textContent = 'Photograph';
+        if (descPhoto) descPhoto.textContent = 'Standard Photo';
+        if (lblPostcard) lblPostcard.textContent = '4×6" Postcard';
+        if (descPostcard) descPostcard.textContent = '1200×1800 px';
+        if (lblSig) lblSig.textContent = 'Signature';
+        if (descSig) descSig.textContent = 'Black / Dark Ink';
+        if (lblThumb) lblThumb.textContent = 'Thumb Impression';
+        if (descThumb) descThumb.textContent = 'Biometric Scan';
+        if (lblDecl) lblDecl.textContent = 'Declaration';
+        if (descDecl) descDecl.textContent = 'Handwritten';
+      }
+
+      // If active tab was hidden, reset to photo
+      const activeCard = document.querySelector('.er-tab-card.active') as HTMLElement;
+      if (activeCard && activeCard.style.display === 'none') {
+        const photoRadio = document.querySelector('input[name="er-type"][value="photo"]') as HTMLInputElement;
+        if (photoRadio) photoRadio.checked = true;
+      }
+      syncActiveTabVisuals();
     }
 
     function applyPreset() {
@@ -284,19 +404,61 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
         modeBadge.textContent = `${dpi} DPI · ${isContain ? 'White Pad (No Clip)' : 'Center-Crop (No Stretch)'}`;
       }
       if (dopContainer) {
-        dopContainer.style.display = (type === 'photo' || type === 'postcard') ? 'block' : 'none';
+        const isPhotoOrPostcard = (type === 'photo' || type === 'postcard');
+        dopContainer.style.display = isPhotoOrPostcard ? 'block' : 'none';
+
+        const dopBadge = document.getElementById('er-dop-badge');
+        if (dopBadge) {
+          if (currentExam === 'neet') {
+            dopBadge.textContent = 'NTA NEET Requirement (Name & Date of Photo)';
+          } else if (currentExam === 'ssc') {
+            dopBadge.textContent = 'SSC Mandatory (Name & Date of Photo)';
+          } else if (currentExam === 'upsc') {
+            dopBadge.textContent = 'UPSC OTR 10-Day Rule (Name & Date)';
+          } else {
+            dopBadge.textContent = 'Candidate Name & Date Stamp';
+          }
+        }
+
+        if (currentExam === 'neet' && isPhotoOrPostcard && !dopToggle.checked) {
+          dopToggle.checked = true;
+          if (dopFields) dopFields.style.display = 'flex';
+          if (candDateInput && !candDateInput.value) {
+            const now = new Date();
+            const dd = String(now.getDate()).padStart(2, '0');
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            candDateInput.value = `${dd}-${mm}-${now.getFullYear()}`;
+          }
+        }
       }
+      syncActiveTabVisuals();
     }
+
+    tabCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const radio = card.querySelector('input[type="radio"]') as HTMLInputElement;
+        if (radio) {
+          radio.checked = true;
+          syncActiveTabVisuals();
+          applyPreset();
+        }
+      });
+    });
 
     examSelect.addEventListener('change', (e) => {
       currentExam = (e.target as HTMLSelectElement).value;
+      configureTabsForExam(currentExam);
       applyPreset();
     });
 
     typeRadios.forEach((radio) => {
-      radio.addEventListener('change', applyPreset);
+      radio.addEventListener('change', () => {
+        syncActiveTabVisuals();
+        applyPreset();
+      });
     });
 
+    configureTabsForExam(currentExam);
     applyPreset();
 
     dropZone.addEventListener('click', (e) => {
@@ -460,3 +622,30 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     });
   }
 </script>
+
+<style>
+  .er-tab-card {
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface-2);
+    transition: all 0.18s ease;
+    user-select: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .er-tab-card:hover {
+    border-color: var(--color-border-mid);
+    background: var(--color-surface-3);
+  }
+  .er-tab-card.active {
+    border-color: var(--color-lime);
+    background: rgba(200, 241, 53, 0.08);
+    box-shadow: 0 0 0 1px var(--color-lime);
+  }
+  .er-tab-card.active .er-tab-title {
+    color: var(--color-lime) !important;
+  }
+</style>
