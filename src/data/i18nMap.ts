@@ -127,7 +127,7 @@ export const i18nChrome: Record<string, LocaleChrome> = {
     relatedHeading: 'Recommended Precision Tools',
     navLinks: [
       { label: 'Exam Resizer', href: '/exam-photo-resizer/', highlight: true },
-      { label: 'Converter', href: '/photo-pdf-converter/' },
+      { label: 'JPG to PDF', href: '/jpg-to-pdf/' },
       { label: 'PDF Tools', href: '/tools/#pdf-tools' },
       { label: 'Crop', href: '/crop-image-online/' },
       { label: 'Compress', href: '/' },
@@ -141,7 +141,7 @@ export const i18nChrome: Record<string, LocaleChrome> = {
       { label: 'Convert PNG to JPG', mobileLabel: 'PNG to JPG', href: '/png-to-jpg/' },
       { label: 'Convert JPG to PDF', mobileLabel: 'JPG to PDF', href: '/jpg-to-pdf/' },
       { label: 'Redact PDF Online', mobileLabel: 'Redact PDF', href: '/redact-pdf-online/' },
-      { label: 'Passport Size Photo', mobileLabel: 'Passport Photo', href: '/passport-size-photo/' },
+      { label: 'Passport Photo 2x2', mobileLabel: 'Passport Photo', href: '/passport-photo-2x2/' },
     ],
     companyLinks: [
       { label: 'Guides & Blog', href: '/blog/' },
@@ -234,7 +234,7 @@ export const i18nChrome: Record<string, LocaleChrome> = {
       { name: 'Convertire P7M in PDF', desc: 'Estrai PDF da file firmati CAdES .p7m e FatturaPA.', href: '/it/convertire-p7m-in-pdf/', badge: 'P7M' },
       { name: 'Sblocca PDF Protetti', desc: 'Rimuovi password e restrizioni di stampa localmente.', href: '/unlock-pdf/', badge: 'PDF' },
       { name: 'Comprimi PDF a 100 KB', desc: 'Riduci il peso dei PDF per invii PEC e portali PA.', href: '/compress-pdf-to-100kb/', badge: '100KB' },
-      { name: 'Separa Pagine PDF', desc: 'Estrai singole pagine da documenti PDF nel browser.', href: '/separate-pdf-pages/', badge: 'DIVIDI' },
+      { name: 'Separa Pagine PDF', desc: 'Estrai singole pagine da documenti PDF nel browser.', href: '/remove-pdf-pages/', badge: 'DIVIDI' },
     ],
   },
 
@@ -351,7 +351,7 @@ export const i18nChrome: Record<string, LocaleChrome> = {
       { name: 'Kompres Foto 100KB', desc: 'Kompres ukuran foto pas 100KB untuk syarat daftar online.', href: '/id/kompres-foto-100kb/', badge: '100KB' },
       { name: 'Kompres Foto 200KB', desc: 'Kecilkan ukuran foto untuk portal SSCASN, CPNS & SNPMB.', href: '/id/kompres-foto-200kb/', badge: '200KB' },
       { name: 'Kompres PDF 100KB', desc: 'Kecilkan ukuran dokumen scan PDF tanpa pecah.', href: '/compress-pdf-to-100kb/', badge: 'PDF' },
-      { name: 'Potong Foto Pasfoto', desc: 'Sesuaikan rasio pasfoto resmi langsung di browser.', href: '/crop-image-to-passport-size/', badge: 'PASFOTO' },
+      { name: 'Potong Foto Pasfoto', desc: 'Sesuaikan rasio pasfoto resmi langsung di browser.', href: '/passport-photo-2x2/', badge: 'PASFOTO' },
     ],
   },
 };

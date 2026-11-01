@@ -528,7 +528,8 @@ export async function resizeAndCompressExact(
   targetKB: number,
   outputFormat: 'image/jpeg' | 'image/png' | 'image/webp' = 'image/jpeg',
   fitMode?: FitMode,
-  dpi: number = 300
+  dpi: number = 300,
+  nameDateStamp?: { name?: string; date?: string }
 ): Promise<CompressionResult> {
   const decoded = await loadImageSource(file);
   try {
@@ -537,6 +538,45 @@ export async function resizeAndCompressExact(
       fitMode || (targetWidth / targetHeight >= 1.6 ? 'contain' : 'cover');
 
     const canvas = renderToCanvas(source, origW, origH, targetWidth, targetHeight, true, resolvedFit);
+
+    // Apply Name & Date on Photo (DOP) banner if requested
+    if (nameDateStamp && (nameDateStamp.name || nameDateStamp.date)) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        const bannerHeight = Math.max(Math.round(targetHeight * 0.22), 36);
+        const startY = targetHeight - bannerHeight;
+
+        // Draw crisp solid white bottom rectangle
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, startY, targetWidth, bannerHeight);
+
+        // Thin top divider
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(0, startY, targetWidth, 1);
+
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const nameText = (nameDateStamp.name || '').trim().toUpperCase();
+        const dateText = (nameDateStamp.date || '').trim();
+
+        if (nameText && dateText) {
+          const fontSize = Math.max(Math.round(bannerHeight * 0.32), 11);
+          ctx.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillText(nameText, targetWidth / 2, startY + bannerHeight * 0.32);
+
+          const dateFontSize = Math.max(Math.round(fontSize * 0.88), 10);
+          ctx.font = `600 ${dateFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillText(dateText.startsWith('DOP') ? dateText : `DOP: ${dateText}`, targetWidth / 2, startY + bannerHeight * 0.72);
+        } else {
+          const text = nameText || (dateText.startsWith('DOP') ? dateText : `DOP: ${dateText}`);
+          const fontSize = Math.max(Math.round(bannerHeight * 0.42), 12);
+          ctx.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillText(text, targetWidth / 2, startY + bannerHeight * 0.5);
+        }
+      }
+    }
 
     const ceilingBytes = Math.floor(targetKB * 1024 * 0.96);
     const floorBytes = Math.floor(targetKB * 1024 * 0.82);

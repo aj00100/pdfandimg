@@ -91,6 +91,28 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
           <input type="number" id="er-kb" class="input-number" style="width: 100%; height: 44px; font-size: 1rem; text-align: center;" />
         </div>
       </div>
+
+      <!-- Name & Date on Photo (DOP) Toggle -->
+      <div id="er-dop-container" style="margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--color-border);">
+        <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+          <input type="checkbox" id="er-dop-toggle" style="width: 16px; height: 16px; accent-color: var(--color-lime); cursor: pointer;" />
+          <span style="font-family: var(--font-body); font-size: 0.875rem; font-weight: 700; color: var(--color-ink);">
+            Print Name & Date on Photo (DOP)
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-lime); background: rgba(200,241,53,0.1); padding: 2px 8px; border-radius: 99px;">SSC / UPSC Requirement</span>
+        </label>
+        
+        <div id="er-dop-fields" style="display: none; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 140px;">
+            <label for="er-cand-name" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Candidate Name</label>
+            <input type="text" id="er-cand-name" placeholder="e.g. RAHUL SHARMA" style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px; border-radius: 6px; border: 1px solid var(--color-border); background: var(--color-surface-1); color: var(--color-ink); text-transform: uppercase;" />
+          </div>
+          <div style="flex: 1; min-width: 140px;">
+            <label for="er-cand-date" style="display: block; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-3); margin-bottom: 4px;">Date of Photo (DD-MM-YYYY)</label>
+            <input type="text" id="er-cand-date" placeholder="DD-MM-YYYY" style="width: 100%; height: 40px; font-size: 0.875rem; padding: 0 12px; border-radius: 6px; border: 1px solid var(--color-border); background: var(--color-surface-1); color: var(--color-ink);" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Drop Zone -->
@@ -200,6 +222,25 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
     const heightInput = document.getElementById('er-height') as HTMLInputElement;
     const kbInput = document.getElementById('er-kb') as HTMLInputElement;
 
+    const dopContainer = document.getElementById('er-dop-container') as HTMLDivElement;
+    const dopToggle = document.getElementById('er-dop-toggle') as HTMLInputElement;
+    const dopFields = document.getElementById('er-dop-fields') as HTMLDivElement;
+    const candNameInput = document.getElementById('er-cand-name') as HTMLInputElement;
+    const candDateInput = document.getElementById('er-cand-date') as HTMLInputElement;
+
+    if (dopToggle && dopFields) {
+      dopToggle.addEventListener('change', () => {
+        dopFields.style.display = dopToggle.checked ? 'flex' : 'none';
+        if (dopToggle.checked && candDateInput && !candDateInput.value) {
+          const now = new Date();
+          const dd = String(now.getDate()).padStart(2, '0');
+          const mm = String(now.getMonth() + 1).padStart(2, '0');
+          const yyyy = now.getFullYear();
+          candDateInput.value = `${dd}-${mm}-${yyyy}`;
+        }
+      });
+    }
+
     const statusPanel = document.getElementById('er-status-panel') as HTMLDivElement;
     const processing = document.getElementById('er-processing') as HTMLDivElement;
     const progressBar = document.getElementById('er-progress-bar') as HTMLDivElement;
@@ -241,6 +282,9 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
       const dpi = data.dpi || 300;
       if (modeBadge) {
         modeBadge.textContent = `${dpi} DPI · ${isContain ? 'White Pad (No Clip)' : 'Center-Crop (No Stretch)'}`;
+      }
+      if (dopContainer) {
+        dopContainer.style.display = (type === 'photo' || type === 'postcard') ? 'block' : 'none';
       }
     }
 
@@ -322,6 +366,9 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
       const type = getActiveType();
       const fitMode = type === 'signature' || type === 'declaration' || type === 'thumb' ? 'contain' : 'cover';
       const dpi = presets[currentExam]?.[type]?.dpi || 300;
+      const nameDateStamp = (dopToggle?.checked && (type === 'photo' || type === 'postcard'))
+        ? { name: candNameInput?.value || '', date: candDateInput?.value || '' }
+        : undefined;
 
       statusPanel.classList.remove('hidden');
       processing.classList.remove('hidden');
@@ -341,7 +388,8 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
             targetKB,
             'image/jpeg',
             fitMode,
-            dpi
+            dpi,
+            nameDateStamp
           );
           progressBar.style.width = '100%';
 
@@ -366,7 +414,8 @@ const { allowMultiple = true, defaultExam = 'upsc', defaultType = 'photo' } = As
               targetKB,
               'image/jpeg',
               fitMode,
-              dpi
+              dpi,
+              nameDateStamp
             );
             const cleanName = (
               selectedFiles[i].name.substring(0, selectedFiles[i].name.lastIndexOf('.')) || selectedFiles[i].name

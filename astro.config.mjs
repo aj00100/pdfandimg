@@ -16,5 +16,13 @@ export default defineConfig({
     },
   },
 
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !page.endsWith('/about/') &&
+        !page.endsWith('/contact/') &&
+        !page.endsWith('/privacy/') &&
+        !page.endsWith('/terms/'),
+    }),
+  ],
 });

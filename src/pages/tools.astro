@@ -17,9 +17,7 @@ const convertersTools = [
 
 const compressionTools = [
   { name: 'Compress to 10KB', short: '10 KB', href: '/compress-image-to-10kb/', desc: 'Optimized for tiny government portal signatures.', accent: 'var(--color-ink)' },
-  { name: 'Compress to 15KB', short: '15 KB', href: '/compress-image-to-15kb/', desc: 'Precise lock for ultra-small avatar requirements.', accent: 'var(--color-ink)' },
   { name: 'Compress to 20KB', short: '20 KB', href: '/compress-image-to-20kb/', desc: 'The standard for signature and thumbnail compliance.', accent: 'var(--color-lime)' },
-  { name: 'Compress to 30KB', short: '30 KB', href: '/compress-image-to-30kb/', desc: 'High-clarity lock for digital exam applications.', accent: 'var(--color-ink)' },
   { name: 'Compress to 40KB', short: '40 KB', href: '/compress-image-to-40kb/', desc: 'Optimized for state-level ID and portal uploads.', accent: 'var(--color-ink)' },
   { name: 'Compress to 50KB', short: '50 KB', href: '/compress-image-to-50kb/', desc: 'Perfect balance for passport and candidate photos.', accent: 'var(--color-lime)' },
   { name: 'Compress to 100KB', short: '100 KB', href: '/compress-image-to-100kb/', desc: 'Web industry standard for professional profiles.', accent: 'var(--color-cyan)' },
@@ -31,7 +29,7 @@ const compressionTools = [
 const examTools = [
   { name: 'All Exams Resizer Hub', short: 'Exam Hub', href: '/exam-photo-resizer/', desc: 'The master hub for all exam photo and signature resizing.', accent: '#ffb800' },
   { name: 'PAN Card Photo Resizer', short: 'PAN Card', href: '/pan-card-photo-resizer/', desc: 'Crop photo to 213x213px for NSDL PAN.', accent: '#ffb800' },
-  { name: 'Passport Size Photo', short: 'Passport', href: '/resize-a-photo-to-passport-size/', desc: 'Resize a photo to passport size exactly.', accent: '#ffb800' },
+  { name: 'Passport Photo 2x2', short: 'Passport 2x2', href: '/passport-photo-2x2/', desc: 'Standard 2x2 inch and biometric ID photo resizer.', accent: '#ffb800' },
   { name: 'IBPS Photo Resizer', short: 'IBPS Photo', href: '/ibps-photo-resizer/', desc: 'Compress photo to 20-50KB for Banking exams.', accent: '#ffb800' },
   { name: 'GATE Photo Resizer', short: 'GATE Photo', href: '/gate-photo-resizer/', desc: 'Crop and compress photo strictly for GATE guidelines.', accent: '#ffb800' },
   { name: 'SSC CGL Photo Resizer', short: 'SSC Photo', href: '/ssc-cgl-photo-resizer/', desc: 'Resize photo to exactly 100x120 pixels for SSC.', accent: '#ffb800' },
@@ -44,11 +42,9 @@ const pdfTools = [
   { name: 'Merge Multiple PDFs', short: 'Merge PDFs', href: '/merge-multiple-pdf-into-one/', desc: 'Combine multiple PDF files into one instantly.', accent: '#f43f5e' },
   { name: 'Unlock PDF', short: 'Unlock PDF', href: '/unlock-pdf/', desc: 'Unlock PDF files and remove restrictions entirely locally.', accent: '#f43f5e' },
   { name: 'Extract PDF Images', short: 'PDF to JPG', href: '/extract-images-from-pdf/', desc: 'Convert PDF pages into high-res images.', accent: '#f43f5e' },
-  { name: 'Separate PDF Pages', short: 'Split PDF', href: '/separate-pdf-pages/', desc: 'Extract specific pages from a PDF offline.', accent: '#f43f5e' },
   { name: 'PDF Page Remover', short: 'Remove Pages', href: '/remove-pdf-pages/', desc: 'Use our PDF Page Remover to delete specific pages securely.', accent: '#f43f5e' },
   { name: 'Add Images to PDF', short: 'Images to PDF', href: '/add-images-to-pdf/', desc: 'Convert and merge JPG/PNG into a single PDF.', accent: '#f43f5e' },
   { name: 'Insert Images into PDF', short: 'Add Images', href: '/add-images-to-pdf/', desc: 'Upload images and drag-and-drop to insert them anywhere in a PDF.', accent: '#f43f5e' },
-  { name: 'Compress PDF to 50KB', short: 'PDF 50KB', href: '/compress-pdf-to-50kb/', desc: 'Reduce PDF strictly to 50KB for strict limits.', accent: '#f43f5e' },
   { name: 'Compress PDF to 100KB', short: 'PDF 100KB', href: '/compress-pdf-to-100kb/', desc: 'Reduce PDF strictly to 100KB for portals.', accent: '#f43f5e' },
   { name: 'Compress PDF to 200KB', short: 'PDF 200KB', href: '/compress-pdf-to-200kb/', desc: 'Reduce PDF strictly to 200KB offline.', accent: '#f43f5e' },
   { name: 'Convert JPG to PDF 100KB', short: 'JPG PDF 100KB', href: '/convert-jpg-to-pdf-100kb/', desc: 'Image to PDF locked at exactly 100KB.', accent: '#f43f5e' },
@@ -57,12 +53,9 @@ const pdfTools = [
 
 const otherTools = [
   { name: 'Crop Image Online', short: 'Crop Image', href: '/crop-image-online/', desc: 'Crop photos and signatures to exact dimensions and ratios.', accent: 'var(--color-lime)' },
-  { name: 'Crop Image to Passport Size', short: 'Passport Crop', href: '/crop-image-to-passport-size/', desc: 'Auto-configured tool to crop image to passport size for official portals.', accent: '#ff7e33' },
   { name: 'Reduce Image Size in KB', short: 'Reduce KB', href: '/reduce-image-size-in-kb/', desc: 'General purpose KB reducer for any specific target.', accent: 'var(--color-lime)' },
   { name: 'Increase Image Size in KB', short: 'Increase KB', href: '/increase-image-size-in-kb/', desc: 'Upscale images to meet minimum KB requirements.', accent: 'var(--color-lime)' },
   { name: 'Resize Image in Pixels', short: 'Pixel Resizer', href: '/resize-image-in-pixels/', desc: 'Change image dimensions (width & height) to exact pixels.', accent: '#a32cf5' },
-  { name: 'Resize Image Dimensions', short: 'Dimensions', href: '/resize-image-dimensions/', desc: 'Resize image dimensions precisely for specific upload requirements.', accent: '#a32cf5' },
-  { name: 'Passport Size Photo', short: 'Passport Maker', href: '/passport-size-photo/', desc: 'Instantly crop and resize photos for official document requirements.', accent: '#ff7e33' },
 ];
 ---
 

@@ -4,12 +4,40 @@ https://pdfandimg.pages.dev/* https://pdfandimg.com/:splat 301
 # Block www to non-www
 https://www.pdfandimg.com/* https://pdfandimg.com/:splat 301
 
-# SEO Fix: Server-side redirects (canonical trailing slash)
+# Legacy server-side redirects (canonical trailing slash)
 /remove-password-from-pdf /unlock-pdf/ 301
 /crop-image /crop-image-online/ 301
 /enhance-image-size /increase-image-size-in-kb/ 301
-/resize-image-to-exact-pixels /resize-image-dimensions/ 301
+/resize-image-to-exact-pixels /resize-image-in-pixels/ 301
 /resize-image-pixel /resize-image-in-pixels/ 301
+
+# Pruned Cannibal Twin Redirects -> High-Authority Canonical Assets
+/photo-pdf-converter/ /jpg-to-pdf/ 301
+/photo-pdf-converter /jpg-to-pdf/ 301
+
+/resize-image-dimensions/ /resize-image-in-pixels/ 301
+/resize-image-dimensions /resize-image-in-pixels/ 301
+
+/separate-pdf-pages/ /remove-pdf-pages/ 301
+/separate-pdf-pages /remove-pdf-pages/ 301
+
+/compress-pdf-to-50kb/ /compress-pdf-to-100kb/ 301
+/compress-pdf-to-50kb /compress-pdf-to-100kb/ 301
+
+/compress-image-to-15kb/ /reduce-image-size-in-kb/ 301
+/compress-image-to-15kb /reduce-image-size-in-kb/ 301
+
+/compress-image-to-30kb/ /reduce-image-size-in-kb/ 301
+/compress-image-to-30kb /reduce-image-size-in-kb/ 301
+
+/crop-image-to-passport-size/ /passport-photo-2x2/ 301
+/crop-image-to-passport-size /passport-photo-2x2/ 301
+
+/resize-a-photo-to-passport-size/ /passport-photo-2x2/ 301
+/resize-a-photo-to-passport-size /passport-photo-2x2/ 301
+
+/passport-size-photo/ /passport-photo-2x2/ 301
+/passport-size-photo /passport-photo-2x2/ 301
 
 # Sitemap discovery redirect
 /sitemap.xml /sitemap-index.xml 301

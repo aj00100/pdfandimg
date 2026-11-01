@@ -95,7 +95,7 @@ export const blogPosts: BlogPost[] = [
       <ol>
         <li>Sign clearly with a black pen on a blank white sheet of paper.</li>
         <li>Crop tightly around the signature using the <a href="/crop-image-online/">Online Image Cropper</a> so the box is roughly twice as wide as it is tall.</li>
-        <li>Open the <a href="/ssc-cgl-signature-resizer/">SSC CGL Signature Resizer</a> or the <a href="/compress-image-to-15kb/">15KB Image Compressor</a>.</li>
+        <li>Open the <a href="/ssc-cgl-signature-resizer/">SSC CGL Signature Resizer</a> or the <a href="/reduce-image-size-in-kb/">Image Size Reducer</a>.</li>
         <li>Upload your cropped signature. The tool automatically locks dimensions to 140×60 pixels and binary-searches the exact JPEG quantization table to land safely between 14KB and 18KB.</li>
       </ol>
     `
@@ -327,7 +327,7 @@ export const blogPosts: BlogPost[] = [
       <ol>
         <li><strong>Photograph & Signature:</strong> Open our <a href="/ibps-photo-resizer/">IBPS Photo & Signature Resizer</a>. Select "Photograph" (auto-locks <code>200×230 px, 45KB</code>) for your portrait, then toggle to "Signature" (auto-locks <code>140×60 px, 18KB</code>) for your black-ink sign.</li>
         <li><strong>Left Thumb Impression:</strong> Use the <a href="/compress-image-to-40kb/">40KB Image Compressor</a> to lock your thumb scan right in the middle of the 20KB–50KB requirement.</li>
-        <li><strong>Handwritten Declaration:</strong> Open <a href="/resize-image-dimensions/">Resize Image Dimensions</a>, enter <code>800</code> width by <code>400</code> height, and compress to <strong>80KB</strong>.</li>
+        <li><strong>Handwritten Declaration:</strong> Open <a href="/resize-image-in-pixels/">Resize Image in Pixels</a>, enter <code>800</code> width by <code>400</code> height, and compress to <strong>80KB</strong>.</li>
       </ol>
     `
   },
@@ -470,7 +470,7 @@ export const blogPosts: BlogPost[] = [
             <td><strong>Strict Municipal / University Portals</strong></td>
             <td>Single-Page Gazette / Affidavit</td>
             <td>Under 50 KB</td>
-            <td><a href="/compress-pdf-to-50kb/">Compress PDF to 50KB</a></td>
+            <td><a href="/compress-pdf-to-100kb/">Compress PDF to 100KB</a></td>
           </tr>
         </tbody>
       </table>
