@@ -135,6 +135,7 @@ export const i18nChrome: Record<string, LocaleChrome> = {
       { label: 'Blog', href: '/blog/' },
     ],
     footerToolLinks: [
+      { label: 'Bulk Image Compressor', mobileLabel: 'Bulk Compressor', href: '/bulk-image-compressor/' },
       { label: 'Exam Photo Resizer', mobileLabel: 'Exam Resizer', href: '/exam-photo-resizer/', highlight: true },
       { label: 'Reduce Image Size in KB', mobileLabel: 'Reduce KB Size', href: '/reduce-image-size-in-kb/' },
       { label: 'Increase Image Size in KB', mobileLabel: 'Increase KB Size', href: '/increase-image-size-in-kb/' },
