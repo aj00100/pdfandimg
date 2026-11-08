@@ -1,0 +1,63 @@
+# PDFandIMG.com
+
+> PDFandIMG.com is a 100% free, private, and client-side web utility platform for instant PDF and image processing directly in your browser. All file conversions, compressions, and crops run locally in device RAM using HTML5 Canvas 2D, Web Workers, and WebAssembly without uploading files to any external server (Zero-Knowledge Architecture). No files, images, or personal documents are stored or logged.
+
+## Image Compression & Target Size Tools (Client-Side)
+
+- [Compress Image to 20KB](https://pdfandimg.com/compress-image-to-20kb/): Target exact 20KB file size for government forms, signatures, and ID portal uploads.
+- [Compress Image to 50KB](https://pdfandimg.com/compress-image-to-50kb/): Exact 50KB image compressor for exam registrations and online admissions.
+- [Compress Image to 100KB](https://pdfandimg.com/compress-image-to-100kb/): Reduce image weight to 100KB without visible quality degradation.
+- [Compress Image to 200KB](https://pdfandimg.com/compress-image-to-200kb/): Quick compression for resumes, document scans, and job portals.
+- [Compress Image to 10KB](https://pdfandimg.com/compress-image-to-10kb/): Micro-compression for restrictive signature and thumbnail upload requirements.
+- [Compress Image to 500KB](https://pdfandimg.com/compress-image-to-500kb/): Balanced compression for high-resolution photo submissions.
+- [Compress Image to 1MB](https://pdfandimg.com/compress-image-to-1mb/): Fast downscaling for large camera photos and email attachments.
+- [Bulk Image Compressor](https://pdfandimg.com/bulk-image-compressor/): Compress multiple JPEG, PNG, and WebP images simultaneously in parallel Web Workers.
+- [Compress Image for Email](https://pdfandimg.com/compress-image-for-email/): Optimize image dimensions and byte weight for email attachments.
+
+## Government Exam Photo & Signature Resizers
+
+- [SSC CGL Photo Resizer](https://pdfandimg.com/ssc-cgl-photo-resizer/): Official 20KB-50KB and 3.5cm x 4.5cm dimension resizer for Staff Selection Commission exams.
+- [SSC CGL Signature Resizer](https://pdfandimg.com/ssc-cgl-signature-resizer/): Accurate 10KB-20KB signature formatter for SSC CGL/CHSL application forms.
+- [UPSC Photo & Signature Resizer](https://pdfandimg.com/upsc-photo-resizer/): Format passport photo and signature to UPSC Civil Services Examination specifications.
+- [IBPS Photo & Signature Resizer](https://pdfandimg.com/ibps-photo-resizer/): Bank PO and Clerk application photo (200x230 px) and signature (140x60 px) resizer.
+- [NEET Photo Resizer](https://pdfandimg.com/neet-photo-resizer/): Postcard and passport size photo resizer for NTA NEET medical entrance applications.
+- [GATE Photo & Signature Resizer](https://pdfandimg.com/gate-photo-resizer/): Resizer conforming to IIT GATE applicant portal strict dimensional guidelines.
+- [PAN Card Photo & Signature Resizer](https://pdfandimg.com/pan-card-photo-resizer/): Standard 213x213 px photo and 30KB signature cropper for NSDL / UTIITSL PAN cards.
+
+## International Passport & Visa Photo Resizers
+
+- [Passport Photo 2x2 Inches](https://pdfandimg.com/passport-photo-2x2/): Standard 600x600 px (2x2 inch) passport and US visa photo cropper with aspect ratio lock.
+- [Schengen Visa Photo Size](https://pdfandimg.com/schengen-visa-photo-size/): 35mm x 45mm biometric European Schengen visa photo resizer.
+- [Canada Visa Photo Size](https://pdfandimg.com/canada-visa-photo-size/): 35mm x 45mm (minimum 420x540 px) Canadian visa and immigration photo formatter.
+- [Australian Passport Photo Size](https://pdfandimg.com/australian-passport-photo-size/): 35mm x 45mm compliant Australian passport and visa photo resizer.
+- [Green Card Photo Requirements](https://pdfandimg.com/green-card-photo-requirements/): Diversity Visa (DV Lottery) and US Permanent Resident Card 600x600 px validator.
+
+## Apple HEIC & Modern Format Converters
+
+- [Convert HEIC to JPG](https://pdfandimg.com/convert-heic-to-jpg/): Convert Apple iPhone HEIC and HEIF photos to universal JPG in your browser without cloud uploads.
+- [Convert HEIC to PDF](https://pdfandimg.com/convert-heic-to-pdf/): Turn iPhone camera photos directly into multi-page PDF documents.
+- [Convert HEIC to PNG](https://pdfandimg.com/convert-heic-to-png/): Lossless conversion of iOS photos to transparent PNG format.
+- [AVIF to JPG Converter](https://pdfandimg.com/avif-to-jpg/): Fast browser decoding of next-gen AVIF images to standard JPEG.
+- [JPG to PDF Converter](https://pdfandimg.com/jpg-to-pdf/): Instant packaging of JPG photos into clean PDF documents.
+- [Convert JPG to PDF 100KB](https://pdfandimg.com/convert-jpg-to-pdf-100kb/): Convert images to PDF with automatic target compression under 100KB.
+- [Convert JPG to PDF 200KB](https://pdfandimg.com/convert-jpg-to-pdf-200kb/): Convert images to PDF with automatic compression under 200KB.
+- [PNG to PDF](https://pdfandimg.com/png-to-pdf/): Convert graphics and screenshots to PDF documents.
+- [WebP to PDF](https://pdfandimg.com/webp-to-pdf/): Fast web image to portable document conversion.
+
+## PDF Optimization & Editing Tools
+
+- [Compress PDF to 100KB](https://pdfandimg.com/compress-pdf-to-100kb/): High-efficiency PDF compressor targeting strict 100KB upload limits.
+- [Compress PDF to 200KB](https://pdfandimg.com/compress-pdf-to-200kb/): Downsample DPI and compress embedded streams under 200KB.
+- [Unlock PDF](https://pdfandimg.com/unlock-pdf/): Remove owner passwords and printing/copying restrictions directly in browser memory.
+- [Redact PDF Online](https://pdfandimg.com/redact-pdf-online/): Permanent vector blacking-out of sensitive data, names, and numbers from PDF pages.
+- [Merge Multiple PDFs](https://pdfandimg.com/merge-multiple-pdf-into-one/): Combine several PDF documents into a single organized file.
+- [Remove PDF Pages](https://pdfandimg.com/remove-pdf-pages/): Delete unwanted pages from any PDF document.
+- [Extract Images from PDF](https://pdfandimg.com/extract-images-from-pdf/): Extract embedded images from PDF pages as individual files.
+
+## International Portals
+
+- [German Portal (Deutsch)](https://pdfandimg.com/de/): Bild- und PDF-Komprimierung direkt im Browser.
+- [Italian Portal (Italiano)](https://pdfandimg.com/it/): Comprimi immagini e PDF online gratis senza caricamento server.
+- [Japanese Portal (日本語)](https://pdfandimg.com/ja/): ブラウザ上で安全に画像やPDFを圧縮・変換。
+- [Portuguese Portal (Português)](https://pdfandimg.com/pt/): Comprima fotos e documentos PDF no navegador com segurança total.
+- [Indonesian Portal (Bahasa Indonesia)](https://pdfandimg.com/id/): Kompres foto dan berkas PDF secara instan tanpa upload ke server.
