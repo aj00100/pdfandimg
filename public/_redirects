@@ -4,12 +4,31 @@ https://pdfandimg.pages.dev/* https://pdfandimg.com/:splat 301
 # Block www to non-www
 https://www.pdfandimg.com/* https://pdfandimg.com/:splat 301
 
-# Legacy server-side redirects (canonical trailing slash)
+# Legacy server-side redirects (canonical trailing slash support)
+/remove-password-from-pdf/ /unlock-pdf/ 301
 /remove-password-from-pdf /unlock-pdf/ 301
+
+/crop-image/ /crop-image-online/ 301
 /crop-image /crop-image-online/ 301
+
+/enhance-image-size/ /increase-image-size-in-kb/ 301
 /enhance-image-size /increase-image-size-in-kb/ 301
+
+/resize-image-to-exact-pixels/ /resize-image-in-pixels/ 301
 /resize-image-to-exact-pixels /resize-image-in-pixels/ 301
+
+/resize-image-pixel/ /resize-image-in-pixels/ 301
 /resize-image-pixel /resize-image-in-pixels/ 301
+
+# Legacy deleted pages -> home
+/me/ / 301
+/me / 301
+/portfolio/ / 301
+/portfolio / 301
+/team/ / 301
+/team / 301
+/maintenance/ / 301
+/maintenance / 301
 
 # Pruned Cannibal Twin Redirects -> High-Authority Canonical Assets
 /photo-pdf-converter/ /jpg-to-pdf/ 301
@@ -41,3 +60,19 @@ https://www.pdfandimg.com/* https://pdfandimg.com/:splat 301
 
 # Sitemap discovery redirect
 /sitemap.xml /sitemap-index.xml 301
+
+# Language Directory Truncation Fallbacks -> Regional Flagship Tools
+/de/ /de/pdf-schwaerzen/ 301
+/de /de/pdf-schwaerzen/ 301
+
+/it/ /it/convertire-p7m-in-pdf/ 301
+/it /it/convertire-p7m-in-pdf/ 301
+
+/pt/ /pt/dividir-pdf-por-tamanho/ 301
+/pt /pt/dividir-pdf-por-tamanho/ 301
+
+/ja/ /ja/hokensho-masking/ 301
+/ja /ja/hokensho-masking/ 301
+
+/id/ /id/kompres-foto-200kb/ 301
+/id /id/kompres-foto-200kb/ 301
