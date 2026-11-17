@@ -1074,3 +1074,65 @@ Pi7 built individual dedicated URLs for these exact acute blockers (which get th
    * **@astrojs/sitemap Filter:** Added `filter` rule in `astro.config.mjs` excluding `/about/`, `/contact/`, `/privacy/`, and `/terms/`. Verified: `grep -E "about|contact|privacy|terms" dist/sitemap-0.xml` returned 0 occurrences! Clean sitemap has 69 pure high-intent tools.
    * **Redirect Redundancy:** Confirmed `public/_redirects` covers both slash and non-slash rules for all 9 pruned routes.
    * **Canvas Stamp Order-of-Operations:** Verified `imageCompressor.ts` renders image to target canvas first, applies white DOP banner & typography at 1:1 final scale second, and runs JPEG quality loop third.
+
+---
+
+## 44. Live Ahrefs Audit: `redact pdf` & `redact pdf free` (United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `redact pdf`  
+**Tool Used:** Ahrefs Free Keyword Generator + Ahrefs Free SERP Checker (US)  
+
+### 📊 Keyword Metrics Overview
+* `redact pdf free`: **KD: Easy (Green)** | **Volume: >1,000 / month** (Head conversion term)
+* `how to redact pdf`: **KD: Easy** | **Volume: >100 / month**
+* `redact pdf online`: **KD: Easy** | **Volume: >100 / month**
+* `redact pdf online free`: **KD: Medium** | **Volume: >100 / month**
+* `redact pdf for free`: **<100 / month** (Direct transactional long-tail)
+
+### 🚨 Live Google SERP Audit: `redact pdf for free` (US)
+| Rank | Ranking URL / Domain | Type | DR | UR | Backlinks | Ref Domains | Organic Traffic | Gold Mine / Weakness Signal |
+|:---:|---|---|:---:|:---:|:---:|:---:|:---:|---|
+| **#1** | **Google AI Overview** | SERP Feature | — | — | — | — | — | Cites PDF24, Smallpdf, iLovePDF |
+| **#2** | `ilovepdf.com/redact-pdf` | SaaS Giant | 83 | 13 | 167 | 47 | 2.8K | Cloud upload required |
+| **#3** | `smallpdf.com/redact-pdf` | SaaS Giant | 84 | 19 | 9.6K | 76 | 4.4K | Freemium paywalls |
+| **#4** | **`reddit.com/r/Acrobat/comments/1srjqa4/...`** | **User Forum** | **95** | **0** | **2** | **1** | **622** | 🚨 **GOLD MINE SIGNAL (Reddit on Page 1 with 1 Ref Domain!)** |
+| **#5** | `pdf4me.com/redact-pdf/` | Micro-SaaS | — | — | — | — | — | Cloud tool |
+| **#6** | `tools.pdf24.org/en/redact-pdf` | Utility Suite | — | — | — | — | — | Server conversion queue |
+| **#7** | `xodo.com/redact-pdf` | PDF Tool | — | — | — | — | — | Freemium limits |
+| **#8** | `apps.microsoft.com/detail/9nb13n70480r` | App Store | 91 | — | — | — | — | Windows desktop download |
+| **#9** | `youtube.com/watch?v=2Sfsca1fW-c` | YouTube | 98 | — | — | — | — | Video tutorial |
+| **#10**| `redactpdf.io/` | Micro-SaaS | — | — | — | — | — | Small utility |
+
+### 💡 Strategic Forensic Analysis:
+1. **Rule 4 Triggered ("Reddit on Page 1"):** Spot #4 is an active Reddit thread (`r/Acrobat`): *"Free PDF editor that ACTUALLY redacts text? (Free tools just draw a black box...)"*. This thread pulls **622 monthly organic visits with only 1 referring domain**!
+2. **The "True Redaction" Pain Point:** Users know that drawing a black vector box in Adobe Reader or basic tools does NOT permanently delete underlying text—it can still be selected or copied. Our tool [`/redact-pdf-online/`](/redact-pdf-online/) permanently rasterizes and flattens vectors in local browser RAM, resolving the exact panic discussed in this Reddit thread.
+3. **Validates GSC 157 Impressions:** Explains why [`/redact-pdf-online/`](/redact-pdf-online/) surged to 157 impressions in Google Search Console with zero external backlinks.
+
+---
+
+## 45. Live Ahrefs Audit: `reduce image size in kb` (United States 🇺🇸 / Global)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `reduce image size`  
+**Tool Used:** Ahrefs Free Keyword Generator + Ahrefs Free SERP Checker (US)  
+
+### 📊 Keyword Metrics Overview
+* `reduce image size in kb`: **KD: Medium** | **Volume: >1,000 / month** (Head conversion term)
+* `reduce image size online`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `how to reduce image size on iphone`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `reduce image size iphone`: **KD: Easy (Green)** | **Volume: >100 / month**
+
+### 🔍 Live Google SERP Audit: `reduce image size in kb` (US)
+| Rank | Ranking URL / Domain | Type | DR | UR | Backlinks | Ref Domains | Organic Traffic | Competitor Strategy |
+|:---:|---|---|:---:|:---:|:---:|:---:|:---:|---|
+| **#1** | **Google AI Overview** | SERP Feature | — | — | — | — | — | Cites Pi7, SimpleImageResizer, ResizePixel |
+| **#2** | `image.pi7.org/reduce-image-size-in-kb` | Micro-Tool | 54 | 19 | 148 | 47 | 3.0K | Exact Match URL slug |
+| **#3** | `simpleimageresizer.com/resize-image-to-kb` | Micro-Tool | 62 | 14 | 56 | 6 | 1.5K | Only 6 referring domains! |
+| **#4** | `resizepixel.com/reduce-image-in-kb/` | Micro-Tool | 64 | 7 | 267 | 30 | 1.1K | Low UR tool |
+| **#5** | `imageresizer.tools/resize-image-to-kb/` | Tool | — | — | — | — | — | Basic converter |
+| **#7** | `play.google.com/store/apps/...` | Google Play | — | — | — | — | — | Mobile app download |
+| **#10**| `shrink.media/` | Tool | — | — | — | — | — | Standard compressor |
+
+### 💡 Strategic Forensic Analysis:
+1. **The Exact Match URL (EMU) Advantage:** Pi7 ranks at **#2** pulling **3,000 monthly visits** specifically because its URL slug is `/reduce-image-size-in-kb`.
+2. **Low Domain Difficulty:** Rank #3 (`simpleimageresizer.com`) has **only 6 referring domains** pulling 1,500 monthly visits!
+3. **Validates GSC 131 Impressions:** Our identical Exact Match URL [`/reduce-image-size-in-kb/`](/reduce-image-size-in-kb/) already accumulated **131 impressions in GSC** with 0 backlinks, sitting right on Page 2 ready to leapfrog into the top 5 with snippet optimization.

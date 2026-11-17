@@ -642,6 +642,9 @@ export const blogPosts: BlogPost[] = [
 
       <h3>Defect 3: "Signature Too Small or Cut Off"</h3>
       <p>Your running signature must cover at least <strong>70% to 80% of the horizontal 480×160 pixel box</strong>. Do not upload a full A4 page scan with a tiny signature in the corner. Crop tightly around your handwriting and select the "Signature" radio button inside our <a href="/gate-photo-resizer/">GATE 2026 Resizer</a> to lock dimensions to <code>480 × 160 px</code> under 25KB.</p>
+
+      <h2>3. Need to Upload Category / Degree Certificates as PDF?</h2>
+      <p>If GOAPS or your university portal also requires your OBC-NCL, EWS, SC/ST, PwD, or qualifying degree certificate in PDF format under 100KB or 200KB, use our <a href="/convert-jpg-to-pdf-100kb/">Convert JPG to PDF 100KB</a> tool to merge your scans directly into a clean PDF, or run larger certificates through our client-side <a href="/compress-pdf-to-200kb/">Compress PDF to 200KB</a> optimizer.</p>
     `
   },
 
