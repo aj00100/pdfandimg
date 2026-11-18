@@ -149,7 +149,7 @@ Both tracks are written to identical editorial depth (1,500–2,000 words), stan
 
 | # | Target Platform / Community | Technical Context / Angle | Anchor Text | Type | Status |
 |---|---|---|---|:---:|:---:|
-| 1 | Reddit (r/SSC / r/Indian_Academia) | Detailed technical solution on baseline vs progressive JPEG and DPI metadata headers causing portal upload rejections | Helpful non-promotional reference | Referral / Nofollow | Queued |
+| 1 | Reddit (r/ssc) | Signature 'invalid format' even at 6×2 cm, under 20 KB troubleshooting | `pdfandimg.com/ssc-cgl-signature-resizer/` | Brand Mention / Referral | **Live & Indexed in Google** |
 | 2 | GATE Overflow / Exam Discussion Forum | Explaining GOAPS 5cm×2cm aspect ratio constraints and DPI preservation | GOAPS defect rectification reference | Direct / Nofollow | Queued |
 | 3 | Student Study Circle / Coaching Resource | Zero-server privacy-first client-side image formatter | Free exam photo resizer | Dofollow / Referral | Queued |
 | 4 | AusPost / Expat Forum Discussion | Explaining AusPost digital validator shadow contrast rules | Australian passport photo spec reference | Referral / Nofollow | Queued |
