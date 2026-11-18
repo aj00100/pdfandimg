@@ -1,5 +1,8 @@
+https://*.pdfandimg.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
 https://pdfandimg.pages.dev/*
-  X-Robots-Tag: noindex
+  X-Robots-Tag: noindex, nofollow
 
 /*
   X-Content-Type-Options: nosniff

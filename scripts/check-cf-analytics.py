@@ -16,6 +16,7 @@ Usage:
 
 import os
 import sys
+import time
 import json
 import argparse
 import urllib.request
@@ -42,22 +43,27 @@ DEFAULT_EMAIL, DEFAULT_KEY = load_cf_creds()
 USER_AGENT = "Mozilla/5.0 (CFAnalytics/1.0)"
 
 
-def make_request(url, headers, payload=None, timeout=20):
-    """Executes an HTTP request using urllib with custom User-Agent to avoid Cloudflare WAF drops."""
+def make_request(url, headers, payload=None, timeout=20, retries=3):
+    """Executes an HTTP request using urllib with retry backoff and custom User-Agent."""
     data = json.dumps(payload).encode("utf-8") if payload else None
-    req = urllib.request.Request(url, data=data, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            data = resp.read().decode("utf-8")
-            return json.loads(data), resp.status
-    except urllib.error.HTTPError as e:
+    for attempt in range(retries):
+        req = urllib.request.Request(url, data=data, headers=headers)
         try:
-            err_json = json.loads(e.read().decode("utf-8"))
-            return err_json, e.code
-        except Exception:
-            return {"error": str(e)}, e.code
-    except Exception as e:
-        return {"error": str(e)}, 0
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data_resp = resp.read().decode("utf-8")
+                return json.loads(data_resp), resp.status
+        except urllib.error.HTTPError as e:
+            try:
+                err_json = json.loads(e.read().decode("utf-8"))
+                return err_json, e.code
+            except Exception:
+                return {"error": str(e)}, e.code
+        except Exception as e:
+            if attempt < retries - 1:
+                time.sleep(1.0)
+                continue
+            return {"error": str(e)}, 0
+    return {"error": "Max retries exceeded"}, 0
 
 
 def verify_cf_credentials(email, key):
