@@ -32,7 +32,6 @@ const compressionTools = [
 const examTools = [
   { name: 'All Exams Resizer Hub', short: 'Exam Hub', href: '/exam-photo-resizer/', desc: 'The master hub for all exam photo and signature resizing.', accent: '#ffb800' },
   { name: 'PAN Card Photo Resizer', short: 'PAN Card', href: '/pan-card-photo-resizer/', desc: 'Crop photo to 213x213px for NSDL PAN.', accent: '#ffb800' },
-  { name: 'Passport Photo 2x2', short: 'Passport 2x2', href: '/passport-photo-2x2/', desc: 'Standard 2x2 inch and biometric ID photo resizer.', accent: '#ffb800' },
   { name: 'IBPS Photo Resizer', short: 'IBPS Photo', href: '/ibps-photo-resizer/', desc: 'Compress photo to 20-50KB for Banking exams.', accent: '#ffb800' },
   { name: 'GATE Photo Resizer', short: 'GATE Photo', href: '/gate-photo-resizer/', desc: 'Crop and compress photo strictly for GATE guidelines.', accent: '#ffb800' },
   { name: 'SSC CGL Photo Resizer', short: 'SSC Photo', href: '/ssc-cgl-photo-resizer/', desc: 'Resize photo to exactly 100x120 pixels for SSC.', accent: '#ffb800' },
@@ -41,17 +40,33 @@ const examTools = [
   { name: 'NEET Photo Resizer', short: 'NEET Photo', href: '/neet-photo-resizer/', desc: 'Resize passport and postcard photos exactly for NTA NEET.', accent: '#ffb800' },
 ];
 
+const visaTools = [
+  { name: 'Australian Passport Photo', short: 'Australia 35x45', href: '/australian-passport-photo-size/', desc: 'Official 35x45mm & 4x6 printable template compliant with DFAT.', accent: '#10b981' },
+  { name: 'Passport Photo 2x2', short: 'Passport 2x2', href: '/passport-photo-2x2/', desc: 'Standard 2x2 inch (600x600 px) US Visa and passport photo maker.', accent: '#10b981' },
+  { name: 'Schengen Visa Photo', short: 'Schengen 35x45', href: '/schengen-visa-photo-size/', desc: 'European Schengen visa photo resizer (35x45mm biometric standard).', accent: '#10b981' },
+  { name: 'Canada Visa Photo', short: 'Canada Visa', href: '/canada-visa-photo-size/', desc: 'Official 50x70mm photo resizer for Canadian Visa and PR applications.', accent: '#10b981' },
+  { name: 'Green Card Photo', short: 'Green Card', href: '/green-card-photo-requirements/', desc: 'US DV Lottery & Green Card 2x2 inch photo checker and resizer.', accent: '#10b981' },
+];
+
 const pdfTools = [
+  { name: 'Redact PDF Online', short: 'Redact PDF', href: '/redact-pdf-online/', desc: 'Permanently blackout sensitive text and data 100% locally in browser.', accent: '#f43f5e' },
   { name: 'Merge Multiple PDFs', short: 'Merge PDFs', href: '/merge-multiple-pdf-into-one/', desc: 'Combine multiple PDF files into one instantly.', accent: '#f43f5e' },
   { name: 'Unlock PDF', short: 'Unlock PDF', href: '/unlock-pdf/', desc: 'Unlock PDF files and remove restrictions entirely locally.', accent: '#f43f5e' },
   { name: 'Extract PDF Images', short: 'PDF to JPG', href: '/extract-images-from-pdf/', desc: 'Convert PDF pages into high-res images.', accent: '#f43f5e' },
   { name: 'PDF Page Remover', short: 'Remove Pages', href: '/remove-pdf-pages/', desc: 'Use our PDF Page Remover to delete specific pages securely.', accent: '#f43f5e' },
   { name: 'Add Images to PDF', short: 'Images to PDF', href: '/add-images-to-pdf/', desc: 'Convert and merge JPG/PNG into a single PDF.', accent: '#f43f5e' },
-  { name: 'Insert Images into PDF', short: 'Add Images', href: '/add-images-to-pdf/', desc: 'Upload images and drag-and-drop to insert them anywhere in a PDF.', accent: '#f43f5e' },
   { name: 'Compress PDF to 100KB', short: 'PDF 100KB', href: '/compress-pdf-to-100kb/', desc: 'Reduce PDF strictly to 100KB for portals.', accent: '#f43f5e' },
   { name: 'Compress PDF to 200KB', short: 'PDF 200KB', href: '/compress-pdf-to-200kb/', desc: 'Reduce PDF strictly to 200KB offline.', accent: '#f43f5e' },
   { name: 'Convert JPG to PDF 100KB', short: 'JPG PDF 100KB', href: '/convert-jpg-to-pdf-100kb/', desc: 'Image to PDF locked at exactly 100KB.', accent: '#f43f5e' },
   { name: 'Convert JPG to PDF 200KB', short: 'JPG PDF 200KB', href: '/convert-jpg-to-pdf-200kb/', desc: 'Image to PDF locked at exactly 200KB.', accent: '#f43f5e' },
+];
+
+const internationalTools = [
+  { name: 'PDF schwärzen (Deutschland)', short: 'PDF schwärzen', href: '/de/pdf-schwaerzen/', desc: '100% DSGVO-konforme Schwärzung vertraulicher Dokumente ohne Upload.', accent: '#06b6d4' },
+  { name: 'Convertire P7M in PDF (Italia)', short: 'P7M in PDF', href: '/it/convertire-p7m-in-pdf/', desc: 'Apri e converti file fattura elettronica .p7m CAdES in PDF gratis.', accent: '#06b6d4' },
+  { name: 'Dividir PDF por Tamanho (Brasil)', short: 'Dividir PDF', href: '/pt/dividir-pdf-por-tamanho/', desc: 'Divisão local de arquivos PDF para PJe, ESAJ e tribunais de justiça.', accent: '#06b6d4' },
+  { name: '保険証 マスキング (日本)', short: '保険証マスキング', href: '/ja/hokensho-masking/', desc: '健康保険証の記号・番号・QRコードをブラウザ内で安全にマスキング。', accent: '#06b6d4' },
+  { name: 'Kompres Foto 100KB (Indonesia)', short: 'Kompres 100KB', href: '/id/kompres-foto-100kb/', desc: 'Kompres foto paspor dan ijazah menjadi 100KB untuk SSCASN dan CPNS.', accent: '#06b6d4' },
 ];
 
 const otherTools = [
@@ -146,6 +161,29 @@ const otherTools = [
       </div>
     </div>
 
+    <!-- International Visa & ID Photo Resizers Grid -->
+    <div style="max-width: 1000px; margin: 0 auto 64px;">
+      <h2 id="visa-tools" style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">International Visa & Biometric Resizers</h2>
+      <div class="tools-grid" style="margin: 0;">
+        {visaTools.map(tool => (
+          <a 
+            href={tool.href}
+            class="panel tool-card"
+            style={`--tool-accent: ${tool.accent};`}
+          >
+            <div class="tool-card-header">
+               <h3 class="tool-card-title">
+                 <span class="hide-mobile">{tool.name}</span>
+                 <span class="show-mobile-only">{tool.short}</span>
+               </h3>
+               <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <p class="tool-card-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+
     <!-- Exam Tools Grid -->
     <div style="max-width: 1000px; margin: 0 auto 64px;">
       <h2 id="exam-tools" style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Government Exam Resizers</h2>
@@ -174,6 +212,29 @@ const otherTools = [
       <h2 id="pdf-tools" style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Zero-Server PDF Suite</h2>
       <div class="tools-grid" style="margin: 0;">
         {pdfTools.map(tool => (
+          <a 
+            href={tool.href}
+            class="panel tool-card"
+            style={`--tool-accent: ${tool.accent};`}
+          >
+            <div class="tool-card-header">
+               <h3 class="tool-card-title">
+                 <span class="hide-mobile">{tool.name}</span>
+                 <span class="show-mobile-only">{tool.short}</span>
+               </h3>
+               <svg class="tool-card-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <p class="tool-card-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Localized Regional Portals Grid -->
+    <div style="max-width: 1000px; margin: 0 auto 64px;">
+      <h2 id="international-tools" style="font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); letter-spacing: -0.02em;">Localized Country Portals</h2>
+      <div class="tools-grid" style="margin: 0;">
+        {internationalTools.map(tool => (
           <a 
             href={tool.href}
             class="panel tool-card"
