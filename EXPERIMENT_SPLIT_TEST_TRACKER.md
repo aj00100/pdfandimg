@@ -89,9 +89,11 @@ Both tracks are written to identical editorial depth (1,500–2,000 words), stan
   2. **Query Discovery (Query Breadth):** Each track acquires $\ge 3$ distinct ranking queries in GSC.
   3. **Positional Penetration:** Any query entering Google Top 50 (Positions 20–50).
   4. **Authority Inflow:** At least 2 referring domain placements live and verified.
+  5. **Bing Indexation Audit:** Inspect Bing Webmaster API (`InIndex` and `GetPageStats`) to verify indexed page count 4 weeks post-sitemap submission (verifying indexation now that Cloudflare edge logs confirmed 0 Bingbot blocks).
 * **Pre-Committed Operational Actions at Week 4:**
   * *If an article is Crawled-Not-Indexed:* Inspect internal link placement on Tools Hub and footer; run immediate mobile-friendly test.
   * *If an article discovers 0 queries:* Re-verify title tag against exact user search intent strings discovered via Google Autocomplete.
+  * *If Bing index remains 0:* Check Bing Webmaster UI Site Explorer / URL Inspection to determine whether Bing is filtering pages or merely lagging.
 
 ### Week 8 Final Split-Test Checkpoint (January 13, 2027)
 * **Comparative Indicators Evaluated:**
