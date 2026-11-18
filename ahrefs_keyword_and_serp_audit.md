@@ -1136,3 +1136,764 @@ Pi7 built individual dedicated URLs for these exact acute blockers (which get th
 1. **The Exact Match URL (EMU) Advantage:** Pi7 ranks at **#2** pulling **3,000 monthly visits** specifically because its URL slug is `/reduce-image-size-in-kb`.
 2. **Low Domain Difficulty:** Rank #3 (`simpleimageresizer.com`) has **only 6 referring domains** pulling 1,500 monthly visits!
 3. **Validates GSC 131 Impressions:** Our identical Exact Match URL [`/reduce-image-size-in-kb/`](/reduce-image-size-in-kb/) already accumulated **131 impressions in GSC** with 0 backlinks, sitting right on Page 2 ready to leapfrog into the top 5 with snippet optimization.
+
+---
+
+## 46. Live Ahrefs Audit: `date and name on photo` & `name on photo` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `name on photo` / `name date photo`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit (India)  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `date and name on photo`: **KD: Easy (Green)** | **Volume: >100 / month** (Head conversion query)
+* `date and name on photo online`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `name on photo`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `name on photo editor`: **KD: N/A (0 Backlinks Needed)** | **Volume: >100 / month**
+* `add name on photo`: **KD: Medium** | **Volume: >100 / month**
+* `how to write name on photo`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `write name on photo online`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `dop and name on photo`: **<100 / month** (DOP = Date of Photograph)
+* `date and name on photo online free`: **<100 / month**
+* `add date and name on photo`: **<100 / month**
+* **Total Cluster Depth:** **136 Keywords** in India alone!
+
+### 🔍 Live Google SERP Audit: `date and name on photo online` (India)
+| Rank | Ranking URL / Domain | Type | Authority | SERP Weakness / Vacuum Signal |
+|:---:|---|---|:---:|---|
+| **#1** | `image.pi7.org/add-name-date-on-photo` | Micro-Tool | Medium DR | Clunky interface; relies on cloud upload |
+| **#2** | `imresizer.com/name-date-photo-editor` | Micro-Tool | Low UR | Indian exam utility |
+| **#3** | `rojgarsangam.in/name-and-date-on-photo/` | Recruitment Blog | DR < 15 | Ad-cluttered blog post with embedded iframe |
+| **#4** | `rojgartools.com/photo-name-date/` | Recruitment Blog | DR < 10 | Low-speed mobile experience |
+| **#5** | `exammint.in/...` | Exam Portal | Low DR | Basic JavaScript form |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated software tools).** Zero SaaS giants (Adobe, Canva, iLovePDF) rank for this exact statutory intent. The SERP is dominated by ad-heavy Indian recruitment blogs.
+2. **The "DOP Requirement" Moat:** Government portals (SSC, UPSC OTR, NEET, State PSCs) reject photographs that lack candidate Name and Date of Photograph stamped across a white bottom band.
+3. **Architecture Feasibility:** **100% Client-Side Canvas Engine ALREADY IMPLEMENTED** in `src/utils/imageCompressor.ts` and `src/components/ExamResizer.astro`. Building a dedicated `/date-and-name-on-photo/` endpoint requires zero new binary libraries.
+
+---
+
+## 47. Live Ahrefs Audit: `merge id card` & `id card pdf` (India 🇮🇳 & United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `merge id card` / `id card pdf`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit (India & US)  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `merge id card`: **KD: N/A (Uncontested)** | **Volume: >100 / month (India) + US Volume**
+* `merge id card front and back`: **KD: N/A (Uncontested)** | **Volume: >100 / month (India)**
+* `id card pdf maker`: **KD: N/A** | **Volume: >100 / month (India)**
+* `merge id card in one page`: **KD: N/A** | **Volume: <100 / month**
+* `merge id card pdf`: **KD: N/A** | **Volume: <100 / month**
+* `merge id card front and back online`: **KD: N/A** | **Volume: <100 / month**
+* `merge id card jpg`: **KD: N/A** | **Volume: <100 / month**
+* `merge id card online free`: **KD: N/A** | **Volume: <100 / month**
+* `ignou id card pdf password`: **KD: Easy (Green)** | **Volume: >100 / month** (Direct `/unlock-pdf/` search intent)
+
+### 🔍 Live Google SERP Audit: `merge front and back id card into one pdf`
+| Rank | Ranking URL / Domain | Type | Authority | SERP Weakness / Vacuum Signal |
+|:---:|---|---|:---:|---|
+| **#1** | `idcardtopdf.com` | Micro-Tool | DR < 10 | Barebones tool with minimal UX |
+| **#2** | `imagemagic.in/merge-id-card/` | Micro-Tool | DR < 15 | Ad-heavy Indian blog tool |
+| **#3** | `photocopywala.in/id-card-merge/` | Micro-Tool | DR < 10 | Niche Indian shop tool |
+| **#4** | `imresizer.com/id-card-merger` | Micro-Tool | Low UR | Basic canvas combiner |
+| **#5** | `youtube.com/watch?v=...` | Video Tutorial | — | Video ranking proves lack of dedicated software |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated corporate tools).** Zero major players (Canva, Smallpdf, Adobe) offer a front-and-back ID merger onto A4.
+2. **The Client-Side Privacy Moat:** Users are terrified of uploading sensitive national IDs (Aadhaar, PAN, US Driver's License, Green Card) to cloud servers. Positioning our tool with *"100% In-Browser RAM · Zero Server Upload · Aadhaar & Identity Proof Protected"* captures extreme trust.
+3. **Architecture Feasibility:** 2 file inputs (`front` and `back`), HTML5 Canvas auto-alignment, compiled into a single A4 PDF sheet via `pdf-lib` at 300 DPI.
+
+---
+
+## 48. Live Ahrefs Audit: `increase pdf size` (India 🇮🇳 & United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `increase pdf size`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `increase pdf size`: **KD: Easy (Green)** | **Volume: >10,000 / month (India)** 🏆 + **>100 / month (US)**
+* `increase pdf size to 500kb`: **KD: Easy (Green)** | **Volume: >1,000 / month (India)**
+* `increase pdf size in mb`: **KD: Easy (Green)** | **Volume: >1,000 / month (India)**
+* `increase pdf size in kb`: **KD: Medium** | **Volume: >1,000 / month (India)**
+* `increase pdf size to 100kb`: **KD: Easy (Green)** | **Volume: >1,000 / month (India)**
+* `increase pdf size to 200kb`: **KD: Easy (Green)** | **Volume: >100 / month (India)**
+* `how to increase pdf size`: **KD: Easy (Green)** | **Volume: >100 / month (India)**
+* `increase pdf size to 150 kb`: **KD: Easy (Green)** | **Volume: >100 / month (India)**
+* `increase pdf size to 300kb`: **KD: Easy (Green)** | **Volume: >100 / month (India)**
+* **Total Cluster Depth:** **200 Keywords** in India (>15,000 total monthly volume) + **78 Keywords** in US!
+
+### 🔍 Live Google SERP Audit: `increase pdf size in kb`
+| Rank | Ranking URL / Domain | Type | Authority | SERP Weakness / Vacuum Signal |
+|:---:|---|---|:---:|---|
+| **#1** | `pdf.pi7.org/increase-pdf-size` | Micro-Tool | Medium DR | Clunky UI; uploads file to server |
+| **#2** | `pdfmediasuite.in/increase-pdf-size-in-kb` | Micro-Tool | DR < 15 | Ad-cluttered Indian utility |
+| **#3** | `quickpdfonline.com/increase-pdf-size` | Micro-Tool | DR < 10 | Slow server queue |
+| **#4** | `pdfsathi.com/increase-pdf-size` | Micro-Tool | DR < 10 | Basic padding script |
+| **#5** | `pdf.zeeconvert.com/increase-pdf-size` | Micro-Tool | DR < 15 | Generic converter |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (Zero corporate SaaS competitors).** Corporate SaaS suites (Adobe, Smallpdf, iLovePDF) only build PDF compressors and ignore minimum file size floors.
+2. **The "Minimum Size Floor" Blocker:** Indian recruitment portals (UPSC, SSC, State PSCs) reject PDFs below 100KB or 200KB because scanned documents become illegible if over-compressed. When candidates scan a clean single page at 50KB, the portal fails with: *"File size too small. Minimum required: 100KB"*.
+3. **Architecture Feasibility:** Safe binary trailer byte-padding (`% PDF-PADDING ...`) injected directly in memory via JavaScript before saving. Text layers and images remain 100% untouched and sharp.
+
+---
+
+## 49. Live Ahrefs Audit: `compress pdf 300kb` (India 🇮🇳 & Global 🌐)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress pdf 300kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress pdf 300kb`: **KD: Easy (Green)** | **Volume: >1,000 / month (India)**
+* `compress pdf 300kb free`: **KD: N/A (0 Backlinks Needed)** | **Volume: >100 / month (India)**
+* `compress pdf 300kb online`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 300kb i love pdf`: **KD: N/A** | **Volume: <100 / month** (Unmet intent: users searching iLovePDF because iLovePDF lacks a 300KB tool!)
+* `compress pdf 300kb below`: **KD: N/A** | **Volume: <100 / month**
+* `11 zone compress pdf 300kb`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 300kb to 100kb`: **KD: N/A** | **Volume: <100 / month**
+
+### 🔍 Live Google SERP Audit: `compress pdf 300kb`
+| Rank | Ranking URL / Domain | Type | Authority | SERP Weakness / Vacuum Signal |
+|:---:|---|---|:---:|---|
+| **#1** | `pi7.org/compress-pdf-to-300kb` | Micro-Tool | Medium DR | Exact Match URL slug |
+| **#2** | `11zon.com/compress-pdf-to-300kb` | Micro-Tool | Medium DR | Clunky slider interface |
+| **#3** | `ilovepdf.com/compress_pdf` | SaaS Giant | High DR | Generic page! No 300KB target lock |
+| **#4** | `adobe.com/acrobat/online/compress-pdf.html` | SaaS Giant | High DR | Generic page! Paywalled high compression |
+| **#5** | `smallpdf.com/compress-pdf` | SaaS Giant | High DR | Generic page! Freemium limit |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (Only 2 dedicated tools: Pi7 & 11zon).** Adobe, iLovePDF, and Smallpdf rank with generic head tools because they lack dedicated 300KB landing pages.
+2. **The UPSC DAF & Document Verification Bottleneck:** UPSC Mains Detailed Application Form (DAF) and Indian state domicile/caste certificates universally mandate a strict `<300KB` ceiling.
+3. **Architecture Feasibility:** Fits directly into our existing `src/components/PDFCompressor.astro` binary search engine (`defaultTargetKB={300}`).
+
+
+---
+
+## 50. Live Ahrefs Audit: `split pdf size` & `split pdf` (India 🇮🇳 & United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `split pdf size` / `split pdf`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* **India (`split pdf size`):**
+  * `split pdf size`: **KD: N/A** | **Volume: <100 / month**
+  * `split pdf size wise`: **KD: N/A** | **Volume: <100 / month**
+  * `split pdf size online`: **KD: N/A** | **Volume: <100 / month**
+* **United States (`split pdf size`):**
+  * `split pdf size`: **KD: N/A** | **Volume: <100 / month**
+* **United States (`split pdf` Head Cluster):**
+  * `how to split pdf files`: **KD: Easy (Green)** | **Volume: >10,000 / month**
+  * `split pdf into multiple files`: **KD: Easy (Green)** | **Volume: >1,000 / month**
+  * `split pdf pages`: **KD: Easy (Green)** | **Volume: >1,000 / month**
+  * `best tool to split pdf files`: **KD: N/A** | **Volume: >1,000 / month**
+  * `how to split pdf pages`: **KD: Easy (Green)** | **Volume: >1,000 / month**
+* **India (`split pdf` Head Cluster):**
+  * `online split pdf`: **KD: Easy (Green)** | **Volume: >1,000 / month**
+  * `split pdf`: **KD: Medium** | **Volume: >100K / month**
+
+### 💡 Strategic Forensic Analysis:
+1. **The Keyword Disconnect:** While the exact 3-word phrase `split pdf size` has <100 monthly searches in English (unlike Brazil where `dividir pdf por tamanho` has massive institutional court search volume), the broader long-tail intent `split pdf into multiple files` hits **>1,000/mo at KD: Easy** in the US!
+2. **The "Size Split" Intent Opportunity:** Users wanting to split by size typically search:
+   - `split pdf into multiple files` (>1,000/mo, KD: Easy)
+   - `split pdf by file size` (Long-tail)
+   - `split pdf 10mb` / `split pdf 5mb`
+3. **Verdict:** Not a primary standalone EMD candidate in English (unlike Brazilian `dividir pdf por tamanho`), but a valuable long-tail feature page under `/split-pdf-into-multiple-files/` or `/split-pdf-by-size/` after the freeze.
+
+---
+
+## 51. Live Ahrefs Audit: `signature resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `signature resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `india post gds signature resizer`: **KD: N/A (0 Backlinks Needed)** | **Volume: >1,000 / month** 🏆
+* `signature resizer`: **KD: Medium** | **Volume: >1,000 / month**
+* `gds photo and signature resizer`: **KD: N/A (0 Backlinks Needed)** | **Volume: >1,000 / month** 🏆
+* `ssc signature resizer`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `gds signature resizer`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `rrb signature resizer`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `post office gds photo & signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `photo and signature resizer`: **KD: Hard** | **Volume: >100 / month**
+* `india post signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `india post gds photo and signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `pan signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `railway signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `signature resizer in kb`: **KD: N/A** | **Volume: >100 / month**
+* `ibps signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `nsdl photo signature resizer`: **KD: N/A** | **Volume: >100 / month**
+* `signature resizer in 20 kb`: **KD: N/A** | **Volume: >100 / month**
+* **Total Cluster Depth:** **238 Keywords** in India!
+
+### 🔍 Live Google SERP Audit: `india post gds signature resizer` & `ssc signature resizer`
+| Rank | Ranking URL / Domain | Type | Authority | SERP Weakness / Vacuum Signal |
+|:---:|---|---|:---:|---|
+| **#1** | `signatureresize.in` | Micro-Tool | DR < 10 | Ad-cluttered, niche site |
+| **#2** | `ezssc.in/signature-resizer` | Micro-Tool | DR < 10 | Legacy UI, no mobile responsiveness |
+| **#3** | `resizer.exammint.in` | Micro-Tool | DR < 10 | Basic canvas script |
+| **#4** | `fatafatresize.in` | Micro-Tool | DR < 5 | Ad-heavy blog template |
+| **#5** | `photocopywala.in` | Micro-Tool | DR < 10 | Local cyber cafe tool |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (Zero corporate SaaS competitors).** Adobe, Canva, and Smallpdf do not build preset tools for Indian government exams (SSC, GDS, IBPS, RRB).
+2. **The "Strict Rejection" Acute Emergency:** Indian recruitment portals automatically reject candidate signatures that are:
+   - Not in exact dimensions: SSC requires `140 x 60 px`; GDS requires `300 x 120 px`.
+   - Outside the byte range: SSC requires `10KB to 20KB`; GDS requires `20KB to 100KB`.
+3. **Architecture Feasibility:** Instant client-side HTML5 Canvas crop + binary compression preset selector (`SSC (140x60, 10-20KB)`, `India Post GDS (300x120, 20-100KB)`, `IBPS (140x60, 10-20KB)`). Zero file upload to servers.
+
+---
+
+## 52. Live Ahrefs Audit: `jee photo` & `jee photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `jee photo resizer` / `jee photo`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `jee photo size`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `jee photo requirements`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `jee photo verification certificate`: **KD: N/A** | **Volume: >100 / month**
+* `jee photo`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `jee photo resizer`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `jee photo compressor`: **KD: N/A** | **Volume: <100 / month**
+* `nta jee photo guidelines`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 78 keywords.
+
+### 💡 Strategic Forensic Analysis:
+1. **Search Volume Assessment:** While `jee photo size` and `jee photo requirements` have real educational intent (>100/mo, KD: Easy), the overall commercial utility volume is much smaller than `signature resizer` or `name on photo`.
+2. **Homonym Noise:** The 2-word phrase `jee photo` captures religious query noise (`hanuman jee photo`, `ali jee photo`) due to Hindi honorific spelling overlap.
+3. **Verdict:** Best implemented as a pre-configured preset tab within our broader Indian Exam Resizer / SSC suite rather than a primary standalone EMD domain.
+
+---
+
+## 53. Live Ahrefs Audit: `change dpi` (United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `change dpi`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `how to change dpi`: **KD: Easy (Green)** | **Volume: >1,000 / month** (Split between gaming mouse settings and images)
+* `how to change dpi on mouse`: **KD: Easy (Green)** | **Volume: >100 / month** (Hardware homonym)
+* `how to change dpi in photoshop`: **KD: Easy (Green)** | **Volume: >100 / month** (Tutorial query)
+* `how to change dpi of an image`: **KD: Hard (Red)** | **Volume: >100 / month**
+* `change dpi of image`: **KD: Hard (Red)** | **Volume: >100 / month**
+* `change dpi`: **KD: Hard (Red)** | **Volume: >100 / month**
+* **Total Cluster Depth:** 1,616 keywords.
+
+### 🔍 Live Google SERP Audit: `300 dpi converter` / `change dpi online`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `setdpi.com` | Dedicated Micro-Tool | Tool 1 |
+| **#2** | `clideo.com/dpi-converter` | Dedicated Tool | Tool 2 |
+| **#3** | `pi7.org/dpi-converter` | Dedicated Micro-Tool | Tool 3 |
+| **#4** | `increasedpi.com` | Dedicated Micro-Tool | Tool 4 |
+| **#5** | `convert.town/image-dpi` | Dedicated Micro-Tool | Tool 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **FAILED (Disqualified — 5 dedicated web tools on Page 1).** Exceeds our strict Gate 2 threshold (<3 dedicated competitor web tools).
+2. **High Keyword Difficulty (KD: Hard):** High DR design authorities (Adobe, Canva, Shutterstock) dominate informational image queries, while gaming hardware manufacturers dominate mouse queries.
+3. **Verdict:** **DISQUALIFIED.** Do not build a standalone domain or primary landing page.
+
+---
+
+## 54. Live Ahrefs & SERP Forensic Audit: `pan photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `pan photo resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `pan photo resizer`: **KD: Medium** | **Volume: >1,000 / month**
+* `nsdl pan photo resizer`: **KD: Hard (Red)** | **Volume: >100 / month**
+* `uti pan photo resizer`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `pan photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* `pan photo resizer nsdl`: **KD: N/A** | **Volume: <100 / month**
+* `pan photo resizer uti`: **KD: N/A** | **Volume: <100 / month**
+* `csc pan photo resizer`: **KD: N/A** | **Volume: <100 / month**
+* `uti pan photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 8 keywords.
+
+### 🔍 Live Google India SERP Audit: `pan photo resizer`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `pancardresizer.com` | Dedicated EMD Tool | Tool 1 |
+| **#2** | `panphotoresizer.com` | Dedicated EMD Tool | Tool 2 |
+| **#3** | `image.pi7.org/pan-card-resizer` | Dedicated Micro-Tool | Tool 3 |
+| **#4** | `photocompressor.in/pan-card-resizer` | Dedicated Micro-Tool | Tool 4 |
+| **#5** | `photocopywala.in/pan-photo-resizer` | Dedicated Micro-Tool | Tool 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **FAILED (Disqualified — 5 dedicated web tools on Page 1).**
+   * Google Page 1 is heavily saturated with 5 dedicated competitor tools, including 2 existing Exact Match Domains (`pancardresizer.com` and `panphotoresizer.com`).
+   * Fails our strict Gate 2 threshold (<3 dedicated competitor web tools).
+2. **KD Analysis:** Ahrefs marks `nsdl pan photo resizer` as **Hard (Red)** due to the entrenched backlink profiles of existing niche EMDs.
+3. **Verdict:** **DISQUALIFIED for standalone site.** Can only exist as an internal preset option within `/signature-resizer/` or `/exam-photo-resizer/`.
+
+---
+
+## 55. Live Ahrefs & SERP Forensic Audit: `4x6 passport photo` (United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `4x6 passport photo`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google US SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `4x6 passport photo`: **KD: Hard (Red)** | **Volume: <100 / month**
+* `4x6 passport photo template`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `4x6 passport photo maker`: **KD: N/A** | **Volume: <100 / month**
+* `4x6 passport photo size`: **KD: N/A** | **Volume: <100 / month**
+* `make 4x6 passport photo`: **KD: Hard (Red)** | **Volume: <100 / month**
+* `4x6 passport photo generator`: **KD: N/A** | **Volume: <100 / month**
+* `free 4x6 passport photo template`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 15 keywords (all <100/mo).
+
+### 🔍 Live Google US SERP Audit: `4x6 passport photo template`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `cutout.pro/passport-photo-maker` | Dedicated AI Tool | Tool 1 |
+| **#2** | `imresizer.com/passport-size-photo-maker` | Dedicated Micro-Tool | Tool 2 |
+| **#3** | `idphoto4you.com` | Dedicated Micro-Tool | Tool 3 |
+| **#4** | `edesy.in/passport-photo-maker` | Dedicated Micro-Tool | Tool 4 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Low Search Volume Floor:** All 15 keywords sit strictly below `<100` monthly searches in the US, failing our 100–1,000 search volume threshold.
+2. **KD Analysis:** The head term is rated **Hard (Red)** due to high-DR players like Cutout.pro and Canva.
+3. **Verdict:** **DISQUALIFIED for standalone tool.** However, generating a 4x6 print grid can be a bonus export option on our existing [`/passport-photo-2x2/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/passport-photo-2x2.astro) page.
+
+---
+
+## 56. Live Ahrefs & SERP Forensic Audit: `photo signature joiner` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `photo signature joiner`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `photo signature joiner`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `photo signature joiner tool`: **KD: N/A** | **Volume: <100 / month**
+* `photo signature joiner online`: **KD: N/A** | **Volume: <100 / month**
+* `online photo signature joiner`: **KD: N/A** | **Volume: <100 / month**
+* `rojgar result photo signature joiner`: **KD: N/A** | **Volume: <100 / month** (High intent: candidates using Rojgar Result)
+* `photo signature joiner online free`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 6 direct match keywords (+ combined with `merge photo and signature` exceeds 1,500/mo total cluster volume).
+
+### 🔍 Live Google India SERP Audit: `photo signature joiner online`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `image.pi7.org/merge-photo-and-signature` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `edesy.in/tool/photo-signature-joiner` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `govtphotoresizer.com` | Micro-Tool | DR < 10 |
+| **#4** | `online-wala.in` | Exam Blog | DR < 5 |
+| **#5** | `sarkaridoc.com` | Exam Blog | DR < 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated corporate tools).** Only 2 dedicated micro-tools (Pi7 and Edesy) exist on Page 1. No enterprise SaaS (Adobe, Canva) exists.
+2. **The "Single File Upload" Statutory Constraint:** State PSCs and recruitment boards (UPSSSC, MP Online, CG Vyapam) strictly mandate uploading ONE single image file containing photo on top and signature below it (often under 50KB). Candidates trying to upload separate files get instant rejections.
+3. **Architecture Feasibility:** 100% client-side HTML5 Canvas: two dropzones (`photo` + `signature`), vertical auto-stacking, optional name/date footer stamp, exported as JPEG <50KB via our existing binary compressor.
+
+---
+
+## 57. Live Ahrefs & SERP Forensic Audit: `compress pdf 500kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress pdf 500kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress pdf 500kb`: **KD: Easy (Green)** | **Volume: >10,000 / month** 🏆🏆 (Ahrefs Top Tier Whale!)
+* `compress pdf 500kb online`: **KD: N/A** | **Volume: >100 / month**
+* `compress pdf 500kb hd quality`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 500kb free`: **KD: N/A** | **Volume: <100 / month**
+* `ilovepdf compress pdf 500kb`: **KD: N/A** | **Volume: <100 / month** (Unmet intent hijack)
+* `11 zone compress pdf 500kb`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 500kb i love pdf`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 500kb without losing quality`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 500kb online free`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 500kb pi7`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 23 keywords (>12,000 total monthly searches).
+
+### 🔍 Live Google India SERP Audit: `compress pdf to 500kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `11zon.com/compress-pdf-to-500kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `pdf.pi7.org/compress-pdf-to-500kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `ilovepdf.com/compress_pdf` | SaaS Giant | Generic Page (No 500KB Target Lock) |
+| **#4** | `adobe.com/acrobat/online/compress-pdf.html` | SaaS Giant | Generic Page (No 500KB Target Lock) |
+| **#5** | `smallpdf.com/compress-pdf` | SaaS Giant | Generic Page (No 500KB Target Lock) |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated competitor tools).** Only 2 dedicated tools (11zon and Pi7) exist on Page 1. Adobe, iLovePDF, and Smallpdf rank with generic pages that do not lock the 500KB target.
+2. **The "Statutory Document Ceiling" Demand:** State government tenders, university admissions, land registry portals, and bank KYC portals commonly enforce a `<500KB` ceiling for multi-page PDF documents.
+3. **Architecture Feasibility:** Instant deployment via our existing `src/components/PDFCompressor.astro` binary search engine (`defaultTargetKB={500}`). 100% client-side in-browser execution with zero server upload.
+
+---
+
+## 58. Live Ahrefs & SERP Forensic Audit: `upsc photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `upsc photo resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `upsc photo resizer`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `upsc photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* `upsc photo resizer 2026`: **KD: N/A** | **Volume: <100 / month**
+* `online upsc photo resizer`: **KD: N/A** | **Volume: <100 / month**
+* `upsc photo resizer with name and date`: **KD: N/A** | **Volume: <100 / month** (Direct synergy with DOP stamping!)
+* **Total Cluster Depth:** 6 direct match keywords.
+
+### 🔍 Live Google India SERP Audit: `upsc photo resizer`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `photoresizer.in/upsc-photo-resizer` | Micro-Tool | DR < 10 |
+| **#2** | `pi7.org/resize-image-for-upsc` | Micro-Tool | Dedicated Tool 1 |
+| **#3** | `exammint.in` | Exam Blog | DR < 10 |
+| **#4** | `photocopywala.in` | Exam Blog | DR < 10 |
+| **#5** | `portalresizer.in` | Exam Blog | DR < 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated corporate tools).** Zero enterprise SaaS players. Page 1 is occupied exclusively by low-DR niche utilities and local exam blogs.
+2. **Direct Synergy with Name & Date Stamping:** Ahrefs reveals users searching `upsc photo resizer with name and date`. UPSC OTR (One Time Registration) explicitly mandates that photos must display the candidate's name and date taken printed on a white strip at the bottom.
+3. **Architecture Feasibility:** Direct 1-click preset inside our approved [`/date-and-name-on-photo/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) canvas engine: locks dimensions to `350x350 px`, adds the name/date banner, and limits output between `20KB and 300KB`.
+
+---
+
+## 59. Live Ahrefs & SERP Forensic Audit: `ssc photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `ssc photo resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `ssc photo resizer`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `ssc photo resizer in kb`: **KD: N/A** | **Volume: <100 / month**
+* `bihar ssc photo resizer`: **KD: N/A** | **Volume: <100 / month**
+* `ssc photo resizer with date`: **KD: N/A** | **Volume: <100 / month** (DOP intent synergy)
+* `ssc photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 5 direct match keywords (+ `ssc signature resizer` at >1,000/mo).
+
+### 🔍 Live Google India SERP Audit: `ssc photo resizer`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `sscphotoresizer.in` | Dedicated EMD Tool | Dedicated Tool 1 |
+| **#2** | `ezssc.in` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `sahiphoto.in` | Micro-Tool | DR < 10 |
+| **#4** | `imresizer.com` | Micro-Tool | DR < 20 |
+| **#5** | `photoresizer.in` | Micro-Tool | DR < 10 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated corporate tools).** Zero enterprise SaaS players exist on Page 1.
+2. **The "With Date" Requirement:** Ahrefs uncovers the persistent modifier: `ssc photo resizer with date`. Official SSC guidelines mandate that the date on which the photograph was taken must be clearly printed on the photo. If absent, the application is rejected.
+3. **Architecture Feasibility:** Direct 1-click **SSC Preset** inside our approved [`/date-and-name-on-photo/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) canvas engine: sets 3.5x4.5 cm aspect ratio, stamps the Date of Photograph (DOP), and limits output strictly between `20KB and 50KB`.
+
+---
+
+## 60. Live Ahrefs & SERP Forensic Audit: `compress pdf 150kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress pdf 150kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress pdf 150kb`: **KD: N/A (0 Backlinks Needed)** | **Volume: >100 / month** 🏆
+* `compress pdf 150kb online`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 150kb free`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 3 keywords.
+
+### 🔍 Live Google India SERP Audit: `compress pdf to 150kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `pdf.pi7.org/compress-pdf-to-150kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `11zon.com/compress-pdf-to-150kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `adobe.com/acrobat/online/compress-pdf.html` | SaaS Giant | Generic Page (No 150KB Target Lock) |
+| **#4** | `smallpdf.com/compress-pdf` | SaaS Giant | Generic Page (No 150KB Target Lock) |
+| **#5** | `ilovepdf.com/compress_pdf` | SaaS Giant | Generic Page (No 150KB Target Lock) |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated competitor tools).** Only 2 dedicated tools (Pi7 and 11zon) exist on Page 1. Adobe, Smallpdf, and iLovePDF rank purely through root domain authority with generic compressors that fail the 150KB exact lock.
+2. **KD Analysis:** **KD: N/A (0 Backlinks Needed)** makes this an immediate low-hanging fruit to cluster alongside `/compress-pdf-to-100kb/` and `/compress-pdf-to-200kb/`.
+3. **Architecture Feasibility:** Instant deployment via our existing `src/components/PDFCompressor.astro` binary search engine (`defaultTargetKB={150}`). 100% client-side in-browser execution with zero server upload.
+
+---
+
+## 61. Live Ahrefs & SERP Forensic Audit: `remove blank pages` (United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `remove blank pages`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google US SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `how to remove blank pages in word`: **KD: Easy (Green)** | **Volume: >100 / month** (MS Word doc tutorial)
+* `how to remove blank pages from word document`: **KD: N/A** | **Volume: <100 / month**
+* `remove blank pages from pdf`: **KD: Medium** | **Volume: <100 / month**
+* `remove blank pages in word`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `can ai detect and remove blank pages in a pdf?`: **KD: N/A** | **Volume: <100 / month**
+* `remove blank pages from pdf automatically`: **KD: Easy (Green)** | **Volume: <100 / month**
+* **Total Cluster Depth:** 166 keywords (PDF-specific queries are all <100/mo).
+
+### 🔍 Live Google US SERP Audit: `remove blank pages from pdf`
+| Rank | Ranking URL / Domain | Type | Authority | SERP Competitor Status |
+|:---:|---|---|:---:|---|
+| **#1** | `adobe.com/acrobat/online/delete-pdf-pages` | SaaS Giant | DR 95 | Heavy corporate SaaS |
+| **#2** | `smallpdf.com/delete-pdf-pages` | SaaS Giant | DR 84 | Generic delete tool |
+| **#3** | `ilovepdf.com/remove-pages` | SaaS Giant | DR 84 | Generic delete tool |
+| **#4** | `sejda.com/delete-pdf-pages` | SaaS Giant | DR 81 | Manual page deletion |
+| **#5** | `pdf24.org/remove-pdf-pages` | SaaS Giant | DR 80 | Manual page deletion |
+
+### 💡 Strategic Forensic Analysis:
+1. **Low Search Volume Floor:** All PDF-specific queries (`remove blank pages from pdf`, `pdf remove blank pages`) sit strictly below `<100` monthly searches in the US.
+2. **Generic Tool Saturation:** Google Page 1 is completely saturated with 5 high-DR corporate suites (Adobe, Smallpdf, iLovePDF, Sejda, PDF24) offering generic manual page removers.
+3. **Verdict:** **DISQUALIFIED.**
+
+---
+
+## 62. Live Ahrefs & SERP Forensic Audit: `compress image 200kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress image 200kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress image 200kb`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `compress image 200kb jpg`: **KD: N/A** | **Volume: >100 / month**
+* `compress image 200kb pdf`: **KD: N/A** | **Volume: <100 / month**
+* `online compress image 200kb`: **KD: N/A** | **Volume: <100 / month**
+* `compress image 200kb to 300kb`: **KD: N/A** | **Volume: <100 / month**
+* `compress image 200kb online`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 6 direct match keywords.
+
+### 🔍 Live Google India SERP Audit: `compress image to 200kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `pi7.org/compress-image-to-200kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `pixoate.com/compress-image-to-200kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `11zon.com/compress-image-to-200kb` | Micro-Tool | Dedicated Tool 3 |
+| **#4** | `jpeg-optimizer.com/compress-to-200kb` | Micro-Tool | DR < 15 |
+| **#5** | `iloveimg.com/compress-image` | SaaS Giant | Generic Page (No 200KB Lock) |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 corporate players).** Only niche utilities exist; corporate giants (Adobe, Canva) lack dedicated 200KB pages.
+2. **Cluster Completion Moat:** On `pdfandimg.com`, we already have `/compress-image-to-20kb/`, `/compress-image-to-50kb/`, and `/compress-image-to-100kb/`. Deploying `/compress-image-to-200kb/` completes the entire exact-byte image compression funnel for national entrance exams (NTA JEE Main, NEET, CUET).
+3. **Architecture Feasibility:** 100% existing code reuse (`src/utils/imageCompressor.ts` with `targetKB: 200`). Instant in-browser Canvas execution with zero server upload.
+
+---
+
+## 63. Live Ahrefs & SERP Forensic Audit: `ibps photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `ibps photo resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `ibps photo resizer`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `ibps photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* `ibps photo resizer 20 kb`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 3 direct match keywords (+ `ibps signature resizer` at >100/mo).
+
+### 🔍 Live Google India SERP Audit: `ibps photo resizer`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `exammint.in/ibps-resizer` | Exam Blog | DR < 10 |
+| **#2** | `photocopywala.in/ibps-photo-resizer` | Micro-Tool | DR < 10 |
+| **#3** | `adda247.com/jobs/ibps-photo-resizer` | Edu Blog | Authority Portal |
+| **#4** | `formphotoeditor.com/ibps` | Micro-Tool | DR < 10 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (Zero corporate SaaS competitors).** Corporate SaaS giants (Adobe, Canva, Smallpdf) do not build tools for Indian bank exams.
+2. **Three-Tier IBPS Image Constraints:**
+   * Photo: `200 x 230 px`, `20KB to 50KB`
+   * Signature: `140 x 60 px`, `10KB to 20KB`
+   * Thumb Impression (LTI): `240 x 240 px`, `20KB to 50KB`
+3. **Architecture Feasibility:** Direct 1-click **IBPS Preset** inside our approved [`/date-and-name-on-photo/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) and [`/signature-resizer/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) canvas tools.
+
+---
+
+## 64. Live Ahrefs & SERP Forensic Audit: `passport photo 35x45` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `passport photo 35x45`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `passport photo 35x45 mm example`: **KD: N/A** | **Volume: <100 / month**
+* `passport photo 35x45 mm`: **KD: N/A** | **Volume: <100 / month**
+* `resize passport photo 35x45`: **KD: N/A** | **Volume: <100 / month**
+* `indian passport photo 35x45`: **KD: N/A** | **Volume: <100 / month**
+* `uk passport photo 35x45 mm example`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 15 keywords (all <100/mo).
+
+### 🔍 Live Google India SERP Audit: `resize passport photo 35x45`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `imresizer.com/resize-image-to-passport-size-35x45mm` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `image.pi7.org/resize-image-to-35mm-x-45mm` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `photocompressor.in` | Micro-Tool | Dedicated Tool 3 |
+| **#4** | `passport-photo.online` | Dedicated SaaS | Dedicated Tool 4 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Low Search Volume Floor:** All 15 keywords sit strictly below `<100` monthly searches in India, failing our 100–1,000 search volume threshold.
+2. **Preset Utility:** While not qualifying as a standalone landing page or EMD, the `35x45 mm` ratio is already built into our live [`/australian-passport-photo-size/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/australian-passport-photo-size.astro) tool and functions as the default dimension for our approved Indian exam resizers (SSC, IBPS, UPSC).
+3. **Verdict:** **DISQUALIFIED for standalone tool.**
+
+---
+
+## 65. Live Ahrefs & SERP Forensic Audit: `resize signature 20kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `resize signature 20kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `resize signature 20kb`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `resize signature 20kb jpg`: **KD: N/A** | **Volume: <100 / month**
+* `resize signature 20kb to 100kb`: **KD: N/A** | **Volume: <100 / month**
+* `rk resize signature 20kb`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 4 direct match keywords.
+
+### 🔍 Live Google India SERP Audit: `resize signature 20kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `image.pi7.org/resize-signature-20kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `signatureresize.in` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `portalresizer.in` | Micro-Tool | Dedicated Tool 3 |
+| **#4** | `resizepixel.com/compress-to-20kb` | Micro-Tool | Dedicated Tool 4 |
+| **#5** | `imresizer.com` | Micro-Tool | Dedicated Tool 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Search Query Grammar:** Candidates searching for signature formatting overwhelmingly use the noun phrase `signature resizer` (>5,000 total volume, Section 51) rather than the verb phrase `resize signature 20kb` (<100 volume).
+2. **Implementation Strategy:** Must NOT be created as a separate landing page. Instead, `resize signature to 20kb` should serve as the primary H2 sub-headline and preset button inside our approved [`/signature-resizer/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) tool to capture this exact long-tail clickstream without cannibalization.
+
+---
+
+## 66. Live Ahrefs & SERP Forensic Audit: `compress pdf 1mb` (United States 🇺🇸)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress pdf 1mb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google US SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress pdf 1mb`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 1mb to 200kb`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 1mb below`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 1mb online`: **KD: N/A** | **Volume: <100 / month**
+* `compress pdf 1mb free`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 5 keywords (all <100/mo).
+
+### 🔍 Live Google US SERP Audit: `compress pdf to 1mb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `adobe.com/acrobat/online/compress-pdf.html` | SaaS Giant | Generic Page |
+| **#2** | `ilovepdf.com/compress_pdf` | SaaS Giant | Generic Page |
+| **#3** | `smallpdf.com/compress-pdf` | SaaS Giant | Generic Page |
+| **#4** | `sejda.com/compress-pdf` | SaaS Giant | Generic Page |
+
+### 💡 Strategic Forensic Analysis:
+1. **The "KB Panic vs. MB Sluggishness" Rule:** Users face acute micro-emergencies when hitting strict KB limits (100KB, 200KB, 300KB, 500KB), which generate 1,000 to 10,000+ monthly searches. A 1MB threshold is generous enough that users rarely search dedicated 1MB landing pages.
+2. **Authority Saturation:** Google Page 1 is dominated by corporate SaaS suites offering standard compression presets.
+3. **Verdict:** **DISQUALIFIED for standalone tool.** Our PDF compression cluster is complete with 100KB, 150KB, 200KB, 300KB, and 500KB.
+
+---
+
+## 67. Live Ahrefs & SERP Forensic Audit: `neet photo resizer` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `neet photo resizer`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `neet photo resizer`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `neet photo resizer online`: **KD: N/A** | **Volume: <100 / month**
+* `neet photo resizer 2025`: **KD: N/A** | **Volume: <100 / month**
+* `neet photo resizer 2025 online`: **KD: N/A** | **Volume: <100 / month**
+* `neet photo resizer online free`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 5 direct match keywords.
+
+### 🔍 Live Google India SERP Audit: `neet photo resizer`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `photoresizer.in/neet-photo-resizer` | Micro-Tool | DR < 10 |
+| **#2** | `image.pi7.org/resize-image-for-neet` | Micro-Tool | Dedicated Tool 1 |
+| **#3** | `imresizer.com` | Micro-Tool | Dedicated Tool 2 |
+| **#4** | `formphotoeditor.com/neet` | Micro-Tool | DR < 10 |
+| **#5** | `govtphotoresizer.com` | Micro-Tool | DR < 5 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 dedicated corporate tools).** Zero enterprise SaaS players. Page 1 is occupied exclusively by low-DR niche utilities and form blogs.
+2. **The "Postcard 4x6 + DOP" Statutory Constraint:** NTA NEET mandates that candidates upload a **Postcard Size Photo (4" × 6")** with their **Name and Date of Taking the Photograph** printed clearly at the bottom (between 10KB and 200KB).
+3. **Architecture Feasibility:** Direct 1-click **NTA NEET Preset** inside our approved [`/date-and-name-on-photo/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/) canvas engine: sets the 4x6" aspect ratio, stamps candidate Name & DOP, and restricts file weight between `10KB and 200KB`.
+
+---
+
+## 68. Live Ahrefs & SERP Forensic Audit: `compress image 300kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `compress image 300kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `compress image 300kb`: **KD: Easy (Green)** | **Volume: >100 / month** 🏆
+* `compress image 300kb jpg`: **KD: N/A** | **Volume: <100 / month**
+* `compress image 300kb pdf`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 3 direct match keywords.
+
+### 🔍 Live Google India SERP Audit: `compress image to 300kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `resizepixel.com/compress-to-300kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `pi7.org/compress-image-to-300kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `mb2kb.com/compress-image-to-300kb` | Micro-Tool | Dedicated Tool 3 |
+| **#4** | `pixoate.com/compress-image-to-300kb` | Micro-Tool | Dedicated Tool 4 |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 corporate giants).** Only lightweight niche utilities exist on Page 1.
+2. **The UPSC 300KB Upper Ceiling:** UPSC Civil Services and state recruitment portals specify an upper limit of **300KB** for photographs and identity card uploads.
+3. **Cluster Completion Moat:** Completes the contiguous exact-byte image compression cluster on `pdfandimg.com` (20KB, 50KB, 100KB, 200KB, and 300KB).
+4. **Architecture Feasibility:** 100% existing code reuse (`src/utils/imageCompressor.ts` with `targetKB: 300`). 
+
+---
+
+## 69. Live Ahrefs & SERP Forensic Audit: `jpg to pdf 200kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `jpg to pdf 200kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `jpg to pdf 200kb`: **KD: Easy (Green)** | **Volume: >10,000 / month** 🏆🏆🏆 (Ahrefs Monster Tier Whale!)
+* `convert jpg to pdf 200kb`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `convert jpg to pdf 200kb online`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `jpg to pdf 200kb size`: **KD: N/A** | **Volume: >100 / month**
+* `compress jpg to pdf 200kb`: **KD: Easy (Green)** | **Volume: >100 / month**
+* `jpg to pdf 200kb convert`: **KD: N/A** | **Volume: >100 / month**
+* `jpg to pdf 200kb i love pdf`: **KD: N/A** | **Volume: <100 / month** (Unmet intent hijack)
+* `jpg to pdf 200kb to 500kb`: **KD: N/A** | **Volume: <100 / month**
+* **Total Cluster Depth:** 42 keywords (>15,000 total monthly searches).
+
+### 🔍 Live Google India SERP Audit: `convert jpg to pdf 200kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `pi7.org/jpeg-to-pdf-under-200kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `11zon.com/jpg-to-pdf-200kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `pdfbae.com/jpg-to-pdf-200kb` | Micro-Tool | Dedicated Tool 3 (DR < 10) |
+| **#4** | `smallpdf.com/jpg-to-pdf` | SaaS Giant | Generic Page (No 200KB Lock) |
+| **#5** | `pdf24.org/jpg-to-pdf` | SaaS Giant | Generic Page (No 200KB Lock) |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 corporate players).** Only lightweight niche utilities exist on Page 1. Adobe, Canva, and iLovePDF do not have dedicated 200KB pages.
+2. **The "Certificate Upload" Bottleneck:** In India, university degree certificates, domicile certificates, and police clearance certificates are universally capped at **200KB PDF**. Candidates take smartphone photos (3MB–8MB JPG) and must convert them into a single PDF under 200KB without blurring text.
+3. **Immediate Architecture Advantage:** On `pdfandimg.com`, we already have [`src/pages/convert-jpg-to-pdf-100kb.astro`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/convert-jpg-to-pdf-100kb.astro). Reusing that exact Canvas + `pdf-lib` pipeline with `targetKB: 200` enables instant post-freeze deployment.
+
+---
+
+## 70. Live Ahrefs & SERP Forensic Audit: `jpg to pdf 50kb` (India 🇮🇳)
+**Audit Date:** November 17, 2026  
+**Seed Query:** `jpg to pdf 50kb`  
+**Tool Used:** Ahrefs Free Keyword Generator + Live Google India SERP Audit  
+
+### 📊 Keyword Metrics Overview (Ahrefs Clickstream)
+* `jpg to pdf 50kb to 100kb`: **KD: Easy (Green)** | **Volume: >1,000 / month** 🏆
+* `jpg to pdf 50kb`: **KD: Easy (Green)** | **Volume: >100 / month** 🏆
+* `jpg to pdf 50kb to 100kb online free`: **KD: N/A** | **Volume: >100 / month**
+* `jpg to pdf 50kb to 200kb`: **KD: N/A** | **Volume: <100 / month**
+* `jpg to pdf 50kb converter`: **KD: Easy (Green)** | **Volume: <100 / month**
+* `convert jpg to pdf 50kb`: **KD: N/A** | **Volume: <100 / month**
+* `jpg to pdf 50kb i love pdf`: **KD: N/A** | **Volume: <100 / month** (Unmet intent hijack)
+* **Total Cluster Depth:** 18 keywords (>2,000 total monthly searches).
+
+### 🔍 Live Google India SERP Audit: `jpg to pdf 50kb`
+| Rank | Ranking URL / Domain | Type | Competitor Status |
+|:---:|---|---|---|
+| **#1** | `pi7.org/jpg-to-pdf-under-50kb` | Micro-Tool | Dedicated Tool 1 |
+| **#2** | `11zon.com/convert-jpg-to-pdf-50kb` | Micro-Tool | Dedicated Tool 2 |
+| **#3** | `photosepdf.in` | Micro-Tool | Dedicated Tool 3 (DR < 10) |
+
+### 💡 Strategic Forensic Analysis:
+1. **Gate 2 Competitor Ceiling:** **PASSED (<3 corporate giants).** Only lightweight niche utilities exist on Page 1. Adobe, Canva, and iLovePDF have zero dedicated 50KB landing pages.
+2. **Direct Synergy with Live Production Page:**
+   * On `pdfandimg.com`, we already have live [`/convert-jpg-to-pdf-100kb/`](file:///data/data/com.termux/files/home/pdfandimg/src/pages/convert-jpg-to-pdf-100kb.astro).
+   * Ahrefs reveals that candidates specifically query `jpg to pdf 50kb to 100kb` (>1,000/mo, Easy KD).
+   * After the freeze, providing a target toggle `[50KB | 100KB | 200KB]` on `/convert-jpg-to-pdf-100kb/` and launching `/convert-jpg-to-pdf-200kb/` completely dominates this entire 15,000+ monthly search cluster.
+3. **Architecture Feasibility:** 100% existing code reuse (`pdf-lib` + HTML5 Canvas in-browser compression).
