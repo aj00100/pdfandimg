@@ -780,6 +780,184 @@ export const blogPosts: BlogPost[] = [
         <li>For European Schengen, Canadian, or Australian applications, select the corresponding regional tool above and pair it with <a href="/compress-image-to-200kb/">Compress Image to 200KB</a> for instant portal acceptance.</li>
       </ol>
     `
+  },
+{
+    slug: 'australian-passport-photo-requirements-35x45mm-dfat-auspost-guide',
+    title: 'Australian Passport Photo 35x45mm Online Rejection Fix: AusPost Digital Check & DFAT ICAO Lighting/Shadow Specifications',
+    description: 'Complete DFAT and AusPost biometric photo guide: resolving 35×45mm dimensions, 32–36mm crown-to-chin ratio, shadow contrast rejections, and online digital upload errors.',
+    publishedAt: '2026-11-19',
+    readTime: '8 min read',
+    category: 'International Passport Guides',
+    primaryToolHref: '/australian-passport-photo-size/',
+    primaryToolLabel: 'Open Australian Passport Photo Resizer (35×45mm)',
+    faqs: [
+      {
+        q: 'Why does Australia Post or DFAT reject passport photos taken at home?',
+        a: 'The most frequent rejection cause is lighting and contrast: shadows cast behind the ears or on the background wall, uneven flash lighting across the cheeks, or using an off-white/cream textured wall instead of an approved plain white or light grey backdrop.'
+      },
+      {
+        q: 'What are the exact face height measurements for an Australian passport photo?',
+        a: 'The Australian Passport Office (DFAT) strictly mandates that the distance from the bottom of your chin to the top of your head (crown) must be between 32mm and 36mm on a 35×45mm print (roughly 71% to 80% of vertical image height).'
+      },
+      {
+        q: 'Can I use an AI background remover for my Australian passport photo?',
+        a: 'No. DFAT and AusPost automated biometric systems actively scan for digital manipulation. AI cutouts create feathered or unnaturally sharp halos around ears and hair strands, which triggers an automatic rejection for photo alteration.'
+      }
+    ],
+    content: `
+      <p>Renewing or applying for an Australian passport online through the Australian Passport Office (DFAT) or at an Australia Post retail outlet is notoriously stringent. Unlike standard ID photos, Australian passport photographs adhere to strict international ICAO biometric standards. A millimeter of discrepancy in head height, a subtle cast shadow behind the neck, or digital background removal artifacts will cause an immediate rejection at the counter or in the online portal.</p>
+
+      <h2>1. Official DFAT Biometric Specifications Matrix</h2>
+      <p>Before capturing or submitting your photo, verify your image against the official criteria mandated by DFAT (<code>passports.gov.au</code>):</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>DFAT Statutory Standard</th>
+            <th>Digital Upload Standard (AusPost / Online)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Physical Dimensions</strong></td>
+            <td>35mm to 40mm wide × 45mm to 50mm high</td>
+            <td>Aspect ratio locked strictly to 35:45</td>
+          </tr>
+          <tr>
+            <td><strong>Pixel Resolution</strong></td>
+            <td>Minimum 300 DPI printing quality</td>
+            <td>Minimum <strong>413 × 531 px</strong> (up to 826 × 1062 px)</td>
+          </tr>
+          <tr>
+            <td><strong>Chin-to-Crown Height</strong></td>
+            <td><strong>32mm to 36mm</strong> (71% to 80% of total height)</td>
+            <td>377 to 424 pixels on a 531px tall crop</td>
+          </tr>
+          <tr>
+            <td><strong>Eye-Line Position</strong></td>
+            <td>Centred horizontally; 28mm to 35mm from bottom</td>
+            <td>Direct optical gaze level with camera lens</td>
+          </tr>
+          <tr>
+            <td><strong>Background Tone</strong></td>
+            <td><strong>Plain white or light grey</strong></td>
+            <td>Uniform solid tone; zero textures or wallpaper</td>
+          </tr>
+          <tr>
+            <td><strong>File Size & Format</strong></td>
+            <td>High-gloss photographic paper</td>
+            <td>Standard baseline JPEG under <strong>2MB</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. The Top 3 Rejection Triggers and How to Fix Them</h2>
+
+      <h3>1. Cast Shadows Behind the Head and Neck</h3>
+      <p>DFAT requires a completely uniform backdrop free of cast shadows. When candidates stand directly against a domestic wall and use an on-camera smartphone flash, a harsh dark rim appears behind the shoulders and ears. To eliminate this:</p>
+      <ul>
+        <li>Stand at least <strong>1 to 1.5 meters away</strong> from your white or light grey wall.</li>
+        <li>Position your primary light source (a daylight window or diffuse room light) directly in front of your face at eye level.</li>
+        <li>Ensure ambient illumination lights the wall behind you separately, washing out any residual shadow.</li>
+      </ul>
+
+      <h3>2. The Prohibited "AI Background Eraser" Trap</h3>
+      <p>Many applicants attempt to take a selfie in a cluttered room and use free background removal websites to paste a pure white backdrop. <strong>DFAT scanners detect this immediately.</strong> Automated edge segmentation algorithms leave micro-feathering across hair follicles and clip ear boundaries. DFAT explicitly classifies AI edge cutouts as photographic alterations. Your photo must be captured naturally against a real, solid surface.</p>
+
+      <h3>3. Eyeglasses, Glare, and Facial Expressions</h3>
+      <p>Eyeglasses are prohibited in Australian passport photos unless supported by a signed medical certificate citing severe ocular impairment. Tinted lenses, thick frames obscuring any part of the iris, and flash reflections across spectacles cause immediate failure. Keep a completely neutral expression: mouth closed, teeth not visible, and eyes looking straight into the lens.</p>
+
+      <h2>3. Step-by-Step: Formatting Your Australian Photo Client-Side</h2>
+      <ol>
+        <li>Capture a clear, natural photo against a well-lit white or light grey wall from 1.5 meters away with a neutral expression.</li>
+        <li>Open the <a href="/australian-passport-photo-size/">Australian Passport Photo Resizer</a>.</li>
+        <li>Your image is processed <strong>100% locally in your browser</strong> using HTML5 Canvas—no photos are ever uploaded to a remote server.</li>
+        <li>Align the biometric crown and chin guides between 32mm and 36mm, and export a clean 413×531 px baseline JPEG ready for online submission or 300 DPI printing.</li>
+      </ol>
+    `
+  },
+  {
+    slug: 'ssc-live-photo-capture-rejection-fix-ssc-gov-in',
+    title: 'SSC GD Constable 2026-27 Live Web Camera Capture & Signature Format Rejection Fix (ssc.gov.in)',
+    description: 'Fix ssc.gov.in live camera capture errors ("Face Not Centered", lighting failure) and signature upload rejections (10KB–20KB, 140×60 px, baseline JPEG) for SSC GD & OTR.',
+    publishedAt: '2026-11-19',
+    readTime: '8 min read',
+    category: 'SSC Recruitment Guides',
+    primaryToolHref: '/ssc-cgl-signature-resizer/',
+    primaryToolLabel: 'Open SSC Signature Resizer (140×60 px, 10–20KB)',
+    faqs: [
+      {
+        q: 'Why does the new SSC website (ssc.gov.in) not allow uploading a saved photo file?',
+        a: 'The Staff Selection Commission updated its One-Time Registration (OTR) system to eliminate proxy candidates and outdated photographs. All applicants for SSC GD, CGL, CHSL, and MTS must now capture a live photograph either via desktop webcam or using the official My SSC mobile app QR code.'
+      },
+      {
+        q: 'Why does the SSC live camera keep saying "Face Not Detected" or "Poor Lighting"?',
+        a: 'The SSC client-side facial detection script requires direct frontal illumination and a clear contrast between your head and the background. Backlighting (e.g., sitting with a window behind you), shadows across one cheek, wearing prescription glasses, or standing against a dark wall will cause automated detection failures.'
+      },
+      {
+        q: 'What is the exact signature specification for SSC GD and OTR forms?',
+        a: 'Signatures must still be uploaded as an image file. Official requirements: JPEG/JPG format, file size strictly between 10.0 KB and 20.0 KB, dimensions 4.0 cm width × 2.0 cm height (140 × 60 pixels), black ink on white paper, in running handwriting (never capital letters).'
+      }
+    ],
+    content: `
+      <p>With the migration of the Staff Selection Commission portal to <strong>ssc.gov.in</strong>, millions of candidates applying for <strong>SSC GD Constable (2026–27)</strong>, CGL, CHSL, and MTS face a completely redesigned photo and signature submission workflow. Unlike previous years where scanned photographs were uploaded, the new OTR platform enforces a <strong>mandatory live camera capture</strong> alongside a strictly dimensioned <strong>10KB–20KB signature upload</strong>. Automated validation scripts reject thousands of applications daily due to poor camera framing or progressive JPEG formatting errors.</p>
+
+      <h2>1. The Two-Part SSC Submission System (Statutory Matrix)</h2>
+      <p>Candidates must fulfill two distinct technical checks during the One-Time Registration and application form filling:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Submission Item</th>
+            <th>Input Method</th>
+            <th>Statutory Parameters</th>
+            <th>Common Disqualification Trap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Candidate Photograph</strong></td>
+            <td>Live Web Camera / "My SSC" App</td>
+            <td>Live capture; direct frontal gaze; plain white or light background</td>
+            <td>Wearing spectacles/caps; backlighting; face off-centre in bounding box</td>
+          </tr>
+          <tr>
+            <td><strong>Candidate Signature</strong></td>
+            <td>File Upload (JPG / JPEG)</td>
+            <td><strong>10 KB to 20 KB</strong>; 4.0cm × 2.0cm (<strong>140 × 60 px</strong>)</td>
+            <td>Progressive JPEG format; capital letters; blurry compressed ink</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. How to Overcome SSC Live Camera Capture Errors</h2>
+
+      <h3>1. Fixing "Face Not Centered" or "Facial Landmarks Not Found"</h3>
+      <p>The SSC portal embeds a WebRTC browser script that maps key facial landmarks (eyes, nose, jawline). If the algorithms cannot compute symmetry, the capture button remains locked. To pass:</p>
+      <ul>
+        <li>Sit straight facing the screen so both ears are equally visible. Do not tilt your head up or down.</li>
+        <li>Position your camera lens exactly at eye level. Looking down from a high laptop angle distorts facial proportions.</li>
+        <li>Ensure your face fills approximately 70% of the red/green oval guide displayed inside the live browser preview.</li>
+      </ul>
+
+      <h3>2. Background and Ambient Lighting Rules</h3>
+      <p>The new SSC portal strictly disqualifies live captures featuring patterned curtains, domestic clutter, or people walking in the background. Position yourself against an unadorned white or light-coloured wall. Avoid overhead tube lights that cast harsh shadows under your nose and chin; face a bright, diffuse light source directly.</p>
+
+      <h2>3. Fixing SSC Signature Rejections (10KB–20KB & 140×60 px)</h2>
+
+      <h3>1. The "Progressive JPEG" Rejection Trap</h3>
+      <p>One of the most perplexing errors on <code>ssc.gov.in</code> occurs when an applicant compresses their signature to 14KB, yet the portal returns <em>"Invalid Image Format"</em> or fails to render a preview. This happens because modern mobile image compressors save files as <strong>Progressive JPEGs</strong> (which render in multi-pass scans). The government NIC backend parser only accepts <strong>Baseline Sequential JPEGs</strong>. If your file contains progressive marker headers (<code>SOF2</code> instead of <code>SOF0</code>), the portal server rejects it outright.</p>
+
+      <h3>2. Preserving Ink Contrast and Preventing Blurriness</h3>
+      <p>Do not sign with a gel pen or light blue ballpoint pen. Sign clearly using a <strong>black ink ballpoint or felt pen on clean, unruled white paper</strong>. When taking a smartphone photo of your signature, crop tightly around the handwriting before compression. Compressing large uncropped margins wastes valuable bytes, forcing compression algorithms to destroy ink sharpness.</p>
+
+      <h2>4. Formatting Your Signature in Seconds</h2>
+      <ol>
+        <li>Sign in black ink on unlined white paper and take a well-lit photo without shadows.</li>
+        <li>Open our free client-side <a href="/ssc-cgl-signature-resizer/">SSC Signature Resizer</a>.</li>
+        <li>The tool automatically crops to 140×60 pixels (4.0cm × 2.0cm), converts the image to a strictly compliant baseline JPEG, and locks the file size safely between 12KB and 18KB.</li>
+        <li>If you also need to optimize supplementary PDF documents for state portals, utilize our zero-server <a href="/compress-image-to-20kb/">Compress Image to 20KB</a> and <a href="/convert-jpg-to-pdf-100kb/">Convert JPG to PDF (100KB)</a> tools.</li>
+      </ol>
+    `
   }
 ];
 

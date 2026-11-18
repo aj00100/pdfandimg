@@ -134,12 +134,12 @@ Both tracks are written to identical editorial depth (1,500–2,000 words), stan
 
 | Asset Name | Target Route | Track | Date Live | GSC Indexed | W4 Pos | W4 Queries | W8 Pos | W8 Queries | Status |
 |---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Aus DFAT AusPost Guide | `/blog/australian-passport-photo-requirements-...` | Tier-1 | TBD | TBD | — | — | — | — | Queued |
-| Canada IRCC 420x540 Guide | `/blog/canada-visa-photo-ircc-rejection-fix-...` | Tier-1 | TBD | TBD | — | — | — | — | Queued |
-| France-Visas Rejection Guide | `/blog/france-visas-photo-rejection-fix-...` | Tier-1 | TBD | TBD | — | — | — | — | Queued |
-| SSC GD Live Camera Fix | `/blog/ssc-live-photo-capture-rejection-fix-...` | Exam | TBD | TBD | — | — | — | — | Queued |
-| UPSC NDA/CDS I Upload Fix | `/blog/upsc-nda-cds-photo-signature-upload-...` | Exam | TBD | TBD | — | — | — | — | Queued |
-| RRB Railway 30-70KB Fix | `/blog/rrb-photo-signature-upload-rejection-...` | Exam | TBD | TBD | — | — | — | — | Queued |
+| Aus DFAT AusPost Guide | `/blog/australian-passport-photo-requirements-...` | Tier-1 | Nov 18, 2026 | Pending Scan | — | — | — | — | **Live (Week 1)** |
+| Canada IRCC 420x540 Guide | `/blog/canada-visa-photo-ircc-rejection-fix-...` | Tier-1 | TBD | TBD | — | — | — | — | Queued (Week 2) |
+| France-Visas Rejection Guide | `/blog/france-visas-photo-rejection-fix-...` | Tier-1 | TBD | TBD | — | — | — | — | Queued (Week 3) |
+| SSC GD Live Camera Fix | `/blog/ssc-live-photo-capture-rejection-fix-...` | Exam | Nov 18, 2026 | Pending Scan | — | — | — | — | **Live (Week 1)** |
+| UPSC NDA/CDS I Upload Fix | `/blog/upsc-nda-cds-photo-signature-upload-...` | Exam | TBD | TBD | — | — | — | — | Queued (Week 2) |
+| RRB Railway 30-70KB Fix | `/blog/rrb-photo-signature-upload-rejection-...` | Exam | TBD | TBD | — | — | — | — | Queued (Week 3) |
 
 ---
 
