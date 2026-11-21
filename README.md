@@ -1,107 +1,101 @@
-# 📄 PdfAndImg
+# PdfAndImg
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Astro-0C1120?style=for-the-badge&logo=astro&logoColor=white" alt="Astro" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS" />
-  <img src="https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=for-the-badge" alt="Privacy First" />
-  <img src="https://img.shields.io/badge/License-All_Rights_Reserved-red?style=for-the-badge" alt="License" />
+
+> **The Ultimate 100% Client-Side Multi-Tool Utility Suite**  
+> Precision target-lock image compression, in-browser PDF manipulation, Apple HEIC conversion, and exact-dimension passport photo tools.
+
+[![Live Web App](https://img.shields.io/badge/Live%20App-pdfandimg.com-blue?style=for-the-badge&logo=cloudflarepages&logoColor=white)](https://pdfandimg.com)
+[![Tools](https://img.shields.io/badge/Micro--Tools-60%2B%20Specialized-brightgreen?style=for-the-badge)](https://pdfandimg.com)
+[![Privacy](https://img.shields.io/badge/Privacy-100%25%20In--Browser-orange?style=for-the-badge)](https://pdfandimg.com)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)](https://pdfandimg.com)
+
+<br/>
+
+👉 **Launch Web Suite:** [**https://pdfandimg.com**](https://pdfandimg.com)
+
 </div>
 
-<br />
+---
 
-> **The Ultimate Multi-Tool Utility Suite**
-> 
-> *PdfAndImg is a high-performance, client-side web application built with **Astro**, **Vanilla CSS**, and modern browser APIs. Originally designed for precise image compression, it has evolved into a comprehensive suite of **over 60 specialized micro-tools** ranging from PDF manipulation to HEIC format conversion and exact-pixel image resizing.*
+## ⚡ Architecture: The Target-Lock Binary Search Engine
 
-Designed for maximum SEO, instant load speeds, and zero-server privacy, PdfAndImg processes everything directly in the user's browser.
+Instead of guessing with arbitrary 0-100% "quality" sliders that require endless trial-and-error, **PdfAndImg** uses a mathematical binary search algorithm executed locally in Canvas RAM. It iteratively converges on the exact target file size (e.g., 20KB, 50KB, 100KB) while retaining maximum visual clarity:
 
-## 🚀 Key Features & Tool Suites
+```mermaid
+flowchart TD
+    A["🖼️ Raw Image Input<br/>(MBs, Uncompressed)"] --> B["🎯 Exact Target Lock<br/>(e.g., 20KB, 50KB, 100KB)"]
+    B --> C["⚡ In-Memory Binary Search Engine<br/>(HTML5 Canvas in RAM)"]
+    C -->|"Iterative Quality Estimation"| D{"Compressed Size <= Target KB?"}
+    D -->|"Exceeds Target"| E["Adjust Quality Lower Bound"] --> C
+    D -->|"Fits Under Limit"| F["Check Quality Convergence (Delta < 0.5KB)"]
+    F -->|"Optimizing"| C
+    F -->|"Converged"| G["💾 Perfect Target-Lock Image<br/>(Zero Quality Compromise)"]
 
-### 1. Advanced PDF Organization & Manipulation
-- **Organize & Remove PDF Pages:** A highly optimized interface for managing massive PDFs. Features a custom **Sticky Stash** sidebar, allowing users to hold pages while scrolling through hundreds of document pages using drag-and-drop (`SortableJS`).
-- **PDF Extraction & Merging:** Seamlessly pull specific pages out of PDFs or merge multiple documents together using `pdf-lib`.
-- **Add Images to PDF:** Convert arrays of images directly into well-formatted PDF files entirely client-side.
-
-### 2. Target-Lock Image Compression
-- Instead of arbitrary "quality" sliders, PdfAndImg lets users define an exact file size limit (e.g., 20KB, 50KB). 
-- The core engine (`src/utils/imageCompressor.ts`) performs a multi-iteration binary search entirely in local memory to find the mathematically highest quality image that fits precisely under the requested byte limit.
-
-### 3. Smart Scaling & Format Conversions
-- **KB Enhancer:** Successfully up-size a low-KB image to meet strict government or portal minimum size requirements by combining high-fidelity upscaling with intelligent metadata padding.
-- **HEIC Conversion Engine:** Locally process Apple's proprietary HEIC format into universally accepted JPG, PNG, or PDF formats using `heic2any`.
-- **Pixel-Perfect Resizing:** Crop, resize by percentages, or force exact pixel dimensions for strict portal requirements (e.g., passport photos, signature uploads).
-
-### 4. Zero-Server Privacy
-All image processing, resizing, format conversion, and PDF packaging happens **100% locally** in the user's browser. User data, sensitive documents, and personal photos **never** touch a remote server.
-
-### 5. Internationalization & Localization (i18n)
-- **Localized Tools:** Deploys translated, region-specific tools (e.g., Indonesian versions of image compressors).
-- **Hreflang SEO:** Implements intelligent `hreflang` mapping to correctly bridge localized content and maximize international search engine visibility.
-
-### 6. Multi-Page Architecture (MPA) for SEO
-Built strategically as a Multi-Page Application using Astro. Each of the **60+ micro-tools** has its own dedicated, statically generated HTML page. This guarantees perfect Core Web Vitals, instantaneous load times, and maximum visibility for Google Search indexing.
+    style B fill:#eff6ff,stroke:#3b82f6,stroke-width:2px
+    style C fill:#f0fdf4,stroke:#22c55e,stroke-width:2px
+    style G fill:#fefce8,stroke:#eab308,stroke-width:2px
+```
 
 ---
 
-## 🛠️ Technology Stack
+## 🥊 Feature Comparison: Why PdfAndImg Wins
 
-- **Framework:** [Astro](https://astro.build) (Static Site Generation for insane load speeds and perfect SEO)
-- **Styling:** Highly optimized Vanilla CSS with custom layout systems
-- **Interactivity & UI:** Vanilla JavaScript, `SortableJS` (for Drag-and-Drop)
-- **Core Processing:** HTML5 Canvas API (Client-side)
-- **File Manipulation Utilities:** 
-  - `pdf-lib` (Client-side PDF document generation and modification)
-  - `jszip` (Client-side ZIP packaging)
-  - `heic2any` (Client-side HEIC decoding)
+| Feature | Generic Image Compressors | Legacy Online PDF Portals | PdfAndImg.com |
+| :--- | :---: | :---: | :---: |
+| **Exact Target Sizing** | ❌ Arbitrary quality % slider | ❌ High/Medium/Low preset only | **✅ Precision Target Lock (e.g., exactly 20KB, 50KB)** |
+| **Zero-Server Privacy** | ❌ Uploads files to cloud servers | ❌ Uploads documents to server | **✅ 100% In-Browser (Zero Uploads)** |
+| **Apple HEIC Support** | ❌ Unsupported or paid upgrade | ❌ Limited format support | **✅ In-browser HEIC to JPG/PNG/PDF** |
+| **Massive PDF Reorganization** | Laggy / Paywalled | Paywalled after 3 files | **✅ Custom Sticky Stash drag-and-drop** |
+| **File Caps & Throttles** | ⚠️ 5MB-10MB free limit | ⚠️ 15MB file cap | **✅ Unlimited client-side processing** |
+| **Cost** | Freemium traps | Monthly Subscription | **✅ 100% Free Forever** |
 
 ---
 
-## 📂 Project Structure
+## 🚀 Specialized Tool Suites (60+ Micro-Tools)
+
+### 1. Target-Lock Image Compression Suite
+- **/compress-image-to-20kb:** Calibrated for strict government job portals, exams, and visa signatures.
+- **/compress-image-to-50kb & /compress-image-to-100kb:** Optimal for corporate forms, bank KYC, and passport uploads.
+- **KB Enhancer:** Upsize low-resolution images to satisfy strict minimum byte thresholds via intelligent lossless padding.
+
+### 2. In-Browser PDF Studio
+- **Organize & Remove PDF Pages:** Advanced visual page manager with a **Sticky Stash** sidebar, allowing effortless page reorganization across 200+ page documents using `SortableJS`.
+- **Merge & Split PDF:** Zero-server document assembly and extraction via `pdf-lib`.
+- **Images to PDF:** Batch convert photos and scans into uniform multi-page PDF documents.
+
+### 3. Apple HEIC Conversion Engine
+- Decode Apple's proprietary `.heic` and `.heif` photos locally into universally viewable `.jpg`, `.png`, or `.pdf` formats via `heic2any` without server upload latency.
+
+### 4. Official Dimension Cropper & Form Resizer
+- Exact centimeter and pixel cropping for passport photos, academic exams, driver licenses, and job portal signature boxes.
+
+---
+
+## 📁 Architecture Overview
 
 ```text
-/
-├── public/                 # Static assets (images, robots.txt, sitemap, etc.)
-├── src/
-│   ├── components/         # Reusable UI tools (PDFRemove, HEICConverter, etc.)
-│   ├── layouts/            # Global page layouts and navigation wrappers
-│   ├── pages/              # 60+ individual Astro routing pages for maximum SEO
-│   └── utils/              
-│       └── imageCompressor.ts # Core algorithms for Binary Search compression & scaling
-├── DESIGN.md               # Core architectural and design philosophy guidelines
-└── astro.config.mjs        # Astro configuration & SEO integrations
+┌────────────────────────────────────────────────────────────────────────┐
+│                        SUITE ARCHITECTURE                              │
+├────────────────────────────┬───────────────────────────────────────────┤
+│ Core Engine                │ Astro.js Static Multi-Page Architecture   │
+│ Client-Side Processing     │ HTML5 Canvas API, pdf-lib, heic2any       │
+│ UI & Interaction           │ Vanilla CSS + SortableJS Drag-and-Drop    │
+│ Security Boundary          │ 100% Local RAM Execution (Zero Backend)   │
+│ CDN & Edge Hosting         │ Cloudflare Pages ($0 Server Cost Forever) │
+└────────────────────────────┴───────────────────────────────────────────┘
 ```
 
 ---
 
-## 🏃‍♂️ Running Locally
+## 🔒 Privacy & Security Guarantee
 
-To work on PdfAndImg locally, run the following commands in your terminal:
-
-```sh
-# 1. Install dependencies
-npm install
-
-# 2. Start the development server
-npm run dev
-```
-
-The site will be available at `http://localhost:4321`.
-
-### Build for Production
-
-```sh
-# Build the production optimized site
-npm run build
-
-# Preview the built site locally
-npm run preview
-```
+1. **Zero Server Uploads:** All image compression, resizing, format conversion, and PDF packaging happen **100% locally** in the user's browser.
+2. **Zero File Retention:** User photos, identity documents, and sensitive attachments never touch any backend server, database, or cloud cache.
+3. **Session Ephemeral:** Memory is immediately garbage-collected upon closing or refreshing the browser tab.
 
 ---
 
-## 🛡️ License & Privacy
+## 📄 License
 
-**© All Rights Reserved to PdfAndImg.** 
-
-Because PdfAndImg is a 100% client-side application, it strictly adheres to maximum privacy standards out of the box. No backend servers, databases, or cloud storage environments are used for file processing.
+© [PdfAndImg.com](https://pdfandimg.com) — All Rights Reserved.
